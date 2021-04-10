@@ -39,8 +39,10 @@ namespace Tests
             Product p1 = new Product("","",5,new List<Category>());
             Purchase purchase = new Purchase(new List<KeyValuePair<Product, int>>());
             Store store1 = new Store(shady,"","");
-            //UserSystemHandler ush = new UserSystemHandler(shady);
-
+            UserSystemHandler ush = new UserSystemHandler(shady);
+            SystemAdmin sa = new SystemAdmin();
+            StoreAdministration sadmin = new StoreAdministration();
+            ShoppingHandler shhand = new ShoppingHandler();
         }
 
         [Test]

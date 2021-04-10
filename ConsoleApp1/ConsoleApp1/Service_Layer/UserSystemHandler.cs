@@ -1,11 +1,13 @@
 ﻿using ConsoleApp1.domainLayer.DataAccessLayer;
+using ConsoleApp1.domainLayer.Business_Layer;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using User = ConsoleApp1.domainLayer.Business_Layer.User;
 
 namespace ConsoleApp1.Service_Layer
 {
-     class UserSystemHandler
+     public class UserSystemHandler
     {
         private readonly DataHandler data;
         private User loggedinuser;
