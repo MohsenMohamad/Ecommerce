@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class DataHandler
+     class DataHandler
     {
         public List<Person> Users { get; }
         public List<Product> Products { get; }

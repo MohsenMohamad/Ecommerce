@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.Service_Layer
 {
-    class StoreAdministration
+    public class StoreAdministration
     {
     }
 }

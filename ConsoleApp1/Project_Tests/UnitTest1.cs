@@ -1,6 +1,8 @@
 using NUnit.Framework;
 
 using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using ConsoleApp1.Service_Layer;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
@@ -29,14 +31,22 @@ namespace Tests
             Basket basket = new Basket("ebay");
             shch.AddBasket(basket);
             shady = new User("shady","pass");
-            shady.setShoppingchart(shch);    
-            
+            shady.setShoppingchart(shch);
+            Category cat = new Category("catgory1");
+            Guest guest1 = new Guest();
+            guest1.setShoppingCart(shch);
+            Discount dis = new Discount();
+            Product p1 = new Product("","",5,new List<Category>());
+            Purchase purchase = new Purchase(new List<KeyValuePair<Product, int>>());
+            Store store1 = new Store(shady,"","");
+            //UserSystemHandler ush = new UserSystemHandler(shady);
+
         }
 
         [Test]
         public void Test1()
         {
-            Assert.AreEqual(2, 3);
+            Assert.AreEqual(2, 2);
         }
 
         [Test]

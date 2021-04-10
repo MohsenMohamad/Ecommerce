@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class Guest :Person
+    public class Guest :Person
     {
         private ShoppingCart cart;
         public Guest()
@@ -12,7 +12,12 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             cart = new ShoppingCart("guest");
         }
 
-        public Guest(ShoppingCart cart)
+        /*public Guest(ShoppingCart cart)
+        {
+            this.cart = cart;
+        }*/
+
+        public void setShoppingCart(ShoppingCart cart)
         {
             this.cart = cart;
         }

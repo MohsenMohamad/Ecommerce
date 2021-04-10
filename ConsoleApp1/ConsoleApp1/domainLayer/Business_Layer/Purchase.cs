@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    internal class Purchase
+    public  class Purchase
     {
         private List<KeyValuePair<Product, int>> items;
         private DateTime date;

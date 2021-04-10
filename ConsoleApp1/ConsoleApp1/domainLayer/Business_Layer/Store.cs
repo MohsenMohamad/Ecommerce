@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class Store
+    public class Store
     {
         private string name;
         private User owner;

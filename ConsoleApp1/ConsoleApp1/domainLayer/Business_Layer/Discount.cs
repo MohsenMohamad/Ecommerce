@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class Discount
+    public class Discount
     {
         private List<KeyValuePair<Product, double>> items;
         
