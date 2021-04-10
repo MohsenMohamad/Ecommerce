@@ -12,7 +12,7 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void Test()
         {
             Assert.False(loginUser("shady", "12345"));
         }

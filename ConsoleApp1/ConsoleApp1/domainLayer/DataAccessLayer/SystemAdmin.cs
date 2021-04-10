@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    public class SystemAdmin
+    public class SystemAdmin: SystemAdminImpl
     {
         private DataHandler data;
 
@@ -12,7 +12,12 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         {
             data = DataHandler.Instance;
         }
-
+        
+        public bool initSystem()
+        {
+            //todo
+            throw new NotImplementedException();
+        }
         public bool closeStore(string store_name)
         {
             for (int i = 0; i < data.Stores.Count; i++)

@@ -11,6 +11,8 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private ShoppingCart cart;
         private List<KeyValuePair<Purchase, Store>> history;
         private List<string> messages;
+        private List<Store> stores;
+        
         public User(string username,string password)
         {
             this.username = username;
@@ -67,6 +69,11 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             }
         }
 
+        public bool addProductsToShop(string shopName, Product product, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetBasketInfo(string store_name)
         {
             for (int i = 0; i < cart.baskets.Count; i++)
@@ -120,6 +127,22 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         internal void ReceiveMsg(string msg)
         {
             messages.Add(msg);
+        }
+
+        /*public bool? addProductsToShop(string shopName,Product product, int amount)
+        {
+            if(isOwner(shopName));
+        }*/
+
+
+        public bool editStoreProduct(string hellomarket, string productName, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool removeStoreProduct(string hellomarket, string productName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

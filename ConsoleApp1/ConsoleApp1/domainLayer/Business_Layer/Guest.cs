@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    public class Guest :Person
+    public class Guest : Person
     {
         private ShoppingCart cart;
         public Guest()
@@ -63,6 +63,21 @@ namespace ConsoleApp1.domainLayer.Business_Layer
                     cart.baskets[i].Removeproduct(pr);
                 }
             }
+        }
+
+        public bool addProductsToShop(string shopName, Product product, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool editStoreProduct(string hellomarket, string productName, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool removeStoreProduct(string hellomarket, string productName)
+        {
+            throw new NotImplementedException();
         }
     }
 }
