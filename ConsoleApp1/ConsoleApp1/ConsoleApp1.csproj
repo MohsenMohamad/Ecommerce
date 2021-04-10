@@ -72,6 +72,7 @@
     <Compile Include="domainLayer\DataAccessLayer\UserDao.cs" />
     <Compile Include="domainLayer\DataAccessLayer\ModelDB.cs" />
     <Compile Include="domainLayer\DataAccessLayer\UserSystemHandler.cs" />
+    <Compile Include="Service_Layer\GenInterface.cs" />
     <Compile Include="Service_Layer\System.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

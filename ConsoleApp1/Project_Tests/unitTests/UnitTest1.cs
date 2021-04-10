@@ -12,7 +12,8 @@ using UserSystemHandler = ConsoleApp1.domainLayer.DataAccessLayer.UserSystemHand
 
 namespace Tests
 {
-    public class Tests
+     
+    public class Tests:ATProject
     {
         private ShoppingCart shch;
         
@@ -41,10 +42,10 @@ namespace Tests
             Product p1 = new Product("","",5,new List<Category>());
             Purchase purchase = new Purchase();
             Store store1 = new Store(shady,"","");
-            UserSystemHandler ush = new UserSystemHandler(shady);
+            //UserSystemHandler ush = new UserSystemHandler(shady);
             SystemAdmin sa = new SystemAdmin();
-            StoreAdministration sadmin = new StoreAdministration();
-            ShoppingHandler shhand = new ShoppingHandler();
+            //StoreAdministration sadmin = new StoreAdministration();
+            //ShoppingHandler shhand = new ShoppingHandler();
             Person ppe = new Guest();
             
             /*DataHandler dataHandler = DataHandler.Instance;
@@ -55,7 +56,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            Assert.AreEqual(2, 2);
+            
         }
 
         [Test]
@@ -65,3 +66,11 @@ namespace Tests
         }
     }
 }
+
+
+/*
+1.GenInterface
+2.proxyImpl
+3.ATP
+4.add new classTestFile
+*/
