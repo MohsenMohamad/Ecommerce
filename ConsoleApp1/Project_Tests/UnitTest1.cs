@@ -48,8 +48,9 @@ namespace Tests
             StoreAdministration sadmin = new StoreAdministration();
             ShoppingHandler shhand = new ShoppingHandler();
             Person ppe = new Guest();
-            DataHandler dataHandler = DataHandler.Instance;
-            ModelDB modelDb = new ModelDB();
+            
+            /*DataHandler dataHandler = DataHandler.Instance;
+            ModelDB modelDb = new ModelDB();*/
             
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class ReviewDao
+    public class ReviewDao
     {
         public string Username { get; }
         public string Reviews { get; set; }

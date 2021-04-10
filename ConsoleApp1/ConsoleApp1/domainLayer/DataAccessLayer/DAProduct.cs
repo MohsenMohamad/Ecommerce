@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class DAProduct
+    public class DAProduct
     {
         public int Barcode { get; }
         public string Name { get ; }
