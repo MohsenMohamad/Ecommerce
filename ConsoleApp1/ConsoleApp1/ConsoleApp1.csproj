@@ -63,8 +63,8 @@
     <Compile Include="domainLayer\Business_Layer\Store.cs" />
     <Compile Include="domainLayer\Business_Layer\User.cs" />
     <Compile Include="domainLayer\DataAccessLayer\DataHandler.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\Store.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\User.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\StoreDao.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\UserDao.cs" />
     <Compile Include="domainLayer\DataAccessLayer\ModelDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

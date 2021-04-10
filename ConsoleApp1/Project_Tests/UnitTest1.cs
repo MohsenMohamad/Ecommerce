@@ -3,10 +3,14 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using ConsoleApp1;
 using ConsoleApp1.Service_Layer;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using ConsoleApp1.Service_Layer;
+using Basket = ConsoleApp1.domainLayer.Business_Layer.Basket;
+using Store = ConsoleApp1.domainLayer.Business_Layer.Store;
+using User = ConsoleApp1.domainLayer.Business_Layer.User;
 
 namespace Tests
 {
@@ -43,6 +47,10 @@ namespace Tests
             SystemAdmin sa = new SystemAdmin();
             StoreAdministration sadmin = new StoreAdministration();
             ShoppingHandler shhand = new ShoppingHandler();
+            Person ppe = new Guest();
+            /*DataHandler dataHandler = new DataHandler();
+            ModelDB modelDb = new ModelDB();*/
+            
         }
 
         [Test]

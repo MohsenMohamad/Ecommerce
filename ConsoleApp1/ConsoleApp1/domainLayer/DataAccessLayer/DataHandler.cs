@@ -5,12 +5,13 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-     class DataHandler
+     public class DataHandler
     {
         public List<Person> Users { get; }
         public List<Product> Products { get; }
         public List<Business_Layer.Store> Stores { get; }
-        private DataHandler() {
+
+        public DataHandler() {
             Users = new List<Person>();
             Stores = new List<Business_Layer.Store>();
             Products = new List<Product>();

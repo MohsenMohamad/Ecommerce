@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    interface Person
+    public interface Person
     {
          void Login();
 

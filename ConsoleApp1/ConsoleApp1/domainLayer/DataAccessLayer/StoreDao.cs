@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class Store
+    public class Store
     {
         private string name;
         public Store(string name)
