@@ -1,21 +1,14 @@
 using NUnit.Framework;
-
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using ConsoleApp1;
-using ConsoleApp1.Service_Layer;
 using ConsoleApp1.domainLayer.Business_Layer;
-using ConsoleApp1.domainLayer.DataAccessLayer;
-using ConsoleApp1.Service_Layer;
 
 using Basket = ConsoleApp1.domainLayer.Business_Layer.Basket;
-using ShoppingHandler = ConsoleApp1.Service_Layer.ShoppingHandler;
+using ShoppingHandler = ConsoleApp1.domainLayer.DataAccessLayer.ShoppingHandler;
 using Store = ConsoleApp1.domainLayer.Business_Layer.Store;
-using StoreAdministration = ConsoleApp1.Service_Layer.StoreAdministration;
-using SystemAdmin = ConsoleApp1.Service_Layer.SystemAdmin;
+using StoreAdministration = ConsoleApp1.domainLayer.DataAccessLayer.StoreAdministration;
+using SystemAdmin = ConsoleApp1.domainLayer.DataAccessLayer.SystemAdmin;
 using User = ConsoleApp1.domainLayer.Business_Layer.User;
-using UserSystemHandler = ConsoleApp1.Service_Layer.UserSystemHandler;
+using UserSystemHandler = ConsoleApp1.domainLayer.DataAccessLayer.UserSystemHandler;
 
 namespace Tests
 {

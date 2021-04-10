@@ -11,10 +11,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            database ModelDB1 = new database();
             Console.WriteLine("aaaa");
-            Product pr = new Product("11", "aa", 12, new List<Category>());
-            ModelDB1.Insertproduct(pr);
+            Console.ReadLine();
         }
         
     }

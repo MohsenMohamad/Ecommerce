@@ -72,12 +72,8 @@
     <Compile Include="domainLayer\DataAccessLayer\UserDao.cs" />
     <Compile Include="domainLayer\DataAccessLayer\ModelDB.cs" />
     <Compile Include="domainLayer\DataAccessLayer\UserSystemHandler.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Service_Layer\System.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service_Layer\ShoppingHandler.cs" />
-    <Compile Include="Service_Layer\StoreAdministration.cs" />
-    <Compile Include="Service_Layer\SystemAdmin.cs" />
-    <Compile Include="Service_Layer\UserSystemHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
