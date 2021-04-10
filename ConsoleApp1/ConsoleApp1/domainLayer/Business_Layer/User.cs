@@ -25,6 +25,10 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             this.password = password;
             this.cart = cart;
         }*/
+        public void setShoppingchart(ShoppingCart cartt)
+        {
+            cart = cartt;
+        }
         public string UserName { get => username; }
         public string Password { get => password; }
         public ShoppingCart Cart { get => cart;  }
@@ -102,10 +106,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         }
 
 
-        public void setShoppingchart(ShoppingCart cartt)
-        {
-            cart = cartt;
-        }
+        
         
     
     }
