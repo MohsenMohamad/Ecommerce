@@ -4,17 +4,17 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    public class User
+    class UserDao
     {
-        private string username,password;
+        public string UserName { get; }
+        public string Password { get; }
 
-        public User(string username, string password)
+        public UserDao(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this.UserName = username;
+            this.Password = password;
         }
 
-        public string UserName { get => this.username; set => this.username = value; }
-        public string Password { get => this.password; set => this.password = value; }
+ 
     }
 }

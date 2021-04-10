@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    public class Store
+    class StoreDao
     {
         private string name;
-        public Store(string name)
+        public StoreDao(string name)
         {
             this.name = name;
 

@@ -10,12 +10,14 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private string password;
         private ShoppingCart cart;
         private List<KeyValuePair<Purchase, Store>> history;
+        private List<string> messages;
         public User(string username,string password)
         {
             this.username = username;
             this.password = password;
             cart = new ShoppingCart(username);
             history = new List<KeyValuePair<Purchase, Store>>();
+            messages = new List<string>();
         }
 
 
@@ -29,6 +31,15 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         {
             cart = cartt;
         }
+
+
+
+        //public User(string username, string password,ShoppingCart cart)
+        //{
+        //    this.username = username;
+        //    this.password = password;
+        //    this.cart = cart;
+        //}
         public string UserName { get => username; }
         public string Password { get => password; }
         public ShoppingCart Cart { get => cart;  }
@@ -87,11 +98,12 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             throw new NotImplementedException();
         }
 
-        /*Store OpenStore(string sellpol,string name)
+        
+        public Store OpenStore(string sellpol,string name)
         {
             Store newstore = new Store(this, sellpol, name);
             return newstore;
-        }*/
+        }
 
 
 
@@ -105,9 +117,9 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             return output;
         }
 
-
-        
-        
-    
+        internal void ReceiveMsg(string msg)
+        {
+            messages.Add(msg);
+        }
     }
 }

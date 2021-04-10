@@ -62,10 +62,16 @@
     <Compile Include="domainLayer\Business_Layer\ShoppingCart.cs" />
     <Compile Include="domainLayer\Business_Layer\Store.cs" />
     <Compile Include="domainLayer\Business_Layer\User.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\DAProduct.cs" />
     <Compile Include="domainLayer\DataAccessLayer\DataHandler.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\ReviewDao.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\ShoppingHandler.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\StoreAdministration.cs" />
     <Compile Include="domainLayer\DataAccessLayer\StoreDao.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\SystemAdmin.cs" />
     <Compile Include="domainLayer\DataAccessLayer\UserDao.cs" />
     <Compile Include="domainLayer\DataAccessLayer\ModelDB.cs" />
+    <Compile Include="domainLayer\DataAccessLayer\UserSystemHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service_Layer\ShoppingHandler.cs" />

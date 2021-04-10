@@ -14,7 +14,8 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private Hashtable inventory;
         private List<Discount> discounts;
         private String sellingpolicy;
-        private List<Purchase> history;
+        public List<Purchase> history { get; }
+        public List<string> msgs;
 
         public Store(User owner,String sellpol,string name)
         {
@@ -26,6 +27,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             history = new List<Purchase>();
             co_owners = new List<User>();
             this.name = name;
+            msgs = new List<string>();
         }
 
         public override string ToString()
@@ -81,6 +83,12 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             co_owners.Remove(own);
             return true;
         }
+
+        internal void ReceiveMsg(string msg)
+        {
+            msgs.Add(msg);
+        }
+
         public bool AddDiscount(Discount dis)
         {
             if (discounts.Contains(dis))
@@ -95,14 +103,14 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             discounts.Remove(dis);
             return true;
         }
-        public bool AddDiscount(Purchase purchase)
+        public bool AddPurchase(Purchase purchase)
         {
             if (history.Contains(purchase))
                 return false;
             history.Add(purchase);
             return true;
         }
-        public bool RemoveDiscount(Purchase purchase)
+        public bool RemovePurchase(Purchase purchase)
         {
             if (!history.Contains(purchase))
                 return false;
@@ -113,7 +121,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         {
             if (inventory.ContainsKey(pr))
                 inventory[pr] = (int)inventory[pr] +amount;
-            else inventory[pr] = amount;
+            else if(amount>=0) inventory[pr] = amount;
 
         }
         public bool RemoveProduct(Product pr, int amount)
