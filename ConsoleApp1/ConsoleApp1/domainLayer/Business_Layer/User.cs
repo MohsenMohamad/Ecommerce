@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class User : Person
+    public class User : Person
     {
         private string username;
         private string password;
@@ -17,12 +17,14 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             cart = new ShoppingCart(username);
             history = new List<KeyValuePair<Purchase, Store>>();
         }
-        public User(string username, string password,ShoppingCart cart)
+
+
+        /*public User(string username, string password,ShoppingCart cart)
         {
             this.username = username;
             this.password = password;
             this.cart = cart;
-        }
+        }*/
         public string UserName { get => username; }
         public string Password { get => password; }
         public ShoppingCart Cart { get => cart;  }
@@ -81,11 +83,11 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             throw new NotImplementedException();
         }
 
-        public Store OpenStore(string sellpol,string name)
+        /*Store OpenStore(string sellpol,string name)
         {
             Store newstore = new Store(this, sellpol, name);
             return newstore;
-        }
+        }*/
 
 
 
@@ -99,6 +101,12 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             return output;
         }
 
-   
+
+        public void setShoppingchart(ShoppingCart cartt)
+        {
+            cart = cartt;
+        }
+        
+    
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    internal class Category
+    public class Category
     {
         private string name;
         public Category(string name)

@@ -11,6 +11,12 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         {
             cart = new ShoppingCart("guest");
         }
+
+        public Guest(ShoppingCart cart)
+        {
+            this.cart = cart;
+        }
+
         public void Register() {
             throw new NotImplementedException();
         }

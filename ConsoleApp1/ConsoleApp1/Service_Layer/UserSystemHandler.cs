@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ConsoleApp1.Service_Layer
 {
-    class UserSystemHandler
+    public class UserSystemHandler
     {
         private readonly DataHandler data;
         private User loggedinuser;
-        public UserSystemHandler(User us)
+        UserSystemHandler(User us)
         {
             this.loggedinuser = us;
         }

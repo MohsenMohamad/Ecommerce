@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class Basket
+    public class Basket
     {
         public string Storename { get; }
         public List<KeyValuePair<Product, int>> Products { get; }

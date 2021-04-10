@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    class Product
+    public class Product
     {
         private string name,description;
         private int barcode;
