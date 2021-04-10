@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class UserDao
+    public class UserDao
     {
         public string UserName { get; }
         public string Password { get; }

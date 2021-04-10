@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class SystemAdmin
+    public class SystemAdmin
     {
         private DataHandler data;
 

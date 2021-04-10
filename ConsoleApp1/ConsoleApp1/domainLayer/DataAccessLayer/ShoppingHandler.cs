@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class ShoppingHandler
+    public class ShoppingHandler
     {
         public UserDao user;
         private DataHandler data;

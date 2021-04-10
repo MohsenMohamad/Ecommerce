@@ -8,9 +8,14 @@ using ConsoleApp1.Service_Layer;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using ConsoleApp1.Service_Layer;
+
 using Basket = ConsoleApp1.domainLayer.Business_Layer.Basket;
+using ShoppingHandler = ConsoleApp1.Service_Layer.ShoppingHandler;
 using Store = ConsoleApp1.domainLayer.Business_Layer.Store;
+using StoreAdministration = ConsoleApp1.Service_Layer.StoreAdministration;
+using SystemAdmin = ConsoleApp1.Service_Layer.SystemAdmin;
 using User = ConsoleApp1.domainLayer.Business_Layer.User;
+using UserSystemHandler = ConsoleApp1.Service_Layer.UserSystemHandler;
 
 namespace Tests
 {

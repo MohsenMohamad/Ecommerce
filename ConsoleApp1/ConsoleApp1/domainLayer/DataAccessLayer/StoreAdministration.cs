@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class StoreAdministration
+    public class StoreAdministration
     {
         private readonly StoreDao currentstore;
         private DataHandler data;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
-    class UserSystemHandler
+    public class UserSystemHandler
     {
         public UserDao logged_in_user { get; }
         public ShoppingHandler shopping { get; }
