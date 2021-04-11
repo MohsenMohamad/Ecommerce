@@ -1,6 +1,6 @@
 using ConsoleApp1;
 
-namespace Tests
+namespace Project_tests
 {
     public class Driver
     {

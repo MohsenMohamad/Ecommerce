@@ -1,20 +1,30 @@
 using ConsoleApp1;
 
-namespace Tests
+namespace Project_tests
 {
     public class ATProject
-    {   //333333
-        //444444 add the unit test
-        private GenInterface service;
+    {   
+        
+        private readonly GenInterface service;
 
-        public ATProject()
+        protected ATProject()
         {
             service = Driver.getInstance();
         }
 
-        public bool loginUser(string name, string pass)
+        protected bool InitiateSystem()
         {
-            return service.loginUser(name, pass);
+            return service.InitiateSystem();
+        }
+        
+        public bool Register(string userName, string password)
+        {
+            return service.Register(userName, password);
+        }
+
+        protected bool MemberLogin(string name, string pass)
+        {
+            return service.MemberLogin(name, pass);
         }
     }
 }

@@ -1,24 +1,54 @@
 using ConsoleApp1;
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client;
 
-namespace Tests
+
+namespace Project_tests
 {
     public class ProxyImp : GenInterface
-    {   //222222
+    {   
         private GenInterface real;
 
-        public void setReal(GenInterface real )
+        public void SetReal(GenInterface realInstance)
         {
-            this.real = real;
+            real = realInstance;
         }
-        public bool loginUser(string name, string pass)
+
+        public bool InitiateSystem()
+        {
+            if (real == null) 
+                return true;    
+            
+            return real.InitiateSystem();
+        }
+
+        public bool GuestLogin()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool GuestLogout()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Register(string userName, string password)
+        {
+            if (real == null)
+                return true;
+            return real.Register(userName, password);
+        }
+
+        public bool MemberLogin(string name, string pass)
         {
             if (real == null)
             {
-                return false;    
+                return true;    
             }
-            return real.loginUser(name,pass);
+            return real.MemberLogin(name,pass);
         }
-        
+
+        public bool MemberLogout()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
