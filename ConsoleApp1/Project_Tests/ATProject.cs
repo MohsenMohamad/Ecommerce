@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
@@ -58,6 +60,10 @@ namespace Tests
         {
             return service.addPaymentInfo(owner, storeName,info);
         }
-
+        public ConcurrentDictionary<Product,int> getProductsFromShop(User owner,string storeName)
+        {
+            return service.getProductsFromShop(owner, storeName);
+        }
+        
     }
 }

@@ -54,14 +54,9 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void Test()
         {
-            
-        }
-
-        [Test]
-        public void Test2()
-        {
+            //have to pass anyway
             Assert.AreEqual(shady.Cart.username, "shady");
         }
     }

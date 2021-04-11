@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
@@ -106,6 +107,16 @@ namespace Tests
             }
 
             return real.updatePaymentInfo(owner, storeName ,allInfo);
+        }
+
+        public ConcurrentDictionary<Product, int> getProductsFromShop(User owner, string storeName)
+        {
+            if (real == null)
+            {
+                return new ConcurrentDictionary<Product, int>();    
+            }
+
+            return real.getProductsFromShop(owner, storeName);
         }
     }
 }

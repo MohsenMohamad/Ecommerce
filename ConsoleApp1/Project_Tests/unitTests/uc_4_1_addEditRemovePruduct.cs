@@ -12,6 +12,10 @@ namespace Tests
         private static Guest guest;
         private static Store store;
         private static SystemAdmin admin;
+        private string productName;
+        private Product product;
+        private Product product2;
+        private int amount;
         
         [SetUp]
         public void Setup()
@@ -21,18 +25,39 @@ namespace Tests
             admin = new SystemAdmin();
             initSystem(admin);
             OpenStore(user,"", "helloMarket");
+            productName = "shampoo";
+            product = new Product("shampoo",productName,1,new List<Category>());
+            product2 = new Product("pringles",productName,1,new List<Category>());
+            amount = 100;
         }
 
         [Test]
-        public void Test()
+        public void TestAdd()
         {
-            string productName = "shampoo";
-            Product product = new Product("",productName,1,new List<Category>());
-            int amount = 100;
-            //check add
-            Assert.True(addProductsToShop(user,"helloMarket",product,amount));
-            Assert.True(updateProductsInShop(user,"helloMarket",product,amount-1));
-            Assert.True(removeProductsInShop(user,"helloMarket",product));
+            addProductsToShop(user, "helloMarket", product, amount);
+            
+            //happy
+            Assert.True(getProductsFromShop(user,"helloMarket").ContainsKey(product));
+            //bad
+            Assert.True(addProductsToShop(user, "helloMarket", product, 50));
+        }
+        [Test]
+        public void TestUpdate()
+        {
+            //happy
+            updateProductsInShop(user, "helloMarket", product, amount - 1);
+            Assert.True(getProductsFromShop(user,"helloMarket").GetValueOrDefault(product) == amount -1);
+            //bad
+            Assert.True(updateProductsInShop(user, "helloMarket", product2, amount - 1));
+        }
+        [Test]
+        public void TestRemove()
+        {
+            removeProductsInShop(user, "helloMarket", product);
+            //happy
+            Assert.False(getProductsFromShop(user,"helloMarket").ContainsKey(product));
+            //bad
+            Assert.False(removeProductsInShop(user, "helloMarket", product2));
         }
     }
 }

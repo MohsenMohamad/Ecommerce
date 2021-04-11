@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
@@ -19,5 +20,7 @@ namespace ConsoleApp1
         List<string> getPaymentInfo(User owner, string storeName);
         List<string> addPaymentInfo(User owner,string storeName,string info);
         List<string> updatePaymentInfo(User owner,string storeName,List<string> allInfo);
+        ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
+
     }
 }
