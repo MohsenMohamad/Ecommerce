@@ -65,19 +65,6 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             }
         }
 
-        public bool addProductsToShop(string shopName, Product product, int amount)
-        {
-            throw new NotImplementedException();
-        }
 
-        public bool editStoreProduct(string hellomarket, string productName, int amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool removeStoreProduct(string hellomarket, string productName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

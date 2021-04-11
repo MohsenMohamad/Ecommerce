@@ -23,12 +23,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         }
 
 
-        /*public User(string username, string password,ShoppingCart cart)
-        {
-            this.username = username;
-            this.password = password;
-            this.cart = cart;
-        }*/
+  
         public void setShoppingchart(ShoppingCart cartt)
         {
             cart = cartt;
@@ -36,12 +31,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
 
 
 
-        //public User(string username, string password,ShoppingCart cart)
-        //{
-        //    this.username = username;
-        //    this.password = password;
-        //    this.cart = cart;
-        //}
+       
         public string UserName { get => username; }
         public string Password { get => password; }
         public ShoppingCart Cart { get => cart;  }
@@ -69,10 +59,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             }
         }
 
-        public bool addProductsToShop(string shopName, Product product, int amount)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public string GetBasketInfo(string store_name)
         {
@@ -129,20 +116,9 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             messages.Add(msg);
         }
 
-        /*public bool? addProductsToShop(string shopName,Product product, int amount)
-        {
-            if(isOwner(shopName));
-        }*/
+        
 
 
-        public bool editStoreProduct(string hellomarket, string productName, int amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool removeStoreProduct(string hellomarket, string productName)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
