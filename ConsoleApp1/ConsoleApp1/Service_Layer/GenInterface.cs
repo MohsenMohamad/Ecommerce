@@ -29,8 +29,12 @@ namespace ConsoleApp1
         bool AddNewManger(User user, Store store, string newMangerName);
         bool IsManger(Store store, string mangerName);
         List<string> getMangerResponsibilities(User user, Store store, string newMangerName);
+        List<string> getInfo(User user, Store store);
         bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities);
         bool deleteManger(User ownerUser, string storeName, string newMangerName);
+        bool buyProduct(User buyer, Store store, Product product, int amount);
+        List<string> getStorePurchaseHistory(User ownerUser, Store store);
+
 
     }
 }

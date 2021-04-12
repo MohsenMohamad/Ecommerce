@@ -4,6 +4,7 @@ using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -217,6 +218,36 @@ namespace Tests
             }
 
             return real.deleteManger(ownerUser, storeName, newMangerName);
+        }
+
+        public bool buyProduct(User buyer, Store store, Product product, int amount)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.buyProduct(buyer, store, product, amount);
+        }
+
+        public List<string> getStorePurchaseHistory(User ownerUser, Store store)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getStorePurchaseHistory(ownerUser, store);
+        }
+
+        public List<string> getInfo(User ownerUser, Store store)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getInfo(ownerUser, store);
         }
     }
 }

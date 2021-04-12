@@ -113,6 +113,18 @@ namespace Tests
         {
             return service.deleteManger(ownerUser, storeName, newMangerName);
         }
+        protected List<string> getInfo(User ownerUser, Store store)
+        {
+            return service.getInfo(ownerUser, store);
+        }
+        protected List<string> getStorePurchaseHistory(User ownerUser,Store store)
+        {
+            return service.getStorePurchaseHistory(ownerUser, store);
+        }
+        protected bool buyProduct(User buyer,Store store,Product product, int amount)
+        {
+            return service.buyProduct(buyer, store,product,amount);
+        }
         
 
     }
