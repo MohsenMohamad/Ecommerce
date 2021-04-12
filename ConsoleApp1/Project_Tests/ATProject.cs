@@ -64,6 +64,39 @@ namespace Tests
         {
             return service.getProductsFromShop(owner, storeName);
         }
+
+        public bool signUpGuest(string name, string pass)
+        {
+            return service.signUpGuest(name, pass);
+        }
+        public User loginGuest(string name, string pass)
+        {
+            return service.loginGuest(name, pass);
+        }
+
+        public Store getUsersStore(User user,string  storeName)
+        {
+            return service.getUsersStore(user, storeName);
+        }
+
+        public bool AddNewOwner(User user,Store store,string  newOwnerName)
+        {
+            return service.AddNewOwner(user, store, newOwnerName);
+        }
         
+        public bool AddNewManger(User user,Store store,string  newMangerName)
+        {
+            return service.AddNewOwner(user, store, newMangerName);
+        }
+
+        public bool IsOwner(Store store, string ownerName)
+        {
+            return service.IsOwner(store, ownerName);
+        }
+        public bool IsManger(Store store, string mangerName)
+        {
+            return service.IsOwner(store, mangerName);
+        }
+
     }
 }

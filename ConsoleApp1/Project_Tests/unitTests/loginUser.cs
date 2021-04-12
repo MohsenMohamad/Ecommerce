@@ -1,6 +1,7 @@
 using NUnit.Framework;
+using Tests;
 
-namespace Tests
+namespace Project_Tests.unitTests
 {
     public class loginUser:ATProject
     {

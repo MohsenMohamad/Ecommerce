@@ -1,30 +1,33 @@
 using System.Collections.Generic;
-using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using NUnit.Framework;
+using Tests;
 
-namespace Tests
+namespace Project_Tests.unitTests
 {
-    public class uc_4_1_addEditRemovePruduct:ATProject
+    public class Uc41AddEditRemovePruduct:ATProject
     {
         private static User user;
-        private static Guest guest;
+
         private static Store store;
         private static SystemAdmin admin;
         private string productName;
         private Product product;
         private Product product2;
         private int amount;
+        private string storeName;
         
         [SetUp]
         public void Setup()
         {
-            user = new User("user", "userPass");
-            guest = new Guest();
             admin = new SystemAdmin();
             initSystem(admin);
-            OpenStore(user,"", "helloMarket");
+            
+            user = new User("user", "userPass");
+            storeName = "helloWorldMarket";
+            
+            OpenStore(user,"", storeName);
             productName = "shampoo";
             product = new Product("shampoo",productName,1,new List<Category>());
             product2 = new Product("pringles",productName,1,new List<Category>());
@@ -34,30 +37,30 @@ namespace Tests
         [Test]
         public void TestAdd()
         {
-            addProductsToShop(user, "helloMarket", product, amount);
+            addProductsToShop(user, storeName, product, amount);
             
             //happy
-            Assert.True(getProductsFromShop(user,"helloMarket").ContainsKey(product));
+            Assert.True(getProductsFromShop(user,storeName).ContainsKey(product));
             //bad
-            Assert.True(addProductsToShop(user, "helloMarket", product, 50));
+            Assert.True(addProductsToShop(user, storeName, product, 50));
         }
         [Test]
         public void TestUpdate()
         {
             //happy
-            updateProductsInShop(user, "helloMarket", product, amount - 1);
-            Assert.True(getProductsFromShop(user,"helloMarket").GetValueOrDefault(product) == amount -1);
+            updateProductsInShop(user, storeName, product, amount - 1);
+            Assert.True(getProductsFromShop(user,storeName).GetValueOrDefault(product) == amount -1);
             //bad
-            Assert.True(updateProductsInShop(user, "helloMarket", product2, amount - 1));
+            Assert.True(updateProductsInShop(user, storeName, product2, amount - 1));
         }
         [Test]
         public void TestRemove()
         {
-            removeProductsInShop(user, "helloMarket", product);
+            removeProductsInShop(user, storeName, product);
             //happy
-            Assert.False(getProductsFromShop(user,"helloMarket").ContainsKey(product));
+            Assert.False(getProductsFromShop(user,storeName).ContainsKey(product));
             //bad
-            Assert.False(removeProductsInShop(user, "helloMarket", product2));
+            Assert.False(removeProductsInShop(user, storeName, product2));
         }
     }
 }

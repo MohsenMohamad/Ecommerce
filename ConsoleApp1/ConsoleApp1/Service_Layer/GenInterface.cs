@@ -21,6 +21,13 @@ namespace ConsoleApp1
         List<string> addPaymentInfo(User owner,string storeName,string info);
         List<string> updatePaymentInfo(User owner,string storeName,List<string> allInfo);
         ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
+        bool signUpGuest(string name, string pass);
+        Store getUsersStore(User user, string storeName);
+        bool AddNewOwner(User user, Store store, string newOwnerName);
+        bool IsOwner(Store store, string ownerName); 
+        User loginGuest(string name, string pass);
+        bool AddNewManger(User user, Store store, string newMangerName);
+        bool IsManger(Store store, string mangerName);
 
     }
 }

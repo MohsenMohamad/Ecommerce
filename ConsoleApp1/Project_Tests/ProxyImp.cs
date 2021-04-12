@@ -83,7 +83,7 @@ namespace Tests
         {
             if (real == null)
             {
-                return new List<string>();    
+                return null;    
             }
 
             return real.getPaymentInfo(owner, storeName);
@@ -93,7 +93,7 @@ namespace Tests
         {
             if (real == null)
             {
-                return new List<string>();    
+                return null;    
             }
 
             return real.addPaymentInfo(owner, storeName,info);
@@ -103,7 +103,7 @@ namespace Tests
         {
             if (real == null)
             {
-                return new List<string>();    
+                return null;    
             }
 
             return real.updatePaymentInfo(owner, storeName ,allInfo);
@@ -113,10 +113,80 @@ namespace Tests
         {
             if (real == null)
             {
-                return new ConcurrentDictionary<Product, int>();    
+                return null;    
             }
 
             return real.getProductsFromShop(owner, storeName);
+        }
+
+        public bool signUpGuest(string name, string pass)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.signUpGuest(name, pass);
+        }
+
+        public Store getUsersStore(User user, string storeName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getUsersStore(user, storeName);
+        }
+
+        public bool AddNewOwner(User user, Store store, string newOwnerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.AddNewOwner(user, store,newOwnerName);
+        }
+
+        public bool IsOwner(Store store, string ownerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.IsOwner(store, ownerName);
+        }
+
+        public User loginGuest(string name, string pass)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.loginGuest(name, pass);
+        }
+
+        public bool AddNewManger(User user, Store store, string newMangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.AddNewManger(user, store,newMangerName);
+        }
+
+        public bool IsManger(Store store, string mangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.IsManger(store, mangerName);
         }
     }
 }

@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using NUnit.Framework;
+using Tests;
 
-namespace Tests
+namespace Project_Tests.unitTests
 {
-    public class uc_4_2_getAddUpdatePaymentInfo:ATProject
+    public class Uc42GetAddUpdatePaymentInfo:ATProject
     {
         private static User user;
-        private static Guest guest;
         private static Store store;
         private static SystemAdmin admin;
 
@@ -21,13 +20,15 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+            admin = new SystemAdmin();
+            initSystem(admin);
+            
             user = new User("user", "userPass");
-            guest = new Guest();
+            
             initialPolicy = "10% sales";
             storeName = "helloMarket";
             emptyList = new List<string>();
-            admin = new SystemAdmin();
-            initSystem(admin);
+            
             OpenStore(user,initialPolicy, storeName);
             info = new List<string>();
         }
