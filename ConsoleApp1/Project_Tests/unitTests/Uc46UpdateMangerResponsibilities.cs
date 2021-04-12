@@ -6,7 +6,7 @@ using Tests;
 
 namespace Project_Tests.unitTests
 {
-    public class Uc45AddNewManger:ATProject
+    public class Uc46UpdateMangerResponsibilities:ATProject
     {
         private static SystemAdmin admin;
         private static User user;
@@ -25,7 +25,7 @@ namespace Project_Tests.unitTests
             signUpGuest("user2","user2");
             signUpGuest("user3", "user3");
 
-            storeName = "storeName";
+            storeName = "ebay";
            
             
             OpenStore(user,"sellPolicy", storeName);
@@ -38,14 +38,21 @@ namespace Project_Tests.unitTests
         public void Test()
         {
             //happy
-            string newOwnerName = "user1";
+            string newMangerName = "user1";
+            string newRespon = "newResp";
+            Assert.True(AddNewManger(user, store, newMangerName));
+            Assert.True(IsManger(store, newMangerName));
+            List<string> responsibilities = getMangerResponsibilities(user, store,newMangerName);
+            responsibilities.Add(newRespon);
+
+            Assert.True(updateMangerResponsibilities(user, storeName, responsibilities));
+            Assert.Equals(responsibilities, getMangerResponsibilities(user, store, newMangerName));
             
-            Assert.True(AddNewManger(user, store, newOwnerName));
-            Assert.True(IsManger(store, newOwnerName));
+            
             
             //bad
-            User userNewOwner = loginGuest(newOwnerName, "user1");
-            Assert.False(AddNewManger(userNewOwner, store, "user0"));
+            responsibilities.Remove(newRespon);
+            Assert.AreNotEqual(responsibilities, getMangerResponsibilities(user, store, newMangerName));
             
         }
        

@@ -28,6 +28,8 @@ namespace ConsoleApp1
         User loginGuest(string name, string pass);
         bool AddNewManger(User user, Store store, string newMangerName);
         bool IsManger(Store store, string mangerName);
+        List<string> getMangerResponsibilities(User user, Store store, string newMangerName);
+        bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities);
 
     }
 }

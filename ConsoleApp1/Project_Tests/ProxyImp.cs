@@ -188,5 +188,25 @@ namespace Tests
 
             return real.IsManger(store, mangerName);
         }
+
+        public List<string> getMangerResponsibilities(User user, Store store, string newMangerName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getMangerResponsibilities(user,store,newMangerName);
+        }
+
+        public bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.updateMangerResponsibilities(user, storeName, responsibilities);
+        }
     }
 }

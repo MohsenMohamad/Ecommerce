@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -96,6 +97,15 @@ namespace Tests
         public bool IsManger(Store store, string mangerName)
         {
             return service.IsOwner(store, mangerName);
+        }
+
+        public List<string> getMangerResponsibilities(User user,Store store, string newMangerName)
+        {
+            return service.getMangerResponsibilities(user, store, newMangerName);
+        }
+        public bool updateMangerResponsibilities(User user,string storeName,List<string> responsibilities)
+        {
+            return service.updateMangerResponsibilities(user, storeName, responsibilities);
         }
 
     }
