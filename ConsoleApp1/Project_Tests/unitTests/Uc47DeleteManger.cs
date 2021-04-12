@@ -45,7 +45,6 @@ namespace Project_Tests.unitTests
             //successful delete
             Assert.True(deleteManger(ownerUser, storeName, newMangerName));
             
-            
             //bad
             Assert.False(IsManger(store,newMangerName));
         }
