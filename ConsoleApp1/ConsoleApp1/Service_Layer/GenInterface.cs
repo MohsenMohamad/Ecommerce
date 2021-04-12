@@ -30,6 +30,7 @@ namespace ConsoleApp1
         bool IsManger(Store store, string mangerName);
         List<string> getMangerResponsibilities(User user, Store store, string newMangerName);
         bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities);
+        bool deleteManger(User ownerUser, string storeName, string newMangerName);
 
     }
 }

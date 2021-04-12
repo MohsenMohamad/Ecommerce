@@ -208,5 +208,15 @@ namespace Tests
 
             return real.updateMangerResponsibilities(user, storeName, responsibilities);
         }
+
+        public bool deleteManger(User ownerUser, string storeName, string newMangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.deleteManger(ownerUser, storeName, newMangerName);
+        }
     }
 }
