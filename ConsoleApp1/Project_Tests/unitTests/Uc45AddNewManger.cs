@@ -45,6 +45,7 @@ namespace Project_Tests.unitTests
             //bad
             User userNewOwner = loginGuest(newOwnerName, "user1");
             Assert.False(AddNewManger(userNewOwner, store, "user0"));
+            
         }
        
     }
