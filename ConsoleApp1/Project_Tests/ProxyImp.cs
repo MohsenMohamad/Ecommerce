@@ -1,3 +1,4 @@
+using System.Collections;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 
@@ -59,11 +60,25 @@ namespace Project_tests
             return real.OpenStore(manager,policy,name);
         }
 
-        public string GetStoreInfo(User user, string name)
+        public Store GetStoreInfo(User user, string name)
         {
             if (real == null)
                 return null;
             return real.GetStoreInfo(user, name);
+        }
+
+        public bool CheckStoreInventory(Store store, Hashtable products)
+        {
+            if (real == null)
+                return true;
+            return real.CheckStoreInventory(store, products);
+        }
+
+        public bool AddProductToStore(User manager, Store store, Product product, int amount)
+        {
+            if (real == null)
+                return true;
+            return real.AddProductToStore(manager, store, product, amount);
         }
     }
 }

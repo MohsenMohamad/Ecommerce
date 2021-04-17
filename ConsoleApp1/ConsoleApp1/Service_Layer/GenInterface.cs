@@ -1,3 +1,4 @@
+using System.Collections;
 using ConsoleApp1.domainLayer.Business_Layer;
 
 namespace ConsoleApp1
@@ -10,8 +11,9 @@ namespace ConsoleApp1
         bool Register(string userName, string password);
         bool MemberLogin(string name, string pass);
         bool MemberLogout();
-        Store OpenStore(User manager,string policy,string name);
-        string GetStoreInfo(User user, string name);
-
+        Store OpenStore(User manager, string policy, string name);
+        Store GetStoreInfo(User user, string name);
+        bool CheckStoreInventory(Store store, Hashtable products);
+        bool AddProductToStore(User manager, Store store, Product product, int amount);
     }
 }

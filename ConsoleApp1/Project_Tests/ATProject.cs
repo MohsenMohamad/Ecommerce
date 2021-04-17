@@ -1,3 +1,4 @@
+using System.Collections;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 
@@ -32,9 +33,19 @@ namespace Project_tests
             return service.OpenStore(manager, policy, name);
         }
 
-        protected string GetStoreInfo(User user, string name)
+        protected bool AddProductToStore(User manager, Store store, Product product, int amount)
+        {
+            return service.AddProductToStore(manager, store, product, amount);
+        }
+
+        protected Store GetStoreInfo(User user, string name)
         {
             return service.GetStoreInfo(user, name);
+        }
+
+        protected bool CheckStoreInventory(Store store, Hashtable products)
+        {
+            return service.CheckStoreInventory(store, products);
         }
     }
 }
