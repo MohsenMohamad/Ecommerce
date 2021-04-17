@@ -11,8 +11,8 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private User owner;
         public List<User> managers { get; }
         public List<User> co_owners { get; }
-        private Hashtable inventory;
-        private List<Discount> discounts;
+        public Hashtable inventory { get; }
+        public List<Discount> discounts { get; }
         private String sellingpolicy;
         public List<Purchase> history { get; }
         public List<string> msgs;

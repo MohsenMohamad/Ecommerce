@@ -63,13 +63,19 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             return false;
         }
 
-        public bool RemoveDiscount(Business_Layer.Discount dc)
+        public bool RemoveDiscount(string barcode)
         {
             Business_Layer.Store st = getStore(currentstore.Name);
             if (st != null)
             {
-                st.RemoveDiscount(dc);
-                return true;
+                for (int i = 0; i < st.discounts.Count; i++)
+                {
+                    if (st.discounts[i].items.Key.Barcode.CompareTo(barcode) == 0)
+                    {
+                        st.discounts.RemoveAt(i);
+                        return true;
+                    }
+                }
             }
             return false;
         }
@@ -150,5 +156,9 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         }
 
+        internal int getInventory(string barcode)
+        {
+            return (int)getStore(currentstore.Name).inventory[DataHandler.Instance.GetProduct(barcode)];
+        }
     }
 }

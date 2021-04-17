@@ -61,5 +61,14 @@ namespace ConsoleApp1.domainLayer.Business_Layer
                 }
             }
         }
+        public override string ToString()
+        {
+            string output = DateTime.Now + "purchased:/n";
+            for (int i = 0; i < items.Count; i++)
+            {
+                output += items[i].Key.Name + " with the amount of " + items[i].Value;
+            }
+            return output;
+        }
     }
 }

@@ -36,8 +36,10 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             {
                 this.purchase.addProduct(pr, amount);
                 st.RemoveProduct(pr, amount);
+
                 return true;
             }
+            
             return false;
         }
 

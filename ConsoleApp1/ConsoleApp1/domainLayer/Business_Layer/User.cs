@@ -9,16 +9,14 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private string username;
         private string password;
         private ShoppingCart cart;
-        private List<KeyValuePair<Purchase, Store>> history;
+        public List<Purchase> history { get; }
         private List<string> messages;
-        private List<Store> stores;
-        
         public User(string username,string password)
         {
             this.username = username;
             this.password = password;
             cart = new ShoppingCart(username);
-            history = new List<KeyValuePair<Purchase, Store>>();
+            history = new List<Purchase>();
             messages = new List<string>();
         }
 
@@ -58,7 +56,6 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         }
 
         public string GetBasketInfo()
-
         {
             string output = "--------------------------";
             for (int i = 0; i < cart.baskets.Count; i++)
@@ -89,7 +86,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             string output = "history of "+UserName ;
             for (int i = 0; i < history.Count; i++)
             {
-                output += "\n"+history[i].Key.ToString()+" from the "+history[i].Value.Name +"store";
+                output += "\n"+history[i].ToString();
             }
             return output;
         }
@@ -98,10 +95,5 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         {
             messages.Add(msg);
         }
-
-        
-
-
-        
     }
 }

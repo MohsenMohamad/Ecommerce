@@ -92,5 +92,24 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             User us = DataHandler.Instance.getUser(logged_in_user.UserName);
             DataHandler.Instance.Stores.Add(us.OpenStore(policy, name));
         }
+
+        internal void checkout()
+        {
+            Console.WriteLine("bougth :");
+            for (int i = 0; i < shopping.purchase.items.Count; i++)
+            {
+                Console.WriteLine(shopping.purchase.items[i].Key.Name+" with amount of "+ shopping.purchase.items[i].Value);
+            }
+            DataHandler.Instance.getUser(logged_in_user.UserName).history.Add(shopping.purchase);
+        }
+
+        internal void showhistory()
+        {
+            User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            for (int i = 0; i < us.history.Count; i++)
+            {
+                Console.WriteLine(us.history[i].ToString());
+            }
+        }
     }
 }

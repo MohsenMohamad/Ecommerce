@@ -4,26 +4,19 @@ namespace ConsoleApp1.domainLayer.Business_Layer
 {
     public class Discount
     {
-        private List<KeyValuePair<Product, double>> items;
+        public KeyValuePair<Product, double> items { get; set; }
         
-        public Discount()
+        public Discount(Product pr, double dis)
         {
-            items = new List<KeyValuePair<Product, double>>();
+            items =new  KeyValuePair<Product, double>(pr,dis);
         }
+
+        
 
         public void ModifyItem(Product pr, double dis)
         {
             KeyValuePair<Product, double> pair = new KeyValuePair<Product, double>(pr, dis);
-            for (int i = 0; i <items.Count; i++)
-            {
-                if(items[i].Key.Equals(pr))
-                {
-                    items.RemoveAt(i);
-                   
-                   
-                }
-            }
-            items.Add(pair);
+            this.items = pair;
 
 
         }

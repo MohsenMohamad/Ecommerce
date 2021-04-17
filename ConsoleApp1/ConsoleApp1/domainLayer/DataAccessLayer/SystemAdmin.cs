@@ -12,8 +12,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         {
             data = DataHandler.Instance;
         }
-        
-        
+
         public bool closeStore(string store_name)
         {
             for (int i = 0; i < data.Stores.Count; i++)
@@ -65,7 +64,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
                 {
                     return ((Business_Layer.User)data.Users[i]).GetPersonalPurchaseHistory();
 
-            }
+        }
             }
             return "no user was found";
 
