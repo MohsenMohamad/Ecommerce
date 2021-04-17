@@ -17,16 +17,16 @@ namespace Project_tests.unitTests
         }
 
         [Test]
-        public void Bad()
-        {
-            Assert.False(Register("dsa","321"));
-        }
-
-        [Test]
         public void Sad()
         {
             Assert.True(MemberLogin("asd","123"));
             Assert.False(MemberLogin("asd","123"));
+        }
+        
+        [Test]
+        public void Bad()
+        {
+            Assert.False(Register("dsa","321"));
         }
     }
 }

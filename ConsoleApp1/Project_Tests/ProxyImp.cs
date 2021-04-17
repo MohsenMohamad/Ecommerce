@@ -1,4 +1,5 @@
 using ConsoleApp1;
+using ConsoleApp1.domainLayer.Business_Layer;
 
 
 namespace Project_tests
@@ -49,6 +50,20 @@ namespace Project_tests
         public bool MemberLogout()
         {
             throw new System.NotImplementedException();
+        }
+
+        public Store OpenStore(User manager,string policy,string name)
+        {
+            if (real == null)
+                return null;
+            return real.OpenStore(manager,policy,name);
+        }
+
+        public string GetStoreInfo(User user, string name)
+        {
+            if (real == null)
+                return null;
+            return real.GetStoreInfo(user, name);
         }
     }
 }
