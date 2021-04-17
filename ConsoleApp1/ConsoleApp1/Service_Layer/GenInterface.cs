@@ -17,5 +17,7 @@ namespace ConsoleApp1
         bool CheckStoreInventory(Store store, Hashtable products);
         bool AddProductToStore(User manager, Store store, Product product, int amount);
         List<Product> SearchFilter(User user, string sortOption, List<string> filters);
+        bool AddProductToCart(User user, Store store, Product product);
+        List<Product> GetCartByStore(User user, Store store);
     }
 }

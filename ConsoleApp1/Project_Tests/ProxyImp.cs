@@ -96,5 +96,19 @@ namespace Project_tests
                 return null;
             return real.SearchFilter(user, sortOption, filters);
         }
+
+        public bool AddProductToCart(User user, Store store, Product product)
+        {
+            if (real == null)
+                return true;
+            return real.AddProductToCart(user, store, product);
+        }
+
+        public List<Product> GetCartByStore(User user, Store store)
+        {
+            if (real == null)
+                return null;
+            return real.GetCartByStore(user, store);
+        }
     }
 }

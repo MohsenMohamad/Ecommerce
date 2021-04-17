@@ -58,5 +58,15 @@ namespace Project_tests
         {
             return service.SearchFilter(user, sortOption, filters);
         }
+
+        protected bool AddProductToCart(User user, Store store, Product product)
+        {
+            return service.AddProductToCart(user, store, product);
+        }
+
+        protected List<Product> GetCartByStore(User user, Store store)
+        {
+            return service.GetCartByStore(user, store);
+        }
     }
 }

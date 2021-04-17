@@ -49,18 +49,28 @@ namespace Project_tests.unitTests
         [Test]
         public void Sad()
         {
-            //
+            // the user searched for an existing item but he got a wrong result
+            var filters = new List<string> {"name : salt"};
+            var result = SearchFilter(guest, null, filters);
+            Assert.IsNotEmpty(result);
+            
+
         }
 
         [Test]
         public void Bad()
         {
             // product should not appear twice if it exists in more than one store
+            var filters = new List<string> {"name : salt"};
+            var result = SearchFilter(guest, null, filters);
+            Assert.True(result.Count == 1);
+            
         }
 
         [Test]
         public void ShouldFail()
         {
+            
         }
     }
 }
