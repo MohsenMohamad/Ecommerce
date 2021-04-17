@@ -20,6 +20,21 @@ namespace ConsoleApp1
         List<Product> SearchFilter(User user, string sortOption, List<string> filters);
         bool AddProductToCart(User user, Store store, Product product);
         List<Product> GetCartByStore(User user, Store store);
+        ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
+        bool signUpGuest(string name, string pass);
+        Store getUsersStore(User user, string storeName);
+        bool AddNewOwner(User user, Store store, string newOwnerName);
+        bool IsOwner(Store store, string ownerName); 
+        User loginGuest(string name, string pass);
+        bool AddNewManger(User user, Store store, string newMangerName);
+        bool IsManger(Store store, string mangerName);
+        List<string> getMangerResponsibilities(User user, Store store, string newMangerName);
+        List<string> getInfo(User user, Store store);
+        bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities);
+        bool deleteManger(User ownerUser, string storeName, string newMangerName);
+        bool buyProduct(User buyer, Store store, Product product, int amount);
+        List<string> getStorePurchaseHistory(User ownerUser, Store store);
+
     }
     
 }

@@ -11,6 +11,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         void AddItemToBasket(string store_name, Product pr, int amount);
         string GetBasketInfo();
         void RemoveItemFromBasket(string store_name, Product pr);
-       
+
+
     }
 }

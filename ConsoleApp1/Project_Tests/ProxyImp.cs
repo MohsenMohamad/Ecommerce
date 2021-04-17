@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
+using ConsoleApp1.domainLayer.DataAccessLayer;
+using NUnit.Framework;
 
 
 namespace Project_tests
@@ -109,6 +111,217 @@ namespace Project_tests
             if (real == null)
                 return null;
             return real.GetCartByStore(user, store);
+        }
+            {
+                return false;    
+            }
+            return real.initSystem(admin);
+        }
+
+        public bool addProductsToShop(User user,string shopName, Product product, int amount)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+            return real.addProductsToShop(user,shopName,product,amount);
+        }
+
+        public bool removeProductsInShop(User user,string shopName, Product product)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+            return real.removeProductsInShop( user,shopName,product);
+        }
+
+        public bool updateProductsInShop(User user,string shopName, Product product, int amount)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+            return real.updateProductsInShop( user,shopName,product,amount);
+        }
+
+        public bool OpenStore(User user, string sellpol, string storeName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+            return real.OpenStore( user,sellpol,storeName);
+        }
+
+        public List<string> getPaymentInfo(User owner,string storeName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getPaymentInfo(owner, storeName);
+        }
+
+        public List<string> addPaymentInfo(User owner,string storeName,string info)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.addPaymentInfo(owner, storeName,info);
+        }
+
+        public List<string> updatePaymentInfo(User owner,string storeName, List<string> allInfo)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.updatePaymentInfo(owner, storeName ,allInfo);
+        }
+
+        public ConcurrentDictionary<Product, int> getProductsFromShop(User owner, string storeName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getProductsFromShop(owner, storeName);
+        }
+
+        public bool signUpGuest(string name, string pass)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.signUpGuest(name, pass);
+        }
+
+        public Store getUsersStore(User user, string storeName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getUsersStore(user, storeName);
+        }
+
+        public bool AddNewOwner(User user, Store store, string newOwnerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.AddNewOwner(user, store,newOwnerName);
+        }
+
+        public bool IsOwner(Store store, string ownerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.IsOwner(store, ownerName);
+        }
+
+        public User loginGuest(string name, string pass)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.loginGuest(name, pass);
+        }
+
+        public bool AddNewManger(User user, Store store, string newMangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.AddNewManger(user, store,newMangerName);
+        }
+
+        public bool IsManger(Store store, string mangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.IsManger(store, mangerName);
+        }
+
+        public List<string> getMangerResponsibilities(User user, Store store, string newMangerName)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getMangerResponsibilities(user,store,newMangerName);
+        }
+
+        public bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.updateMangerResponsibilities(user, storeName, responsibilities);
+        }
+
+        public bool deleteManger(User ownerUser, string storeName, string newMangerName)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.deleteManger(ownerUser, storeName, newMangerName);
+        }
+
+        public bool buyProduct(User buyer, Store store, Product product, int amount)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.buyProduct(buyer, store, product, amount);
+        }
+
+        public List<string> getStorePurchaseHistory(User ownerUser, Store store)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getStorePurchaseHistory(ownerUser, store);
+        }
+
+        public List<string> getInfo(User ownerUser, Store store)
+        {
+            if (real == null)
+            {
+                return null;    
+            }
+
+            return real.getInfo(ownerUser, store);
         }
     }
 }

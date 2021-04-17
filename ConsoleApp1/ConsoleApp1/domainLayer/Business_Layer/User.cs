@@ -11,6 +11,8 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private ShoppingCart cart;
         private List<KeyValuePair<Purchase, Store>> history;
         private List<string> messages;
+        private List<Store> stores;
+        
         public User(string username,string password)
         {
             this.username = username;
@@ -56,6 +58,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         }
 
         public string GetBasketInfo()
+
         {
             string output = "--------------------------";
             for (int i = 0; i < cart.baskets.Count; i++)
@@ -95,5 +98,10 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         {
             messages.Add(msg);
         }
+
+        
+
+
+        
     }
 }
