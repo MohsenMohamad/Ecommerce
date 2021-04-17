@@ -24,9 +24,9 @@ namespace Project_tests
             return service.Register(userName, password);
         }
 
-        protected User GuestLogin(string guestName, string guestPassword)
+        protected bool GuestLogin()
         {
-            return service.GuestLogin(guestName, guestPassword);
+            return service.GuestLogin();
         }
 
         protected User MemberLogin(string name, string pass)
