@@ -29,7 +29,7 @@ namespace Project_tests.unitTests
             AddProductToStore(member, store, product2, product2Amount);
             AddProductToStore(member, store, product3, product3Amount);
             AddProductToStore(member, store, product4, product4Amount);
-            guest = GuestLogin("guest", "guest");
+        //    guest = GuestLogin("guest", "guest");
         }
 
         [Test]
