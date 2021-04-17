@@ -6,10 +6,10 @@ namespace ConsoleApp1.domainLayer.Business_Layer
 {
     public interface Person
     {
-         void Login();
+         
 
         void AddItemToBasket(string store_name, Product pr, int amount);
-        string GetBasketInfo(string store_name);
+        string GetBasketInfo();
         void RemoveItemFromBasket(string store_name, Product pr);
        
     }

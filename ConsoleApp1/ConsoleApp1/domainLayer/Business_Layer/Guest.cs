@@ -22,14 +22,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             this.cart = cart;
         }
 
-        public void Register() {
-            throw new NotImplementedException();
-        }
 
-        public void Login()
-        {
-            throw new NotImplementedException();
-        }
 
         public void AddItemToBasket(string store_name, Product pr, int amount)
         {
@@ -42,16 +35,16 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             }
         }
 
-        public string GetBasketInfo(string store_name)
+        public string GetBasketInfo()
         {
+            string output = "--------------------------";
             for (int i = 0; i < cart.baskets.Count; i++)
             {
-                if (cart.baskets[i].Storename.CompareTo(store_name) == 0)
-                {
-                    return cart.baskets[i].ToString();
-                }
+                
+                    output+= cart.baskets[i].ToString()+"/n---------------------/n";
+                
             }
-            return "didnt find a basket for this store";
+            return output;
         }
 
         public void RemoveItemFromBasket(string store_name, Product pr)

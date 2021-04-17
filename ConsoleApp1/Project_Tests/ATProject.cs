@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 
@@ -18,12 +19,17 @@ namespace Project_tests
             return service.InitiateSystem();
         }
 
-        public bool Register(string userName, string password)
+        protected bool Register(string userName, string password)
         {
             return service.Register(userName, password);
         }
 
-        protected bool MemberLogin(string name, string pass)
+        protected User GuestLogin(string guestName, string guestPassword)
+        {
+            return service.GuestLogin(guestName, guestPassword);
+        }
+
+        protected User MemberLogin(string name, string pass)
         {
             return service.MemberLogin(name, pass);
         }
@@ -46,6 +52,11 @@ namespace Project_tests
         protected bool CheckStoreInventory(Store store, Hashtable products)
         {
             return service.CheckStoreInventory(store, products);
+        }
+
+        protected List<Product> SearchFilter(User user, string sortOption, List<string> filters)
+        {
+            return service.SearchFilter(user, sortOption, filters);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Project_tests.unitTests
         [Test]
         public void Sad()
         {
-            Assert.True(MemberLogin("asd","123"));
-            Assert.False(MemberLogin("asd","123"));
+            Assert.NotNull(MemberLogin("asd","123"));
+            Assert.IsNull(MemberLogin("asd","123"));
         }
         
         [Test]

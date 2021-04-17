@@ -11,7 +11,7 @@ namespace Project_tests.unitTests
         public void Setup()
         {
             member = new User("admin", "admin");
-            member.Login();
+        //    member.Login();
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Project_tests.unitTests
         [Test]
         public void ShouldFail()
         {
-            member.logout();
+        //    member.logout();
             const string policy = "policy";
             const string name = "test";
             var store = OpenStore(member, policy, name);

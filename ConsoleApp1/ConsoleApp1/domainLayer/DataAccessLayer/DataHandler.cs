@@ -7,7 +7,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
     public class DataHandler
     {
-        public List<Person> Users { get; }
+        public List<User> Users { get; }
         public List<Product> Products { get; }
         public List<Business_Layer.Store> Stores { get; }
         public List<ReviewDao> reviews { get; }
@@ -21,9 +21,28 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             }
             return null;
         }
+        internal Store GetBUSStore(string storename)
+        {
+            for (int i = 0; i < Stores.Count; i++)
+            {
+                if (Stores[i].Name.CompareTo(storename) == 0)
+                    return Stores[i];
+            }
+            return null;
+        }
+
+        internal Product GetProduct(string barcode)
+        {
+            for (int i = 0; i < Stores.Count; i++)
+            {
+                if (Products[i].Barcode.CompareTo(barcode) == 0)
+                    return Products[i];
+            }
+            return null;
+        }
 
         private  DataHandler() {
-            Users = new List<Person>();
+            Users = new List<User>();
             Stores = new List<Business_Layer.Store>();
             Products = new List<Product>();
             reviews = new List<ReviewDao>();
@@ -85,6 +104,49 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             }
         }
 
+        public string GetStoresInfo()
+        {
+            string output = "the list of stores:";
+            for (int i = 0; i < Stores.Count; i++)
+            {
+                output += "---------------------/n" + Stores[i].ToString();
+            }
+            return output;
+        }
+
+        public string GetStoresInfo(string username)
+        {
+            string output = "the list of stores:";
+            bool flag = false;
+            for (int i = 0; i < Stores.Count; i++)
+            {
+                flag = false;
+                for (int j = 0; j < Stores[i].managers.Count; j++)
+                {
+                    if (Stores[i].managers[i].UserName.CompareTo(username) == 0)
+                        flag = true;
+                }
+                for (int j = 0; j < Stores[i].co_owners.Count; j++)
+                {
+                    if (Stores[i].co_owners[i].UserName.CompareTo(username) == 0)
+                        flag = true;
+                }
+                if (Stores[i].Owner.UserName.CompareTo(username)==0||flag)
+                    output += "---------------------/n" + Stores[i].ToString();
+            }
+            return output;
+        }
+
+        public string GetProductsInfo()
+        {
+            string output = "the list of products";
+            for (int i = 0; i < Products.Count; i++)
+            {
+                output += "----------------/n" + Products[i].ToString();
+            }
+            return output;
+        }
+
         internal void AddReview(string userName, string desc)
         {
             reviews.Add(new ReviewDao(userName, desc));
@@ -123,7 +185,31 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
                 }
             }
         }
+           
+        public void register(string username,string password)
+        {
+            User us = new User(username, password);
+            Users.Add(us);
+        }
 
+        public bool login(string username,string password)
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                if (Users[i].UserName.CompareTo(username) == 0 && Users[i].Password.CompareTo(password) == 0)
+                    return true;
+            }
+            return false;
+        }
 
+        public  bool exist(string username)
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                if (Users[i].UserName.CompareTo(username) == 0)
+                    return true;
+            }
+            return false;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleApp1.domainLayer.Business_Layer;
 
 namespace ConsoleApp1.domainLayer.DataAccessLayer
 {
@@ -23,24 +24,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             //equals null if user isnt found
         }
 
-        public string GetProductsInfo()
-        {
-            string output = "the list of products";
-            for (int i = 0; i < data.Products.Count; i++)
-            {
-                output += "/n" + data.Products[i].ToString();
-            }
-            return output;
-        }
-        public string GetStoresInfo()
-        {
-            string output = "the list of stores:";
-            for (int i = 0; i < data.Stores.Count; i++)
-            {
-                output += "/n" + data.Stores[i].ToString();
-            }
-            return output;
-        }
+        
+        
         public DAProduct SearchProductByName(string name) {
 
             return data.GetproductByName(name);
@@ -81,6 +66,31 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             SystemAdmin.RecieveComplainToUser(msg, username);
         }
 
+        internal string getbasketinfo()
+        {
+            Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            return us.GetBasketInfo();
+        }
 
+        internal void buyProduct(string barcode, string store, int amount)
+        {
+            Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            Business_Layer.Product pr = DataHandler.Instance.GetProduct(barcode);
+            us.AddItemToBasket(store, pr, amount);
+            shopping.buyProduct(barcode, amount, store);
+        }
+
+        internal void removeItemfromBasket(string store, string barcode)
+        {
+            User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            us.RemoveItemFromBasket(store, DataHandler.Instance.GetProduct(barcode));
+            shopping.removeProduct(barcode, 1, store);
+        }
+
+        internal void openStore(string name, string policy)
+        {
+            User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            DataHandler.Instance.Stores.Add(us.OpenStore(policy, name));
+        }
     }
 }

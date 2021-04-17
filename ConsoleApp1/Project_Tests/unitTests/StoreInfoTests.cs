@@ -14,7 +14,7 @@ namespace Project_tests.unitTests
         public void Setup()
         {
             var member = new User("member", "member");
-            member.Login();
+        //    member.Login();
             store = OpenStore(member, "policy", "test");
             var product1 = new Product("salt", "kosher salt", 111, null);
             var product2 = new Product("tea", "black tea", 222, null);
@@ -25,10 +25,10 @@ namespace Project_tests.unitTests
             storeProducts = new Hashtable();
             AddProductToStore(member, store, product1, product1Amount);
             AddProductToStore(member, store, product2, product2Amount);
-            member.logout();
+    //        member.logout();
 
             guest = new User("guest", "guest");
-            guest.Login();
+   //         guest.Login();
         }
 
         [Test]

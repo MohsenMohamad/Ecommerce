@@ -9,8 +9,8 @@ namespace ConsoleApp1.domainLayer.Business_Layer
     {
         private string name;
         private User owner;
-        private List<User> managers;
-        private List<User> co_owners;
+        public List<User> managers { get; }
+        public List<User> co_owners { get; }
         private Hashtable inventory;
         private List<Discount> discounts;
         private String sellingpolicy;

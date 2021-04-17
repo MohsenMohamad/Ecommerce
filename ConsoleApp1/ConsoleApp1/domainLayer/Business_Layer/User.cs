@@ -21,12 +21,6 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         }
 
 
-        /*public User(string username, string password,ShoppingCart cart)
-        {
-            this.username = username;
-            this.password = password;
-            this.cart = cart;
-        }*/
         public void setShoppingchart(ShoppingCart cartt)
         {
             cart = cartt;
@@ -34,12 +28,6 @@ namespace ConsoleApp1.domainLayer.Business_Layer
 
 
 
-        //public User(string username, string password,ShoppingCart cart)
-        //{
-        //    this.username = username;
-        //    this.password = password;
-        //    this.cart = cart;
-        //}
         public string UserName { get => username; }
         public string Password { get => password; }
         public ShoppingCart Cart { get => cart;  }
@@ -67,36 +55,22 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             }
         }
 
-        public string GetBasketInfo(string store_name)
+        public string GetBasketInfo()
         {
+            string output = "--------------------------";
             for (int i = 0; i < cart.baskets.Count; i++)
             {
-                if (Cart.baskets[i].Storename.CompareTo(store_name) == 0)
-                {
-                    return cart.baskets[i].ToString();
-                }
+
+                output += cart.baskets[i].ToString() + "/n---------------------/n";
+
             }
-            return "didnt find absket for this store";
+            return output;
         }
 
 
 
       
 
-        public void Login()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-    
-
-        public void logout()
-        {
-            throw new NotImplementedException();
-        }
 
         
         public Store OpenStore(string sellpol,string name)

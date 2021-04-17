@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 
@@ -22,15 +23,20 @@ namespace Project_tests
             return real.InitiateSystem();
         }
 
-        public bool GuestLogin()
+        public User GuestLogin(string guestName, string guestPassword)
         {
-            throw new System.NotImplementedException();
+            if (real == null)
+                return null;
+            return real.GuestLogin(guestName, guestPassword);
         }
 
-        public bool GuestLogout()
+        public bool GuestLogout(User guest)
         {
-            throw new System.NotImplementedException();
+            if (real == null)
+                return true;
+            return real.GuestLogout(guest);
         }
+
 
         public bool Register(string userName, string password)
         {
@@ -39,19 +45,22 @@ namespace Project_tests
             return real.Register(userName, password);
         }
 
-        public bool MemberLogin(string name, string pass)
+        public User MemberLogin(string name, string pass)
         {
             if (real == null)
             {
-                return true;    
+                return null;    
             }
             return real.MemberLogin(name,pass);
         }
 
-        public bool MemberLogout()
+        public bool MemberLogout(User member)
         {
-            throw new System.NotImplementedException();
+            if (real == null)
+                return true;
+            return real.MemberLogout(member);
         }
+
 
         public Store OpenStore(User manager,string policy,string name)
         {
@@ -79,6 +88,13 @@ namespace Project_tests
             if (real == null)
                 return true;
             return real.AddProductToStore(manager, store, product, amount);
+        }
+
+        public List<Product> SearchFilter(User user, string sortOption, List<string> filters)
+        {
+            if (real == null)
+                return null;
+            return real.SearchFilter(user, sortOption, filters);
         }
     }
 }

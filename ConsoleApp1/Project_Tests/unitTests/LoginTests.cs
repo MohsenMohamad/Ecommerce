@@ -15,20 +15,20 @@ namespace Project_tests.unitTests
         [Test]
         public void Happy()
         {
-            Assert.True(MemberLogin("asd", "123"));
+            Assert.NotNull(MemberLogin("asd", "123"));
         }
 
         [Test]
         public void Bad()
         {
-            Assert.False(MemberLogin("asd","321"));
+            Assert.IsNull(MemberLogin("asd","321"));
         }
 
         [Test]
         public void Sad()
         {
-            Assert.True(MemberLogin("asd","123"));
-            Assert.False(MemberLogin("asd","123"));
+            Assert.NotNull(MemberLogin("asd","123"));
+            Assert.IsNull(MemberLogin("asd","123"));
         }
         
     }
