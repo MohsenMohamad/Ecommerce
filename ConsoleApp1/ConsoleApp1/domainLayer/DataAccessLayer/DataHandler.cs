@@ -114,6 +114,19 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             return output;
         }
 
+        public Store GetStoreinfo(string name)
+        {
+            for (int i = 0; i < Stores.Count; i++)
+            {
+                if (Stores[i].Name.CompareTo(name) == 0)
+                {
+                    return Stores[i];
+                }
+
+            }
+            return null;
+        }
+
         public string GetStoresInfo(string username)
         {
             string output = "the list of stores:";
@@ -146,6 +159,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             }
             return output;
         }
+
+
 
         internal void AddReview(string userName, string desc)
         {
@@ -200,6 +215,16 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
                     return true;
             }
             return false;
+        }
+
+        public User loginuser(string username, string password)
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                if (Users[i].UserName.CompareTo(username) == 0 && Users[i].Password.CompareTo(password) == 0)
+                    return Users[i];
+            }
+            return null;
         }
 
         public  bool exist(string username)

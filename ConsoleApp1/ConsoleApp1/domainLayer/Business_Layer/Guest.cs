@@ -4,14 +4,20 @@ using System.Text;
 
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    public class Guest :Person
+    public class Guest : Person
     {
         private ShoppingCart cart;
+        public bool signin;
+
         public Guest()
         {
             cart = new ShoppingCart("guest");
+            signin = false;
         }
 
+        public void login() {
+            signin = true;
+        }
         /*public Guest(ShoppingCart cart)
         {
             this.cart = cart;

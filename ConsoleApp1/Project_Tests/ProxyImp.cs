@@ -23,11 +23,11 @@ namespace Project_tests
             return real.InitiateSystem();
         }
 
-        public User GuestLogin(string guestName, string guestPassword)
+        public bool GuestLogin()
         {
             if (real == null)
-                return null;
-            return real.GuestLogin(guestName, guestPassword);
+                return false;
+            return real.GuestLogin();
         }
 
         public bool GuestLogout(User guest)
