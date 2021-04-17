@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using NUnit.Framework;
-using Tests;
 
-namespace Project_Tests.unitTests
+namespace Project_tests.unitTests
 {
     public class Uc41AddEditRemovePruduct:ATProject
     {

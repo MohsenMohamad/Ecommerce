@@ -1,9 +1,9 @@
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
-using NUnit.Framework;
 
 
 namespace Project_tests
@@ -112,9 +112,11 @@ namespace Project_tests
                 return null;
             return real.GetCartByStore(user, store);
         }
-            {
-                return false;    
-            }
+
+        public bool initSystem(SystemAdmin admin)
+        {
+            if (real == null)
+                return false;
             return real.initSystem(admin);
         }
 
@@ -144,16 +146,7 @@ namespace Project_tests
             }
             return real.updateProductsInShop( user,shopName,product,amount);
         }
-
-        public bool OpenStore(User user, string sellpol, string storeName)
-        {
-            if (real == null)
-            {
-                return false;    
-            }
-            return real.OpenStore( user,sellpol,storeName);
-        }
-
+        
         public List<string> getPaymentInfo(User owner,string storeName)
         {
             if (real == null)
@@ -312,6 +305,21 @@ namespace Project_tests
             }
 
             return real.getStorePurchaseHistory(ownerUser, store);
+        }
+
+        public bool loginUser(string name, string pass)
+        {
+            if (real == null)
+                return false;
+            return real.loginUser(name, pass);
+        }
+
+        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
+            List<Category> categories)
+        {
+            if (real == null)
+                return false;
+            return real.uc_4_1_addEditRemovePruduct(storeOwnerName, storeName, productName, desc, amount, categories);
         }
 
         public List<string> getInfo(User ownerUser, Store store)

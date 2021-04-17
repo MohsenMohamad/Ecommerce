@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using ConsoleApp1;
@@ -91,12 +92,7 @@ namespace Project_tests
         {
             return service.updateProductsInShop(user, shopName, product, amount);
         }
-
-        protected bool OpenStore(User user, string sellpol, string storeName)
-        {
-            return service.OpenStore(user, sellpol, storeName);
-        }
-
+        
         protected List<string> getPaymentInfo(User owner, string storeName)
         {
             return service.getPaymentInfo(owner, storeName);
