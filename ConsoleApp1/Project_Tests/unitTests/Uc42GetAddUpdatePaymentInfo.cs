@@ -23,7 +23,9 @@ namespace Project_Tests.unitTests
             admin = new SystemAdmin();
             initSystem(admin);
             
-            user = new User("user", "userPass");
+            //user = new User("user", "userPass");
+            signUpGuest("user","userPass");
+            user = loginGuest("user","userPass");
             
             initialPolicy = "10% sales";
             storeName = "helloMarket";

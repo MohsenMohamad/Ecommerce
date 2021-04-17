@@ -18,9 +18,12 @@ namespace Project_Tests.unitTests
         {
             admin = new SystemAdmin();
             initSystem(admin);
-            ownerUser = new User("user0", "userPass");
+            //ownerUser = new User("user0", "userPass");
+            signUpGuest("user0","userPass");
+            ownerUser = loginGuest("user0", "userPass");
+            
             signUpGuest("user1","user1");
-            storeName = "amazon";
+            storeName = "ToysRus";
             OpenStore(ownerUser,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
         }

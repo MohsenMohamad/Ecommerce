@@ -24,9 +24,10 @@ namespace Project_Tests.unitTests
             admin = new SystemAdmin();
             initSystem(admin);
             
-            user = new User("user", "userPass");
+            //user = new User("user", "userPass");
             storeName = "helloWorldMarket";
-            
+            signUpGuest("user","userPass");
+            user = loginGuest("user","userPass");
             OpenStore(user,"", storeName);
             productName = "shampoo";
             product = new Product("shampoo",productName,1,new List<Category>());

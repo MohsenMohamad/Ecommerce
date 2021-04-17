@@ -19,19 +19,19 @@ namespace Project_Tests.unitTests
             admin = new SystemAdmin();
             initSystem(admin);
             
-            ownerUser = new User("user0", "userPass");
+            //ownerUser = new User("user0", "userPass");
+            signUpGuest("user0","userPass");
+            ownerUser = loginGuest("user0", "userPass");
             
             signUpGuest("user1","user1");
             signUpGuest("user2","user2");
             signUpGuest("user3", "user3");
 
-            storeName = "ebay";
+            storeName = "ebay2";
            
             
             OpenStore(ownerUser,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
-            
-                
         }
 
         [Test]

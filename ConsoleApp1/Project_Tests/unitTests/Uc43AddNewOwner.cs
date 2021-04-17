@@ -18,7 +18,9 @@ namespace Project_Tests.unitTests
             admin = new SystemAdmin();
             initSystem(admin);
             
-            user = new User("user0", "userPass");
+            //user = new User("user0", "userPass");
+            signUpGuest("user0","userPass");
+            user = loginGuest("user0", "userPass");
             
             signUpGuest("user1","user1");
             signUpGuest("user2","user2");
@@ -30,9 +32,7 @@ namespace Project_Tests.unitTests
             
             OpenStore(user,"sellPolicy", storeName);
             store = getUsersStore(user,storeName);
-            
-                
-        }
+            }
 
         [Test]
         public void Test()
