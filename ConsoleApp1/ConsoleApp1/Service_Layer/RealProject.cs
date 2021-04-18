@@ -8,6 +8,7 @@ namespace ConsoleApp1
 {
     public class RealProject : GenInterface
     {
+        private SystemAdmin admin;
         public bool AddProductToStore(User manager, Store store, Product product, int amount)
         {
             store.addProduct(product, amount);
@@ -38,7 +39,9 @@ namespace ConsoleApp1
 
         public bool InitiateSystem()
         {
-            throw new System.NotImplementedException();
+            admin = new SystemAdmin();
+            this.admin = admin;
+            return true;
         }
 
         public User MemberLogin(string name, string pass)
@@ -78,6 +81,7 @@ namespace ConsoleApp1
 
         public List<Product> GetCartByStore(User user, Store store)
         {
+
             throw new System.NotImplementedException();
         }
 
@@ -88,39 +92,116 @@ namespace ConsoleApp1
 
         public bool signUpGuest(string name, string pass)
         {
-            throw new System.NotImplementedException();
+            if (!DataHandler.Instance.exist(name))
+            {
+                DataHandler.Instance.register(name,pass);
+                return true;
+            }
+
+            return false;
         }
 
         public Store getUsersStore(User user, string storeName)
         {
-            throw new System.NotImplementedException();
+            List<Store> stores = DataHandler.Instance.Stores;
+            foreach (Store st in stores)
+            {
+                if (st.Name == storeName && (IsOwner(storeName, user.UserName) || IsManger(storeName,user.UserName) ))
+                {
+                    return st;
+                }
+            }
+
+            return null;
         }
 
         public bool AddNewOwner(User user, Store store, string newOwnerName)
         {
-            throw new System.NotImplementedException();
+            List<Store> stores = DataHandler.Instance.Stores;
+            foreach (Store st in stores)
+            {
+                if (st.Name == store.Name)
+                {
+                    return st.AddOwner(user);
+                }
+            }
+            return false;
         }
 
         public bool IsOwner(Store store, string ownerName)
         {
-            throw new System.NotImplementedException();
+            return IsOwner(store.Name, ownerName);
+        }
+        public bool IsOwner(string storeName, string ownerName)
+        {
+            List<Store> stores = DataHandler.Instance.Stores;
+            foreach (Store st in stores)
+            {
+                if (st.Name == storeName)
+                {
+                    foreach (User owner in st.co_owners)
+                    {
+                        if (owner.UserName == ownerName)
+                        {
+                            return true;
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
         public User loginGuest(string name, string pass)
         {
-            throw new System.NotImplementedException();
+            foreach (User user in DataHandler.Instance.Users)
+            {
+                if (user.UserName == name && user.Password == pass)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public bool AddNewManger(User user, Store store, string newMangerName)
         {
-            throw new System.NotImplementedException();
+            List<Store> stores = DataHandler.Instance.Stores;
+            foreach (Store st in stores)
+            {
+                if (st.Name == store.Name)
+                {
+                    return st.AddManager(user);
+                }
+            }
+
+            return false;
         }
 
         public bool IsManger(Store store, string mangerName)
         {
-            throw new System.NotImplementedException();
+            return IsManger(store.Name, mangerName);
         }
 
+        public bool IsManger(string storeName, string mangerName)
+        {
+            List<Store> stores = DataHandler.Instance.Stores;
+            foreach (Store st in stores)
+            {
+                if (st.Name == storeName)
+                {
+                    foreach (User manger in st.managers)
+                    {
+                        if (manger.UserName == mangerName)
+                        {
+                            return true;
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
         public List<string> getMangerResponsibilities(User user, Store store, string newMangerName)
         {
             throw new System.NotImplementedException();
@@ -153,6 +234,7 @@ namespace ConsoleApp1
 
         public bool loginUser(string name, string pass)
         {
+            
             throw new System.NotImplementedException();
         }
 
@@ -164,17 +246,33 @@ namespace ConsoleApp1
 
         public bool initSystem(SystemAdmin admin)
         {
-            throw new System.NotImplementedException();
+            admin = new SystemAdmin();
+            this.admin = admin;
+            return true;
         }
 
         public bool addProductsToShop(User user, string shopName, Product product, int amount)
         {
-            throw new System.NotImplementedException();
+            Store store = getUsersStore(user, shopName);
+            if (store != null)
+            {
+                store.addProduct(product, amount);
+                return true;
+            }
+
+            return false;
         }
 
         public bool removeProductsInShop(User user, string shopName, Product product)
         {
-            throw new System.NotImplementedException();
+            Store store = getUsersStore(user, shopName);
+            if (store != null)
+            {
+                store.RemoveProduct(product);
+                return true;
+            }
+
+            return false;
         }
 
         public bool updateProductsInShop(User user, string shopName, Product product, int amount)
@@ -184,17 +282,33 @@ namespace ConsoleApp1
 
         public List<string> getPaymentInfo(User owner, string storeName)
         {
-            throw new System.NotImplementedException();
+            Store store = getUsersStore(owner, storeName);
+            return store.paymentInfo;
         }
 
         public List<string> addPaymentInfo(User owner, string storeName, string info)
         {
-            throw new System.NotImplementedException();
+            Store store = getUsersStore(owner, storeName);
+            if (store != null)
+            {
+                
+                List<string> newInfo = store.paymentInfo;
+                newInfo.Add(info);
+                store.paymentInfo = newInfo;
+                return store.paymentInfo ;
+            }
+            return null;
         }
 
         public List<string> updatePaymentInfo(User owner, string storeName, List<string> allInfo)
         {
-            throw new System.NotImplementedException();
+            Store store = getUsersStore(owner, storeName);
+            if (store != null)
+            {
+                store.paymentInfo = allInfo;
+                return store.paymentInfo ;
+            }
+            return null;
         }
     }
 }

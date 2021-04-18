@@ -7,7 +7,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
 {
     public class Store
     {
-        private string name;
+        private string name { get; }
         private User owner;
         public List<User> managers { get; }
         public List<User> co_owners { get; }
@@ -16,6 +16,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
         private String sellingpolicy;
         public List<Purchase> history { get; }
         public List<string> msgs;
+        public List<string> paymentInfo{ get; set; }
 
         public Store(User owner,String sellpol,string name)
         {
@@ -129,6 +130,16 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             if (inventory.ContainsKey(pr) && (int)inventory[pr] >= amount)
             {
                 inventory[pr] = (int)inventory[pr] - amount;
+                return true;
+            }
+            return false;
+
+        }
+        public bool RemoveProduct(Product pr)
+        {
+            if (inventory.ContainsKey(pr))
+            {
+                inventory[pr] = 0;
                 return true;
             }
             return false;
