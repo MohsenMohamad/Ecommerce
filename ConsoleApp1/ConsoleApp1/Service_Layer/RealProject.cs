@@ -10,20 +10,35 @@ namespace ConsoleApp1.Service_Layer
     public class RealProject : GenInterface
     {
         private SystemAdmin admin;
-        public bool AddProductToStore(User manager, Store store, Product product, int amount)
+        public bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
         {
-            store.addProduct(product, amount);
-            return true;
+            
+            foreach (var store in DataHandler.Instance.Stores)
+            {
+                if (store.Name.Equals(storeName))
+                {
+                    foreach (var product in DataHandler.Instance.Products)
+                    {
+                        if (product.Barcode.Equals(productCode))
+                        {
+                            store.addProduct(product,amount);
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            return false;
         }
 
-        public bool CheckStoreInventory(Store store, Hashtable products)
+        public bool CheckStoreInventory(string storeName, Hashtable products)
         {
             throw new System.NotImplementedException();
         }
 
-        public Store GetStoreInfo(User user, string name)
+        public Store GetStoreInfo(string userName, string storeName)
         {
-            return DataHandler.Instance.GetStoreinfo(name);
+            return DataHandler.Instance.GetStoreinfo(storeName);
         }
 
         public bool GuestLogin()
@@ -33,7 +48,7 @@ namespace ConsoleApp1.Service_Layer
             return g1.signin;
         }
 
-        public bool GuestLogout(User guest)
+        public bool GuestLogout()
         {
             throw new System.NotImplementedException();
         }
@@ -45,42 +60,47 @@ namespace ConsoleApp1.Service_Layer
             return true;
         }
 
-        public User MemberLogin(string name, string pass)
+        public bool UserLogin(string name, string password)
         {
-            return DataHandler.Instance.loginuser(name, pass);
+            return DataHandler.Instance.loginuser(name, password)!=null;
         }
 
-        public bool MemberLogout(User member)
+        public bool UserLogout(string name)
         {
             throw new System.NotImplementedException();
         }
 
-        public Store OpenStore(User manager, string policy, string name)
+        public bool OpenStore(string managerName, string policy, string storeName)
         {
-            return manager.OpenStore(policy, name);
+            foreach (var user in DataHandler.Instance.Users)
+            {
+                if (user.UserName.Equals(managerName))
+                    return user.OpenStore(policy, storeName) != null;
+            }
+            return false;
         }
 
-        public bool Register(string userName, string password)
+        public bool Register(string name, string password)
         {
-            if (DataHandler.Instance.exist(userName))
+            if (DataHandler.Instance.exist(name))
             {
                 return false;
             }
-            DataHandler.Instance.register(userName, password);
+            DataHandler.Instance.register(name, password);
             return true;
         }
 
-        public List<Product> SearchFilter(User user, string sortOption, List<string> filters)
+        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool AddProductToCart(User user, Store store, Product product)
+        public bool AddProductToCart(string userName, string storeName, int productCode)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<Product> GetCartByStore(User user, Store store)
+        public List<Product> GetCartByStore(string userName, string storeName)
         {
             throw new System.NotImplementedException();
         }

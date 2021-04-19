@@ -22,7 +22,7 @@ namespace Project_Tests.AcceptanceTests
             signUpGuest("user1","user1");
             signUpGuest("user2","user2");
             storeName = "aliExpress";
-            OpenStore(ownerUser,"sellPolicy", storeName);
+            OpenStore(ownerUser.UserName,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
         }
 

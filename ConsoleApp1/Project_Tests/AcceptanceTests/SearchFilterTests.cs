@@ -7,7 +7,7 @@ namespace Project_Tests.AcceptanceTests
 {
     public class SearchFilterTests : ATProject
     {
-        private User guest;
+        
         private Product product1;
         private Product product2;
         private Product product3;
@@ -16,8 +16,10 @@ namespace Project_Tests.AcceptanceTests
         [SetUp]
         public void Setup()
         {
-            var member = new User("member", "member");
-            var store = OpenStore(member, "policy", "test store");
+            Register("member", "member");
+            UserLogin("member", "member");
+            
+            OpenStore("member", "policy", "test store");
             product1 = new Product("tomato", "vegetables&fruit", 20, null);
             product2 = new Product("tomato sauce", "canned", 100, null);
             product3 = new Product("salt", "kosher salt", 111, null);
@@ -26,25 +28,25 @@ namespace Project_Tests.AcceptanceTests
             const int product2Amount = 2;
             const int product3Amount = 3;
             const int product4Amount = 4;
-            AddProductToStore(member, store, product1, product1Amount);
-            AddProductToStore(member, store, product2, product2Amount);
-            AddProductToStore(member, store, product3, product3Amount);
-            AddProductToStore(member, store, product4, product4Amount);
-        //    guest = GuestLogin("guest", "guest");
+            AddProductToStore("member", "test store", product1.Barcode, product1Amount);
+            AddProductToStore("member", "test store", product2.Barcode, product2Amount);
+            AddProductToStore("member", "test store", product3.Barcode, product3Amount);
+            AddProductToStore("member", "test store", product4.Barcode, product4Amount);
+
+            UserLogout("member");
+            GuestLogin();
         }
 
         [Test]
         public void Happy()
         {
             var filters = new List<string> {"name : tea"};
-            var result = SearchFilter(guest, null, filters);
+            var result = SearchFilter(null, null, filters);
             Assert.NotNull(result);
             Assert.True(result.Count == 1);
-            var resultProduct = result[0];
-            Assert.Equals(resultProduct.Name, product4.Name);
-            Assert.Equals(resultProduct.Barcode, product4.Barcode);
-            Assert.Equals(resultProduct.Description, product4.Description);
-            Assert.Equals(resultProduct.Categories, product4.Categories);
+            var resultProductCode = result[0];
+            Assert.Equals(resultProductCode, product4.Barcode);
+
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace Project_Tests.AcceptanceTests
         {
             // the user searched for an existing item but he got a wrong result
             var filters = new List<string> {"name : salt"};
-            var result = SearchFilter(guest, null, filters);
+            var result = SearchFilter(null, null, filters);
             Assert.IsNotEmpty(result);
             
 
@@ -63,7 +65,7 @@ namespace Project_Tests.AcceptanceTests
         {
             // product should not appear twice if it exists in more than one store
             var filters = new List<string> {"name : salt"};
-            var result = SearchFilter(guest, null, filters);
+            var result = SearchFilter(null, null, filters);
             Assert.True(result.Count == 1);
             
         }

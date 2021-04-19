@@ -21,54 +21,64 @@ namespace Project_tests
             return service.InitiateSystem();
         }
 
-        protected bool Register(string userName, string password)
+        protected bool Register(string name, string password)
         {
-            return service.Register(userName, password);
+            return service.Register(name, password);
         }
 
         protected bool GuestLogin()
         {
             return service.GuestLogin();
         }
-
-        protected User MemberLogin(string name, string pass)
+        
+        protected bool GuestLogout()
         {
-            return service.MemberLogin(name, pass);
+            return service.GuestLogout();
         }
 
-        protected Store OpenStore(User manager, string policy, string name)
+        protected bool UserLogin(string name, string password)
         {
-            return service.OpenStore(manager, policy, name);
+            return service.UserLogin(name, password);
         }
 
-        protected bool AddProductToStore(User manager, Store store, Product product, int amount)
+        protected bool UserLogout(string name)
         {
-            return service.AddProductToStore(manager, store, product, amount);
+            return service.UserLogout(name);
         }
 
-        protected Store GetStoreInfo(User user, string name)
+        protected bool OpenStore(string managerName, string policy, string storeName)
         {
-            return service.GetStoreInfo(user, name);
+            return service.OpenStore(managerName, policy, storeName);
+        }
+        
+        protected Store GetStoreInfo(string userName, string storeName)
+        {
+            return service.GetStoreInfo(userName, storeName);
         }
 
-        protected bool CheckStoreInventory(Store store, Hashtable products)
+        protected bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
         {
-            return service.CheckStoreInventory(store, products);
+            return service.AddProductToStore(managerName, storeName, productCode, amount);
         }
 
-        protected List<Product> SearchFilter(User user, string sortOption, List<string> filters)
+        protected bool CheckStoreInventory(string storeName, Hashtable products)
         {
-            return service.SearchFilter(user, sortOption, filters);
+            return service.CheckStoreInventory(storeName, products);
         }
 
-        protected bool AddProductToCart(User user, Store store, Product product)
+        protected List<string> SearchFilter(string userName, string sortOption, List<string> filters)
         {
-            return service.AddProductToCart(user, store, product);
+            return service.SearchFilter(userName, sortOption, filters);
         }
 
-        protected List<Product> GetCartByStore(User user, Store store)
+        protected bool AddProductToCart(string userName, string storeName, int productCode)
         {
-            return service.GetCartByStore(user, store);
+            return service.AddProductToCart(userName, storeName, productCode);
+        }
+
+        protected List<Product> GetCartByStore(string userName, string storeName)
+        {
+            return service.GetCartByStore(userName, storeName);
         }
 
         protected bool initSystem(SystemAdmin admin)

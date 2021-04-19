@@ -6,9 +6,7 @@ namespace Project_tests.ConcurrencyTests
 {
     public class ConcurrentOwner : ATProject
     {
-        private Store store1;
-        private Store store2;
-
+    /*
         [SetUp]
         public void Setup()
         {
@@ -16,11 +14,12 @@ namespace Project_tests.ConcurrencyTests
             Register("manager2", "manager2");
             Register("asd", "123");
             Register("dsa", "321");
-            var manager = MemberLogin("manager1", "manager1");
-            store1 = OpenStore(manager,"policy","store6");
+            UserLogin("manager1", "manager1");
+            
+            OpenStore("manager1","policy","store6");
             // logout
-            manager = MemberLogin("manager2", "manager2");
-            store2 = OpenStore(manager, "policy", "store7");
+            UserLogin("manager2", "manager2");
+            OpenStore("manager2", "policy", "store7");
             // logout
         }
 
@@ -32,12 +31,12 @@ namespace Project_tests.ConcurrencyTests
             var result1 = false;
             var result2 = false;
             
-            var manager1 = MemberLogin("manager1","manager1");
-            var task1 = Task.Factory.StartNew(() => result1 = AddNewOwner(manager1, store1, "asd"));
+            var manager1 = UserLogin("manager1","manager1");
+            var task1 = Task.Factory.StartNew(() => result1 = AddNewOwner(manager1, "store6", "asd"));
             // logout
             
-            var manager2 = MemberLogin("manager2","manager2");
-            var task2 = Task.Factory.StartNew(() => result2 = AddNewOwner(manager2, store2, "asd"));
+            var manager2 = UserLogin("manager2","manager2");
+            var task2 = Task.Factory.StartNew(() => result2 = AddNewOwner("manager2","store7" ,"asd"));
             // logout
 
             Task.WaitAll(task1, task2);
@@ -53,11 +52,11 @@ namespace Project_tests.ConcurrencyTests
             var result1 = false;
             var result2 = false;
             
-            var manager1 = MemberLogin("manager1","manager1");
+            var manager1 = UserLogin("manager1","manager1");
             var task1 = Task.Factory.StartNew(() => result1 = AddNewOwner(manager1, store1, "dsa"));
             // logout
             
-            var manager2 = MemberLogin("manager2","manager2");
+            var manager2 = UserLogin("manager2","manager2");
             var task2 = Task.Factory.StartNew(() => result2 = AddNewOwner(manager2, store1, "dsa"));
             // logout
 
@@ -66,5 +65,6 @@ namespace Project_tests.ConcurrencyTests
             Assert.True(result1 ^ result2);
             
         }
+        */
     }
 }

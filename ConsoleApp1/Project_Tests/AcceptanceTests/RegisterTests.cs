@@ -14,6 +14,8 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
+            // register new users
+            
             Assert.True(Register("dsa", "321"));
             Assert.True(Register("aaa", "111"));
             Assert.True(Register("bbb", "222"));
@@ -22,13 +24,15 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Sad()
         {
-            Assert.NotNull(MemberLogin("asd","123"));
-            Assert.IsNull(MemberLogin("asd","123"));
+            // try to register existing users
+            
+            Assert.True(Register("asd","123"));
+            Assert.False(Register("asd","123"));
         }
 
         public void ShouldFail()
         {
-            Assert.False(Register("adam", "adam"));
+            Assert.False(Register(null, null));
         }
 
     }

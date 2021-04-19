@@ -29,7 +29,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "ebay2";
            
             
-            OpenStore(ownerUser,"sellPolicy", storeName);
+            OpenStore(ownerUser.UserName,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
         }
 

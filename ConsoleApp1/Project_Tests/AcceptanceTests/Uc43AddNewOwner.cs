@@ -30,7 +30,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "storeName";
            
             
-            OpenStore(user,"sellPolicy", storeName);
+            OpenStore(user.UserName,"sellPolicy", storeName);
             store = getUsersStore(user,storeName);
             }
 

@@ -31,7 +31,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "helloMarket";
             emptyList = new List<string>();
             
-            OpenStore(user,initialPolicy, storeName);
+            OpenStore(user.UserName,initialPolicy, storeName);
             info = new List<string>();
         }
 
