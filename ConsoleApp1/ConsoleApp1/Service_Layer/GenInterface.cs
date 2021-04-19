@@ -14,6 +14,7 @@ namespace ConsoleApp1.Service_Layer
         bool Register(string name, string password);    //
         bool UserLogin(string name, string password);   //
         bool UserLogout(string name);   //
+        string LoggedInUserName(); // return the logged in user username , return null if he is a guest
         bool OpenStore(string managerName, string policy, string storeName);    //
         Store GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //

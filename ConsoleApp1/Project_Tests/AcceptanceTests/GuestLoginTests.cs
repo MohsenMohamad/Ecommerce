@@ -16,7 +16,7 @@ namespace Project_Tests.AcceptanceTests
         public void Happy()
         {
             Assert.True(GuestLogin());
-            Assert.False(!GuestLogin());
+            Assert.IsNull(LoggedInUserName());
         }
 
     }
