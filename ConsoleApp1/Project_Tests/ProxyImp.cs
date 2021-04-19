@@ -63,6 +63,13 @@ namespace Project_tests
             return real.UserLogout(name);
         }
 
+        public string LoggedInUserName()
+        {
+            if (real == null)
+                return null;
+            return real.LoggedInUserName();
+        }
+
 
         public bool OpenStore(string managerName,string policy,string storeName)
         {

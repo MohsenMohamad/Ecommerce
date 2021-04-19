@@ -48,6 +48,11 @@ namespace Project_tests
             return service.UserLogout(name);
         }
 
+        protected string LoggedInUserName()
+        {
+            return service.LoggedInUserName();
+        }
+        
         protected bool OpenStore(string managerName, string policy, string storeName)
         {
             return service.OpenStore(managerName, policy, storeName);

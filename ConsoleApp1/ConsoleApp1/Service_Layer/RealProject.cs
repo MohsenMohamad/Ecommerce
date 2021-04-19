@@ -69,6 +69,11 @@ namespace ConsoleApp1
             throw new System.NotImplementedException();
         }
 
+        public string LoggedInUserName()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool OpenStore(string managerName, string policy, string storeName)
         {
             foreach (var user in DataHandler.Instance.Users)
