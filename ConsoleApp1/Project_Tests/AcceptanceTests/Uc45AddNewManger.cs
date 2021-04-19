@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
 using NUnit.Framework;
+using Project_tests;
 
-
-namespace Project_tests.unitTests
+namespace Project_Tests.AcceptanceTests
 {
-    public class Uc46UpdateMangerResponsibilities:ATProject
+    public class Uc45AddNewManger:ATProject
     {
         private static SystemAdmin admin;
         private static User user;
@@ -22,39 +21,29 @@ namespace Project_tests.unitTests
             //user = new User("user0", "userPass");
             signUpGuest("user0","userPass");
             user = loginGuest("user0", "userPass");
-            
             signUpGuest("user1","user1");
             signUpGuest("user2","user2");
             signUpGuest("user3", "user3");
 
-            storeName = "ebay";
+            storeName = "<myStoreName";
            
             
             OpenStore(user,"sellPolicy", storeName);
             store = getUsersStore(user,storeName);
-            
-                
         }
 
         [Test]
         public void Test()
         {
             //happy
-            string newMangerName = "user1";
-            string newRespon = "newResp";
-            Assert.True(AddNewManger(user, store, newMangerName));
-            Assert.True(IsManger(store, newMangerName));
-            List<string> responsibilities = getMangerResponsibilities(user, store,newMangerName);
-            responsibilities.Add(newRespon);
-
-            Assert.True(updateMangerResponsibilities(user, storeName, responsibilities));
-            Assert.Equals(responsibilities, getMangerResponsibilities(user, store, newMangerName));
+            string newOwnerName = "user1";
             
-            
+            Assert.True(AddNewManger(user, store, newOwnerName));
+            Assert.True(IsManger(store, newOwnerName));
             
             //bad
-            responsibilities.Remove(newRespon);
-            Assert.AreNotEqual(responsibilities, getMangerResponsibilities(user, store, newMangerName));
+            User userNewOwner = loginGuest(newOwnerName, "user1");
+            Assert.False(AddNewManger(userNewOwner, store, "user0"));
             
         }
        

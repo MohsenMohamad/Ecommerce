@@ -1,6 +1,7 @@
 using NUnit.Framework;
+using Project_tests;
 
-namespace Project_tests.unitTests
+namespace Project_Tests.AcceptanceTests
 {
     public class RegisterTests : ATProject
     {
