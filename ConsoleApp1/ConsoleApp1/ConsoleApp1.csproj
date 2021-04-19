@@ -52,26 +52,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="domainLayer\Business_Layer\Basket.cs" />
-    <Compile Include="domainLayer\Business_Layer\Category.cs" />
-    <Compile Include="domainLayer\Business_Layer\Discount.cs" />
-    <Compile Include="domainLayer\Business_Layer\Guest.cs" />
-    <Compile Include="domainLayer\Business_Layer\Person.cs" />
-    <Compile Include="domainLayer\Business_Layer\Product.cs" />
-    <Compile Include="domainLayer\Business_Layer\Purchase.cs" />
-    <Compile Include="domainLayer\Business_Layer\ShoppingCart.cs" />
-    <Compile Include="domainLayer\Business_Layer\Store.cs" />
-    <Compile Include="domainLayer\Business_Layer\User.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\DAProduct.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\DataHandler.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\ReviewDao.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\ShoppingHandler.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\StoreAdministration.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\StoreDao.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\SystemAdmin.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\UserDao.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\ModelDB.cs" />
-    <Compile Include="domainLayer\DataAccessLayer\UserSystemHandler.cs" />
+    <Compile Include="DataAccessLayer\DAProduct.cs" />
+    <Compile Include="DataAccessLayer\DataHandler.cs" />
+    <Compile Include="DataAccessLayer\ModelDB.cs" />
+    <Compile Include="DataAccessLayer\ReviewDao.cs" />
+    <Compile Include="DataAccessLayer\ShoppingHandler.cs" />
+    <Compile Include="DataAccessLayer\StoreAdministration.cs" />
+    <Compile Include="DataAccessLayer\StoreDao.cs" />
+    <Compile Include="DataAccessLayer\SystemAdmin.cs" />
+    <Compile Include="DataAccessLayer\UserDao.cs" />
+    <Compile Include="DataAccessLayer\UserSystemHandler.cs" />
+    <Compile Include="domainLayer\Basket.cs" />
+    <Compile Include="domainLayer\Category.cs" />
+    <Compile Include="domainLayer\Discount.cs" />
+    <Compile Include="domainLayer\Guest.cs" />
+    <Compile Include="domainLayer\Person.cs" />
+    <Compile Include="domainLayer\Product.cs" />
+    <Compile Include="domainLayer\Purchase.cs" />
+    <Compile Include="domainLayer\ShoppingCart.cs" />
+    <Compile Include="domainLayer\Store.cs" />
+    <Compile Include="domainLayer\User.cs" />
+    <Compile Include="EventLogs\ErrorLog.cs" />
+    <Compile Include="EventLogs\EventLog.cs" />
+    <Compile Include="ExternalServices\ExternalFinanceService.cs" />
+    <Compile Include="ExternalServices\ExternalSupplyService.cs" />
+    <Compile Include="ExternalServices\Mockups\ExternalFinanceServiceMock.cs" />
+    <Compile Include="ExternalServices\Mockups\ExternalSupplyServiceMock.cs" />
+    <Compile Include="ExternalServices\ProductFinanceServiceAdapter.cs" />
+    <Compile Include="ExternalServices\ProductSupplyServiceAdapter.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />
     <Compile Include="Service_Layer\RealProject.cs" />
     <Compile Include="Service_Layer\System.cs" />
@@ -80,6 +88,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Encryption" />
+    <Folder Include="NetworkLayer" />
+    <Folder Include="presentationLayer" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

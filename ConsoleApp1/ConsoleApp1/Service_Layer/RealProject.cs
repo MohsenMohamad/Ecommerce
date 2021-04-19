@@ -81,7 +81,6 @@ namespace ConsoleApp1
 
         public List<Product> GetCartByStore(User user, Store store)
         {
-
             throw new System.NotImplementedException();
         }
 
@@ -229,13 +228,20 @@ namespace ConsoleApp1
 
         public List<string> getStorePurchaseHistory(User ownerUser, Store store)
         {
-            throw new System.NotImplementedException();
+            Store s = getUsersStore(ownerUser, store.Name);
+            if (s != null)
+            {
+                List<string> list = new List<string>();
+                list.Add(s.history.ToString());
+                return list; 
+            }
+
+            return null;
         }
 
         public bool loginUser(string name, string pass)
         {
-            
-            throw new System.NotImplementedException();
+            return DataHandler.Instance.loginuser(name, pass) != null;
         }
 
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,

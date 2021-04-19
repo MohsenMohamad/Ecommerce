@@ -104,6 +104,12 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             }
         }
 
+        internal void addStore(Store store)
+        {
+            Stores.Add(store);
+        }
+        
+        
         public string GetStoresInfo()
         {
             string output = "the list of stores:";
