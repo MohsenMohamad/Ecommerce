@@ -1,9 +1,10 @@
-﻿using ConsoleApp1.domainLayer.Business_Layer;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using ConsoleApp1.DataAccessLayer;
+using ConsoleApp1.domainLayer.Business_Layer;
+using ConsoleApp1.domainLayer.DataAccessLayer;
 
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+namespace ConsoleApp1.domainLayer
 {
     public class DataHandler
     {

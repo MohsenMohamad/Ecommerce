@@ -53,17 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer\DAProduct.cs" />
-    <Compile Include="DataAccessLayer\DataHandler.cs" />
     <Compile Include="DataAccessLayer\ModelDB.cs" />
     <Compile Include="DataAccessLayer\ReviewDao.cs" />
-    <Compile Include="DataAccessLayer\ShoppingHandler.cs" />
-    <Compile Include="DataAccessLayer\StoreAdministration.cs" />
     <Compile Include="DataAccessLayer\StoreDao.cs" />
-    <Compile Include="DataAccessLayer\SystemAdmin.cs" />
     <Compile Include="DataAccessLayer\UserDao.cs" />
-    <Compile Include="DataAccessLayer\UserSystemHandler.cs" />
     <Compile Include="domainLayer\Basket.cs" />
     <Compile Include="domainLayer\Category.cs" />
+    <Compile Include="domainLayer\DataHandler.cs" />
     <Compile Include="domainLayer\Discount.cs" />
     <Compile Include="domainLayer\Guest.cs" />
     <Compile Include="domainLayer\Person.cs" />
@@ -80,6 +76,11 @@
     <Compile Include="ExternalServices\Mockups\ExternalSupplyServiceMock.cs" />
     <Compile Include="ExternalServices\ProductFinanceServiceAdapter.cs" />
     <Compile Include="ExternalServices\ProductSupplyServiceAdapter.cs" />
+    <Compile Include="presentationLayer\Facade.cs" />
+    <Compile Include="presentationLayer\ShoppingHandler.cs" />
+    <Compile Include="presentationLayer\StoreAdministration.cs" />
+    <Compile Include="presentationLayer\SystemAdmin.cs" />
+    <Compile Include="presentationLayer\UserSystemHandler.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />
     <Compile Include="Service_Layer\RealProject.cs" />
     <Compile Include="Service_Layer\System.cs" />
@@ -92,7 +93,6 @@
   <ItemGroup>
     <Folder Include="Encryption" />
     <Folder Include="NetworkLayer" />
-    <Folder Include="presentationLayer" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

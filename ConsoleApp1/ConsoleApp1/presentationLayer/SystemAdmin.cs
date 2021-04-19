@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ConsoleApp1.domainLayer;
+using ConsoleApp1.domainLayer.DataAccessLayer;
 
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+namespace ConsoleApp1.presentationLayer
 {
     public class SystemAdmin
     {
@@ -32,7 +31,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         {
             for (int i = 0; i < data.Users.Count; i++)
             {
-                if (((Business_Layer.User)data.Users[i]).UserName.CompareTo(username) == 0)
+                if (((domainLayer.Business_Layer.User)data.Users[i]).UserName.CompareTo(username) == 0)
                 {
                     data.Users.RemoveAt(i);
                     return true;
@@ -60,9 +59,9 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         {
             for (int i = 0; i < data.Users.Count; i++)
             {
-                if (((Business_Layer.User)data.Users[i]).UserName.CompareTo(username) == 0)
+                if (((domainLayer.Business_Layer.User)data.Users[i]).UserName.CompareTo(username) == 0)
                 {
-                    return ((Business_Layer.User)data.Users[i]).GetPersonalPurchaseHistory();
+                    return ((domainLayer.Business_Layer.User)data.Users[i]).GetPersonalPurchaseHistory();
 
         }
             }
@@ -83,12 +82,12 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         {
             for (int i = 0; i < DataHandler.Instance.Users.Count; i++)
             {
-                if (((Business_Layer.User)DataHandler.Instance.Users[i]).UserName.CompareTo(username) == 0)
-                    ((Business_Layer.User)DataHandler.Instance.Users[i]).ReceiveMsg(msg);
+                if (((domainLayer.Business_Layer.User)DataHandler.Instance.Users[i]).UserName.CompareTo(username) == 0)
+                    ((domainLayer.Business_Layer.User)DataHandler.Instance.Users[i]).ReceiveMsg(msg);
             }
         }
 
-        internal Business_Layer.Store GetStore(string storename)
+        internal domainLayer.Business_Layer.Store GetStore(string storename)
         {
             for (int i = 0; i < data.Stores.Count; i++)
             {

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ConsoleApp1.DataAccessLayer;
+using ConsoleApp1.domainLayer;
+using ConsoleApp1.domainLayer.DataAccessLayer;
 
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+namespace ConsoleApp1.presentationLayer
 {
     public class StoreAdministration
     {
@@ -16,10 +16,10 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool Add_inventory(string barcode ,int amount)
         {
-            Business_Layer.Product pr = getProduct(barcode);
+            domainLayer.Business_Layer.Product pr = getProduct(barcode);
             if (pr != null)
             {
-                Business_Layer.Store st = getStore(currentstore.Name);
+                domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
                 if (st != null)
                 {
                     st.addProduct(pr, amount);
@@ -30,7 +30,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         }
 
-        private Business_Layer.Store getStore(string name)
+        private domainLayer.Business_Layer.Store getStore(string name)
         {
             for (int i = 0; i < data.Stores.Count; i++)
             {
@@ -41,7 +41,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             return null;
         }
 
-        private Business_Layer.Product getProduct(string barcode)
+        private domainLayer.Business_Layer.Product getProduct(string barcode)
         {
             for (int i = 0; i < data.Products.Count; i++)
             {
@@ -52,9 +52,9 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             return null;
         }
 
-        public bool AddDiscount(Business_Layer.Discount dc)
+        public bool AddDiscount(domainLayer.Business_Layer.Discount dc)
         {
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (st != null)
             {
                 st.AddDiscount(dc);
@@ -65,7 +65,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool RemoveDiscount(string barcode)
         {
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (st != null)
             {
                 for (int i = 0; i < st.discounts.Count; i++)
@@ -82,8 +82,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool addManager(string username)
         {
-            Business_Layer.User us = data.getUser(username);
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.User us = data.getUser(username);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (us != null&&st!=null)
             {
                 return st.AddManager(us);
@@ -92,8 +92,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         }
         public bool RemoveManager(string username)
         {
-            Business_Layer.User us = data.getUser(username);
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.User us = data.getUser(username);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (us != null && st != null)
             {
                 return st.RemoveManager(us);
@@ -103,8 +103,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool addOwner(string username)
         {
-            Business_Layer.User us = data.getUser(username);
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.User us = data.getUser(username);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (us != null && st != null)
             {
                 return st.AddOwner(us);
@@ -113,26 +113,26 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         }
         public bool removeOwner(string username)
         {
-            Business_Layer.User us = data.getUser(username);
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.User us = data.getUser(username);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (us != null && st != null)
             {
                 return st.RemoveOwner(us);
             }
             return false;
         }
-        public bool AddPurchase(Business_Layer.Purchase pr)
+        public bool AddPurchase(domainLayer.Business_Layer.Purchase pr)
         {
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (st != null)
             {
                 return st.AddPurchase(pr);
             }
             return false;
         }
-        public bool RemovePurchase(Business_Layer.Purchase pr)
+        public bool RemovePurchase(domainLayer.Business_Layer.Purchase pr)
         {
-            Business_Layer.Store st = getStore(currentstore.Name);
+            domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
             if (st != null)
             {
                 return st.RemovePurchase(pr);
@@ -142,10 +142,10 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool check_inventory(string barcode)
         {
-            Business_Layer.Product pr = getProduct(barcode);
+            domainLayer.Business_Layer.Product pr = getProduct(barcode);
             if (pr != null)
             {
-                Business_Layer.Store st = getStore(currentstore.Name);
+                domainLayer.Business_Layer.Store st = getStore(currentstore.Name);
                 if (st != null)
                 {
                    int x= st.Checkinventory(pr);

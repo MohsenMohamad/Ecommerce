@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ConsoleApp1.DataAccessLayer;
+using ConsoleApp1.domainLayer;
 using ConsoleApp1.domainLayer.Business_Layer;
+using ConsoleApp1.domainLayer.DataAccessLayer;
 
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+namespace ConsoleApp1.presentationLayer
 {
     public class UserSystemHandler
     {
@@ -18,7 +18,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             data = DataHandler.Instance;
             shopping = new ShoppingHandler(logged_in_user.UserName);
         }
-        private Business_Layer.User get_Bussines_user()
+        private domainLayer.Business_Layer.User get_Bussines_user()
         {
             return data.getUser(logged_in_user.UserName);
             //equals null if user isnt found
@@ -68,14 +68,14 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         internal string getbasketinfo()
         {
-            Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            domainLayer.Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
             return us.GetBasketInfo();
         }
 
         internal void buyProduct(string barcode, string store, int amount)
         {
-            Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
-            Business_Layer.Product pr = DataHandler.Instance.GetProduct(barcode);
+            domainLayer.Business_Layer.User us = DataHandler.Instance.getUser(logged_in_user.UserName);
+            domainLayer.Business_Layer.Product pr = DataHandler.Instance.GetProduct(barcode);
             us.AddItemToBasket(store, pr, amount);
             shopping.buyProduct(barcode, amount, store);
         }

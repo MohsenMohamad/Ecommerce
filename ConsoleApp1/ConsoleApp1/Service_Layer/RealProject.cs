@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using ConsoleApp1.domainLayer;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
+using ConsoleApp1.presentationLayer;
 
-namespace ConsoleApp1
+namespace ConsoleApp1.Service_Layer
 {
     public class RealProject : GenInterface
     {
@@ -250,12 +252,22 @@ namespace ConsoleApp1
             throw new System.NotImplementedException();
         }
 
+       
+
         public bool initSystem(SystemAdmin admin)
         {
+            
             admin = new SystemAdmin();
             this.admin = admin;
             return true;
         }
+
+        /*public bool initSystem(SystemAdmin admin)
+        {
+            admin = new SystemAdmin();
+            this.admin = admin;
+            return true;
+        }*/
 
         public bool addProductsToShop(User user, string shopName, Product product, int amount)
         {

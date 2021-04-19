@@ -1,24 +1,24 @@
-﻿using ConsoleApp1.domainLayer.Business_Layer;
+﻿using System;
+using ConsoleApp1.DataAccessLayer;
+using ConsoleApp1.domainLayer;
+using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+namespace ConsoleApp1.presentationLayer
 {
     public class ShoppingHandler
     {
         public UserDao user;
         private DataHandler data;
-        public Business_Layer.Purchase purchase;
+        public domainLayer.Business_Layer.Purchase purchase;
         public ShoppingHandler(string username) {
             data = DataHandler.Instance;
-            purchase = new Business_Layer.Purchase();
-            Business_Layer.User us = data.getUser(username);
+            purchase = new domainLayer.Business_Layer.Purchase();
+            domainLayer.Business_Layer.User us = data.getUser(username);
             if(us!=null)
             user = new UserDao(username, us.Password);
         }
-        private Business_Layer.Store getStore(string name)
+        private domainLayer.Business_Layer.Store getStore(string name)
         {
             for (int i = 0; i < data.Stores.Count; i++)
             {
@@ -30,8 +30,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
         }
         public bool buyProduct(string  barcode,int amount,string store_name)
         {
-            Business_Layer.Product pr = getProduct(barcode);
-            Business_Layer.Store st = getStore(store_name);
+            domainLayer.Business_Layer.Product pr = getProduct(barcode);
+            domainLayer.Business_Layer.Store st = getStore(store_name);
             if (pr != null&&st!=null&&st.Checkinventory(pr)>=amount)
             {
                 this.purchase.addProduct(pr, amount);
@@ -45,8 +45,8 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
 
         public bool removeProduct(string barcode, int amount, string store_name)
         {
-            Business_Layer.Product pr = getProduct(barcode);
-            Business_Layer.Store st = getStore(store_name);
+            domainLayer.Business_Layer.Product pr = getProduct(barcode);
+            domainLayer.Business_Layer.Store st = getStore(store_name);
             if (pr != null && st != null)
             {
                 this.purchase.removeProduct(pr, amount);
@@ -67,7 +67,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             return true;
         }
 
-        public Business_Layer.Purchase checkout()
+        public domainLayer.Business_Layer.Purchase checkout()
         {
             purchase.date = DateTime.Now;
             int purchaseType = getPurchaseType();
@@ -129,7 +129,7 @@ namespace ConsoleApp1.domainLayer.DataAccessLayer
             throw new NotImplementedException();
         }
 
-        private Business_Layer.Product getProduct(string barcode)
+        private domainLayer.Business_Layer.Product getProduct(string barcode)
         {
             for (int i = 0; i < data.Products.Count; i++)
             {

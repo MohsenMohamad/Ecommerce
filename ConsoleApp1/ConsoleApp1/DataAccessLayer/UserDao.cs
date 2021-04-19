@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConsoleApp1.domainLayer.DataAccessLayer
+﻿namespace ConsoleApp1.DataAccessLayer
 {
     public class UserDao
     {

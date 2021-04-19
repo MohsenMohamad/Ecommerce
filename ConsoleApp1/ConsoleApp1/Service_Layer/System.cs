@@ -1,13 +1,12 @@
-﻿using ConsoleApp1.domainLayer.Business_Layer;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
+using ConsoleApp1.DataAccessLayer;
+using ConsoleApp1.domainLayer;
+using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.domainLayer.DataAccessLayer;
+using ConsoleApp1.presentationLayer;
 
-namespace ConsoleApp1
+namespace ConsoleApp1.Service_Layer
 {
     class Program
     {

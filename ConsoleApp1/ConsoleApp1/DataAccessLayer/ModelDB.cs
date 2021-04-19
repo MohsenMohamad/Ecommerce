@@ -1,11 +1,11 @@
-using ConsoleApp1.domainLayer.Business_Layer;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Collections.Generic;
 using System.Linq;
+using ConsoleApp1.domainLayer.Business_Layer;
 
-namespace ConsoleApp1
+namespace ConsoleApp1.DataAccessLayer
 {
     public class ModelDB : DbContext
     {
