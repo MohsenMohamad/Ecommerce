@@ -8,19 +8,21 @@ namespace ConsoleApp1
 {
     public interface GenInterface
     {
-        bool InitiateSystem();
-        bool GuestLogin();
-        bool GuestLogout(User guest);
-        bool Register(string userName, string password);
-        User MemberLogin(string name, string pass);
-        bool MemberLogout(User member);
-        Store OpenStore(User manager, string policy, string name);
-        Store GetStoreInfo(User user, string name);
-        bool CheckStoreInventory(Store store, Hashtable products);
-        bool AddProductToStore(User manager, Store store, Product product, int amount);
-        List<Product> SearchFilter(User user, string sortOption, List<string> filters);
-        bool AddProductToCart(User user, Store store, Product product);
-        List<Product> GetCartByStore(User user, Store store);
+        bool InitiateSystem(); //
+        bool GuestLogin();  //
+        bool GuestLogout(); //
+        bool Register(string name, string password);    //
+        bool UserLogin(string name, string password);   //
+        bool UserLogout(string name);   //
+        bool OpenStore(string managerName, string policy, string storeName);    //
+        Store GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
+        bool CheckStoreInventory(string storeName, Hashtable products); //
+        bool AddProductToStore(string managerName, string storeName, int productCode, int amount);  //
+        List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
+        bool AddProductToCart(string userName, string storeName, int productCode);  //
+        List<Product> GetCartByStore(string userName, string storeName);
+        
+        
         ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
         bool signUpGuest(string name, string pass);
         Store getUsersStore(User user, string storeName);

@@ -7,16 +7,19 @@ namespace Project_Tests.AcceptanceTests
 {
     public class StoreInfoTests : ATProject
     {
-        private User guest;
-        private Store store;
+        
         private Hashtable storeProducts;
+        private const string StoreName = "test";
+        private const string TestOwnerName = "member";
+        private const string TestOwnerPassword = "member";
+        private const string TestStorePolicy = "policy";
 
         [SetUp]
         public void Setup()
         {
-            var member = new User("member", "member");
-        //    member.Login();
-            store = OpenStore(member, "policy", "test");
+            Register(TestOwnerName, TestOwnerPassword);
+            UserLogin(TestOwnerName, TestOwnerPassword);
+            OpenStore(TestOwnerName, TestStorePolicy, StoreName);
             var product1 = new Product("salt", "kosher salt", 111, null);
             var product2 = new Product("tea", "black tea", 222, null);
             const int product1Amount = 2;
@@ -24,23 +27,23 @@ namespace Project_Tests.AcceptanceTests
             storeProducts = new Hashtable();
             storeProducts.Add(product1, product1Amount);
             storeProducts.Add(product2, product2Amount);
-            AddProductToStore(member, store, product1, product1Amount);
-            AddProductToStore(member, store, product2, product2Amount);
-    //        member.logout();
+            AddProductToStore(TestOwnerName, StoreName, product1.Barcode, product1Amount);
+            AddProductToStore(TestOwnerName, StoreName, product2.Barcode, product2Amount);
+            UserLogout(TestOwnerName);
 
-            guest = new User("guest", "guest");
-   //         guest.Login();
+            GuestLogin();
+            
         }
 
         [Test]
         public void Happy()
         {
-            var testInfo = GetStoreInfo(guest, store.Name);
+            var testInfo = GetStoreInfo(null, StoreName);
             Assert.NotNull(testInfo);
-            Assert.Equals(testInfo.Name, store.Name);
-            Assert.Equals(testInfo.Owner, store.Owner);
-            Assert.Equals(testInfo.SellingPolicy, store.SellingPolicy);
-            Assert.True(CheckStoreInventory(testInfo, storeProducts));
+            Assert.Equals(testInfo.Name, StoreName);
+            Assert.Equals(testInfo.Owner, TestOwnerName);
+            Assert.Equals(testInfo.SellingPolicy, TestStorePolicy);
+            Assert.True(CheckStoreInventory(testInfo.Name, storeProducts));
         }
 
         [Test]
@@ -57,7 +60,7 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void ShouldFail()
         {
-            var info = GetStoreInfo(guest, "non-existing_store");
+            var info = GetStoreInfo(null, "non-existing_store");
             Assert.IsNull(info);
         }
     }

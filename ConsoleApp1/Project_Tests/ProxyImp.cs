@@ -32,85 +32,85 @@ namespace Project_tests
             return real.GuestLogin();
         }
 
-        public bool GuestLogout(User guest)
+        public bool GuestLogout()
         {
             if (real == null)
                 return true;
-            return real.GuestLogout(guest);
+            return real.GuestLogout();
         }
 
 
-        public bool Register(string userName, string password)
+        public bool Register(string name, string password)
         {
             if (real == null)
                 return true;
-            return real.Register(userName, password);
+            return real.Register(name, password);
         }
 
-        public User MemberLogin(string name, string pass)
+        public bool UserLogin(string name, string password)
         {
             if (real == null)
             {
-                return null;    
+                return true;    
             }
-            return real.MemberLogin(name,pass);
+            return real.UserLogin(name,password);
         }
 
-        public bool MemberLogout(User member)
+        public bool UserLogout(string name)
         {
             if (real == null)
                 return true;
-            return real.MemberLogout(member);
+            return real.UserLogout(name);
         }
 
 
-        public Store OpenStore(User manager,string policy,string name)
-        {
-            if (real == null)
-                return null;
-            return real.OpenStore(manager,policy,name);
-        }
-
-        public Store GetStoreInfo(User user, string name)
-        {
-            if (real == null)
-                return null;
-            return real.GetStoreInfo(user, name);
-        }
-
-        public bool CheckStoreInventory(Store store, Hashtable products)
+        public bool OpenStore(string managerName,string policy,string storeName)
         {
             if (real == null)
                 return true;
-            return real.CheckStoreInventory(store, products);
+            return real.OpenStore(managerName,policy,storeName);
         }
 
-        public bool AddProductToStore(User manager, Store store, Product product, int amount)
-        {
-            if (real == null)
-                return true;
-            return real.AddProductToStore(manager, store, product, amount);
-        }
-
-        public List<Product> SearchFilter(User user, string sortOption, List<string> filters)
+        public Store GetStoreInfo(string userName, string storeName)
         {
             if (real == null)
                 return null;
-            return real.SearchFilter(user, sortOption, filters);
+            return real.GetStoreInfo(userName, storeName);
         }
 
-        public bool AddProductToCart(User user, Store store, Product product)
+        public bool CheckStoreInventory(string storeName, Hashtable products)
         {
             if (real == null)
                 return true;
-            return real.AddProductToCart(user, store, product);
+            return real.CheckStoreInventory(storeName, products);
         }
 
-        public List<Product> GetCartByStore(User user, Store store)
+        public bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
+        {
+            if (real == null)
+                return true;
+            return real.AddProductToStore(managerName, storeName, productCode, amount);
+        }
+
+        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
         {
             if (real == null)
                 return null;
-            return real.GetCartByStore(user, store);
+            return real.SearchFilter(userName, sortOption, filters);
+        }
+
+        public bool AddProductToCart(string userName, string storeName, int productCode)
+        {
+            if (real == null)
+                return true;
+            return real.AddProductToCart(userName, storeName, productCode);
+        }
+
+        public List<Product> GetCartByStore(string userName, string storeName)
+        {
+            if (real == null)
+                return null;
+            return real.GetCartByStore(userName, storeName);
         }
 
         public bool initSystem(SystemAdmin admin)

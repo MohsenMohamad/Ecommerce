@@ -17,14 +17,17 @@ namespace Project_tests.ConcurrencyTests
         {
             // opening two stores with different names by the same user at the same time
 
-            var manager1 = MemberLogin("asd", "123");
+            UserLogin("asd", "123");
+            
             var result1 = false;
             var result2 = false;
 
-            var task1 = Task.Factory.StartNew(() => result1 = OpenStore(manager1,"policy","store1")!=null);
-            var task2 = Task.Factory.StartNew(() => result2 = OpenStore(manager1,"policy","store2")!=null);
+            var task1 = Task.Factory.StartNew(() => result1 = OpenStore("asd","policy","store1"));
+            var task2 = Task.Factory.StartNew(() => result2 = OpenStore("asd","policy","store2"));
 
             Task.WaitAll(task1, task2);
+
+            UserLogout("asd");
             
             Assert.True(result1 & result2);
 
@@ -36,14 +39,14 @@ namespace Project_tests.ConcurrencyTests
             // opening two stores by different users with the same store name
             
             var result1 = false;
-            var manager1 = MemberLogin("asd", "123");
-            var task1 = Task.Factory.StartNew(() => result1 = OpenStore(manager1,"policy","store3")!=null);
-            // logout ?
+            UserLogin("asd", "123");
+            var task1 = Task.Factory.StartNew(() => result1 = OpenStore("asd","policy","store3"));
+            UserLogout("asd");
 
             var result2 = false;
-            var manager2 = MemberLogin("dsa", "321");
-            var task2 = Task.Factory.StartNew(() => result2 = OpenStore(manager2,"policy","store3")!=null);
-            // logout ?
+            UserLogin("dsa", "321");
+            var task2 = Task.Factory.StartNew(() => result2 = OpenStore("dsa","policy","store3"));
+            UserLogout("dsa");
 
             Task.WaitAll(task1, task2);
             

@@ -28,7 +28,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "helloWorldMarket";
             signUpGuest("user","userPass");
             user = loginGuest("user","userPass");
-            OpenStore(user,"", storeName);
+            OpenStore(user.UserName,"", storeName);
             productName = "shampoo";
             product = new Product("shampoo",productName,1,new List<Category>());
             product2 = new Product("pringles",productName,1,new List<Category>());

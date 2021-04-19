@@ -16,26 +16,32 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
-            Assert.NotNull(MemberLogin("asd", "123"));
-            Assert.NotNull(MemberLogin("adam", "adam"));
-        }
-
-        [Test]
-        public void Bad()
-        {
-            Assert.IsNull(MemberLogin("asd","321"));
-            Assert.IsNull(MemberLogin("adam", "123"));
-            Assert.IsNull(MemberLogin("asd", "adam"));
-            Assert.IsNull(MemberLogin("adam", "321"));
-
-
+            Assert.True(UserLogin("asd", "123"));
+            UserLogout("asd");
+            Assert.True(UserLogin("adam", "adam"));
+            UserLogout("adam");
         }
 
         [Test]
         public void Sad()
         {
-            Assert.NotNull(MemberLogin("asd","123"));
-            Assert.IsNull(MemberLogin("asd","123"));
+            // login with the wrong password OR username
+            
+            Assert.False(UserLogin("asd","321"));
+            Assert.False(UserLogin("adam", "123"));
+            Assert.False(UserLogin("asd", "adam"));
+            Assert.False(UserLogin("adam", "321"));
+
+
+        }
+
+        [Test]
+        public void Bad()
+        {
+            // a logged in user trying to login again
+            
+            Assert.True(UserLogin("asd","123"));
+            Assert.False(UserLogin("asd","123"));
         }
 
         

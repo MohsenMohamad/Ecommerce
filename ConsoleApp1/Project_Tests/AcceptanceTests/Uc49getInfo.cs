@@ -23,7 +23,7 @@ namespace Project_Tests.AcceptanceTests
             
             signUpGuest("user1","user1");
             storeName = "ToysRus";
-            OpenStore(ownerUser,"sellPolicy", storeName);
+            OpenStore(ownerUser.UserName,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
         }
 
