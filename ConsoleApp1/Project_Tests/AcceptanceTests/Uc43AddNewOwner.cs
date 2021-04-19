@@ -1,9 +1,9 @@
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.presentationLayer;
 using NUnit.Framework;
+using Project_tests;
 
-
-namespace Project_tests.unitTests
+namespace Project_Tests.AcceptanceTests
 {
     public class Uc43AddNewOwner:ATProject
     {

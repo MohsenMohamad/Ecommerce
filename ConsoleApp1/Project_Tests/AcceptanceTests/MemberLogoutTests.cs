@@ -1,4 +1,4 @@
-﻿namespace Project_tests.unitTests
+﻿namespace Project_Tests.AcceptanceTests
 {
     public class MemberLogoutTests
     {
