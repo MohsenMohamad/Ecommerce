@@ -1,60 +1,84 @@
 ﻿using Microsoft.Owin.Hosting;
-using SuperWebSocket;
+using Fleck;
 using System;
 using System.Threading;
+using ServerApi.DataObserver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ServiceApi
 {
     class Program
     {
         private static WebSocketServer wsServer;
-        
+
 
         static void Main(string[] args)
         {
-            wsServer = new WebSocketServer();
             int port = 8088;
-            wsServer.Setup(port);
-            wsServer.NewSessionConnected += WsServer_NewSessionConnected;
-            wsServer.NewMessageReceived += WsServer_NewMessageReceived;
-            wsServer.NewDataReceived += WsServer_NewDataReceived;
-            wsServer.SessionClosed += WsServer_SessionClosed;
-            wsServer.Start();
+            var server = new WebSocketServer("ws://0.0.0.0:8088");
             Console.WriteLine("Server is running on port " + port + ". Press ENTER to exit....");
+            
+            List<ObserverUser> ls = new List<ObserverUser>();
+            server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    if (socket.ConnectionInfo.Path.ToString().Contains("user"))
+                    {
+                        string info = socket.ConnectionInfo.Path.ToString().Replace("/?user=", "");
+                        int id = int.Parse(info);
+                        List<ObserverUser> res = ls.Where(x => x.user_id == id).ToList();
+                        for (int i = 0; i < res.Count; i++)
+                        {
+                            try
+                            {
+                                res[i].socket.Close();
+                            }
+                            catch { }
+                        }
+                        ls.RemoveAll(x => x.user_id == id);
+                        ls.Add(new ObserverUser(id, socket));
+                        if (id == -1) socket.Close();
+                        Console.WriteLine("Open! - " + id);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Open! - " + "server");
+                    }
+                };
+                socket.OnClose = () =>
+                {
+                    if (socket.ConnectionInfo.Path.ToString().Contains("user"))
+                    {
+                        string info = socket.ConnectionInfo.Path.ToString().Replace("/?user=", "");
+                        int id = int.Parse(info);
+                        ls.RemoveAll(x => x.user_id == id);
+                        Console.WriteLine("Close! - " + id);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Open! - " + "server");
+                    }
+                };
+                socket.OnMessage = message =>
+                {
+                    //userid#msg
+
+                    string[] cmd = message.Split('#');
+                    int id = int.Parse(cmd[0]);
+                    List<ObserverUser> res = ls.Where(x => x.user_id == id).ToList();
+                    if (res.Count > 0) res[0].notify(cmd[1]);
+
+                    Console.WriteLine(message + " " + res.Count);
+                };
+            });
             Console.ReadKey();
-            /*try
-            {
-                Run();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-            }*/
+
         }
 
-        private static void WsServer_SessionClosed(WebSocketSession session, SuperSocket.SocketBase.CloseReason value)
-        {
-            Console.WriteLine("SessionClosed");
-        }
 
-        private static void WsServer_NewDataReceived(WebSocketSession session, byte[] value)
-        {
-            Console.WriteLine("NewDataReceived");
-        }
-
-        private static void WsServer_NewMessageReceived(WebSocketSession session, string value)
-        {
-            Console.WriteLine("NewMessageReceived: " + value);
-            if (value == "Hello server")
-            {
-                session.Send("Hello client");
-            }
-        }
-
-        private static void WsServer_NewSessionConnected(WebSocketSession session)
-        {
-            Console.WriteLine("NewSessionConnected");
-        }
     }
 }
+
 
