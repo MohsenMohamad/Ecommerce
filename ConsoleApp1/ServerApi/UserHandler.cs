@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServerApi
 {
-    class ShopServiceController
+    class UserHandler
     {
     }
 }
