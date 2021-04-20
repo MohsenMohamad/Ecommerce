@@ -13,6 +13,10 @@ namespace ServiceApi
         private static WebSocketServer wsServer;
 
 
+        /*use this website to test server 
+        http://websocket.org/echo.html
+        make sure that location is :
+            ws://localhost:8088*/
         static void Main(string[] args)
         {
             int port = 8088;
