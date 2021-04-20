@@ -1,16 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace ConsoleApp1.domainLayer.Business_Layer
 {
-    public interface Person
+    public abstract class Person
     {
-         
+        protected ShoppingCart shoppingCart;
 
-        void AddItemToBasket(string store_name, Product pr, int amount);
-        string GetBasketInfo();
-        void RemoveItemFromBasket(string store_name, Product pr);
-       
+        public void SetShoppingCart(ShoppingCart cart)
+        {
+            shoppingCart = cart;
+        }
+        public bool AddItemToBasket(string storeName, Product product, int amount)
+        {
+            return shoppingCart.AddProductToBasket(storeName, product, amount);
+        }
+        
+        public bool RemoveItemFromBasket(string storeName, Product product)
+        {
+            return shoppingCart.RemoveProductFromBasket(storeName, product);
+        }
+        
+        public string GetBasketInfo()
+        {
+            var output = "--------------------------";
+
+            foreach (var shoppingBasket in shoppingCart.shoppingBaskets.Values)
+            {
+                output+= shoppingBasket.ToString()+"/n---------------------/n";
+            }
+            return output;
+        }
     }
 }

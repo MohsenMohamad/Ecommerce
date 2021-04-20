@@ -44,7 +44,7 @@ namespace ConsoleApp1.Service_Layer
         public bool GuestLogin()
         {
             Guest g1 = new Guest();
-            g1.login();
+            g1.Login();
             return g1.signin;
         }
 
@@ -56,7 +56,6 @@ namespace ConsoleApp1.Service_Layer
         public bool InitiateSystem()
         {
             admin = new SystemAdmin();
-            this.admin = admin;
             return true;
         }
 

@@ -132,10 +132,10 @@ namespace ConsoleApp1.DataAccessLayer
             Console.WriteLine("insert product");
 
         }
-        public void InsertBasket(Basket pr)
+        public void InsertBasket(ShoppingBasket pr)
         {
             BasketDB p = new BasketDB();
-            p.Storename = pr.Storename;
+            p.Storename = pr.StoreName;
             p.products= new List<ProductDB>();
 
             for(int i=0; i<pr.Products.Count() ; i++) { 
