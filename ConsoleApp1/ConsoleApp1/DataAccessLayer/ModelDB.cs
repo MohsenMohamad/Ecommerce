@@ -41,7 +41,7 @@ namespace ConsoleApp1.DataAccessLayer
         [Key]
         [Required]
         public int ID { get; set; }
-        public int barcode { get; set; }
+        public string barcode { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public List<CategoryDB> Category {get ; set; }

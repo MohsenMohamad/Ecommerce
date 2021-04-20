@@ -20,10 +20,10 @@ namespace Project_Tests.AcceptanceTests
             UserLogin("member", "member");
             
             OpenStore("member", "policy", "test store");
-            product1 = new Product("tomato", "vegetables&fruit", 20, null);
-            product2 = new Product("tomato sauce", "canned", 100, null);
-            product3 = new Product("salt", "kosher salt", 111, null);
-            product4 = new Product("tea", "black tea", 222, null);
+            product1 = new Product("tomato", "vegetables&fruit", "20", null);
+            product2 = new Product("tomato sauce", "canned", "100", null);
+            product3 = new Product("salt", "kosher salt", "111", null);
+            product4 = new Product("tea", "black tea", "222", null);
             const int product1Amount = 1;
             const int product2Amount = 2;
             const int product3Amount = 3;

@@ -26,12 +26,12 @@ namespace Project_Tests.AcceptanceTests
             
             //user = new User("user", "userPass");
             storeName = "helloWorldMarket";
-            signUpGuest("user","userPass");
+            Register("user","userPass");
             user = loginGuest("user","userPass");
             OpenStore(user.UserName,"", storeName);
             productName = "shampoo";
-            product = new Product("shampoo",productName,1,new List<Category>());
-            product2 = new Product("pringles",productName,1,new List<Category>());
+            product = new Product("shampoo",productName,"1",new List<Category>());
+            product2 = new Product("pringles",productName,"1",new List<Category>());
             amount = 100;
         }
 

@@ -18,10 +18,10 @@ namespace Project_Tests.AcceptanceTests
             admin = new SystemAdmin();
             initSystem(admin);
             //ownerUser = new User("user0", "userPass");
-            signUpGuest("user0","userPass");
+            Register("user0","userPass");
             ownerUser = loginGuest("user0", "userPass");
             
-            signUpGuest("user1","user1");
+            Register("user1","user1");
             storeName = "ToysRus";
             OpenStore(ownerUser.UserName,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);

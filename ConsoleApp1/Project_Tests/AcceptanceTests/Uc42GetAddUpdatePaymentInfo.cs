@@ -24,7 +24,7 @@ namespace Project_Tests.AcceptanceTests
             initSystem(admin);
             
             //user = new User("user", "userPass");
-            signUpGuest("user","userPass");
+            Register("user","userPass");
             user = loginGuest("user","userPass");
             
             initialPolicy = "10% sales";

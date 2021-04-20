@@ -19,13 +19,13 @@ namespace Project_Tests.AcceptanceTests
             initSystem(admin);
             
             //user = new User("user0", "userPass");
-            signUpGuest("user0","userPass");
+            Register("user0","userPass");
             user = loginGuest("user0", "userPass");
             
-            signUpGuest("user1","user1");
-            signUpGuest("user2","user2");
-            signUpGuest("user3","user3");
-            signUpGuest("user4","user4");
+            Register("user1","user1");
+            Register("user2","user2");
+            Register("user3","user3");
+            Register("user4","user4");
 
             storeName = "storeName";
            

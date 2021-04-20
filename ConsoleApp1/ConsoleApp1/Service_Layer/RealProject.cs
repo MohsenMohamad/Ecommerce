@@ -10,25 +10,16 @@ namespace ConsoleApp1.Service_Layer
     public class RealProject : GenInterface
     {
         private SystemAdmin admin;
-        public bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
+        private ShoppingHandler shoppingHandler = new ShoppingHandler();
+        private StoreAdministration storeAdministration = new StoreAdministration();
+        private UserSystemHandler userSystemHandler = new UserSystemHandler("","");
+
+
+
+        public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
         {
+            return storeAdministration.AddToInventory(productCode, amount, storeName);
             
-            foreach (var store in DataHandler.Instance.Stores)
-            {
-                if (store.Name.Equals(storeName))
-                {
-                    foreach (var product in DataHandler.Instance.Products)
-                    {
-                        if (product.Barcode.Equals(productCode))
-                        {
-                            store.addProduct(product,amount);
-                            return true;
-                        }
-                    }
-                }
-            }
-            
-            return false;
         }
 
         public bool CheckStoreInventory(string storeName, Hashtable products)
@@ -38,7 +29,7 @@ namespace ConsoleApp1.Service_Layer
 
         public Store GetStoreInfo(string userName, string storeName)
         {
-            return DataHandler.Instance.GetStoreinfo(storeName);
+            return DataHandler.Instance.GetStore(storeName);
         }
 
         public bool GuestLogin()
@@ -61,7 +52,7 @@ namespace ConsoleApp1.Service_Layer
 
         public bool UserLogin(string name, string password)
         {
-            return DataHandler.Instance.loginuser(name, password)!=null;
+            return DataHandler.Instance.Login(name, password);
         }
 
         public bool UserLogout(string name)
@@ -76,22 +67,12 @@ namespace ConsoleApp1.Service_Layer
 
         public bool OpenStore(string managerName, string policy, string storeName)
         {
-            foreach (var user in DataHandler.Instance.Users)
-            {
-                if (user.UserName.Equals(managerName))
-                    return user.OpenStore(policy, storeName) != null;
-            }
-            return false;
+            return userSystemHandler.OpenStore(storeName,policy);
         }
 
         public bool Register(string name, string password)
         {
-            if (DataHandler.Instance.exist(name))
-            {
-                return false;
-            }
-            DataHandler.Instance.register(name, password);
-            return true;
+            return DataHandler.Instance.AddUser(new User(name, password));
         }
 
         public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
@@ -99,7 +80,7 @@ namespace ConsoleApp1.Service_Layer
             throw new System.NotImplementedException();
         }
 
-        public bool AddProductToCart(string userName, string storeName, int productCode)
+        public bool AddProductToCart(string userName, string storeName, string productCode)
         {
             throw new System.NotImplementedException();
         }
@@ -114,20 +95,9 @@ namespace ConsoleApp1.Service_Layer
             throw new System.NotImplementedException();
         }
 
-        public bool signUpGuest(string name, string pass)
-        {
-            if (!DataHandler.Instance.exist(name))
-            {
-                DataHandler.Instance.register(name,pass);
-                return true;
-            }
-
-            return false;
-        }
-
         public Store getUsersStore(User user, string storeName)
         {
-            List<Store> stores = DataHandler.Instance.Stores;
+            var stores = DataHandler.Instance.Stores.Values;
             foreach (Store st in stores)
             {
                 if (st.Name == storeName && (IsOwner(storeName, user.UserName) || IsManger(storeName,user.UserName) ))
@@ -141,7 +111,7 @@ namespace ConsoleApp1.Service_Layer
 
         public bool AddNewOwner(User user, Store store, string newOwnerName)
         {
-            List<Store> stores = DataHandler.Instance.Stores;
+            var stores = DataHandler.Instance.Stores.Values;
             foreach (Store st in stores)
             {
                 if (st.Name == store.Name)
@@ -158,7 +128,7 @@ namespace ConsoleApp1.Service_Layer
         }
         public bool IsOwner(string storeName, string ownerName)
         {
-            List<Store> stores = DataHandler.Instance.Stores;
+            var stores = DataHandler.Instance.Stores.Values;
             foreach (Store st in stores)
             {
                 if (st.Name == storeName)
@@ -178,7 +148,7 @@ namespace ConsoleApp1.Service_Layer
 
         public User loginGuest(string name, string pass)
         {
-            foreach (User user in DataHandler.Instance.Users)
+            foreach (User user in DataHandler.Instance.Users.Values)
             {
                 if (user.UserName == name && user.Password == pass)
                 {
@@ -190,7 +160,7 @@ namespace ConsoleApp1.Service_Layer
 
         public bool AddNewManger(User user, Store store, string newMangerName)
         {
-            List<Store> stores = DataHandler.Instance.Stores;
+            var stores = DataHandler.Instance.Stores.Values;
             foreach (Store st in stores)
             {
                 if (st.Name == store.Name)
@@ -209,7 +179,7 @@ namespace ConsoleApp1.Service_Layer
 
         public bool IsManger(string storeName, string mangerName)
         {
-            List<Store> stores = DataHandler.Instance.Stores;
+            var stores = DataHandler.Instance.Stores.Values;
             foreach (Store st in stores)
             {
                 if (st.Name == storeName)

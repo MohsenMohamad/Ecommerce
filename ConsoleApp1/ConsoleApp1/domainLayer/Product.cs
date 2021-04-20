@@ -7,9 +7,9 @@ namespace ConsoleApp1.domainLayer.Business_Layer
     public class Product
     {
         private string name,description;
-        private int barcode;
+        private string barcode;
         private List<Category> categories;
-        public Product(string name,string desc,int barcode, List<Category> categories)
+        public Product(string name,string desc,string barcode, List<Category> categories)
         {
             this.description = desc;
             this.barcode = barcode;
@@ -17,7 +17,7 @@ namespace ConsoleApp1.domainLayer.Business_Layer
             this.categories = categories;
         }
        //getters
-        public int Barcode { get => barcode;  }
+        public string Barcode { get => barcode;  }
         public string Name { get => name; }
         public string Description { get => description; }
         public List<Category> Categories { get => categories; }

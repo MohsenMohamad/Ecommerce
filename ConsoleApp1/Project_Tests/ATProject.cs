@@ -61,7 +61,7 @@ namespace Project_tests
             return service.GetStoreInfo(userName, storeName);
         }
 
-        protected bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
+        protected bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
         {
             return service.AddProductToStore(managerName, storeName, productCode, amount);
         }
@@ -76,7 +76,7 @@ namespace Project_tests
             return service.SearchFilter(userName, sortOption, filters);
         }
 
-        protected bool AddProductToCart(string userName, string storeName, int productCode)
+        protected bool AddProductToCart(string userName, string storeName, string productCode)
         {
             return service.AddProductToCart(userName, storeName, productCode);
         }
@@ -122,11 +122,7 @@ namespace Project_tests
         {
             return service.getProductsFromShop(owner, storeName);
         }
-
-        protected bool signUpGuest(string name, string pass)
-        {
-            return service.signUpGuest(name, pass);
-        }
+        
         protected User loginGuest(string name, string pass)
         {
             return service.loginGuest(name, pass);

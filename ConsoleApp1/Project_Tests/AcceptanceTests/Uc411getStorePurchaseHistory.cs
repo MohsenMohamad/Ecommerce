@@ -19,8 +19,8 @@ namespace Project_Tests.AcceptanceTests
             admin = new SystemAdmin();
             initSystem(admin);
             ownerUser = new User("user0", "userPass");
-            signUpGuest("user1","user1");
-            signUpGuest("user2","user2");
+            Register("user1","user1");
+            Register("user2","user2");
             storeName = "aliExpress";
             OpenStore(ownerUser.UserName,"sellPolicy", storeName);
             store = getUsersStore(ownerUser,storeName);
@@ -31,7 +31,7 @@ namespace Project_Tests.AcceptanceTests
         {
             User buyer1 = loginGuest("user1","user1");
             User buyer2 = loginGuest("user2","user2");
-            Product product = new Product("shampoo", "des", 15, new List<Category>());
+            Product product = new Product("shampoo", "des", "15", new List<Category>());
             addProductsToShop(ownerUser, storeName, product, 13);
 
             Assert.True(buyProduct(buyer1, store, product, 2));

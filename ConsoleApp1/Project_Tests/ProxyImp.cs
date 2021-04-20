@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using ConsoleApp1;
 using ConsoleApp1.domainLayer.Business_Layer;
 using ConsoleApp1.presentationLayer;
-using ConsoleApp1.Service_Layer;
 
 
 namespace Project_tests
@@ -93,7 +92,7 @@ namespace Project_tests
             return real.CheckStoreInventory(storeName, products);
         }
 
-        public bool AddProductToStore(string managerName, string storeName, int productCode, int amount)
+        public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
         {
             if (real == null)
                 return true;
@@ -107,7 +106,7 @@ namespace Project_tests
             return real.SearchFilter(userName, sortOption, filters);
         }
 
-        public bool AddProductToCart(string userName, string storeName, int productCode)
+        public bool AddProductToCart(string userName, string storeName, string productCode)
         {
             if (real == null)
                 return true;
@@ -194,17 +193,7 @@ namespace Project_tests
 
             return real.getProductsFromShop(owner, storeName);
         }
-
-        public bool signUpGuest(string name, string pass)
-        {
-            if (real == null)
-            {
-                return false;    
-            }
-
-            return real.signUpGuest(name, pass);
-        }
-
+        
         public Store getUsersStore(User user, string storeName)
         {
             if (real == null)

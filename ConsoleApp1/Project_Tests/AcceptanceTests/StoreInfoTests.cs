@@ -20,8 +20,8 @@ namespace Project_Tests.AcceptanceTests
             Register(TestOwnerName, TestOwnerPassword);
             UserLogin(TestOwnerName, TestOwnerPassword);
             OpenStore(TestOwnerName, TestStorePolicy, StoreName);
-            var product1 = new Product("salt", "kosher salt", 111, null);
-            var product2 = new Product("tea", "black tea", 222, null);
+            var product1 = new Product("salt", "kosher salt", "111", null);
+            var product2 = new Product("tea", "black tea", "222", null);
             const int product1Amount = 2;
             const int product2Amount = 4;
             storeProducts = new Hashtable();

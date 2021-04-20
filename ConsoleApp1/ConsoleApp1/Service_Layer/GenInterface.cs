@@ -18,14 +18,13 @@ namespace ConsoleApp1.Service_Layer
         bool OpenStore(string managerName, string policy, string storeName);    //
         Store GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //
-        bool AddProductToStore(string managerName, string storeName, int productCode, int amount);  //
+        bool AddProductToStore(string managerName, string storeName, string productCode, int amount);  //
         List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
-        bool AddProductToCart(string userName, string storeName, int productCode);  //
+        bool AddProductToCart(string userName, string storeName, string productCode);  //
         List<Product> GetCartByStore(string userName, string storeName);
         
         
         ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
-        bool signUpGuest(string name, string pass);
         Store getUsersStore(User user, string storeName);
         bool AddNewOwner(User user, Store store, string newOwnerName);
         bool IsOwner(Store store, string ownerName); 

@@ -7,54 +7,48 @@ namespace ConsoleApp1.presentationLayer
 {
     public class ShoppingHandler
     {
-        public UserDao user;
         private DataHandler data;
-        public domainLayer.Business_Layer.Purchase purchase;
-        public ShoppingHandler(string username) {
+        public Purchase purchase;
+
+        public ShoppingHandler()
+        {
             data = DataHandler.Instance;
-            purchase = new domainLayer.Business_Layer.Purchase();
-            domainLayer.Business_Layer.User us = data.getUser(username);
-            if(us!=null)
-            user = new UserDao(username, us.Password);
+            purchase = new Purchase();
+            
         }
-        private domainLayer.Business_Layer.Store getStore(string name)
-        {
-            for (int i = 0; i < data.Stores.Count; i++)
-            {
-                if (data.Stores[i].Name.CompareTo(name) == 0)
-                    return data.Stores[i];
 
-            }
-            return null;
-        }
-        public bool buyProduct(string  barcode,int amount,string store_name)
+        private Store GetStore(string name)
         {
-            domainLayer.Business_Layer.Product pr = getProduct(barcode);
-            domainLayer.Business_Layer.Store st = getStore(store_name);
-            if (pr != null&&st!=null&&st.Checkinventory(pr)>=amount)
+            return data.GetStore(name);
+        }
+
+        public bool BuyProduct(string barcode, int amount, string storeName)
+        {
+            var pr = GetProduct(barcode);
+            var st = GetStore(storeName);
+            if (pr != null && st != null && st.Checkinventory(pr) >= amount)
             {
-                this.purchase.addProduct(pr, amount);
+                purchase.addProduct(pr, amount);
                 st.RemoveProduct(pr, amount);
-
                 return true;
             }
-            
+
             return false;
         }
 
-        public bool removeProduct(string barcode, int amount, string store_name)
+        public bool RemoveProduct(string barcode, int amount, string storeName)
         {
-            domainLayer.Business_Layer.Product pr = getProduct(barcode);
-            domainLayer.Business_Layer.Store st = getStore(store_name);
+            Product pr = GetProduct(barcode);
+            Store st = GetStore(storeName);
             if (pr != null && st != null)
             {
-                this.purchase.removeProduct(pr, amount);
+                purchase.removeProduct(pr, amount);
                 st.addProduct(pr, amount);
                 return true;
             }
+
             return false;
         }
-
 
         public bool contactPaymentCompany()
         {
@@ -66,7 +60,7 @@ namespace ConsoleApp1.presentationLayer
             return true;
         }
 
-        public domainLayer.Business_Layer.Purchase checkout()
+        public Purchase checkout()
         {
             purchase.date = DateTime.Now;
             int purchaseType = getPurchaseType();
@@ -76,6 +70,7 @@ namespace ConsoleApp1.presentationLayer
                 contactDeliveryCompany();
                 return purchase;
             }
+
             return null;
         }
 
@@ -83,6 +78,7 @@ namespace ConsoleApp1.presentationLayer
         {
             throw new NotImplementedException();
         }
+
         private bool checkAgreement(int option)
         {
             if (option == 1)
@@ -91,7 +87,6 @@ namespace ConsoleApp1.presentationLayer
             }
             else if (option == 2)
             {
-
                 return suggestedPurchase(purchase);
             }
             else if (option == 3)
@@ -128,15 +123,9 @@ namespace ConsoleApp1.presentationLayer
             throw new NotImplementedException();
         }
 
-        private domainLayer.Business_Layer.Product getProduct(string barcode)
+        private Product GetProduct(string barcode)
         {
-            for (int i = 0; i < data.Products.Count; i++)
-            {
-                if (data.Products[i].Barcode.CompareTo(barcode) == 0)
-                    return data.Products[i];
-
-            }
-            return null;
+            return data.GetProduct(barcode);
         }
     }
 }
