@@ -1,6 +1,6 @@
-﻿using ConsoleApp1.domainLayer.DataAccessLayer;
+﻿using ConsoleApp1.DataAccessLayer;
 
-namespace ConsoleApp1.domainLayer.Business_Layer.UserRoles
+namespace ConsoleApp1.domainLayer.UserRoles
 {
     public class SystemAdmin
     {

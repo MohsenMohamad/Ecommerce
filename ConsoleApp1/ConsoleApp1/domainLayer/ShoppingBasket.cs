@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
-
-namespace ConsoleApp1.domainLayer.Business_Layer
+namespace ConsoleApp1.domainLayer
 {
     public class ShoppingBasket
     {

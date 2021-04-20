@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
-using ConsoleApp1.domainLayer.Business_Layer;
+using ConsoleApp1.domainLayer;
 
 namespace ConsoleApp1.DataAccessLayer
 {

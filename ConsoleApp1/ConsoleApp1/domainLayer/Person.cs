@@ -1,5 +1,5 @@
 ﻿
-namespace ConsoleApp1.domainLayer.Business_Layer
+namespace ConsoleApp1.domainLayer
 {
     public abstract class Person
     {
