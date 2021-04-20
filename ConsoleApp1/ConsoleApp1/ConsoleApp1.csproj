@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer\DAProduct.cs" />
-    <Compile Include="domainLayer\User.cs" />
     <Compile Include="EventLogs\ErrorLog.cs" />
     <Compile Include="EventLogs\EventLog.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
@@ -84,10 +83,6 @@
     <Compile Include="ExternalServices\ProductFinanceServiceAdapter.cs" />
     <Compile Include="ExternalServices\ProductSupplyServiceAdapter.cs" />
     <Compile Include="presentationLayer\Facade.cs" />
-    <Compile Include="presentationLayer\ShoppingHandler.cs" />
-    <Compile Include="presentationLayer\StoreAdministration.cs" />
-    <Compile Include="presentationLayer\SystemAdmin.cs" />
-    <Compile Include="presentationLayer\UserSystemHandler.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />
     <Compile Include="Service_Layer\RealProject.cs" />
     <Compile Include="Service_Layer\System.cs" />

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1.domainLayer;
-using ConsoleApp1.presentationLayer;
+using ConsoleApp1.domainLayer.UserRoles;
 
-namespace ConsoleApp1.Service_Layer
+namespace ConsoleApp1
 {
     public interface GenInterface
     {

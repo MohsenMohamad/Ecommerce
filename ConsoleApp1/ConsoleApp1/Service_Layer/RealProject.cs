@@ -3,9 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1.DataAccessLayer;
 using ConsoleApp1.domainLayer;
-using ConsoleApp1.presentationLayer;
+using ConsoleApp1.domainLayer.UserRoles;
 
-namespace ConsoleApp1.Service_Layer
+namespace ConsoleApp1
 {
     public class RealProject : GenInterface
     {
@@ -87,6 +87,7 @@ namespace ConsoleApp1.Service_Layer
 
         public List<Product> GetCartByStore(string userName, string storeName)
         {
+
             throw new System.NotImplementedException();
         }
 
@@ -223,20 +224,13 @@ namespace ConsoleApp1.Service_Layer
 
         public List<string> getStorePurchaseHistory(User ownerUser, Store store)
         {
-            Store s = getUsersStore(ownerUser, store.Name);
-            if (s != null)
-            {
-                List<string> list = new List<string>();
-                list.Add(s.history.ToString());
-                return list; 
-            }
-
-            return null;
+            throw new System.NotImplementedException();
         }
 
         public bool loginUser(string name, string pass)
         {
-            return DataHandler.Instance.loginuser(name, pass) != null;
+            
+            throw new System.NotImplementedException();
         }
 
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
@@ -245,22 +239,12 @@ namespace ConsoleApp1.Service_Layer
             throw new System.NotImplementedException();
         }
 
-       
-
         public bool initSystem(SystemAdmin admin)
         {
-            
             admin = new SystemAdmin();
             this.admin = admin;
             return true;
         }
-
-        /*public bool initSystem(SystemAdmin admin)
-        {
-            admin = new SystemAdmin();
-            this.admin = admin;
-            return true;
-        }*/
 
         public bool addProductsToShop(User user, string shopName, Product product, int amount)
         {
