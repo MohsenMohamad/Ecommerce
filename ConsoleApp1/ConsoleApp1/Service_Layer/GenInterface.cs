@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ConsoleApp1.domainLayer.Business_Layer;
-using ConsoleApp1.domainLayer.DataAccessLayer;
 using ConsoleApp1.presentationLayer;
 
 namespace ConsoleApp1.Service_Layer

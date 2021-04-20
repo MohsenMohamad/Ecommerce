@@ -1,6 +1,5 @@
 ﻿using ConsoleApp1.DataAccessLayer;
 using ConsoleApp1.domainLayer;
-using ConsoleApp1.domainLayer.DataAccessLayer;
 
 namespace ConsoleApp1.presentationLayer
 {

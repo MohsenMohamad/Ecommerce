@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ConsoleApp1.DataAccessLayer;
 using ConsoleApp1.domainLayer.Business_Layer;
-using ConsoleApp1.domainLayer.DataAccessLayer;
 
 namespace ConsoleApp1.domainLayer
 {
