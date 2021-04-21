@@ -1,0 +1,137 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="m1.master.cs" Inherits="WebApplication.m1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        form {
+            border: 3px solid #f1f1f1;
+        }
+        input[type=text], input[type=password] {
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .cnbtn {
+            background-color: #ec3f3f;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 49%;
+        }
+        .homestyle{
+            color:wheat;
+            background-color: #000000;
+        }
+        .lgnbtn {
+            border-style: none;
+             border-color: inherit;
+             border-width: medium;
+             background-color: #4CAF50;
+             color: white;
+             padding: 14px 20px;
+             margin: 8px 0;
+             cursor: pointer;
+            }
+        .red2 {
+        background-color : red;
+        }
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+        .loginstayl{
+            background-color: #3F69B2;
+        }
+        .container {
+            padding: 16px;
+        }
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cnbtn {
+                width: 100%;
+            }
+        }
+        .frmalg {
+            margin: auto;
+            width: 40%;
+        }
+      #Login_table {
+          width: 258px;
+          height: 43px;
+      }
+         .auto-style2 {
+            background-color : red;
+            margin-left: 1165px;
+        }
+        .auto-style3 {
+            width: 399px;
+            height: 73px;
+        }
+        .auto-style4 {
+            height: 58px;
+        }
+         .red1 {
+            color:red;
+         }
+        </style>
+<body style="height: 107px">
+    <form id="form1" runat="server">
+        Welcome to Market<asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="124px" />
+        <div>
+         <table runat="server" id="Login_table" class="auto-style3">
+                                        <tr>
+                                            <td class="auto-style4">
+                     <asp:Label ID="LabelUsername" runat="server" CssClass="red1" Text="what's Your UserName ?"></asp:Label>
+                                            </td>
+                                            <td class="auto-style4">
+                 <asp:Label ID="LabelPasword" runat="server" CssClass="red1" Text="what's Your Password ?"></asp:Label>
+                                            </td>
+                                            <td class="auto-style4">
+                                                &nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="auto-style4">
+                                                <asp:TextBox ID="txtusername" CssClass="txt" placeholder="Enter Username" runat="server" Style="text-align: center" Width="150px" ></asp:TextBox></td>
+                                            <td class="auto-style4">
+                                                <asp:TextBox ID="txtpassword" TextMode="Password" CssClass="txt" placeholder="Enter Password" Style="text-align: center" runat="server" Width="150px"></asp:TextBox></td>
+                                            <td class="auto-style4">
+                                                <asp:Button ID="btnlogin" runat="server" Text="Login" CssClass="loginstayl" Height="41px" Width="143px" OnClick="btnlogin_Click"  /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align: left; text-decoration: underline;"><a href="../Register.aspx" style="text-decoration: underline; color: #2093ad"><span>click here to register</span></a></td>
+                                        </tr>
+                                    </table>
+         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
