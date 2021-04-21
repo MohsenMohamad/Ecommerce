@@ -9,8 +9,11 @@ namespace WebApplication.Code
 {
 
 
-    public class system
+    public class System
     {
+
+
+
         private const string server_domain = "https://localhost:8088/api";
         public enum Service_type { USER, SHOP, TRANSACTION }
 

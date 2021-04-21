@@ -7,12 +7,13 @@ namespace WebApplication.Code
 {
     public class UserHandler
     {
-    }
+
+        public  UserHandler(){}
 
     public int Register(string username, string password)
     {
         string param = string.Format("username={0}&password={1}", username, password);
-        return int.Parse(SysTools.SendApi(SysTools.Service_type.USER, "Register", param));
+        return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
     }
-
+}
 }

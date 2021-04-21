@@ -67,8 +67,6 @@ namespace ServiceApi
                 };
                 socket.OnMessage = message =>
                 {
-                    //userid#msg
-
                     string[] cmd = message.Split('#');
                     int id = int.Parse(cmd[0]);
                     List<ObserverUser> res = ls.Where(x => x.user_id == id).ToList();

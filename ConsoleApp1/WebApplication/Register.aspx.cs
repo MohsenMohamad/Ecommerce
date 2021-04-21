@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebApplication.Code;
 
 namespace WebApplication
 {
@@ -24,6 +25,7 @@ namespace WebApplication
         {
             if ((txt_Username.Text.Trim().Length != 0) && (txt_password.Text.Trim().Length != 0))
             {
+                int msg = new UserHandler().Register(txt_Username.Text, txt_password.Text);
                 Response.Redirect("~/Home.aspx");
             }
             else
