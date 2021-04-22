@@ -104,7 +104,7 @@
         </style>
 <body style="height: 107px">
     <form id="form1" runat="server">
-        Welcome to Market<asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="124px" />
+        Welcome to Market<asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="124px" OnClick="ButtonLogOut_Click" />
         <div>
          <table runat="server" id="Login_table" class="auto-style3">
                                         <tr>

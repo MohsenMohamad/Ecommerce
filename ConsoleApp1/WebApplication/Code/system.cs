@@ -14,7 +14,7 @@ namespace WebApplication.Code
 
 
 
-        private const string server_domain = "https://localhost:8088/api";
+        private const string server_domain = "https://localhost:44300/api";
         public enum Service_type { USER, SHOP, TRANSACTION }
 
         public static string SendApi(Service_type type, string method_name, string Parameters)

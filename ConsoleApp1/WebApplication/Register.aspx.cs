@@ -26,7 +26,13 @@ namespace WebApplication
             if ((txt_Username.Text.Trim().Length != 0) && (txt_password.Text.Trim().Length != 0))
             {
                 int msg = new UserHandler().Register(txt_Username.Text, txt_password.Text);
-                Response.Redirect("~/Home.aspx");
+                if (msg == 1)
+                {
+                    Response.Redirect("~/Home.aspx");
+                }
+                else {
+                    LabelUsername.Visible = true;
+                }
             }
             else
             {
