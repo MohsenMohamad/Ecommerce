@@ -21,11 +21,20 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public int login(string username, string password)
+        public int Login(string username, string password)
         {
             return real.loginUser(username, password) == true ? 1 : 0;
         }
-
+        [HttpGet]
+        public int Logout(string username, string password)
+        {
+            return real.loginUser(username, password) == true ? 1 : 0;
+        }
+        [HttpGet]
+        public int AddNewOwner(string mangerName, string storename, string newOwner)
+        {
+            return real.AddNewOwner(mangerName, storename, newOwner) == true ? 1 : 0;
+        }
 
 
     }

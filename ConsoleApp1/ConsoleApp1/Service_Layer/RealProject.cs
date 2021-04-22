@@ -122,6 +122,10 @@ namespace ConsoleApp1
             }
             return false;
         }
+        public bool AddNewOwner(string user, string store, string newOwnerName)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public bool IsOwner(Store store, string ownerName)
         {
