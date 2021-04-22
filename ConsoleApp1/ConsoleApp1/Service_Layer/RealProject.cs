@@ -176,6 +176,20 @@ namespace ConsoleApp1
 
             return false;
         }
+        public bool AddNewManger(string userName, string store, string newMangerName)
+        {
+            var stores = DataHandler.Instance.Stores.Values;
+            User user = DataHandler.Instance.GetUser(userName);
+            foreach (Store st in stores)
+            {
+                if (st.Name == store)
+                {
+                    return st.AddManager(user);
+                }
+            }
+
+            return false;
+        }
 
         public bool IsManger(Store store, string mangerName)
         {
@@ -230,7 +244,7 @@ namespace ConsoleApp1
         {
             throw new System.NotImplementedException();
         }
-
+        //todo
         public bool loginUser(string name, string pass)
         {
             return true;

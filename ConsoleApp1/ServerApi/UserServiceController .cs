@@ -35,6 +35,11 @@ namespace ServerApi
         {
             return real.AddNewOwner(mangerName, storename, newOwner) == true ? 1 : 0;
         }
+        [HttpGet]
+        public int AddNewManager(string userName, string storeName, string NewOwnerName, string permissions)
+        {   //todo split the permitions and make dataStructures that saves the permistions
+            return real.AddNewManger(userName, storeName, NewOwnerName) == true ? 1 : 0;
+        }
 
 
     }

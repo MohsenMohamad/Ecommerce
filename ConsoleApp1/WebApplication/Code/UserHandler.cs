@@ -30,5 +30,10 @@ namespace WebApplication.Code
             string param = string.Format("mangerName={0}&storename={1}&newOwner={2}", mangerName, storename, newOwner);
             return int.Parse(System.SendApi(System.Service_type.USER, "AddNewOwner", param));
         }
+        public int AddNewManger(string userName, string storeName, string NewOwnerName, string permissions)
+        {
+            string param = string.Format("userName={0}&storeName={1}&NewOwnerName={2}&permissions={3}", userName, storeName, permissions);
+            return int.Parse(System.SendApi(System.Service_type.USER, "AddNewManger", param));
+        }
     }
 }
