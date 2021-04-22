@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebApplication.Code;
 
 namespace WebApplication
 {
@@ -23,25 +24,48 @@ namespace WebApplication
         {
             if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
             {
-                ButtonLogOut.Visible = true;
-                Login_table.Visible = false;
-                Session["isLogin"] = "true";
-            }
-            else
-            {
+                string msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
+                if (msg != null)
+                {
+                    Login_table.Visible = false;
+                    Session["username"] = txtusername.Text;
+                    Session["userid"] = msg;
+                    Session["isLogin"] = "true";
+                    ButtonLogOut.Visible = true;
+                    //todo make sure of that
+                    Login_table.Visible = true;
 
-                if (txtusername.Text.Trim().Length == 0)
-                {
-                    if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
-                    LabelUsername.Visible = true;
+                    Session["basket"] = null;
+                    Response.Redirect(Request.RawUrl);
                 }
-                if (txtpassword.Text.Trim().Length == 0)
+                else
                 {
-                    if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
-                    LabelPasword.Visible = true;
+
                 }
             }
-        }
+                
+            
+                /*if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
+                {
+                    ButtonLogOut.Visible = true;
+                    Login_table.Visible = false;
+                    Session["isLogin"] = "true";
+                }
+                else
+                {
+
+                    if (txtusername.Text.Trim().Length == 0)
+                    {
+                        if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
+                        LabelUsername.Visible = true;
+                    }
+                    if (txtpassword.Text.Trim().Length == 0)
+                    {
+                        if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
+                        LabelPasword.Visible = true;
+                    }
+                }*/
+            }
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {

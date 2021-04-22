@@ -21,9 +21,9 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public int Login(string username, string password)
+        public string Login(string username, string password)
         {
-            return real.loginUser(username, password) == true ? 1 : 0;
+            return real.loginUser(username, password) == true ? username : null;
         }
         [HttpGet]
         public int Logout(string username, string password)
