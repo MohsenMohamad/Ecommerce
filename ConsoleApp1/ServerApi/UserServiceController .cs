@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleApp1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,21 @@ namespace ServerApi
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserServiceController : ApiController
     {
+        RealProject real = new RealProject();
+        
         [HttpGet]
         public int Register(string username, string password)
         {
-            return 2;
+            return real.Register(username, password)  == true ? 1 : 0;
         }
+
+        [HttpGet]
+        public int login(string username, string password)
+        {
+            return real.loginUser(username, password) == true ? 1 : 0;
+        }
+
+
+
     }
 }

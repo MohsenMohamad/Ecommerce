@@ -10,11 +10,15 @@ namespace WebApplication.Code
 
         public  UserHandler(){}
 
-    public int Register(string username, string password)
-    {
-        string param = string.Format("username={0}&password={1}", username, password);
-        return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
+        public int Register(string username, string password)
+        {
+            string param = string.Format("username={0}&password={1}", username, password);
+            return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
+        }
+        public int login(string username, string password)
+        {
+            string param = string.Format("username={0}&password={1}", username, password);
+            return int.Parse(System.SendApi(System.Service_type.USER, "login", param));
+        }
     }
-
-}
 }

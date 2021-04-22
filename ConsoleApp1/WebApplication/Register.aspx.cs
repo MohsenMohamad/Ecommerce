@@ -30,7 +30,8 @@ namespace WebApplication
                 {
                     Response.Redirect("~/Home.aspx");
                 }
-                else {
+                else if (msg == 2)
+                {
                     LabelUsername.Visible = true;
                 }
             }
