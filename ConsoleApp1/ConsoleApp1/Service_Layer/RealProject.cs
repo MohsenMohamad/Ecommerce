@@ -233,8 +233,8 @@ namespace ConsoleApp1
 
         public bool loginUser(string name, string pass)
         {
-            
-            throw new System.NotImplementedException();
+            return true;
+            //throw new System.NotImplementedException();
         }
 
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,

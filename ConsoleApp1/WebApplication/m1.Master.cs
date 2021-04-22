@@ -40,32 +40,33 @@ namespace WebApplication
                 }
                 else
                 {
-
+                    Console.WriteLine("unKnown error !");
                 }
             }
-                
-            
-                /*if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
-                {
-                    ButtonLogOut.Visible = true;
-                    Login_table.Visible = false;
-                    Session["isLogin"] = "true";
-                }
-                else
-                {
 
-                    if (txtusername.Text.Trim().Length == 0)
-                    {
-                        if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
-                        LabelUsername.Visible = true;
-                    }
-                    if (txtpassword.Text.Trim().Length == 0)
-                    {
-                        if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
-                        LabelPasword.Visible = true;
-                    }
-                }*/
+            //todo make sure of that
+
+            /*if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
+            {
+                ButtonLogOut.Visible = true;
+                Login_table.Visible = false;
+                Session["isLogin"] = "true";
             }
+            else
+            {
+
+                if (txtusername.Text.Trim().Length == 0)
+                {
+                    if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
+                    LabelUsername.Visible = true;
+                }
+                if (txtpassword.Text.Trim().Length == 0)
+                {
+                    if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
+                    LabelPasword.Visible = true;
+                }
+            }*/
+        }
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
