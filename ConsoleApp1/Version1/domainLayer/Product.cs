@@ -7,12 +7,14 @@ namespace Version1.domainLayer
         private string name,description;
         private string barcode;
         private List<Category> categories;
-        public Product(string name,string desc,string barcode, List<Category> categories)
+        private int price;
+        public Product(string name,string desc,string barcode, List<Category> categories,int price)
         {
             this.description = desc;
             this.barcode = barcode;
             this.name = name;
             this.categories = categories;
+            this.price = price;
         }
        //getters
         public string Barcode { get => barcode;  }

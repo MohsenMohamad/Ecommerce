@@ -18,22 +18,47 @@ namespace Version1.presentationLayer
             return true;
             
         }
-        
+        //high priority
         public bool login(string username, string password)
         {
             throw new NotImplementedException();
         }
-
+        //high priority
         public bool Register(string username, string password)
         {
             throw new NotImplementedException();
         }
-
+        //high priority
         public bool Logout(string userid)
         {
             throw new NotImplementedException();
         }
-
+        //high priority
+        public string[][] getAllProducts()
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
+        public string[][] getAllStores()
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
+        public bool add_item_to_shop(string itemBarCode, string item_name, int amount, int price, string shopName)
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
+        public string[][] get_items_in_shop(string shopName)
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
+        public string[][] search(string keyword)
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
         public bool makeNewOwner(string apointerid, string storeName, string apointeeid)
         {
             throw new NotImplementedException();
@@ -101,12 +126,12 @@ namespace Version1.presentationLayer
             throw new NotImplementedException();
         }
 
-        public string[] get_all_users_in_the_system()
+        public string[] getAllLogInUsersinSystem()
         {
             throw new NotImplementedException();
         }
 
-        public string[] get_all_carts(string userName)
+        public string[] getAllCarts(string userName)
         {
             throw new NotImplementedException();
         }
@@ -147,11 +172,7 @@ namespace Version1.presentationLayer
         {
             throw new NotImplementedException();
         }
-        public string[][] get_items_in_shop(string shopName)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public bool updatePurchasePolicy(string shopName, string policy)
         {
             throw new NotImplementedException();
@@ -166,22 +187,12 @@ namespace Version1.presentationLayer
         {
             throw new NotImplementedException();
         }
-
-        public bool add_item_to_shop(string itemBarCode, string item_name, int amount, int price, string shopName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string[][] search(string keyword)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public string getPurchasePolicy(string shopName)
         {
             throw new NotImplementedException();
         }
-
+        
 
     }
 }

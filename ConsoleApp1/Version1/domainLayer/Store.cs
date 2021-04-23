@@ -9,15 +9,17 @@ namespace Version1.domainLayer
     {
         private string name { get; }
         private User owner;
-        public List<User> managers { get; }
-        public List<User> co_owners { get; }
-        public ConcurrentDictionary<Product,int> inventory { get; }
-        public List<Discount> discounts { get; }
+        
         private String sellingpolicy;
-        public List<Purchase> history { get; }
+        
         public List<string> msgs;
         public List<string> paymentInfo{ get; set; }
-
+        public List<User> managers { get; }
+        public List<User> co_owners { get; }
+        
+        public List<Discount> discounts { get; }
+        public List<Purchase> history { get; }
+        public ConcurrentDictionary<Product,int> inventory { get; }
         public Store(User owner,String sellpol,string name)
         {
             this.owner = owner;

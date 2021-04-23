@@ -14,7 +14,7 @@ namespace ServerApi
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserServiceController : ApiController
     {
-        //RealProject real = new RealProject();
+        
         private Facade facade = new Facade();
         [HttpGet]
         public int Register(string username, string password)
