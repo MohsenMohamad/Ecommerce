@@ -25,6 +25,9 @@ namespace Client
                 {
                     Response.Redirect("~/Home.aspx");
                     LabelUsername.Visible = true;
+                }else if (msg < 0)
+                {
+                    //error message username in use
                 }
             }
             else
