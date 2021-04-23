@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using ConsoleApp1;
-using ConsoleApp1.domainLayer;
-using ConsoleApp1.domainLayer.UserRoles;
+using Version1;
+using Version1.domainLayer;
+using Version1.domainLayer.UserRoles;
 
 
 namespace Project_tests
@@ -124,14 +124,9 @@ namespace Project_tests
             return service.getProductsFromShop(owner, storeName);
         }
         
-        protected User loginGuest(string name, string pass)
+        protected Store getUsersStore(string userName,string  storeName)
         {
-            return service.loginGuest(name, pass);
-        }
-
-        protected Store getUsersStore(User user,string  storeName)
-        {
-            return service.getUsersStore(user, storeName);
+            return service.getUsersStore(userName, storeName);
         }
 
         protected bool AddNewOwner(User user,Store store,string  newOwnerName)
@@ -144,13 +139,13 @@ namespace Project_tests
             return service.AddNewOwner(user, store, newMangerName);
         }
 
-        protected bool IsOwner(Store store, string ownerName)
+        protected bool IsOwner(string storeName, string ownerName)
         {
-            return service.IsOwner(store, ownerName);
+            return service.IsOwner(storeName, ownerName);
         }
-        protected bool IsManger(Store store, string mangerName)
+        protected bool IsManger(string storeName, string mangerName)
         {
-            return service.IsOwner(store, mangerName);
+            return service.IsOwner(storeName, mangerName);
         }
 
         protected List<string> getMangerResponsibilities(User user,Store store, string newMangerName)

@@ -1,6 +1,6 @@
-using ConsoleApp1.domainLayer;
-using ConsoleApp1.presentationLayer;
-using ConsoleApp1.domainLayer.UserRoles;
+using Version1.domainLayer;
+using Version1.presentationLayer;
+using Version1.domainLayer.UserRoles;
 using NUnit.Framework;
 using Project_tests;
 

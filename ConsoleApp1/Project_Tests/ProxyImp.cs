@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using ConsoleApp1;
-using ConsoleApp1.domainLayer;
-using ConsoleApp1.domainLayer.UserRoles;
-using ConsoleApp1.presentationLayer;
+using Version1;
+using Version1.domainLayer;
+using Version1.domainLayer.UserRoles;
+using Version1.presentationLayer;
 
 
 namespace Project_tests
@@ -195,14 +195,14 @@ namespace Project_tests
             return real.getProductsFromShop(owner, storeName);
         }
         
-        public Store getUsersStore(User user, string storeName)
+        public Store getUsersStore(string userName, string storeName)
         {
             if (real == null)
             {
                 return null;    
             }
 
-            return real.getUsersStore(user, storeName);
+            return real.getUsersStore(userName, storeName);
         }
 
         public bool AddNewOwner(User user, Store store, string newOwnerName)
@@ -215,26 +215,16 @@ namespace Project_tests
             return real.AddNewOwner(user, store,newOwnerName);
         }
 
-        public bool IsOwner(Store store, string ownerName)
+        public bool IsOwner(string storeName, string ownerName)
         {
             if (real == null)
             {
                 return false;    
             }
 
-            return real.IsOwner(store, ownerName);
+            return real.IsOwner(storeName, ownerName);
         }
-
-        public User loginGuest(string name, string pass)
-        {
-            if (real == null)
-            {
-                return null;    
-            }
-
-            return real.loginGuest(name, pass);
-        }
-
+        
         public bool AddNewManger(User user, Store store, string newMangerName)
         {
             if (real == null)
@@ -245,14 +235,14 @@ namespace Project_tests
             return real.AddNewManger(user, store,newMangerName);
         }
 
-        public bool IsManger(Store store, string mangerName)
+        public bool IsManger(string storeName, string mangerName)
         {
             if (real == null)
             {
                 return false;    
             }
 
-            return real.IsManger(store, mangerName);
+            return real.IsManger(storeName, mangerName);
         }
 
         public List<string> getMangerResponsibilities(User user, Store store, string newMangerName)
@@ -304,14 +294,8 @@ namespace Project_tests
 
             return real.getStorePurchaseHistory(ownerUser, store);
         }
-
-        public bool loginUser(string name, string pass)
-        {
-            if (real == null)
-                return false;
-            return real.loginUser(name, pass);
-        }
-
+        
+        
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
             List<Category> categories)
         {
