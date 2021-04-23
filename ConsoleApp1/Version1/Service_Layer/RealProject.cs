@@ -124,6 +124,10 @@ namespace Version1
             }
             return false;
         }
+        public bool AddNewOwner(string user, string store, string newOwnerName)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public bool IsOwner(Store store, string ownerName)
         {
@@ -155,6 +159,20 @@ namespace Version1
             foreach (Store st in stores)
             {
                 if (st.Name == store.Name)
+                {
+                    return st.AddManager(user);
+                }
+            }
+
+            return false;
+        }
+        public bool AddNewManger(string userName, string store, string newMangerName)
+        {
+            var stores = DataHandler.Instance.Stores.Values;
+            User user = DataHandler.Instance.GetUser(userName);
+            foreach (Store st in stores)
+            {
+                if (st.Name == store)
                 {
                     return st.AddManager(user);
                 }
