@@ -87,7 +87,7 @@
     <Compile Include="LogicLayer\Logic.cs" />
     <Compile Include="LogicLayer\StoreLogic.cs" />
     <Compile Include="LogicLayer\UserLogic.cs" />
-    <Compile Include="presentationLayer\Facade.cs" />
+    <Compile Include="Service_Layer\Facade.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />
     <Compile Include="Service_Layer\RealProject.cs" />
     <Compile Include="Service_Layer\System.cs" />
@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Encryption" />
-    <Folder Include="NetworkLayer" />
+    <Folder Include="presentationLayer" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
