@@ -8,17 +8,12 @@ using WebApplication.Code;
 
 namespace WebApplication
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class Register1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             LabelUsername.Visible = false;
             LabelPasword.Visible = false;
-        }
-
-        protected void HomeButton_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Home.aspx");
         }
 
         protected void btn_Register_Click(object sender, EventArgs e)
@@ -29,9 +24,6 @@ namespace WebApplication
                 if (msg == 1)
                 {
                     Response.Redirect("~/Home.aspx");
-                }
-                else if (msg == 2)
-                {
                     LabelUsername.Visible = true;
                 }
             }
@@ -49,7 +41,7 @@ namespace WebApplication
                     LabelPasword.Visible = true;
                 }
             }
-           
+
         }
     }
 }

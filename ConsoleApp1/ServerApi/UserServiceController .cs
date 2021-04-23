@@ -13,34 +13,34 @@ namespace ServerApi
     public class UserServiceController : ApiController
     {
         RealProject real = new RealProject();
-        
+
         [HttpGet]
         public int Register(string username, string password)
         {
-            return real.Register(username, password)  == true ? 1 : 0;
+            return real.Register(username, password) == true ? 1 : 0;
         }
 
         [HttpGet]
-        public string Login(string username, string password)
+        public int Login(string username, string password)
         {
-            return real.loginUser(username, password) == true ? username : null;
+            return real.UserLogin(username, password) == true ? 1 : 2;
         }
         [HttpGet]
         public int Logout(string username, string password)
         {
             return real.loginUser(username, password) == true ? 1 : 0;
         }
-        [HttpGet]
+     /*   [HttpGet]
         public int AddNewOwner(string mangerName, string storename, string newOwner)
         {
             return real.AddNewOwner(mangerName, storename, newOwner) == true ? 1 : 0;
-        }
-        [HttpGet]
-        public int AddNewManager(string userName, string storeName, string NewOwnerName, string permissions)
-        {   //todo split the permitions and make dataStructures that saves the permistions
-            return real.AddNewManger(userName, storeName, NewOwnerName) == true ? 1 : 0;
-        }
+        }*/
+       /* [HttpGet]
+          public int AddNewManager(string userName, string storeName, string NewOwnerName, string permissions)
+          {   //todo split the permitions and make dataStructures that saves the permistions
+              return real.AddNewManger(userName, storeName, NewOwnerName) == true ? 1 : 0;
+          }*/
 
 
-    }
+    } 
 }

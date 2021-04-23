@@ -15,10 +15,10 @@ namespace WebApplication.Code
             string param = string.Format("username={0}&password={1}", username, password);
             return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
         }
-        public string Login(string username, string password)
+        public int Login(string username, string password)
         {
             string param = string.Format("username={0}&password={1}", username, password);
-            return System.SendApi(System.Service_type.USER, "Login", param);
+            return int.Parse(System.SendApi(System.Service_type.USER, "Login", param));
         }
         public int Logout(int userid)
         {

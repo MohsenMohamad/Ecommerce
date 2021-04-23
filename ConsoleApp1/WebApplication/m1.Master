@@ -37,6 +37,8 @@
         .homestyle{
             color:wheat;
             background-color: #000000;
+             margin : 0px 1165px;
+
         }
         .lgnbtn {
             border-style: none;
@@ -89,7 +91,7 @@
       }
          .auto-style2 {
             background-color : red;
-            margin-left: 1165px;
+            margin : 0px 1165px;
         }
         .auto-style3 {
             width: 399px;
@@ -101,10 +103,24 @@
          .red1 {
             color:red;
          }
+        .auto-style5 {
+            width: 100%;
+        }
+        .auto-style6 {
+            margin-left: 1060px;
+        }
         </style>
 <body style="height: 107px">
     <form id="form1" runat="server">
-        Welcome to Market<asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="124px" OnClick="ButtonLogOut_Click" />
+        Welcome to Market<table class="auto-style5">
+            <tr>
+                <td>
+                    <asp:Label ID="Labelname" runat="server"></asp:Label>
+                    <asp:Button ID="HomeButton" runat="server" CssClass="homestyle" Text="Home" Width="118px" OnClick="HomeButton_Click" />
+        <asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="124px" OnClick="ButtonLogOut_Click" />
+                </td>
+            </tr>
+        </table>
         <div>
          <table runat="server" id="Login_table" class="auto-style3">
                                         <tr>

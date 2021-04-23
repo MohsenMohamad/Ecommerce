@@ -14,34 +14,46 @@ namespace WebApplication
         {
             LabelPasword.Visible = false;
             LabelUsername.Visible = false;
-            if (Session["isLogin"] != null)
+            Labelname.Visible = true;
+         /*   if (Session["isLogin"] != null)
             {
                 ButtonLogOut.Visible = true;
-            }
+            }*/
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
         {
-            if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
+            if ((txtusername.Text.Trim().Length == 0) || (txtpassword.Text.Trim().Length == 0))
             {
-                string msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
-                if (msg != null)
+                if (txtusername.Text.Trim().Length == 0)
                 {
-                    Login_table.Visible = false;
-                    Session["username"] = txtusername.Text;
-                    Session["userid"] = msg;
-                    Session["isLogin"] = "true";
-                    ButtonLogOut.Visible = true;
-                    //todo make sure of that
-                    Login_table.Visible = true;
-
-                    Session["basket"] = null;
-                    Response.Redirect(Request.RawUrl);
+                    if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
+                    LabelUsername.Visible = true;
                 }
+                if (txtpassword.Text.Trim().Length == 0)
+                {
+                    if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
+                    LabelPasword.Visible = true;
+                }
+                //  Response.Redirect(Request.RawUrl);
+            }
                 else
                 {
-                    Console.WriteLine("unKnown error !");
-                }
+                    //  Console.WriteLine("unKnown error !");
+                    int msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
+                    if (msg == 1)
+                    {
+                        ButtonLogOut.Visible = true;
+                        Login_table.Visible = false;
+                        Session["isLogin"] = "true";
+                        Session["username"] = txtusername.Text;
+                        Labelname.Visible = true;
+                        Labelname.Text = "Hello " + txtusername.Text;
+                        Session["userid"] = msg;
+                        Session["isLogin"] = "true";
+
+                        Session["basket"] = null;
+                    }
             }
 
             //todo make sure of that
@@ -70,7 +82,12 @@ namespace WebApplication
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
+            Response.Redirect("~/Home.aspx");
+        }
 
+        protected void HomeButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Home.aspx");
         }
     }
 }
