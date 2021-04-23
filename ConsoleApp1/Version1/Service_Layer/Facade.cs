@@ -142,7 +142,41 @@ namespace Version1.presentationLayer
         {
             throw new NotImplementedException();
         }
-        
-        
+        public string[][] get_items_in_shop(string shopName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool updatePurchasePolicy(string shopName, string policy)
+        {
+            throw new NotImplementedException();
+        }
+        //foreach shop get shopName and it's toString method
+        public string[][] myShops(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[][] getItemsInfos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool add_item_to_shop(string itemBarCode, string item_name, int amount, int price, string shopName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[][] search(string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getPurchasePolicy(string shopName)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
