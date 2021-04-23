@@ -13,7 +13,12 @@ namespace Version1.presentationLayer
         private ShoppingHandler shoppingHandler = new ShoppingHandler();
         private StoreAdministration storeAdministration = new StoreAdministration();
 
-
+        public bool testbool()
+        {
+            return true;
+            
+        }
+        
         public bool login(string username, string password)
         {
             throw new NotImplementedException();
