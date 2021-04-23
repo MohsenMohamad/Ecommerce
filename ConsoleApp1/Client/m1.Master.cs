@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApplication.Code;
+using Client.Code;
 
-namespace WebApplication
+namespace Client
 {
     public partial class m1 : System.Web.UI.MasterPage
     {

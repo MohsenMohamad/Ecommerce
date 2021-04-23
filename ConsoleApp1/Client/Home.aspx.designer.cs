@@ -7,11 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication
-{
-
-
-    public partial class Home
-    {
+namespace Client {
+    
+    
+    public partial class Home {
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new Client.m1 Master {
+            get {
+                return ((Client.m1)(base.Master));
+            }
+        }
     }
 }

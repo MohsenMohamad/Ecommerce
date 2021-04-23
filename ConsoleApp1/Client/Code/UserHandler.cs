@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebApplication.Code
+namespace Client.Code
 {
     public class UserHandler
     {
@@ -12,13 +12,37 @@ namespace WebApplication.Code
 
         public int Register(string username, string password)
         {
-            string param = string.Format("username={0}&password={1}", username, password);
-            return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
+            try
+            {
+                string param = string.Format("username={0}&password={1}", username, password);
+                return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("illegal user or this user is already registered");
+                return -1;
+            }
+            /*string param = string.Format("username={0}&password={1}", username, password);
+            string res = System.SendApi(System.Service_type.USER, "Register", param);
+            if( res != null)
+            {
+                return int.Parse(res);
+            }
+            //failure case
+            return -1;*/
         }
         public int Login(string username, string password)
         {
-            string param = string.Format("username={0}&password={1}", username, password);
-            return int.Parse(System.SendApi(System.Service_type.USER, "Login", param));
+            try
+            {
+                string param = string.Format("username={0}&password={1}", username, password);
+                return int.Parse(System.SendApi(System.Service_type.USER, "Login", param));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("bad username or pass");
+                return -1;
+            }
         }
         public int Logout(int userid)
         {

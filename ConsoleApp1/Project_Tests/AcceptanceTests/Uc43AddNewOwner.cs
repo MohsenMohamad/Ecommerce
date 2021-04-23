@@ -35,6 +35,11 @@ namespace Project_Tests.AcceptanceTests
             store = getUsersStore(user,storeName);
             }
 
+        private User loginGuest(string user0, string userpass)
+        {
+            throw new System.NotImplementedException();
+        }
+
         [Test]
         public void Test()
         {

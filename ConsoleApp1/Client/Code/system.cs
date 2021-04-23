@@ -5,15 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 
-namespace WebApplication.Code
+namespace Client.Code
 {
-
-
     public class System
     {
-
-
-
         private const string server_domain = "https://localhost:44300/api";
         public enum Service_type { USER, SHOP, TRANSACTION }
 

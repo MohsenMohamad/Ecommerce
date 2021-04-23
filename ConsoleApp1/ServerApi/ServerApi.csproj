@@ -129,6 +129,10 @@
       <Project>{E25ED92D-FF1A-42C3-9449-E1EAA0017DA4}</Project>
       <Name>ConsoleApp1</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Version1\Version1.csproj">
+      <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
+      <Name>Version1</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
