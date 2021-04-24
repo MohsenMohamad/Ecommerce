@@ -16,10 +16,11 @@ namespace Version1.domainLayer
         public List<string> paymentInfo{ get; set; }
         public List<User> managers { get; }
         public List<User> co_owners { get; }
-        
         public List<Discount> discounts { get; }
         public List<Purchase> history { get; }
         public ConcurrentDictionary<Product,int> inventory { get; }
+        
+        
         public Store(User owner,String sellpol,string name)
         {
             this.owner = owner;

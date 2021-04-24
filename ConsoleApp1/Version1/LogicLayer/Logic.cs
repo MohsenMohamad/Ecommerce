@@ -100,7 +100,7 @@ namespace Version1.LogicLayer
         
         // 3.1) Logout
 
-        public bool UserLogout()
+        public bool UserLogout(string userName)
         {
             if (currentUser == null || IsGuest())
                 return false;
@@ -117,10 +117,25 @@ namespace Version1.LogicLayer
                 return false;
             return StoreLogic.OpenStore(managerName, storeName, policy);
         }
-        
+
+        public List<Store> GetAllStores()
+        {
+            return StoreLogic.GetAllStores();
+        }
+
 //-------------------------------------- Other ---------------------------------//
 
 
+        public List<Product> SearchByKeyWord(string keyWord)
+        {
+            return InventoryLogic.SearchByKeyWord(keyWord);
+        }
+        
+        public bool AddItemToStore(string shopName, string barcode, int amount)
+        {
+            return StoreLogic.AddItemToStore(shopName, barcode, amount);
+        }
+        
         public bool IsManger(string storeName, string mangerName)
         {
             return StoreLogic.IsManger(storeName, mangerName);
@@ -130,10 +145,15 @@ namespace Version1.LogicLayer
         {
             return CartLogic.GetCartByStore(userName, storeName);
         }
-
-        public ConcurrentDictionary<Product, int> getProductsFromShop(User owner, string storeName)
+        
+        public Dictionary<string, Product> GetInventory()
         {
-            return InventoryLogic.getProductsFromShop(owner, storeName);
+            return InventoryLogic.GetInventory();
+        }
+
+        public ConcurrentDictionary<Product, int> GetProductsFromShop(string storeName)
+        {
+            return InventoryLogic.GetProductsFromShop(storeName);
         }
         
         public string LoggedInUserName()

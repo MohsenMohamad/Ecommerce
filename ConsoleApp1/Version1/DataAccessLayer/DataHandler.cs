@@ -8,7 +8,7 @@ namespace Version1.DataAccessLayer
         private static readonly object padlock = new object();
         private static DataHandler instance = null;
         internal Dictionary<string, User> Users { get; }
-        private Dictionary<string, Product> Products { get; }
+        internal Dictionary<string, Product> Products { get; }
         internal Dictionary<string, Store> Stores { get; }
         private List<ReviewDao> Reviews { get; }
 

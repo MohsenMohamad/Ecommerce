@@ -18,8 +18,8 @@ namespace Version1
 
         public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
         {
-            return storeAdministration.AddToInventory(productCode, amount, storeName);
-            
+            return logicInstance.AddItemToStore(storeName, productCode, amount);
+
         }
 
         public bool CheckStoreInventory(string storeName, Hashtable products)
@@ -54,7 +54,7 @@ namespace Version1
 
         public bool UserLogout(string userName)
         {
-            return logicInstance.UserLogout();
+            return logicInstance.UserLogout(userName);
         }
 
         public string LoggedInUserName()
@@ -95,7 +95,7 @@ namespace Version1
 
         public ConcurrentDictionary<Product, int> getProductsFromShop(User owner, string storeName)
         {
-            return logicInstance.getProductsFromShop(owner, storeName);
+            return logicInstance.GetProductsFromShop(storeName);
         }
 
         public Store getUsersStore(string userName, string storeName)

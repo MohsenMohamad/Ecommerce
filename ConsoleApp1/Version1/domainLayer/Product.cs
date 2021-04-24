@@ -7,7 +7,7 @@ namespace Version1.domainLayer
         private string name,description;
         private string barcode;
         private List<Category> categories;
-        private int price;
+        private double price;
         public Product(string name,string desc,string barcode, List<Category> categories,int price)
         {
             this.description = desc;
@@ -21,6 +21,7 @@ namespace Version1.domainLayer
         public string Name { get => name; }
         public string Description { get => description; }
         public List<Category> Categories { get => categories; }
+        public double Price { get => price;  }
         // functions
         public bool AddCategory(Category cat)
         {

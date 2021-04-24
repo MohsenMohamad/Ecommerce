@@ -10,22 +10,7 @@ namespace Version1.DataAccessLayer
         {
             data = DataHandler.Instance;
         }
-
-        public bool AddToInventory(string barcode ,int amount, string storeName)
-        {
-            Product pr = GetProduct(barcode);
-            if (pr != null)
-            {
-                Store st = GetStore(storeName);
-                if (st != null)
-                {
-                    st.addProduct(pr, amount);
-                    return true;
-                }
-            }
-            return false;
-
-        }
+        
 
         private Store GetStore(string name)
         {

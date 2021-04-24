@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 using Version1.domainLayer.UserRoles;
 using Version1.LogicLayer;
 
-namespace Version1.presentationLayer
+namespace Version1.Service_Layer
 {
     public class Facade
     {
@@ -19,44 +22,56 @@ namespace Version1.presentationLayer
             
         }
         //high priority
-        public bool login(string username, string password)
+        public bool Login(string username, string password)
         {
-            throw new NotImplementedException();
+            return logicInstance.UserLogin(username,password);
         }
         //high priority
         public bool Register(string username, string password)
         {
-            throw new NotImplementedException();
+            return logicInstance.Register(username,password);
         }
         //high priority
         public bool Logout(string userid)
         {
-            throw new NotImplementedException();
+            return logicInstance.UserLogout(userid);
         }
         //high priority
-        public string[][] getAllProducts()
+        public string[][] GetAllProducts()
         {
-            throw new NotImplementedException();
+            var inventory = logicInstance.GetInventory().Values.ToList();
+            var allProducts = ProductsTo2DStringArray(inventory);
+            return allProducts;
         }
         //high priority
         public string[][] getAllStores()
         {
-            throw new NotImplementedException();
+        //    var result = StoresTo2DStringArray(logicInstance.GetAllStores());
+        //    return result;
+        throw new NotImplementedException();
         }
         //high priority
-        public bool add_item_to_shop(string itemBarCode, string item_name, int amount, int price, string shopName)
+        public bool add_item_to_shop(string shopName, string itemBarCode, int amount)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddItemToStore(shopName, itemBarCode, amount);
+            
         }
         //high priority
         public string[][] get_items_in_shop(string shopName)
         {
-            throw new NotImplementedException();
+            var products = logicInstance.GetProductsFromShop(shopName);
+            if (products == null)
+                return null;
+            var result = ProductsTo2DStringArray(products.Keys.ToList());
+            return result;
         }
         //high priority
-        public string[][] search(string keyword)
+        public string[][] SearchByKeyword(string keyword)
         {
-            throw new NotImplementedException();
+            var productList = logicInstance.SearchByKeyWord(keyword);
+            var result = ProductsTo2DStringArray(productList);
+            
+            return result;
         }
         //high priority
         public bool makeNewOwner(string apointerid, string storeName, string apointeeid)
@@ -191,6 +206,60 @@ namespace Version1.presentationLayer
         public string getPurchasePolicy(string shopName)
         {
             throw new NotImplementedException();
+        }
+
+        private string[][] ProductsTo2DStringArray(List<Product> products)
+        {
+            var result = new string[products.Count][];
+            var index = 0;
+            foreach (var product in products)
+            {
+                var productData = new string[5];
+                
+                productData[0] = product.Name;
+                productData[1] = product.Description;
+                productData[2] = product.Barcode;
+                productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+
+                var categories = "";
+                foreach (var category in product.Categories)
+                {
+                    categories = categories + category.Name + "#";
+                }
+                productData[4] = categories;
+
+                result[index] = productData;
+                index += 1;
+            }
+
+            return result;
+        }
+        
+        private string[][] StoresTo2DStringArray(List<Product> products)
+        {
+            var result = new string[products.Count][];
+            var index = 0;
+            foreach (var product in products)
+            {
+                var productData = new string[5];
+                
+                productData[0] = product.Name;
+                productData[1] = product.Description;
+                productData[2] = product.Barcode;
+                productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+
+                var categories = "";
+                foreach (var category in product.Categories)
+                {
+                    categories = categories + category.Name + "#";
+                }
+                productData[4] = categories;
+
+                result[index] = productData;
+                index += 1;
+            }
+
+            return result;
         }
         
 
