@@ -40,8 +40,8 @@ namespace Client
                 else
                 {
                     //  Console.WriteLine("unKnown error !");
-                    int msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
-                    if (msg == 1)
+                    bool msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
+                    if (msg)
                     {
                         ButtonLogOut.Visible = true;
                         Login_table.Visible = false;
@@ -82,6 +82,7 @@ namespace Client
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
+            new UserHandler().Logout(txtusername.Text);
             Response.Redirect("~/Home.aspx");
         }
 

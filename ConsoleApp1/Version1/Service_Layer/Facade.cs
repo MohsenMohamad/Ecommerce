@@ -53,6 +53,11 @@ namespace Version1.Service_Layer
         //high priority
         public bool add_item_to_shop(string shopName, string itemBarCode, int amount)
         {
+            throw new NotImplementedException();
+        }
+        //high priority
+        public bool addItemToInventory(string itemBarCode, string itemName, int amount, int price, string shopName)
+        {
             return logicInstance.AddItemToStore(shopName, itemBarCode, amount);
             
         }
@@ -261,7 +266,8 @@ namespace Version1.Service_Layer
 
             return result;
         }
-        
 
+
+        
     }
 }
