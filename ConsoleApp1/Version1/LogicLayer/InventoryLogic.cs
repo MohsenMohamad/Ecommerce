@@ -19,7 +19,6 @@ namespace Version1.LogicLayer
         {
             if (DataHandler.Products.ContainsKey(barcode))
                 return false;
-            var categoriesList = new List<Category>();
 
             foreach (var category in categories)
             {
@@ -39,10 +38,17 @@ namespace Version1.LogicLayer
 
         public static ConcurrentDictionary<Product, int> GetProductsFromShop(string storeName)
         {
+            var products = new ConcurrentDictionary<Product, int>();
             var store = DataHandler.GetStore(storeName);
             if (store == null)
                 return null;
-            return store.GetInventory();
+            var inventory = store.GetInventory();
+            foreach (var barcode in inventory.Keys)
+            {
+                var product = DataHandler.GetProduct(barcode);
+                products.TryAdd(product, inventory[barcode]);
+            }
+            return products;
         }
 
         public static List<Product> SearchByKeyWord(string keyWord)

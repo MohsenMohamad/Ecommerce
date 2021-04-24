@@ -56,7 +56,7 @@ namespace Version1.DataAccessLayer
             Store st = GetStore(storeName);
             if (us != null&&st!=null)
             {
-                return st.AddManager(us);
+                return st.AddManager(username);
             }
             return false;
         }
@@ -66,7 +66,7 @@ namespace Version1.DataAccessLayer
             Store st = GetStore(storeName);
             if (us != null && st != null)
             {
-                return st.RemoveManager(us);
+                return st.RemoveManager(username);
             }
             return false;
         }
@@ -77,7 +77,7 @@ namespace Version1.DataAccessLayer
             Store st = GetStore(storeName);
             if (us != null && st != null)
             {
-                return st.AddOwner(us);
+                return st.AddOwner(username);
             }
             return false;
         }
@@ -87,7 +87,7 @@ namespace Version1.DataAccessLayer
             Store st = GetStore(storeName);
             if (us != null && st != null)
             {
-                return st.RemoveOwner(us);
+                return st.RemoveOwner(username);
             }
             return false;
         }
@@ -118,7 +118,7 @@ namespace Version1.DataAccessLayer
                 var st = GetStore(storeName);
                 if (st != null)
                 {
-                    var x= st.Checkinventory(pr);
+                    var x= st.Checkinventory(barcode);
                     return x>0;
                 }
             }

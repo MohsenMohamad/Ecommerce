@@ -63,7 +63,7 @@ namespace ServerApi
         [HttpGet]
         public bool makeNewOwner(string apointerid, string storeName, string apointeeid)
         {
-            return facade.makeNewOwner(apointerid,storeName,apointeeid);
+            return facade.MakeNewOwner(apointerid,storeName,apointeeid);
         }
         [HttpGet]
         public bool makeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
@@ -83,7 +83,7 @@ namespace ServerApi
         [HttpGet]
         public bool addItemToCart(string username, string productBarCode, string storeName)
         {
-            return facade.addItemToCart(username,productBarCode,storeName);
+            return facade.AddProductToBasket(username,productBarCode,storeName);
         }
         
         

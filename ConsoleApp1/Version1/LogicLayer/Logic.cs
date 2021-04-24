@@ -86,12 +86,12 @@ namespace Version1.LogicLayer
         
         // 2.7) Add a product to a shopping basket
 
-        public bool AddProductToCart(string storeName, string productCode)
+        public bool AddProductToBasket(string userName, string storeName, string productCode)
         {
             if (currentUser == null)
                 return false;
-            var userName = IsGuest() ? null : ((User) currentUser).UserName;
-            return CartLogic.AddProductToCart(userName, storeName, productCode);
+            
+            return CartLogic.AddProductToBasket(userName, storeName, productCode);
         }
         
         // 2.8) Get info and edit shopping cart
@@ -125,9 +125,26 @@ namespace Version1.LogicLayer
 
 //-------------------------------------- Other ---------------------------------//
 
+        public List<Product> GetUserBaskets(string userName)
+        {
+            return CartLogic.GetUserBaskets(userName);
+
+        }
+
+
         public bool AddNewProduct(string barcode, string productName,string description, double price, List<string> categories)
         {
             return InventoryLogic.AddNewProduct(barcode, productName, description, price, categories);
+        }
+
+        public List<Product> GetBasketProducts(string userName, string storeName)
+        {
+            return CartLogic.GetBasketProducts(userName, storeName);
+        }
+
+        public List<Store> GetUserStores(string userName)
+        {
+            return StoreLogic.GetUserStores(userName);
         }
 
         public bool RemoveProductFromCart(string userName, string storeName, string productBarcode, int amount)
@@ -144,6 +161,7 @@ namespace Version1.LogicLayer
         {
             return UserLogic.GetUserNotifications(userName);
         }
+        
         public string GetStorePolicy(string storeName)
         {
             return StoreLogic.GetStorePolicy(storeName);
@@ -159,20 +177,15 @@ namespace Version1.LogicLayer
             return InventoryLogic.SearchByKeyWord(keyWord);
         }
         
-        public bool AddItemToStore(string shopName, string barcode, int amount)
+        public bool AddProductToStore(string shopName, string barcode, int amount)
         {
-            return StoreLogic.AddItemToStore(shopName, barcode, amount);
+            return StoreLogic.AddProductToStore(shopName, barcode, amount);
         }
         
         public bool IsManger(string storeName, string mangerName)
         {
             return StoreLogic.IsManger(storeName, mangerName);
         }        
-
-        public List<Product> GetCartByStore(string userName, string storeName)
-        {
-            return CartLogic.GetCartByStore(userName, storeName);
-        }
         
         public Dictionary<string, Product> GetInventory()
         {

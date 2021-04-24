@@ -24,10 +24,10 @@ namespace Version1.DataAccessLayer
         {
             var pr = GetProduct(barcode);
             var st = GetStore(storeName);
-            if (pr != null && st != null && st.Checkinventory(pr) >= amount)
+            if (pr != null && st != null && st.Checkinventory(barcode) >= amount)
             {
                 purchase.addProduct(pr, amount);
-                st.RemoveProduct(pr, amount);
+                st.RemoveProduct(barcode, amount);
                 return true;
             }
 
@@ -41,7 +41,7 @@ namespace Version1.DataAccessLayer
             if (pr != null && st != null)
             {
                 purchase.removeProduct(pr, amount);
-                st.addProduct(pr, amount);
+                st.addProduct(barcode, amount);
                 return true;
             }
 

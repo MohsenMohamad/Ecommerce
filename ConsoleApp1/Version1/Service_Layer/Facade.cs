@@ -52,7 +52,7 @@ namespace Version1.Service_Layer
         //high priority
         public bool AddItemToStore(string shopName, string itemBarCode, int amount)
         {
-            return logicInstance.AddItemToStore(shopName, itemBarCode, amount);
+            return logicInstance.AddProductToStore(shopName, itemBarCode, amount);
         }
         
         //high priority
@@ -81,7 +81,7 @@ namespace Version1.Service_Layer
             return result;
         }
         //high priority
-        public bool makeNewOwner(string apointerid, string storeName, string apointeeid)
+        public bool MakeNewOwner(string apointerid, string storeName, string apointeeid)
         {
             throw new NotImplementedException();
         }
@@ -102,20 +102,12 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }
-
-        public bool addItemToCart(string username, string productBarCode, string storeName)
+        
+        
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode)
         {
-            throw new NotImplementedException();
-        }
-
-        public int getCartId(string shopName, string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool addPrudoctToCart(string shopName, string userName, string productBarCode)
-        {
-            throw new NotImplementedException();
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode);
+            
         }
        
 
@@ -123,6 +115,8 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }
+        
+        // low
         public bool DeleteProduct(string shopName, string userName, string productBarCode)
         {
             throw new NotImplementedException();
@@ -133,6 +127,7 @@ namespace Version1.Service_Layer
             return logicInstance.OpenStore(userName,shopName, policy);
         }
 
+        // low
         public bool CloseShop(string shopName, string ownerName)
         {
             throw new NotImplementedException();
@@ -142,20 +137,26 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }
-
-        public bool IsLogedIn(string userName)
+        
+        // low
+        public bool IsLoggedIn(string userName)
         {
             throw new NotImplementedException();
         }
 
+        // low
         public string[] getAllLogInUsersinSystem()
         {
             throw new NotImplementedException();
         }
 
-        public string[] getAllCarts(string userName)
+        public string[][] GetUserBaskets(string userName)
         {
-            throw new NotImplementedException();
+            var basketsProducts = logicInstance.GetUserBaskets(userName);
+            if (basketsProducts == null)
+                return null;
+            return ProductsTo2DStringArray(basketsProducts);
+                throw new NotImplementedException();
         }
 
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
@@ -167,30 +168,26 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
         
+        // low
         public int[] GetAppointmentPermissions(int shopid, int apointeeid)
         {
             throw new NotImplementedException();
         }
 
-        public string[][] get_itmes_in_cart(int cartNum)
+        // high
+        public string[][] GetBasketProducts(string userName, string storeName)
         {
-            throw new NotImplementedException();
-        }
-        public string[][] get_all_items_in_all_carts(int userid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool GuestPurchaseProducts(string address, List<string> itemsBarCodes)
-        {
-            throw new NotImplementedException();
+            var products = logicInstance.GetBasketProducts(userName,storeName);
+            if (products == null)
+                return null;
+            return ProductsTo2DStringArray(products);
         }
 
-        public bool Notification_Add(string userName, string msg)
+        public bool SendNotifications(string userName, string msg)
         {
             return logicInstance.AddUserNotification(userName, msg);
         }
-        public string[] Notification_GetAll(string userid)
+        public string[] GetAllUserNotifications(string userid)
         {
             var notifications = logicInstance.GetUserNotifications(userid);
             return notifications?.ToArray();
@@ -200,16 +197,15 @@ namespace Version1.Service_Layer
         {
             return logicInstance.UpdateStorePolicy(shopName, policy);
         }
-        //foreach shop get shopName and it's toString method
-        public string[][] myShops(string userName)
+        
+        public string[][] GetUserStores(string userName)
         {
-            throw new NotImplementedException();
+            var stores = logicInstance.GetUserStores(userName);
+            if (stores == null)
+                return null;
+            return StoresTo2DStringArray(stores);
         }
-
-        public string[][] getItemsInfos()
-        {
-            throw new NotImplementedException();
-        }
+        
         
         public string GetPurchasePolicy(string shopName)
         {
@@ -252,7 +248,7 @@ namespace Version1.Service_Layer
                 var storeData = new string[10];
                 
                 storeData[0] = store.GetName();
-                storeData[1] = store.GetOwner().UserName;
+                storeData[1] = store.GetOwner();
                 storeData[2] = store.GetSellingPolicy();
 
                 var messages = "";
@@ -272,14 +268,14 @@ namespace Version1.Service_Layer
                 var managers = "";
                 foreach (var manager in store.GetManagers())
                 {
-                    managers = managers + manager.UserName + "#";
+                    managers = managers + manager + "#";
                 }
                 storeData[5] = managers;
                 
                 var owners = "";
                 foreach (var owner in store.GetOwners())
                 {
-                    owners = owners + owner.UserName + "#";
+                    owners = owners + owner + "#";
                 }
                 storeData[6] = owners;
                 
@@ -300,7 +296,7 @@ namespace Version1.Service_Layer
                 var products = "";
                 foreach (var product in store.GetInventory().Keys)
                 {
-                    products = products + product.Barcode + " " + product.Name + "#";
+                    products = products + product + "#";
                 }
                 storeData[9] = products;
                 

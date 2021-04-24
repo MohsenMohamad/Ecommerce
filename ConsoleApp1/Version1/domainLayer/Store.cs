@@ -8,26 +8,24 @@ namespace Version1.domainLayer
     public class Store
     {
         private string name { get; set; }
-        private User owner { get; set; }
         private string sellingPolicy { get; set; }
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
-        private List<User> managers { get; }
-        private List<User> co_owners { get; }
+        private List<string> managers { get; }
+        private List<string> owners { get; }
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
-        private ConcurrentDictionary<Product,int> inventory { get; }
+        private ConcurrentDictionary<string,int> inventory { get; }
         
         
-        public Store(User owner,String sellpol,string name)
+        public Store(string owner,String sellpol,string name)
         {
-            this.owner = owner;
             sellingPolicy = sellpol;
-            managers = new List<User>();
-            inventory = new ConcurrentDictionary<Product, int>();
+            managers = new List<string>();
+            inventory = new ConcurrentDictionary<string, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
-            co_owners = new List<User>();
+            owners = new List<string> {owner};
             this.name = name;
             notifications = new List<string>();
         }
@@ -36,17 +34,17 @@ namespace Version1.domainLayer
         {
             string output = "";
             output += "Store name: " + name;
-            output += "/nStore Owner: " + owner.UserName;
+            output += "/nStore Owner: " + owners[0];
             output += "/nmanagers:/n ";
             for (int i = 0; i < managers.Count; i++)
             {
-                output += "/n " + managers[i].UserName;
+                output += "/n " + managers[i];
             }
             output += "/n--------------------------------------/n";
             output += "/nco owners:/n ";
-            for (int i = 0; i < managers.Count; i++)
+            for (int i = 1; i < managers.Count; i++)
             {
-                output += "/n " + co_owners[i].UserName;
+                output += "/n " + owners[i];
             }
             output += "/n--------------------------------------/n";
             output += inventory.ToString();
@@ -66,9 +64,9 @@ namespace Version1.domainLayer
             return sellingPolicy;
         }
 
-        public User GetOwner()
+        public string GetOwner()
         {
-            return owner;
+            return owners[0];
         }
 
         public List<Purchase> GetHistory()
@@ -76,14 +74,14 @@ namespace Version1.domainLayer
             return history;
         }
 
-        public List<User> GetManagers()
+        public List<string> GetManagers()
         {
             return managers;
         }
         
-        public List<User> GetOwners()
+        public List<string> GetOwners()
         {
-            return co_owners;
+            return owners;
         }
 
         public List<string> GetNotifications()
@@ -96,7 +94,7 @@ namespace Version1.domainLayer
             return discounts;
         }
         
-        public ConcurrentDictionary<Product, int> GetInventory()
+        public ConcurrentDictionary<string, int> GetInventory()
         {
             return inventory;
         }
@@ -111,32 +109,32 @@ namespace Version1.domainLayer
             sellingPolicy = newPolicy;
         }
         
-        public bool AddManager(User man)
+        public bool AddManager(string manager)
         {
-            if (managers.Contains(man))
+            if (managers.Contains(manager))
                 return false;
-            managers.Add(man);
+            managers.Add(manager);
             return true;
         }
-        public bool RemoveManager(User man)
+        public bool RemoveManager(string manager)
         {
-            if (!managers.Contains(man))
+            if (!managers.Contains(manager))
                 return false;
-            managers.Remove(man);
+            managers.Remove(manager);
             return true;
         }
-        public bool AddOwner(User own)
+        public bool AddOwner(string owner)
         {
-            if (co_owners.Contains(own))
+            if (owners.Contains(owner))
                 return false;
-            co_owners.Add(own);
+            owners.Add(owner);
             return true;
         }
-        public bool RemoveOwner(User own)
+        public bool RemoveOwner(string owner)
         {
-            if (!co_owners.Contains(own))
+            if (!owners.Contains(owner))
                 return false;
-            co_owners.Remove(own);
+            owners.Remove(owner);
             return true;
         }
 
@@ -173,24 +171,24 @@ namespace Version1.domainLayer
             history.Remove(purchase);
             return true;
         }
-        public void addProduct(Product pr, int amount)
+        public void addProduct(string pr, int amount)
         {
             if (inventory.ContainsKey(pr))
-                inventory[pr] = (int)inventory[pr] +amount;
+                inventory[pr] = inventory[pr] +amount;
             else if(amount>=0) inventory[pr] = amount;
 
         }
-        public bool RemoveProduct(Product pr, int amount)
+        public bool RemoveProduct(string pr, int amount)
         {
-            if (inventory.ContainsKey(pr) && (int)inventory[pr] >= amount)
+            if (inventory.ContainsKey(pr) && inventory[pr] >= amount)
             {
-                inventory[pr] = (int)inventory[pr] - amount;
+                inventory[pr] = inventory[pr] - amount;
                 return true;
             }
             return false;
 
         }
-        public bool RemoveProduct(Product pr)
+        public bool RemoveProduct(string pr)
         {
             if (inventory.ContainsKey(pr))
             {
@@ -200,7 +198,7 @@ namespace Version1.domainLayer
             return false;
 
         }
-        public int Checkinventory(Product pr)
+        public int Checkinventory(string pr)
         {
             if (inventory.ContainsKey(pr))
                 return (int)inventory[pr];

@@ -9,7 +9,7 @@ namespace Version1.LogicLayer
     {
         private static readonly DataHandler DataHandler = DataHandler.Instance;
 
-        public static bool AddProductToCart(string userName ,string storeName, string productCode)
+        public static bool AddProductToBasket(string userName ,string storeName, string productCode)
         {
             var product = DataHandler.GetProduct(productCode);
             var store = DataHandler.GetStore(storeName);
@@ -56,7 +56,7 @@ namespace Version1.LogicLayer
         }
 
 
-        public static List<Product> GetCartByStore(string userName, string storeName)
+        public static List<Product> GetBasketProducts(string userName, string storeName)
         {
             if (userName == null)
             {
@@ -70,5 +70,22 @@ namespace Version1.LogicLayer
                 return userBaskets[storeName].Products.Keys.ToList();
             return null;
         }
+
+        public static List<Product> GetUserBaskets(string userName)
+        {
+            var user = DataHandler.GetUser(userName);
+            if (user == null)
+                return null;
+            var products = new List<Product>();
+
+            foreach (var store in user.GetShoppingCart().shoppingBaskets.Keys)
+            {
+                var basketProducts = GetBasketProducts(userName, store);
+                products.AddRange(basketProducts);
+            }
+
+            return products;
+        }
+
     }
 }
