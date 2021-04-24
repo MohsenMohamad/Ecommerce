@@ -49,7 +49,7 @@ namespace Version1.presentationLayer
             throw new NotImplementedException();
         }
         //high priority
-        public void addItemToInventory(string itemBarCode, string itemName, int amount, int price, string shopName)
+        public bool addItemToInventory(string itemBarCode, string itemName, int amount, int price, string shopName)
         {
             throw new NotImplementedException();
         }
