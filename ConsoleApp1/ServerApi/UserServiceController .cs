@@ -31,23 +31,23 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool Register(string username, string password)
+        public int Register(string username, string password)
         {
-            return facade.testbool();
+            return facade.testbool() == true ? 1 : 0;
             //return facade.Register(username, password) == true ? 1 : 0;
         }
 
         [HttpGet]
-        public bool Login(string username, string password)
+        public int Login(string username, string password)
         {
-            return facade.testbool();
+            return facade.testbool() == true ? 1 : 0;
             //return real.UserLogin(username, password) == true ? 1 : 2;
             
         }
         [HttpGet]
-        public bool Logout(string username, string password)
+        public int Logout(string username, string password)
         {
-            return facade.testbool();
+            return facade.testbool() == true ? 1 : 0;
             //return real.UserLogin(username, password) == true ? 1 : 0;
         }
         
