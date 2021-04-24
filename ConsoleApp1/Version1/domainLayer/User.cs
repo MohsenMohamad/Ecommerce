@@ -7,7 +7,7 @@ namespace Version1.domainLayer
         public string UserName { get; }
         public string Password { get; }
         public List<Purchase> history { get; }
-        private List<string> messages;
+        private List<string> notifications { get; }
         
         
         public User(string username,string password)
@@ -16,17 +16,10 @@ namespace Version1.domainLayer
             this.Password = password;
             shoppingCart = new ShoppingCart();
             history = new List<Purchase>();
-            messages = new List<string>();
+            notifications = new List<string>();
         }
 
-        public Store OpenStore(string sellpol,string name)
-        {
-            Store newstore = new Store(this, sellpol, name);
-            return newstore;
-        }
-
-
-
+        
         public string GetPersonalPurchaseHistory()
         {
             string output = "history of "+UserName ;
@@ -37,9 +30,14 @@ namespace Version1.domainLayer
             return output;
         }
 
-        internal void ReceiveMsg(string msg)
+        public List<string> GetNotifications()
         {
-            messages.Add(msg);
+            return notifications;
+        }
+
+        internal void AddNotification(string notification)
+        {
+            notifications.Add(notification);
         }
     }
 }

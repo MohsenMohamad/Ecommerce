@@ -125,7 +125,35 @@ namespace Version1.LogicLayer
 
 //-------------------------------------- Other ---------------------------------//
 
+        public bool AddNewProduct(string barcode, string productName,string description, double price, List<string> categories)
+        {
+            return InventoryLogic.AddNewProduct(barcode, productName, description, price, categories);
+        }
 
+        public bool RemoveProductFromCart(string userName, string storeName, string productBarcode, int amount)
+        {
+            return CartLogic.RemoveProductFromBasket(userName, storeName, productBarcode, amount);
+        }
+        
+        public bool AddUserNotification(string userName, string notification)
+        {
+            return UserLogic.AddUserNotification(userName, notification);
+        }
+        
+        public List<string> GetUserNotifications(string userName)
+        {
+            return UserLogic.GetUserNotifications(userName);
+        }
+        public string GetStorePolicy(string storeName)
+        {
+            return StoreLogic.GetStorePolicy(storeName);
+        }
+
+        public bool UpdateStorePolicy(string storeName, string newPolicy)
+        {
+            return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
+        }
+        
         public List<Product> SearchByKeyWord(string keyWord)
         {
             return InventoryLogic.SearchByKeyWord(keyWord);

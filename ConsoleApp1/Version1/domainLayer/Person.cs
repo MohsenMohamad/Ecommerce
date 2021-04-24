@@ -9,16 +9,17 @@ namespace Version1.domainLayer
         {
             shoppingCart = cart;
         }
+
+        public ShoppingCart GetShoppingCart()
+        {
+            return shoppingCart;
+        }
         
         public bool AddItemToBasket(string storeName, Product product, int amount)
         {
             return shoppingCart.AddProductToBasket(storeName, product, amount);
         }
         
-        public bool RemoveItemFromBasket(string storeName, Product product)
-        {
-            return shoppingCart.RemoveProductFromBasket(storeName, product);
-        }
         
         public string GetBasketInfo()
         {

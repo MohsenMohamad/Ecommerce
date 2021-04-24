@@ -23,6 +23,39 @@ namespace Version1.LogicLayer
             return DataHandler.GetUser(userName).AddItemToBasket(storeName,product,0);
         }
 
+        public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
+        {
+            var user = DataHandler.GetUser(userName);
+            var store = DataHandler.GetStore(storeName);
+            var product = DataHandler.GetProduct(productBarcode);
+
+            if (user == null || store == null || product == null)
+                return false;
+            
+            var cart = user.GetShoppingCart();
+            if (!cart.shoppingBaskets.ContainsKey(storeName))
+                return false;
+            var result = cart.shoppingBaskets[storeName].RemoveProduct(product, amount);
+            return result;
+        }
+        
+        public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode)
+        {
+            var user = DataHandler.GetUser(userName);
+            var store = DataHandler.GetStore(storeName);
+            var product = DataHandler.GetProduct(productBarcode);
+            
+            if (user == null || store == null || product == null)
+                return false;
+            var cart = user.GetShoppingCart();
+            
+            if (!cart.shoppingBaskets.ContainsKey(storeName))
+                return false;
+            var result = cart.shoppingBaskets[storeName].RemoveProduct(product);
+            return result;
+        }
+
+
         public static List<Product> GetCartByStore(string userName, string storeName)
         {
             if (userName == null)

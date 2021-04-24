@@ -7,38 +7,36 @@ namespace Version1.domainLayer
 {
     public class Store
     {
-        private string name { get; }
-        private User owner;
-        
-        private String sellingpolicy;
-        
-        public List<string> msgs;
-        public List<string> paymentInfo{ get; set; }
-        public List<User> managers { get; }
-        public List<User> co_owners { get; }
-        public List<Discount> discounts { get; }
-        public List<Purchase> history { get; }
-        public ConcurrentDictionary<Product,int> inventory { get; }
+        private string name { get; set; }
+        private User owner { get; set; }
+        private string sellingPolicy { get; set; }
+        private List<string> notifications;
+        private List<string> paymentInfo{ get; set; }
+        private List<User> managers { get; }
+        private List<User> co_owners { get; }
+        private List<Discount> discounts { get; }
+        private List<Purchase> history { get; }
+        private ConcurrentDictionary<Product,int> inventory { get; }
         
         
         public Store(User owner,String sellpol,string name)
         {
             this.owner = owner;
-            this.sellingpolicy = sellpol;
+            sellingPolicy = sellpol;
             managers = new List<User>();
             inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
             co_owners = new List<User>();
             this.name = name;
-            msgs = new List<string>();
+            notifications = new List<string>();
         }
 
         public override string ToString()
         {
             string output = "";
-            output += "Store name: " + Name;
-            output += "/nStore Owner: " + Owner.UserName;
+            output += "Store name: " + name;
+            output += "/nStore Owner: " + owner.UserName;
             output += "/nmanagers:/n ";
             for (int i = 0; i < managers.Count; i++)
             {
@@ -55,10 +53,64 @@ namespace Version1.domainLayer
 
             return output;
         }
+        
+//----------------------------------- Getters -----------------------------------//
 
-        public User Owner { get => owner; }
-        public String SellingPolicy { get => sellingpolicy; }
-        public string  Name { get => name; }
+        public string GetName()
+        {
+            return name;
+        }
+        
+        public string GetSellingPolicy()
+        {
+            return sellingPolicy;
+        }
+
+        public User GetOwner()
+        {
+            return owner;
+        }
+
+        public List<Purchase> GetHistory()
+        {
+            return history;
+        }
+
+        public List<User> GetManagers()
+        {
+            return managers;
+        }
+        
+        public List<User> GetOwners()
+        {
+            return co_owners;
+        }
+
+        public List<string> GetNotifications()
+        {
+            return notifications;
+        }
+
+        public List<Discount> GetDiscounts()
+        {
+            return discounts;
+        }
+        
+        public ConcurrentDictionary<Product, int> GetInventory()
+        {
+            return inventory;
+        }
+
+        public List<string> GetPaymentsInfo()
+        {
+            return paymentInfo;
+        }
+        
+        public void SetSellingPolicy(string newPolicy)
+        {
+            sellingPolicy = newPolicy;
+        }
+        
         public bool AddManager(User man)
         {
             if (managers.Contains(man))
@@ -90,7 +142,7 @@ namespace Version1.domainLayer
 
         internal void ReceiveMsg(string msg)
         {
-            msgs.Add(msg);
+            notifications.Add(msg);
         }
 
         public bool AddDiscount(Discount dis)

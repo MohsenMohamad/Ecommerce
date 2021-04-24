@@ -1,4 +1,5 @@
-﻿using Version1.DataAccessLayer;
+﻿using System.Collections.Generic;
+using Version1.DataAccessLayer;
 using Version1.domainLayer;
 
 namespace Version1.LogicLayer
@@ -41,6 +42,23 @@ namespace Version1.LogicLayer
 
         public static bool UserLogout()
         {
+            return true;
+        }
+        
+        
+//------------------------------------ Others ------------------------------------
+
+        public static List<string> GetUserNotifications(string userName)
+        {
+            var user = DataHandler.GetUser(userName);
+            return user?.GetNotifications();
+        }
+
+        public static bool AddUserNotification(string userName, string notification)
+        {
+            var user = DataHandler.GetUser(userName);
+            if (user == null) return false;
+            user.AddNotification(notification);
             return true;
         }
     }

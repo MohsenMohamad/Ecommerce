@@ -31,12 +31,5 @@ namespace Version1.domainLayer
                 AddBasket(new ShoppingBasket(storeName));
             return shoppingBaskets[storeName].AddProduct(product, amount);
         }
-        
-        public bool RemoveProductFromBasket(string storeName, Product product)
-        {
-            if (!shoppingBaskets.ContainsKey(storeName))
-                return false;
-            return shoppingBaskets[storeName].RemoveProduct(product);
-        }
     }
 }

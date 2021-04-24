@@ -44,11 +44,10 @@ namespace Version1.Service_Layer
             return allProducts;
         }
         //high priority
-        public string[][] getAllStores()
+        public string[][] GetAllStores()
         {
-        //    var result = StoresTo2DStringArray(logicInstance.GetAllStores());
-        //    return result;
-        throw new NotImplementedException();
+            var result = StoresTo2DStringArray(logicInstance.GetAllStores());
+            return result;
         }
         //high priority
         public bool AddItemToStore(string shopName, string itemBarCode, int amount)
@@ -57,10 +56,11 @@ namespace Version1.Service_Layer
         }
         
         //high priority
-        public bool AddNewProductToSystem(string itemBarCode, string itemName, int amount, int price, string shopName)
+        public bool AddNewProductToSystem(string barcode, string productName,string description, double price, string[] categories)
         {
-            throw new NotImplementedException();
-
+            if (categories == null || categories.Length == 0)
+                return false;
+            return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
         }
         
         //high priority
@@ -128,9 +128,9 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public bool OpenShop(string shopName, string userName)
+        public bool OpenShop(string shopName, string userName, string policy)
         {
-            throw new NotImplementedException();
+            return logicInstance.OpenStore(userName,shopName, policy);
         }
 
         public bool CloseShop(string shopName, string ownerName)
@@ -158,11 +158,11 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public int remove_item_from_cart(string productBarCode, int amount, string userName,string storeName)
+        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
-            throw new NotImplementedException();
+            return logicInstance.RemoveProductFromCart(userName, storeName, productBarcode, amount);
         }
-        public int isAdmin(string userName)
+        public bool IsAdmin(string userName)
         {
             throw new NotImplementedException();
         }
@@ -181,23 +181,24 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public bool guestPurchaseProducts(string address, List<string> itemsBarCodes)
+        public bool GuestPurchaseProducts(string address, List<string> itemsBarCodes)
         {
             throw new NotImplementedException();
         }
 
         public bool Notification_Add(string userName, string msg)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddUserNotification(userName, msg);
         }
         public string[] Notification_GetAll(string userid)
         {
-            throw new NotImplementedException();
+            var notifications = logicInstance.GetUserNotifications(userid);
+            return notifications?.ToArray();
         }
         
-        public bool updatePurchasePolicy(string shopName, string policy)
+        public bool UpdatePurchasePolicy(string shopName, string policy)
         {
-            throw new NotImplementedException();
+            return logicInstance.UpdateStorePolicy(shopName, policy);
         }
         //foreach shop get shopName and it's toString method
         public string[][] myShops(string userName)
@@ -210,9 +211,9 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
         
-        public string getPurchasePolicy(string shopName)
+        public string GetPurchasePolicy(string shopName)
         {
-            throw new NotImplementedException();
+            return logicInstance.GetStorePolicy(shopName);
         }
 
         private string[][] ProductsTo2DStringArray(List<Product> products)
@@ -231,7 +232,7 @@ namespace Version1.Service_Layer
                 var categories = "";
                 foreach (var category in product.Categories)
                 {
-                    categories = categories + category.Name + "#";
+                    categories = categories + category + "#";
                 }
                 productData[4] = categories;
 
@@ -242,27 +243,68 @@ namespace Version1.Service_Layer
             return result;
         }
         
-        private string[][] StoresTo2DStringArray(List<Product> products)
+        private string[][] StoresTo2DStringArray(List<Store> stores)
         {
-            var result = new string[products.Count][];
+            var result = new string[stores.Count][];
             var index = 0;
-            foreach (var product in products)
+            foreach (var store in stores)
             {
-                var productData = new string[5];
+                var storeData = new string[10];
                 
-                productData[0] = product.Name;
-                productData[1] = product.Description;
-                productData[2] = product.Barcode;
-                productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+                storeData[0] = store.GetName();
+                storeData[1] = store.GetOwner().UserName;
+                storeData[2] = store.GetSellingPolicy();
 
-                var categories = "";
-                foreach (var category in product.Categories)
+                var messages = "";
+                foreach (var message in store.GetNotifications())
                 {
-                    categories = categories + category.Name + "#";
+                    messages = messages + message + "#";
                 }
-                productData[4] = categories;
-
-                result[index] = productData;
+                storeData[3] = messages;
+                
+                var paymenstInfo = "";
+                foreach (var payment in store.GetPaymentsInfo())
+                {
+                    paymenstInfo = paymenstInfo + payment + "#";
+                }
+                storeData[4] = paymenstInfo;
+                
+                var managers = "";
+                foreach (var manager in store.GetManagers())
+                {
+                    managers = managers + manager.UserName + "#";
+                }
+                storeData[5] = managers;
+                
+                var owners = "";
+                foreach (var owner in store.GetOwners())
+                {
+                    owners = owners + owner.UserName + "#";
+                }
+                storeData[6] = owners;
+                
+                var discounts = "";
+                foreach (var discount in store.GetDiscounts())
+                {
+                    discounts = discounts + discount + "#";
+                }
+                storeData[7] = discounts;
+                
+                var history = "";
+                foreach (var purchase in store.GetHistory())
+                {
+                    history = history + purchase.date.ToString(CultureInfo.InvariantCulture) + "#";
+                }
+                storeData[8] = history;
+                
+                var products = "";
+                foreach (var product in store.GetInventory().Keys)
+                {
+                    products = products + product.Barcode + " " + product.Name + "#";
+                }
+                storeData[9] = products;
+                
+                result[index] = storeData;
                 index += 1;
             }
 

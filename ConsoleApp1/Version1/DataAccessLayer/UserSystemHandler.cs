@@ -22,21 +22,7 @@ namespace Version1.DataAccessLayer
             //equals null if user isnt found
         }
         
-
-            public List<Product> SearchProductsByCategory(string category_name)
-        {
-            List<Product> output = data.SearchProductByCategory(category_name);
-
-            return output;
-
-
-        }
-        public List<Product> SearchProductByKeyWord(string key_word) {
-            List<Product> output = data.SearchProductByKeyWord(key_word);
-
-            return output;
-
-        }
+        
         public void WriteReview(string desc)
         {
             data.AddReview(logged_in_user.UserName, desc);
@@ -70,14 +56,7 @@ namespace Version1.DataAccessLayer
             us.AddItemToBasket(store, pr, amount);
             shopping.BuyProduct(barcode, amount, store);
         }
-
-        internal void removeItemfromBasket(string store, string barcode)
-        {
-            User us = DataHandler.Instance.GetUser(logged_in_user.UserName);
-            us.RemoveItemFromBasket(store, DataHandler.Instance.GetProduct(barcode));
-            shopping.RemoveProduct(barcode, 1, store);
-        }
-
+        
         internal void checkout()
         {
             Console.WriteLine("bougth :");

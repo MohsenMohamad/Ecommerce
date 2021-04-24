@@ -6,9 +6,10 @@ namespace Version1.domainLayer
     {
         private string name,description;
         private string barcode;
-        private List<Category> categories;
+        private List<string> categories;
         private double price;
-        public Product(string name,string desc,string barcode, List<Category> categories,int price)
+        
+        public Product(string name,string desc,string barcode,double price, List<string> categories)
         {
             this.description = desc;
             this.barcode = barcode;
@@ -20,10 +21,10 @@ namespace Version1.domainLayer
         public string Barcode { get => barcode;  }
         public string Name { get => name; }
         public string Description { get => description; }
-        public List<Category> Categories { get => categories; }
+        public List<string> Categories { get => categories; }
         public double Price { get => price;  }
         // functions
-        public bool AddCategory(Category cat)
+        public bool AddCategory(string cat)
         {
             if (Categories.Contains(cat))
             {
@@ -32,7 +33,7 @@ namespace Version1.domainLayer
             }
             else return false;
         }
-        public bool RemoveCategory(Category cat)
+        public bool RemoveCategory(string cat)
         {
             if (Categories.Contains(cat))
             {

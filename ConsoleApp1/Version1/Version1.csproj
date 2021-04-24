@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccessLayer\DAProduct.cs" />
     <Compile Include="EventLogs\ErrorLog.cs" />
     <Compile Include="EventLogs\EventLog.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
@@ -60,12 +59,9 @@
     <Compile Include="ExternalServices\Mockups\ExternalFinanceServiceMock.cs" />
     <Compile Include="ExternalServices\Mockups\ExternalSupplyServiceMock.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
-    <Compile Include="DataAccessLayer\ModelDB.cs" />
     <Compile Include="DataAccessLayer\ReviewDao.cs" />
     <Compile Include="DataAccessLayer\ShoppingHandler.cs" />
     <Compile Include="DataAccessLayer\StoreAdministration.cs" />
-    <Compile Include="DataAccessLayer\StoreDao.cs" />
-    <Compile Include="DataAccessLayer\UserDao.cs" />
     <Compile Include="DataAccessLayer\UserSystemHandler.cs" />
     <Compile Include="domainLayer\Category.cs" />
     <Compile Include="domainLayer\Discount.cs" />

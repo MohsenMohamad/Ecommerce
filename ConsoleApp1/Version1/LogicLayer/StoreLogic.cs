@@ -33,7 +33,7 @@ namespace Version1.LogicLayer
         public static bool IsManger(string storeName, string mangerName)
         {
             if (!DataHandler.Stores.ContainsKey(storeName) ||
-                !DataHandler.Stores[storeName].Owner.Equals(DataHandler.GetUser(mangerName)))
+                !DataHandler.Stores[storeName].GetManagers().Contains(DataHandler.GetUser(mangerName)))
                 return false;
             return true;
         }
@@ -43,6 +43,24 @@ namespace Version1.LogicLayer
         public static List<Store> GetAllStores()
         {
             return DataHandler.Stores.Values.ToList();
+        }
+
+        public static string GetStorePolicy(string storeName)
+        {
+            var store = DataHandler.GetStore(storeName);
+            return store?.GetSellingPolicy();
+        }
+
+        public static bool UpdateStorePolicy(string storeName, string newPolicy)
+        {
+            var store = DataHandler.GetStore(storeName);
+            if (store == null) return false;
+            store.SetSellingPolicy(newPolicy);
+            
+            // update DataAccess
+
+            return true;
+
         }
         
     }

@@ -26,7 +26,7 @@ namespace Version1.domainLayer.UserRoles
             var store = data.GetStore(storeName);
             if (store == null)
                 return "no store was found";
-            return store.history.ToString();
+            return store.GetHistory().ToString();
         }
 
         public string GetHistoryOfUser(string username)
@@ -48,7 +48,7 @@ namespace Version1.domainLayer.UserRoles
         {
             var user = DataHandler.Instance.GetUser(userName);
             if (user != null)
-                user.ReceiveMsg(msg);
+                user.AddNotification(msg);
         }
 
         internal Store GetStore(string storeName)

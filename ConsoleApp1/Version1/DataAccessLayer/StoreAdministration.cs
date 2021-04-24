@@ -38,11 +38,11 @@ namespace Version1.DataAccessLayer
             Store st = GetStore(storeName);
             if (st != null)
             {
-                for (int i = 0; i < st.discounts.Count; i++)
+                for (int i = 0; i < st.GetDiscounts().Count; i++)
                 {
-                    if (st.discounts[i].items.Key.Barcode.CompareTo(barcode) == 0)
+                    if (st.GetDiscounts()[i].items.Key.Barcode.CompareTo(barcode) == 0)
                     {
-                        st.discounts.RemoveAt(i);
+                        st.GetDiscounts().RemoveAt(i);
                         return true;
                     }
                 }

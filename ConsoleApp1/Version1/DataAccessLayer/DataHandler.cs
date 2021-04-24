@@ -8,6 +8,7 @@ namespace Version1.DataAccessLayer
         private static readonly object padlock = new object();
         private static DataHandler instance = null;
         internal Dictionary<string, User> Users { get; }
+        internal Dictionary<string,Category> Categories { get; }
         internal Dictionary<string, Product> Products { get; }
         internal Dictionary<string, Store> Stores { get; }
         private List<ReviewDao> Reviews { get; }
@@ -78,9 +79,9 @@ namespace Version1.DataAccessLayer
         {
             lock (Stores)
             {
-                if (Stores.ContainsKey(store.Name))
+                if (Stores.ContainsKey(store.GetName()))
                     return false;
-                Stores.Add(store.Name, store);
+                Stores.Add(store.GetName(), store);
                 return true;
             }
         }
@@ -125,23 +126,21 @@ namespace Version1.DataAccessLayer
 
 //------------------------------------------ Product ------------------------------------------//
 
+        internal bool AddProduct(Product product)
+        {
+            lock (Products)
+            {
+                if (Products.ContainsKey(product.Barcode))
+                    return false;
+                Products.Add(product.Barcode, product);
+                return true;
+            }
+        }
         internal Product GetProduct(string barcode)
         {
             if (!Products.ContainsKey(barcode))
                 return null;
             return Products[barcode];
-        }
-        
-        internal List<Product> SearchProductByCategory(string category_name)
-        {
-            List<Product> output = new List<Product>();
-            return output;
-        }
-        
-        internal List<Product> SearchProductByKeyWord(string key_word)
-        {
-            List<Product> output = new List<Product>();
-            return output;
         }
         
         

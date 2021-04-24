@@ -28,6 +28,15 @@ namespace Version1.domainLayer
             return Products.Remove(product);
         }
         
+        public bool RemoveProduct(Product product, int amount)
+        {
+            if (!Products.ContainsKey(product) || Products[product] < amount)
+                return false;
+            Products[product] -= amount;
+            // remove it if new amount = 0 ?
+            return true;
+        }
+        
         public override string ToString()
         {
             var output= "basket for "+StoreName;
