@@ -7,21 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client {
-    
-    
-    public partial class Home {
-        
+namespace Client
+{
+
+
+    public partial class Home
+    {
+
         /// <summary>
-        /// Master property.
+        /// DataListproducts control.
         /// </summary>
         /// <remarks>
-        /// Auto-generated property.
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        public new Client.m1 Master {
-            get {
-                return ((Client.m1)(base.Master));
-            }
-        }
+        protected global::System.Web.UI.WebControls.DataList DataListproducts;
     }
 }

@@ -114,7 +114,7 @@
     <Compile Include="DataObserver\ObserverUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShoppingHandler.cs" />
+    <Compile Include="ShopServiceController.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="InventoryHandler.cs" />
     <Compile Include="SysAdminHandler.cs" />
@@ -125,7 +125,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApp1\ConsoleApp1.csproj">
+    <ProjectReference Include="..\Version1\Version1.csproj">
       <Project>{E25ED92D-FF1A-42C3-9449-E1EAA0017DA4}</Project>
       <Name>ConsoleApp1</Name>
     </ProjectReference>

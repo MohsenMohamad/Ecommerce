@@ -16,8 +16,7 @@ namespace Client.Code
             try
             {
                 string param = string.Format("username={0}&password={1}", username, password);
-                Console.WriteLine(System.SendApi(System.Service_type.USER, "Register", param));
-                return 0;// int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
+                return int.Parse(System.SendApi(System.Service_type.USER, "Register", param));
             }
             catch (Exception ex)
             {
