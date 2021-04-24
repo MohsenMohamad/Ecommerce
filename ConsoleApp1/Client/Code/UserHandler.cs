@@ -45,9 +45,9 @@ namespace Client.Code
                 return false;
             }
         }
-        public bool Logout(int userid)
+        public bool Logout(string userName)
         {
-            string param = string.Format("userid={0}", userid);
+            string param = string.Format("username={0}", userName);
             return bool.Parse(System.SendApi(System.Service_type.USER, "Logout", param));
         }
         public bool AddNewOwner(string mangerName, string storename, string newOwner)

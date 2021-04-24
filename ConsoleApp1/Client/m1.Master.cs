@@ -82,6 +82,7 @@ namespace Client
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
+            new UserHandler().Logout(txtusername.Text);
             Response.Redirect("~/Home.aspx");
         }
 
