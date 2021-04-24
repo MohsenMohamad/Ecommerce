@@ -47,6 +47,7 @@ namespace ServerApi
         [HttpGet]
         public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName)
         {
+            facade.addItemToInventory(itemBarCode,item_name,amount,price,shopName);
             return facade.addItemToShop(itemBarCode,item_name,amount,price,shopName);
         }
         [HttpGet]

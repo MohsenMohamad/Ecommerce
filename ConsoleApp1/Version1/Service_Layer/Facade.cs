@@ -49,6 +49,11 @@ namespace Version1.presentationLayer
             throw new NotImplementedException();
         }
         //high priority
+        public void addItemToInventory(string itemBarCode, string itemName, int amount, int price, string shopName)
+        {
+            throw new NotImplementedException();
+        }
+        //high priority
         public string[][] get_items_in_shop(string shopName)
         {
             throw new NotImplementedException();
@@ -192,7 +197,8 @@ namespace Version1.presentationLayer
         {
             throw new NotImplementedException();
         }
-        
 
+
+        
     }
 }
