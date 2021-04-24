@@ -17,7 +17,7 @@ namespace ServerApi
         [HttpGet]
         public string[][] getAllProducts()
         {
-                                                         //price
+                                                        //price
             string[] p1 = { "productName","descerption","barcode","price","catagory1#catagory2#catogory3#"};
             string[] p2 = { "bestCleaner","fine","55262623","15","hair#hands#"};
             string[] p3 = { "fairy","good","1595959","15","dish#"};
@@ -46,9 +46,9 @@ namespace ServerApi
             //return facade.getAllStores();
         }
         [HttpGet]
-        public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName)
-        {
-            if (facade.AddNewProductToSystem(itemBarCode, item_name, amount, price, shopName))
+        public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName,string descreption,string[] catagories)
+        {   //todo check if works from mohsen!
+            if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
             {
                 return facade.AddItemToStore(shopName,itemBarCode,amount);    
             }
