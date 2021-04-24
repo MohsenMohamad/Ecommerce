@@ -20,12 +20,11 @@ namespace Client
         {
             if ((txt_Username.Text.Trim().Length != 0) && (txt_password.Text.Trim().Length != 0))
             {
-                int msg = new UserHandler().Register(txt_Username.Text, txt_password.Text);
-                if (msg == 1)
+                if (new UserHandler().Register(txt_Username.Text, txt_password.Text))
                 {
                     Response.Redirect("~/Home.aspx");
                     LabelUsername.Visible = true;
-                }else if (msg < 0)
+                }else
                 {
                     //error message username in use
                 }
