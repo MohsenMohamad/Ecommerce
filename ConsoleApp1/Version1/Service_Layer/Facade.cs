@@ -44,7 +44,7 @@ namespace Version1.presentationLayer
             throw new NotImplementedException();
         }
         //high priority
-        public bool add_item_to_shop(string itemBarCode, string item_name, int amount, int price, string shopName)
+        public bool addItemToShop(string itemBarCode, string item_name, int amount, int price, string shopName)
         {
             throw new NotImplementedException();
         }
