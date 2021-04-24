@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Version1.presentationLayer;
+
 using System.Web.Http.Cors;
+using Version1.Service_Layer;
 
 namespace ServerApi
 {
@@ -47,9 +48,9 @@ namespace ServerApi
         [HttpGet]
         public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName)
         {
-            if (facade.addItemToInventory(itemBarCode, item_name, amount, price, shopName))
+            if (facade.AddNewProductToSystem(itemBarCode, item_name, amount, price, shopName))
             {
-                return facade.addItemToShop(itemBarCode,item_name,amount,price,shopName);    
+                return facade.AddItemToStore(shopName,itemBarCode,amount);    
             }
             //the item barcode does not match the ProductName in the inventory. 
             return false;
@@ -57,7 +58,7 @@ namespace ServerApi
         [HttpGet]
         public string[][] search(string keyword)
         {
-            return facade.search(keyword);
+            return facade.SearchByKeyword(keyword);
         }
         [HttpGet]
         public bool makeNewOwner(string apointerid, string storeName, string apointeeid)

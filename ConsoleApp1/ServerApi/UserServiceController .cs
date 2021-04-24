@@ -19,22 +19,22 @@ namespace ServerApi
         [HttpGet]
         public bool Register(string username, string password)
         {
-            return facade.testbool() ;
-            //return facade.Register(username, password) == true ? 1 : 0;
+            //return facade.testbool() ;
+            return facade.Register(username, password);
         }
 
         [HttpGet]
         public bool Login(string username, string password)
         {
-            return facade.testbool();
-            //return real.UserLogin(username, password) == true ? 1 : 2;
+            //return facade.testbool();
+            return facade.Login(username, password) ;
             
         }
         [HttpGet]
         public bool Logout(string username)
         {
-            return facade.testbool() ;
-            //return facade.Logout(username);
+            //return facade.testbool() ;
+            return facade.Logout(username);
         }
         
         
