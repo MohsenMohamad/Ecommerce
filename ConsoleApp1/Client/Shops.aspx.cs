@@ -8,24 +8,15 @@ using System.Web.UI.WebControls;
 
 namespace Client
 {
-    public partial class Home : System.Web.UI.Page
+    public partial class Shops : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             ShopHandler a = new ShopHandler();
-            DataListproducts.DataSource = a.getAllProducts();
+            DataListproducts.DataSource = a.getAllStores();
             DataListproducts.DataBind();
 
-        }
-
-        protected void DataList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
-        protected void ImageButtonadd_to_cart_Click(object sender, ImageClickEventArgs e)
-        {
-            
-        }
-
     }
 }

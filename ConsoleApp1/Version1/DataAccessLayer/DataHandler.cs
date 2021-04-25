@@ -63,8 +63,11 @@ namespace Version1.DataAccessLayer
         internal User Login(string userName, string password)
         {
             var user = GetUser(userName);
-            if (user.Password.Equals(password))
-                return user;
+            if (user != null)
+            {
+                if (user.Password.Equals(password))
+                    return user;
+            }
             return null;
         }
 

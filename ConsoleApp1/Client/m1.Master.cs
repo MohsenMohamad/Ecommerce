@@ -15,10 +15,15 @@ namespace Client
             LabelPasword.Visible = false;
             LabelUsername.Visible = false;
             Labelname.Visible = true;
-         /*   if (Session["isLogin"] != null)
+            OpenShop.Visible = false;
+
+
+            if (Session["isLogin"] != null)
             {
+                OpenShop.Visible = true;
+                Login_table.Visible = false;
                 ButtonLogOut.Visible = true;
-            }*/
+            }
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
@@ -50,7 +55,8 @@ namespace Client
                         Labelname.Visible = true;
                         Labelname.Text = "Hello " + txtusername.Text;
                         Session["userid"] = msg;
-                        Session["isLogin"] = "true";
+                        OpenShop.Visible = true;
+
 
                         Session["basket"] = null;
                     }
@@ -83,12 +89,38 @@ namespace Client
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
             new UserHandler().Logout(txtusername.Text);
+            Session["isLogin"] = null;
             Response.Redirect("~/Home.aspx");
         }
 
         protected void HomeButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Home.aspx");
+        }
+
+        protected void Allshops_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Shops.aspx");
+        }
+
+        protected void OpenShop_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Open_shop.aspx");
+        }
+
+        protected void Allshops_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Shops.aspx");
+        }
+
+        protected void OpenShop_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Open_shop.aspx");
+        }
+
+        protected void ImageButtoncart_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("~/Cart.aspx");
         }
     }
 }

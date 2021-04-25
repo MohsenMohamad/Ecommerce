@@ -246,7 +246,6 @@ namespace Version1.Service_Layer
             foreach (var store in stores)
             {
                 var storeData = new string[10];
-                
                 storeData[0] = store.GetName();
                 storeData[1] = store.GetOwner();
                 storeData[2] = store.GetSellingPolicy();
@@ -258,7 +257,7 @@ namespace Version1.Service_Layer
                 }
                 storeData[3] = messages;
                 
-                var paymenstInfo = "";
+               /* var paymenstInfo = "";
                 foreach (var payment in store.GetPaymentsInfo())
                 {
                     paymenstInfo = paymenstInfo + payment + "#";
@@ -301,7 +300,7 @@ namespace Version1.Service_Layer
                 storeData[9] = products;
                 
                 result[index] = storeData;
-                index += 1;
+                index += 1;*/
             }
 
             return result;
