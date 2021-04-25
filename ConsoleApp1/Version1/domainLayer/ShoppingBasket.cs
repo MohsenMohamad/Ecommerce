@@ -9,8 +9,8 @@ namespace Version1.domainLayer
         
         public ShoppingBasket(string storeName)
         {
-            this.Products = new Dictionary<Product, int>();
-            this.StoreName = StoreName;
+            Products = new Dictionary<Product, int>();
+            StoreName = StoreName;
         }
         public bool AddProduct(Product product, int amount)
         {

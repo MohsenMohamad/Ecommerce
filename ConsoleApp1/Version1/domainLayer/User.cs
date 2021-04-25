@@ -12,8 +12,8 @@ namespace Version1.domainLayer
         
         public User(string username,string password)
         {
-            this.UserName = username;
-            this.Password = password;
+            UserName = username;
+            Password = password;
             shoppingCart = new ShoppingCart();
             history = new List<Purchase>();
             notifications = new List<string>();

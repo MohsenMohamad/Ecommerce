@@ -156,7 +156,6 @@ namespace Version1.Service_Layer
             if (basketsProducts == null)
                 return null;
             return ProductsTo2DStringArray(basketsProducts);
-                throw new NotImplementedException();
         }
 
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)

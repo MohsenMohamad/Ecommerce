@@ -104,17 +104,11 @@ namespace Version1.domainLayer
             return paymentInfo;
         }
         
+//----------------------------------- Setters -----------------------------------//
+        
         public void SetSellingPolicy(string newPolicy)
         {
             sellingPolicy = newPolicy;
-        }
-        
-        public bool AddManager(string manager)
-        {
-            if (managers.Contains(manager))
-                return false;
-            managers.Add(manager);
-            return true;
         }
         
 

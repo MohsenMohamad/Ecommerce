@@ -10,7 +10,7 @@ namespace Version1.domainLayer
 
         public Purchase()
         {
-            this.items = new List<KeyValuePair<Product, int>>();
+            items = new List<KeyValuePair<Product, int>>();
             
         }
         public void addProduct(Product pr,int amount)

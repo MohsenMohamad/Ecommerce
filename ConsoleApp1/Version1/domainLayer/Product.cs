@@ -11,7 +11,7 @@ namespace Version1.domainLayer
         
         public Product(string name,string desc,string barcode,double price, List<string> categories)
         {
-            this.description = desc;
+            description = desc;
             this.barcode = barcode;
             this.name = name;
             this.categories = categories;
@@ -31,7 +31,8 @@ namespace Version1.domainLayer
                 Categories.Add(cat);
                 return true;
             }
-            else return false;
+            
+            return false;
         }
         public bool RemoveCategory(string cat)
         {
@@ -42,15 +43,8 @@ namespace Version1.domainLayer
             }
             else return false;
         }
-        public override bool Equals(object obj)
-        {
-            if (obj is Product)
-            {
-                Product cat = (Product)obj;
-                return cat.Description.CompareTo(Description) == 0 && cat.Name.CompareTo(Name) == 0 && cat.Barcode == Barcode && cat.Categories.Equals(Categories);
-            }
-            else return false;
-        }
+
+        
         public override string ToString()
         {
             string output = "";

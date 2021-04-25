@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="EventLogs\ErrorLog.cs" />
     <Compile Include="EventLogs\EventLog.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
@@ -92,10 +93,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Encryption" />
-    <Folder Include="presentationLayer" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
