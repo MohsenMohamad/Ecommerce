@@ -116,27 +116,7 @@ namespace Version1.domainLayer
             managers.Add(manager);
             return true;
         }
-        public bool RemoveManager(string manager)
-        {
-            if (!managers.Contains(manager))
-                return false;
-            managers.Remove(manager);
-            return true;
-        }
-        public bool AddOwner(string owner)
-        {
-            if (owners.Contains(owner))
-                return false;
-            owners.Add(owner);
-            return true;
-        }
-        public bool RemoveOwner(string owner)
-        {
-            if (!owners.Contains(owner))
-                return false;
-            owners.Remove(owner);
-            return true;
-        }
+        
 
         internal void ReceiveMsg(string msg)
         {

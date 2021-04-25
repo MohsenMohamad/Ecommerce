@@ -38,6 +38,44 @@ namespace Version1.LogicLayer
             return true;
         }
         
+        
+        public static bool AddOwner(string storeName, string username)
+        {
+            var newOwner = DataHandler.GetUser(username);
+            var store = DataHandler.GetStore(storeName);
+            if (newOwner == null || store == null || store.GetOwners().Contains(username)) return false;
+            store.GetOwners().Add(username);
+            return true;
+        }
+        
+        public static bool AddManager(string storeName, string username)
+        {
+            var newManager = DataHandler.GetUser(username);
+            var store = DataHandler.GetStore(storeName);
+            if (newManager == null || store == null || store.GetManagers().Contains(username)) return false;
+            store.GetManagers().Add(username);
+            return true;
+        }
+        
+        public static bool RemoveOwner(string storeName, string username)
+        {
+            var owner = DataHandler.GetUser(username);
+            var store = DataHandler.GetStore(storeName);
+            if (owner == null || store == null) return false;
+            
+            return store.GetOwners().Remove(username); // returns false if the owner was not found
+        }
+        
+        public static bool RemoveManager(string storeName, string username)
+        {
+            var manager = DataHandler.GetUser(username);
+            var store = DataHandler.GetStore(storeName);
+            if (manager == null || store == null) return false;
+            
+            return store.GetManagers().Remove(username); // returns false if the manager was not found
+        }
+        
+        
 //---------------------------------------- Getters ----------------------------------------//   
 
         public static List<Store> GetAllStores()

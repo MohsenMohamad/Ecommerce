@@ -131,6 +131,25 @@ namespace Version1.LogicLayer
 
         }
 
+        public bool AddOwner(string apointerid, string storeName, string apointeeid)
+        {
+            return StoreLogic.AddOwner(storeName, apointeeid);
+        }
+
+        public bool AddManager(string apointerid, string storeName, string apointeeid, List<int> permissions)
+        {
+            return StoreLogic.AddManager(storeName, apointeeid);
+        }
+
+        public bool RemoveOwner(string apointerid, string storeName, string apointeeid)
+        {
+            return StoreLogic.RemoveOwner(storeName, apointeeid);
+        }
+
+        public bool RemoveManager(string apointerid, string storeName, string apointeeid)
+        {
+            return StoreLogic.RemoveManager(storeName, apointeeid);
+        }
 
         public bool AddNewProduct(string barcode, string productName,string description, double price, List<string> categories)
         {

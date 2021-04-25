@@ -49,48 +49,8 @@ namespace Version1.DataAccessLayer
             }
             return false;
         }
-
-        public bool AddManager(string storeName, string username)
-        {
-            User us = data.GetUser(username);
-            Store st = GetStore(storeName);
-            if (us != null&&st!=null)
-            {
-                return st.AddManager(username);
-            }
-            return false;
-        }
-        public bool RemoveManager(string storeName, string username)
-        {
-            User us = data.GetUser(username);
-            Store st = GetStore(storeName);
-            if (us != null && st != null)
-            {
-                return st.RemoveManager(username);
-            }
-            return false;
-        }
-
-        public bool AddOwner(string storeName, string username)
-        {
-            User us = data.GetUser(username);
-            Store st = GetStore(storeName);
-            if (us != null && st != null)
-            {
-                return st.AddOwner(username);
-            }
-            return false;
-        }
-        public bool RemoveOwner(string storeName, string username)
-        {
-            User us = data.GetUser(username);
-            Store st = GetStore(storeName);
-            if (us != null && st != null)
-            {
-                return st.RemoveOwner(username);
-            }
-            return false;
-        }
+        
+        
         public bool AddPurchase(string storeName, Purchase pr)
         {
             Store st = GetStore(storeName);

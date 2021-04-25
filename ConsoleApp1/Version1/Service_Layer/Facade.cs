@@ -83,24 +83,24 @@ namespace Version1.Service_Layer
         //high priority
         public bool MakeNewOwner(string apointerid, string storeName, string apointeeid)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddOwner(apointerid, storeName, apointeeid);
         }
 
         //todo make sure that the each number of the permissions
         // appoint to different permission from a *table* of permissions.
-        public bool makeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
+        public bool MakeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddManager(apointerid, storeName, apointeeid, permissions);
         }
 
-        public bool removeOwner(string apointerid, string storeName, string apointeeid)
+        public bool RemoveOwner(string apointerid, string storeName, string apointeeid)
         {
-            throw new NotImplementedException();
+            return logicInstance.RemoveOwner(apointerid, storeName, apointeeid);
         }
 
-        public bool removeManager(string apointerid, string storeName, string apointeeid)
+        public bool RemoveManager(string apointerid, string storeName, string apointeeid)
         {
-            throw new NotImplementedException();
+            return logicInstance.RemoveManager(apointerid, storeName, apointeeid);
         }
         
         

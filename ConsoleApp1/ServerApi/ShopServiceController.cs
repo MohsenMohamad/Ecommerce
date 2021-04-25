@@ -68,17 +68,17 @@ namespace ServerApi
         [HttpGet]
         public bool makeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
         {   //todo split the permissions and make dataStructures that saves the permissions
-            return facade.makeNewManger(apointerid,storeName,apointeeid,permissions);
+            return facade.MakeNewManger(apointerid,storeName,apointeeid,permissions);
         }
         [HttpGet]
         public bool removeOwner(string apointerid, string storeName, string apointeeid)
         {
-            return facade.removeOwner(apointerid,storeName,apointeeid);
+            return facade.RemoveOwner(apointerid,storeName,apointeeid);
         }
         [HttpGet]
         public bool removeManager(string apointerid, string storeName, string apointeeid)
         {
-            return facade.removeManager(apointerid,storeName,apointeeid);
+            return facade.RemoveManager(apointerid,storeName,apointeeid);
         }
         [HttpGet]
         public bool addItemToCart(string username, string productBarCode, string storeName)
