@@ -12,6 +12,7 @@ namespace Version1.LogicLayer
         
         public static bool OpenStore(string managerName, string storeName, string policy)
         {
+            if (!DataHandler.Exists(managerName)) return false;
             var store = new Store(managerName, policy, storeName);
             return DataHandler.AddStore(store);
         }

@@ -1,18 +1,12 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.DataAccessLayer;
 using Version1.domainLayer;
 
 namespace Version1.LogicLayer
 {
     public class Logic
     {
-        // null = not connected
-        private Person currentUser = null;
-        private readonly DataHandler dataHandler = DataHandler.Instance;
-        private readonly UserSystemHandler userSystemHandler = new UserSystemHandler();
-        private readonly StoreAdministration storeAdministration = new StoreAdministration();
-
+        
         public Logic()
         {
             
@@ -28,26 +22,18 @@ namespace Version1.LogicLayer
         
         // 2.1) Sign in as a guest
 
-        public bool GuestLogin()
+        public long GuestLogin()
         {
-            if (currentUser != null)
-                return false;
-
             var result = UserLogic.GuestLogin();
-            if (result)
-                currentUser = Guest.Instance;
             return result;
         }
         
         // 2.2) Exit as a guest
 
-        public bool GuestLogout()
+        public bool GuestLogout(long guestId)
         {
-            if (currentUser == null || !IsGuest())
-                return false;
-            var result = UserLogic.GuestLogout();
-            if (result)
-                currentUser = null;
+            
+            var result = UserLogic.GuestLogout(guestId);
             return result;
         }
         
@@ -55,8 +41,6 @@ namespace Version1.LogicLayer
 
         public bool Register(string userName, string userPassword)
         {
-            if (currentUser != null)
-                return false;
             var result = UserLogic.Register(userName, userPassword);
             return result;
         }
@@ -65,12 +49,8 @@ namespace Version1.LogicLayer
 
         public bool UserLogin(string name, string password)
         {
-            if (currentUser != null)
-                return false;
             var result = UserLogic.UserLogin(name, password);
-            if (result != null)
-                currentUser = result;
-            return result != null;
+            return result;
         }
         
         // 2.5) Get store info
@@ -79,8 +59,6 @@ namespace Version1.LogicLayer
 
         public List<string> SearchFilter(string sortOption, List<string> filters)
         {
-            if (currentUser == null)
-                return null;
             return InventoryLogic.SearchFilter(sortOption, filters);
         }
         
@@ -88,9 +66,6 @@ namespace Version1.LogicLayer
 
         public bool AddProductToBasket(string userName, string storeName, string productCode)
         {
-            if (currentUser == null)
-                return false;
-            
             return CartLogic.AddProductToBasket(userName, storeName, productCode);
         }
         
@@ -102,19 +77,13 @@ namespace Version1.LogicLayer
 
         public bool UserLogout(string userName)
         {
-            if (currentUser == null || IsGuest())
-                return false;
-            var result = UserLogic.UserLogout();
-            if (result)
-                currentUser = null;
+            var result = UserLogic.UserLogout(userName);
             return result;
         }
         
         // 3.2) Open a store
         public bool OpenStore(string username , string storeName, string policy)
         {
-            if (currentUser == null || IsGuest() || !((User)currentUser).UserName.Equals(username))
-                return false;
             return StoreLogic.OpenStore(username, storeName, policy);
         }
 
@@ -125,6 +94,16 @@ namespace Version1.LogicLayer
 
 //-------------------------------------- Other ---------------------------------//
 
+        public bool IsLoggedIn(string userName)
+        {
+            return UserLogic.IsLoggedIn(userName);
+        }
+
+        public List<string> GetAllLoggedInUsers()
+        {
+            return UserLogic.GetAllLoggedInUsers();
+        }
+        
         public List<Product> GetUserBaskets(string userName)
         {
             return CartLogic.GetUserBaskets(userName);
@@ -214,22 +193,6 @@ namespace Version1.LogicLayer
         public ConcurrentDictionary<Product, int> GetProductsFromShop(string storeName)
         {
             return InventoryLogic.GetProductsFromShop(storeName);
-        }
-        
-        public string LoggedInUserName()
-        {
-            // guest
-            if (currentUser == null || IsGuest())
-            {
-                return null;
-            }
-
-            return ((User)currentUser).UserName;
-        }
-
-        private bool IsGuest()
-        {
-            return (currentUser is Guest);
         }
         
     }

@@ -8,6 +8,7 @@ namespace Version1.DataAccessLayer
         private static readonly object padlock = new object();
         private static DataHandler instance = null;
         internal Dictionary<string, User> Users { get; }
+        internal Dictionary<long, Guest> Guests { get; }
         internal Dictionary<string,Category> Categories { get; }
         internal Dictionary<string, Product> Products { get; }
         internal Dictionary<string, Store> Stores { get; }
@@ -17,6 +18,7 @@ namespace Version1.DataAccessLayer
         private DataHandler()
         {
             Users = new Dictionary<string, User>();
+            Guests = new Dictionary<long, Guest>();
             Stores = new Dictionary<string, Store>();
             Products = new Dictionary<string, Product>();
             Reviews = new List<ReviewDao>();
@@ -40,7 +42,12 @@ namespace Version1.DataAccessLayer
 
 //------------------------------------------ User ------------------------------------------//
 
-
+        internal bool AddGuest(Guest guest)
+        {
+            Guests.Add(guest.GetId(),guest);
+            return true;
+        }
+        
         internal bool AddUser(User user)
         {
             Users.Add(user.UserName, user);
@@ -53,6 +60,11 @@ namespace Version1.DataAccessLayer
             return true;
         }
 
+        internal bool RemoveGuest(long guestId)
+        {
+            return Guests.Remove(guestId);
+        }
+
         internal User GetUser(string username)
         {
             if (Users.ContainsKey(username))
@@ -60,15 +72,12 @@ namespace Version1.DataAccessLayer
             return null;
         }
 
-        internal User Login(string userName, string password)
+        internal bool Login(string userName, string password)
         {
+            if (!Exists(userName)) return false;
+            
             var user = GetUser(userName);
-            if (user != null)
-            {
-                if (user.Password.Equals(password))
-                    return user;
-            }
-            return null;
+            return user.Password.Equals(password);
         }
 
         internal bool Exists(string username)

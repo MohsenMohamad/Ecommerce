@@ -1,28 +1,25 @@
-﻿namespace Version1.domainLayer
+﻿using System.Threading;
+
+namespace Version1.domainLayer
 {
-    public sealed class Guest : Person
+    public class Guest : Person
     {
-        public static Guest Instance { get; } = new Guest();
-        internal bool signin { get; private set; }
 
-        static Guest()
-        {
-        }
+        private static long _idCounter;
 
-        private Guest()
+        private long guestId { get; }
+
+        public Guest()
         {
+            guestId = Interlocked.Increment(ref _idCounter);
             shoppingCart = new ShoppingCart();
-            signin = false;
+            
         }
 
-        public void Login() {
-            signin = true;
-        }
-
-        public void Logout()
+        public long GetId()
         {
-            shoppingCart = new ShoppingCart();
-            signin = false;
+            return guestId;
         }
+        
     }
 }

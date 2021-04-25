@@ -16,11 +16,7 @@ namespace Version1.Service_Layer
         private ShoppingHandler shoppingHandler = new ShoppingHandler();
         private StoreAdministration storeAdministration = new StoreAdministration();
 
-        public bool testbool()
-        {
-            return true;
-            
-        }
+
         //high priority
         public bool Login(string username, string password)
         {
@@ -122,7 +118,7 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public bool OpenShop(string shopName, string userName, string policy)
+        public bool OpenShop(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName,shopName, policy);
         }
@@ -138,16 +134,16 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
         
-        // low
+        
         public bool IsLoggedIn(string userName)
         {
-            throw new NotImplementedException();
+            return logicInstance.IsLoggedIn(userName);
         }
 
-        // low
-        public string[] getAllLogInUsersinSystem()
+        
+        public string[] GetAllLogInUsersInSystem()
         {
-            throw new NotImplementedException();
+            return logicInstance.GetAllLoggedInUsers().ToArray();
         }
 
         public string[][] GetUserBaskets(string userName)
@@ -256,7 +252,7 @@ namespace Version1.Service_Layer
                 }
                 storeData[3] = messages;
                 
-               /* var paymenstInfo = "";
+                var paymenstInfo = "";
                 foreach (var payment in store.GetPaymentsInfo())
                 {
                     paymenstInfo = paymenstInfo + payment + "#";
@@ -299,7 +295,7 @@ namespace Version1.Service_Layer
                 storeData[9] = products;
                 
                 result[index] = storeData;
-                index += 1;*/
+                index += 1;
             }
 
             return result;

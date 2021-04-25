@@ -26,6 +26,7 @@ namespace Version1.domainLayer
             discounts = new List<Discount>();
             history = new List<Purchase>();
             owners = new List<string> {owner};
+            paymentInfo = new List<string>();
             this.name = name;
             notifications = new List<string>();
         }

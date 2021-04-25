@@ -17,8 +17,6 @@ namespace Version1.LogicLayer
             if (product == null || store == null)
                 return false;
             
-            if (userName == null)
-                return Guest.Instance.AddItemToBasket(storeName,product , 0);
 
             return DataHandler.GetUser(userName).AddItemToBasket(storeName,product,0);
         }
@@ -58,13 +56,7 @@ namespace Version1.LogicLayer
 
         public static List<Product> GetBasketProducts(string userName, string storeName)
         {
-            if (userName == null)
-            {
-                if (Guest.Instance.shoppingCart.shoppingBaskets.ContainsKey(storeName))
-                    return Guest.Instance.shoppingCart.shoppingBaskets[storeName].Products.Keys.ToList();
-                return null;
-            }
-
+            
             var userBaskets = DataHandler.GetUser(userName).shoppingCart.shoppingBaskets;
             if(userBaskets.ContainsKey(storeName))
                 return userBaskets[storeName].Products.Keys.ToList();
