@@ -29,7 +29,7 @@ namespace ServerApi
         [HttpGet]
         public string[][] getAllStores()
         {
-            string[][]storesDummy = new string[3][];
+/*            string[][]storesDummy = new string[3][];
             string[] s1 = { "storeName","ownerName","sellingpolicy","message1#message2#message3#",
                 "paymentInfo1#paymentInfo2#","manger1#manger2#",
                 "coOwner1#coOwner2#","discount1#discount2#","historyLogger","inventoryProduct1#inventoryProduct2#"};
@@ -42,8 +42,8 @@ namespace ServerApi
             storesDummy[0] = s1;
             storesDummy[1] = s2;
             storesDummy[2] = s3;
-            return storesDummy;
-            //return facade.getAllStores();
+            return storesDummy;*/
+            return facade.GetAllStores();
         }
         [HttpGet]
         public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName,string descreption,string[] catagories)
@@ -55,6 +55,13 @@ namespace ServerApi
             //the item barcode does not match the ProductName in the inventory. 
             return false;
         }
+
+        [HttpGet]
+        public bool OpenShop(string shopName, string userName, string policy)
+        {
+            return facade.OpenShop(shopName, userName, policy);
+        }
+
         [HttpGet]
         public string[][] search(string keyword)
         {

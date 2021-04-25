@@ -51,6 +51,33 @@ namespace Client
         protected global::System.Web.UI.WebControls.Button HomeButton;
 
         /// <summary>
+        /// Allshops control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Allshops;
+
+        /// <summary>
+        /// OpenShop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button OpenShop;
+
+        /// <summary>
+        /// ImageButtoncart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButtoncart;
+
+        /// <summary>
         /// ButtonLogOut control.
         /// </summary>
         /// <remarks>

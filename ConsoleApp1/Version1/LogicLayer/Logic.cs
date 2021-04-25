@@ -111,11 +111,11 @@ namespace Version1.LogicLayer
         }
         
         // 3.2) Open a store
-        public bool OpenStore(string managerName , string storeName, string policy)
+        public bool OpenStore(string username , string storeName, string policy)
         {
-            if (currentUser == null || IsGuest() || !((User)currentUser).UserName.Equals(managerName))
+            if (currentUser == null || IsGuest() || !((User)currentUser).UserName.Equals(username))
                 return false;
-            return StoreLogic.OpenStore(managerName, storeName, policy);
+            return StoreLogic.OpenStore(username, storeName, policy);
         }
 
         public List<Store> GetAllStores()

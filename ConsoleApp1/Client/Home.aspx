@@ -40,7 +40,13 @@
                                     <tr>
                                         <td style="height: 10px;"></td>
                                     </tr>
+
+                                         <td style="text-align: center;">
+                                             <asp:LinkButton ID="LinkButton1" CommandName="addtocart" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")%>'  runat="server"><img src="img/add_to_cart.PNG" style="width: 250px; height: auto;" /></asp:LinkButton>
+                                             </td>
+
                                    
+                          
                                     <tr>
                                         <td style="height: 10px;"></td>
                                     </tr>

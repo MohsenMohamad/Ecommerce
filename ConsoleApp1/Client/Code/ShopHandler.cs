@@ -33,5 +33,30 @@ namespace Client.Code
             return d1;
 
         }
+
+        public bool OpenShop(string shopName, string userName, string policy)
+        {
+            string param = string.Format("shopName={0}&userName={1}&policy={2}", shopName, userName, policy);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "OpenShop", param));
+        }
+
+        public DataSet getAllStores() {
+            string param = "";
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.SHOP, "getAllStores", param).ToString());
+            DataTable t1 = new DataTable("Stores");
+            t1.Columns.Add("storeName");
+            t1.Columns.Add("ownerName");
+            t1.Columns.Add("sellingpolicy");
+            t1.Columns.Add("message");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3]);
+            }
+
+            DataSet d1 = new DataSet("Stores");
+            d1.Tables.Add(t1);
+            return d1;
+        }
     }
 }
