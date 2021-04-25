@@ -15,16 +15,17 @@ namespace ServerApi
     {
         private Facade facade = new Facade();
         [HttpGet]
-        public string[][] getAllProducts()
+        public string[][] GetStoresProducts()
         {
-                                                        //price
-            string[] p1 = { "productName","descerption","barcode","price","catagory1#catagory2#catogory3#"};
-            string[] p2 = { "bestCleaner","fine","55262623","15","hair#hands#"};
-            string[] p3 = { "fairy","good","1595959","15","dish#"};
-            string[] p4 = { "lab","high","1626256","15",""};
+            //price
+        /*    string[] p1 = { "productName", "descerption", "barcode", "price", "catagory1#catagory2#catogory3#", "shop1" };
+            string[] p2 = { "bestCleaner", "fine", "55262623", "15", "hair#hands#", "shop2" };
+            string[] p3 = { "fairy", "good", "1595959", "15", "dish#", "shop3" };
+            string[] p4 = { "lab", "high", "1626256", "15", "", "shop4" };
             string[][] productsDummy = { p1, p2, p3, p4 };
-            return productsDummy;
-            //return facade.getAllProducts();
+            return productsDummy;*/
+            var a = facade.GetStoresProducts();
+            return a;
         }
         [HttpGet]
         public string[][] getAllStores()
@@ -54,6 +55,12 @@ namespace ServerApi
             }
             //the item barcode does not match the ProductName in the inventory. 
             return false;
+        }
+
+        [HttpGet]
+        public string[][] GetUserBaskets(string userName)
+        {
+            return facade.GetUserBaskets(userName);
         }
 
         [HttpGet]
@@ -90,7 +97,7 @@ namespace ServerApi
         [HttpGet]
         public bool AddProductToBasket(string userName, string storeName, string productBarCode)
         {
-            return facade.AddProductToBasket(userName, productBarCode, storeName);
+            return facade.AddProductToBasket(userName, storeName, productBarCode);
 
         }
 

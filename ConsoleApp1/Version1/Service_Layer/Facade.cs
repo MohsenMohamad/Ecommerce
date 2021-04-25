@@ -165,10 +165,24 @@ namespace Version1.Service_Layer
 
         public string[][] GetUserBaskets(string userName)
         {
-            var basketsProducts = logicInstance.GetUserBaskets(userName);
-            if (basketsProducts == null)
-                return null;
-            return ProductsTo2DStringArray(basketsProducts);
+            var finalList = new List<List<string>>();
+            var storeNames = logicInstance.GetStoresNames();
+            foreach (var storeName in storeNames)
+            {
+                var userBasket = GetBasketProducts(userName, storeName);
+                if (userBasket == null) continue;
+                var lists = userBasket.Select(a => a.ToList()).ToList();
+                foreach (var productData in lists)
+                    productData.Add(storeName);
+
+                finalList.AddRange(lists);
+            }
+
+            return finalList.Select(a => a.ToArray()).ToArray();
+            /* var basketsProducts = logicInstance.GetUserBaskets(userName);
+             if (basketsProducts == null)
+                 return null;
+             return ProductsTo2DStringArray(basketsProducts);*/
         }
 
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
@@ -232,7 +246,7 @@ namespace Version1.Service_Layer
             int index = 0;
             foreach (var product in products)
             {
-                string[] productData = new string[6];
+                string[] productData = new string[5];
 
                 productData[0] = product.Name;
                 productData[1] = product.Description;

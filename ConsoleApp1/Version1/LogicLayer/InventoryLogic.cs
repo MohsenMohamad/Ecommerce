@@ -20,11 +20,11 @@ namespace Version1.LogicLayer
             if (DataHandler.Products.ContainsKey(barcode))
                 return false;
 
-            foreach (var category in categories)
+          /*  foreach (var category in categories)
             {
                 if (!DataHandler.Categories.ContainsKey(category))
                     return false;
-            }
+            }*/
             
             var product = new Product(productName, description, barcode, price, categories);
             return DataHandler.AddProduct(product);

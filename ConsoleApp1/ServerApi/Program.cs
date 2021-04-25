@@ -6,6 +6,7 @@ using ServerApi.DataObserver;
 using System.Collections.Generic;
 using System.Linq;
 using ServerApi;
+using Version1.Service_Layer;
 
 namespace ServiceApi
 {
@@ -18,7 +19,23 @@ namespace ServiceApi
             ws://localhost:8088*/
         static void Main(string[] args)
         {
-                string domainAddress = "https://localhost:44300/";
+            var facade = new Facade();
+
+            facade.Register("zzz", "123");
+            facade.Login("zzz", "123");
+
+            facade.OpenShop("zzz", "store1", "ss");
+            facade.OpenShop("zzz", "store2", "ss");
+
+            facade.AddNewProductToSystem("111", "product1", "descreption1", 2.5, new[] { "cat1" });
+            facade.AddNewProductToSystem("333", "product2", "descreption1", 2.5, new[] { "cat1" });
+            facade.AddNewProductToSystem("44", "product4", "descreption1", 2.5, new[] { "dog" });
+            facade.AddItemToStore("store1", "111", 11);
+            facade.AddItemToStore("store2", "333", 11);
+            facade.AddItemToStore("store2", "44", 11);
+          //  facade.AddProductToBasket("zzz", "store1", "111");
+
+            string domainAddress = "https://localhost:44300/";
                 using (WebApp.Start(url:domainAddress))
                 {
                     Console.WriteLine("Service Hosted " + domainAddress);

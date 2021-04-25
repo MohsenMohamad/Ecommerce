@@ -10,7 +10,7 @@ namespace Version1.domainLayer
         public ShoppingBasket(string storeName)
         {
             Products = new Dictionary<Product, int>();
-            StoreName = StoreName;
+            StoreName = storeName;
         }
         public bool AddProduct(Product product, int amount)
         {

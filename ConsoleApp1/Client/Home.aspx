@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:DataList ID="DataListproducts" runat="server" BackColor="White" BorderStyle="Double" CellPadding="4" OnSelectedIndexChanged="DataList1_SelectedIndexChanged" RepeatDirection="Horizontal" RepeatColumns="3" BorderColor="#336666" BorderWidth="3px" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" GridLines="Horizontal">
+    <asp:DataList ID="DataListproducts" OnItemCommand="DataListproducts_ItemCommand1" runat="server" BackColor="White" BorderStyle="Double" CellPadding="4"  RepeatDirection="Horizontal" RepeatColumns="3" BorderColor="#336666" BorderWidth="3px" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" GridLines="Horizontal">
         <FooterStyle BackColor="White" ForeColor="#333333" />
         <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
         <SelectedItemStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
@@ -37,15 +37,21 @@
                                         <td>
                                             <span style="font-weight: 700; font-size: 20px;"><%#Eval("price") %>₪</span></td>
                                     </tr>
+                                     <tr>
+                                        <td>
+                                             <span style="font-size: 16px;">nameShop :<%#Eval("nameShop") %></span></td>
+                                    </tr>
                                     <tr>
                                         <td style="height: 10px;"></td>
                                     </tr>
 
                                          <td style="text-align: center;">
-                                             <asp:LinkButton ID="LinkButton1" CommandName="add_to_cart" CommandArgument='<%#Eval("productName")+"#"+ Eval("descerption")+"#"+Eval("barcode")+"#"+Eval("catagory")+"#"+Eval("price")%>'  runat="server"><img src="img/add_to_cart.PNG" style="width: 250px; height: auto;" /></asp:LinkButton>
+                                             <asp:LinkButton ID="LinkButton1" CommandName="add_to_cart" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop") %>'  runat="server"><img src="img/add_to_cart.PNG" style="width: 250px; height: auto;" /></asp:LinkButton>
                                              </td>
 
-                                   
+                                   <td>
+                                       <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
+                                   </td>
                           
                                     <tr>
                                         <td style="height: 10px;"></td>
