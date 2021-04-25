@@ -20,7 +20,7 @@ namespace Client
 
             ShopHandler s = new ShopHandler();
             string username = Session["username"].ToString();
-            bool open = s.OpenShop(TextBoxShopname.Text, username, TextBoxpolicy.Text);
+            bool open = s.OpenShop(username, TextBoxShopname.Text , TextBoxpolicy.Text);
             if (!open) {
                 Labelerror.Visible = true;
             }

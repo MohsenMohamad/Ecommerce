@@ -209,11 +209,11 @@ namespace Version1.Service_Layer
 
         private string[][] ProductsTo2DStringArray(List<Product> products)
         {
-            var result = new string[products.Count][];
-            var index = 0;
+            string[][] result = new string[products.Count][];
+            int index = 0;
             foreach (var product in products)
             {
-                var productData = new string[5];
+                string[] productData = new string[6];
                 
                 productData[0] = product.Name;
                 productData[1] = product.Description;
@@ -227,6 +227,9 @@ namespace Version1.Service_Layer
                 }
                 productData[4] = categories;
 
+
+
+
                 result[index] = productData;
                 index += 1;
             }
@@ -236,11 +239,11 @@ namespace Version1.Service_Layer
         
         private string[][] StoresTo2DStringArray(List<Store> stores)
         {
-            var result = new string[stores.Count][];
-            var index = 0;
+            string[][] result = new string[stores.Count][];
+            int index = 0;
             foreach (var store in stores)
             {
-                var storeData = new string[10];
+                string[] storeData = new string[4];
                 storeData[0] = store.GetName();
                 storeData[1] = store.GetOwner();
                 storeData[2] = store.GetSellingPolicy();
@@ -251,7 +254,7 @@ namespace Version1.Service_Layer
                     messages = messages + message + "#";
                 }
                 storeData[3] = messages;
-                
+          /*      
                 var paymenstInfo = "";
                 foreach (var payment in store.GetPaymentsInfo())
                 {
@@ -293,7 +296,7 @@ namespace Version1.Service_Layer
                     products = products + product + "#";
                 }
                 storeData[9] = products;
-                
+                */
                 result[index] = storeData;
                 index += 1;
             }

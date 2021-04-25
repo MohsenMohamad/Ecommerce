@@ -57,9 +57,9 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool OpenShop(string shopName, string userName, string policy)
+        public bool OpenShop(string userName, string shopName, string policy)
         {
-            return facade.OpenShop(shopName, userName, policy);
+            return facade.OpenShop(userName , shopName, policy);
         }
 
         [HttpGet]
@@ -88,12 +88,13 @@ namespace ServerApi
             return facade.RemoveManager(apointerid,storeName,apointeeid);
         }
         [HttpGet]
-        public bool addItemToCart(string username, string productBarCode, string storeName)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode)
         {
-            return facade.AddProductToBasket(username,productBarCode,storeName);
+            return facade.AddProductToBasket(userName, productBarCode, storeName);
+
         }
-        
-        
-        
+
+
+
     }
 }

@@ -34,9 +34,9 @@ namespace Client.Code
 
         }
 
-        public bool OpenShop(string shopName, string userName, string policy)
+        public bool OpenShop(string userName, string shopName, string policy)
         {
-            string param = string.Format("shopName={0}&userName={1}&policy={2}", shopName, userName, policy);
+            string param = string.Format("userName={0}&shopName={1}&policy={2}", userName, shopName, policy);
             return bool.Parse(System.SendApi(System.Service_type.SHOP, "OpenShop", param));
         }
 
@@ -57,6 +57,13 @@ namespace Client.Code
             DataSet d1 = new DataSet("Stores");
             d1.Tables.Add(t1);
             return d1;
+        }
+
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode)
+        {
+
+            string param = string.Format("userName={0}&storeName={1}&productBarCode={2}", userName, storeName, productBarCode);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "AddProductToBasket", param));
         }
     }
 }

@@ -89,7 +89,8 @@ namespace Client
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
             new UserHandler().Logout(txtusername.Text);
-            Session["isLogin"] = null;
+            Session.Clear();
+            Session.Abandon();
             Response.Redirect("~/Home.aspx");
         }
 

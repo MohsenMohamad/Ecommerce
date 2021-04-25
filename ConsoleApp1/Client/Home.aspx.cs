@@ -18,8 +18,15 @@ namespace Client
 
         }
 
-        protected void DataList1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void DataList1_SelectedIndexChanged(object sender, DataListCommandEventArgs e)
         {
+            if (e.CommandName == "add_to_cart") {
+                string[] cargs = e.CommandArgument.ToString().Split('#');
+                ShopHandler sh = new ShopHandler();
+                string barcode = cargs[2];
+              //  sh.AddProductToBasket();
+
+            }
 
         }
         protected void ImageButtonadd_to_cart_Click(object sender, ImageClickEventArgs e)
