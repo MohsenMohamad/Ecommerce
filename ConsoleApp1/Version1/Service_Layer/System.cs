@@ -19,8 +19,10 @@ namespace Version1.Service_Layer
             Console.WriteLine(facade.Login("zzz", "123"));
             
             Console.WriteLine(facade.OpenShop("zzz","store1","ss"));
-            
-            var stores = facade.GetAllStores();
+
+            facade.AddNewProductToSystem("111", "product1", "descreption1", 2.5, new []{"cat1"});
+            facade.AddItemToStore("store1", "111", 11);
+            var stores = facade.GetStoresProducts();
 
             foreach (var store in stores)
             {

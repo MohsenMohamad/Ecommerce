@@ -194,6 +194,11 @@ namespace Version1.LogicLayer
         {
             return InventoryLogic.GetProductsFromShop(storeName);
         }
+
+        public List<string> GetStoresNames()
+        {
+            return StoreLogic.GetStoresNames();
+        }
         
     }
 }

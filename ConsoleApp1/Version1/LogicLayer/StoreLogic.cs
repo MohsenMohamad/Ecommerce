@@ -106,6 +106,11 @@ namespace Version1.LogicLayer
             return store?.GetSellingPolicy();
         }
 
+        public static List<string> GetStoresNames()
+        {
+            return DataHandler.Stores.Keys.ToList();
+        }
+
         public static bool UpdateStorePolicy(string storeName, string newPolicy)
         {
             var store = DataHandler.GetStore(storeName);
