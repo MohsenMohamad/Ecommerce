@@ -47,31 +47,30 @@
                                             
                                             &nbsp;</td>
                                     </tr>
-                                    
-                                    <tr>
-                                        <td style="height: 10px;">
-                                            <asp:DropDownList ID="DropDownList2"  AppendDataBoundItems="true" runat="server" OnSelectedIndexChanged="DDList_SelectedIndexChanged">
-                                         <asp:ListItem Enabled="true" Text="Select Amount" Value="-1"></asp:ListItem>
-                                         <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                                         <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                                         <asp:ListItem Text="3" Value="3"></asp:ListItem>
-                                         <asp:ListItem Text="4" Value="4"></asp:ListItem>
-                                         <asp:ListItem Text="5" Value="5"></asp:ListItem>
-                                         <asp:ListItem Text="6" Value="6"></asp:ListItem>
-                                         <asp:ListItem Text="7" Value="7"></asp:ListItem>
-                                         <asp:ListItem Text="8" Value="8"></asp:ListItem>
-                                         <asp:ListItem Text="9" Value="9"></asp:ListItem>
-                                         <asp:ListItem Text="10" Value="10"></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </td>
-                                    </tr>
 
                                     <tr>
                                         <td style="height: 10px;">
-                                            <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop") %>' CommandName="add_to_cart"><img src="img/add_to_cart.PNG" style="width: 250px; height: auto;" /></asp:LinkButton>
+                                            <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+                                                <asp:ListItem Enabled="true" Text="Select Amount" Value="-1"></asp:ListItem>
+                                                <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                                                <asp:ListItem Text="6" Value="6"></asp:ListItem>
+                                                <asp:ListItem Text="7" Value="7"></asp:ListItem>
+                                                <asp:ListItem Text="8" Value="8"></asp:ListItem>
+                                                <asp:ListItem Text="9" Value="9"></asp:ListItem>
+                                                <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                                            </asp:DropDownList>
                                         </td>
                                         <tr>
-                                            <td style="height: 10px;"></td>
+                                            <td style="height: 10px;">
+                                                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop") %>' CommandName="add_to_cart"><img src="img/add_to_cart.PNG" style="width: 250px; height: auto;" /></asp:LinkButton>
+                                            </td>
+                                            <tr>
+                                                <td style="height: 10px;"></td>
+                                            </tr>
                                         </tr>
                                     </tr>
                                 </table>

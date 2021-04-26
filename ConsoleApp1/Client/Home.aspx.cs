@@ -50,11 +50,12 @@ namespace Client
 
             }
         }
-            protected void ImageButtonadd_to_cart_Click(object sender, ImageClickEventArgs e)
+        protected void ImageButtonadd_to_cart_Click(object sender, ImageClickEventArgs e)
         {
             
         }
-        protected void DDList_SelectedIndexChanged(object sender, EventArgs e)
+
+        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
         {
             Label1.Visible = true;
             //cast the sender back to a dropdownlist
@@ -67,6 +68,5 @@ namespace Client
 
             Session["amount"] = ddl.SelectedValue;
         }
-
     }
 }

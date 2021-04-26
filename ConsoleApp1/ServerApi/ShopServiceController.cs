@@ -100,7 +100,12 @@ namespace ServerApi
             return facade.AddProductToBasket(userName, storeName, productBarCode, amount);
 
         }
-
+        [HttpGet]
+        public string[][] GetUserStores(string userName)
+        {
+            return facade.GetUserStores(userName);
+         
+        }
 
 
     }

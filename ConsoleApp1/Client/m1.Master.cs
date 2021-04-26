@@ -16,6 +16,7 @@ namespace Client
             LabelUsername.Visible = false;
             Labelname.Visible = true;
             OpenShop.Visible = false;
+            MyShops.Visible = false;
 
 
             if (Session["isLogin"] != null)
@@ -23,6 +24,8 @@ namespace Client
                 OpenShop.Visible = true;
                 Login_table.Visible = false;
                 ButtonLogOut.Visible = true;
+                MyShops.Visible = true;
+
             }
         }
 
@@ -56,9 +59,9 @@ namespace Client
                         Labelname.Text = "Hello " + txtusername.Text;
                         Session["userid"] = msg;
                         OpenShop.Visible = true;
+                        MyShops.Visible = true;
 
-
-                        Session["basket"] = null;
+                    Session["basket"] = null;
                     }
             }
 
@@ -122,6 +125,11 @@ namespace Client
         protected void ImageButtoncart_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("~/Cart.aspx");
+        }
+
+        protected void MyShops_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/MyShops.aspx");
         }
     }
 }

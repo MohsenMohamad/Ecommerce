@@ -147,7 +147,9 @@
                             <td class="auto-style6">
                                 <asp:Button ID="OpenShop" CssClass="auto-style7" Width="120px" runat="server" Text="Open Shop" OnClick="OpenShop_Click1" />
                             </td>
-                            <td class="auto-style6">&nbsp;</td>
+                            <td class="auto-style6">
+                                <asp:Button ID="MyShops" CssClass="auto-style7" Width="120px" runat="server" Text="MyShops" OnClick="MyShops_Click" />
+                            </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>

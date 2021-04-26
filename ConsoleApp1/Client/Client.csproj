@@ -69,9 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cart.aspx" />
+    <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\add_to_cart.PNG" />
     <Content Include="img\shopping_cart_black_72x72.png" />
+    <Content Include="MyShops.aspx" />
     <Content Include="Open_shop.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Shops.aspx" />
@@ -88,6 +90,13 @@
     <Compile Include="Code\ShopHandler.cs" />
     <Compile Include="Code\System.cs" />
     <Compile Include="Code\UserHandler.cs" />
+    <Compile Include="EditShop.aspx.cs">
+      <DependentUpon>EditShop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditShop.aspx.designer.cs">
+      <DependentUpon>EditShop.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -101,6 +110,13 @@
     </Compile>
     <Compile Include="m1.Master.designer.cs">
       <DependentUpon>m1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MyShops.aspx.cs">
+      <DependentUpon>MyShops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyShops.aspx.designer.cs">
+      <DependentUpon>MyShops.aspx</DependentUpon>
     </Compile>
     <Compile Include="Open_shop.aspx.cs">
       <DependentUpon>Open_shop.aspx</DependentUpon>
