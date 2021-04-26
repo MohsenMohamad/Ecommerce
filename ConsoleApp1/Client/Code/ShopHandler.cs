@@ -62,7 +62,6 @@ namespace Client.Code
 
         public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
         {
-
             string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}", userName, storeName, productBarCode,amount);
             return bool.Parse(System.SendApi(System.Service_type.SHOP, "AddProductToBasket", param));
         }

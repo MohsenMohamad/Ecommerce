@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObserver\ObserverUser.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopServiceController.cs" />
@@ -133,6 +134,10 @@
       <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
       <Name>Version1</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="errorLogger.txt" />
+    <Content Include="eventLogger.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

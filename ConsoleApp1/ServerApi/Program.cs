@@ -19,6 +19,17 @@ namespace ServiceApi
             ws://localhost:8088*/
         static void Main(string[] args)
         {
+            Logger logger = Logger.GetInstance();
+            try
+            {
+                throw new Exception("This is Logger");
+            }
+            catch (Exception e)
+            {
+                logger.Event(e.Message);  
+                logger.Error(e.Message);    
+            }
+            
             var facade = new Facade();
 
             facade.Register("zzz", "123");
