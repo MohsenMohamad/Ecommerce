@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Version1.DataAccessLayer;
 
 namespace Version1.domainLayer
 {
@@ -16,11 +17,14 @@ namespace Version1.domainLayer
         {
             if (amount < 0)
                 return false;
-            if (Products.ContainsKey(product))
-                Products[product] += amount;
-            else
-                Products.Add(product,amount);
-            return true;
+            var storeProducts = DataHandler.Instance.GetStore(StoreName).GetInventory();
+            
+            if (storeProducts.ContainsKey(product.Barcode) && storeProducts[product.Barcode] >= amount)
+            {
+                Products.Add(product, amount);
+                return true;
+            }
+            return false;
         }
 
         public bool RemoveProduct(Product product)

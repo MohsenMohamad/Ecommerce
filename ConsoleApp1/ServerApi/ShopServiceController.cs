@@ -95,9 +95,9 @@ namespace ServerApi
             return facade.RemoveManager(apointerid,storeName,apointeeid);
         }
         [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode,int amount)
         {
-            return facade.AddProductToBasket(userName, storeName, productBarCode);
+            return facade.AddProductToBasket(userName, storeName, productBarCode, amount);
 
         }
 

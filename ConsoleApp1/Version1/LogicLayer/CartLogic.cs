@@ -9,7 +9,7 @@ namespace Version1.LogicLayer
     {
         private static readonly DataHandler DataHandler = DataHandler.Instance;
 
-        public static bool AddProductToBasket(string userName ,string storeName, string productCode)
+        public static bool AddProductToBasket(string userName ,string storeName, string productCode,int amount)
         {
             var product = DataHandler.GetProduct(productCode);
             var store = DataHandler.GetStore(storeName);
@@ -18,7 +18,7 @@ namespace Version1.LogicLayer
                 return false;
             
 
-            return DataHandler.GetUser(userName).AddItemToBasket(storeName,product,0);
+            return DataHandler.GetUser(userName).AddItemToBasket(storeName,product, amount);
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)

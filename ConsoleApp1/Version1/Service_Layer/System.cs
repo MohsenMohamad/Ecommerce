@@ -22,9 +22,9 @@ namespace Version1.Service_Layer
 
             facade.AddNewProductToSystem("111", "product1", "descreption1", 2.5, new []{"cat1"});
             facade.AddItemToStore("store1", "111", 11);
-            facade.AddProductToBasket("zzz", "store1", "111");
+            facade.AddProductToBasket("zzz", "store1", "111",12);
             var basket = facade.GetUserBaskets("zzz");
-            Console.WriteLine("this is basket "+basket[0][5]);
+            Console.WriteLine("this is basket "+basket[0][6]);
 
             Console.ReadLine();
         }

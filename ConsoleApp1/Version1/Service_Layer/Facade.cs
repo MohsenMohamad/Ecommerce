@@ -118,9 +118,9 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode,int amount)
         {
-            return logicInstance.AddProductToBasket(userName, storeName, productBarCode);
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode,amount);
         }
 
 
@@ -173,7 +173,11 @@ namespace Version1.Service_Layer
                 if (userBasket == null) continue;
                 var lists = userBasket.Select(a => a.ToList()).ToList();
                 foreach (var productData in lists)
+                {
                     productData.Add(storeName);
+                    productData.Add(DataHandler.Instance.GetUser(userName).GetShoppingCart().GetBasket(storeName).Products[DataHandler.Instance.GetProduct(productData[2])].ToString());
+
+                }
 
                 finalList.AddRange(lists);
             }

@@ -13,8 +13,10 @@ namespace Client
         protected void Page_Load(object sender, EventArgs e)
         {
             ShopHandler a = new ShopHandler();
+            
             Data_cart.DataSource = a.GetUserBaskets(Session["username"].ToString());
             Data_cart.DataBind();
+
 
         }
 

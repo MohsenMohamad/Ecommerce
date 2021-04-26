@@ -12,7 +12,12 @@ namespace Version1.domainLayer
             shoppingBaskets = new Dictionary<string, ShoppingBasket>();
         }
 
-
+        public ShoppingBasket GetBasket(string storeName)
+        {
+            if (!shoppingBaskets.ContainsKey(storeName))
+                return null;
+            return shoppingBaskets[storeName];
+        }
         public bool AddBasket(ShoppingBasket shoppingBasket)
         {
             if (shoppingBaskets.ContainsKey(shoppingBasket.StoreName))
