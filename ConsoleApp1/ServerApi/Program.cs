@@ -19,6 +19,8 @@ namespace ServiceApi
             ws://localhost:8088*/
         static void Main(string[] args)
         {
+
+            
             Logger logger = Logger.GetInstance();
             try
             {
@@ -32,7 +34,9 @@ namespace ServiceApi
             
             var facade = new Facade();
 
-            facade.Register("zzz", "123");
+
+            facade.InitSystem();
+            /*facade.Register("zzz", "123");
             facade.Login("zzz", "123");
 
             facade.OpenShop("zzz", "store1", "ss");
@@ -43,8 +47,8 @@ namespace ServiceApi
             facade.AddNewProductToSystem("44", "product4", "descreption1", 2.5, new[] { "dog" });
             facade.AddItemToStore("store1", "111", 11);
             facade.AddItemToStore("store2", "333", 11);
-            facade.AddItemToStore("store2", "44", 11);
-          //  facade.AddProductToBasket("zzz", "store1", "111");
+            facade.AddItemToStore("store2", "44", 11);*/
+            //  facade.AddProductToBasket("zzz", "store1", "111");
 
             string domainAddress = "https://localhost:44300/";
                 using (WebApp.Start(url:domainAddress))

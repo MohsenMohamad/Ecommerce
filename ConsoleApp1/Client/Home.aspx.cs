@@ -68,5 +68,10 @@ namespace Client
 
             Session["amount"] = ddl.SelectedValue;
         }
+
+        protected void DataListproducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
