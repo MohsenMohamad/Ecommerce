@@ -118,9 +118,9 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode,int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
         {
-            return logicInstance.AddProductToBasket(userName, storeName, productBarCode,amount);
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount);
         }
 
 
@@ -175,8 +175,8 @@ namespace Version1.Service_Layer
                 foreach (var productData in lists)
                 {
                     productData.Add(storeName);
-                    productData.Add(DataHandler.Instance.GetUser(userName).GetShoppingCart().GetBasket(storeName).Products[DataHandler.Instance.GetProduct(productData[2])].ToString());
-
+                    productData.Add(DataHandler.Instance.GetUser(userName).GetShoppingCart().GetBasket(storeName)
+                        .Products[DataHandler.Instance.GetProduct(productData[2])].ToString());
                 }
 
                 finalList.AddRange(lists);
@@ -339,6 +339,109 @@ namespace Version1.Service_Layer
             }
 
             return result;
+        }
+
+        public void InitSystem()
+
+
+        {
+            var facade = new Facade();
+            /* ----------------------------  users -------------------------------*/
+
+            Register("mohamedm", "1111");
+            Register("adnan", "2222");
+            Register("mohameda", "3333");
+            Register("yara", "4444");
+            Register("shadi", "5555");
+            Register("asd", "123");
+
+            /* ----------------------------  categories -------------------------------*/
+
+            Category Electronics = new Category("Electronics");
+            Category Fashion = new Category("Fashion");
+            Category Health = new Category("Health");
+            Category Beauty = new Category("Beauty");
+            Category Sports = new Category("Sports");
+            Category Arts = new Category("Arts");
+            Category Industrial_Equipment = new Category("Industrial_Equipment");
+
+            List<Category> categories = new List<Category>();
+
+            categories.Add(Electronics);
+            categories.Add(Fashion);
+            categories.Add(Health);
+            categories.Add(Beauty);
+            categories.Add(Sports);
+            categories.Add(Arts);
+            categories.Add(Industrial_Equipment);
+
+
+            /* ----------------------------  products -------------------------------*/
+
+            AddNewProductToSystem("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+                800,
+                new[] {Electronics.Name});
+            AddNewProductToSystem("2", "women shoes",
+                "Nike React Element 55 Women’s Running Shoes Grey Purple Blue Size 11 BQ2728-008.", 450,
+                new[] {Fashion.Name, Sports.Name});
+            AddNewProductToSystem("3", "shampo keef", "shampo", 25, new[] {Beauty.Name});
+            AddNewProductToSystem("4", "hand cream", "hand cream with good smell", 50,
+                new[] {Health.Name, Beauty.Name});
+            AddNewProductToSystem("5", "sandals", "comfortable sandals", 349.99,
+                new[] {Fashion.Name, Health.Name, Sports.Name});
+            AddNewProductToSystem("6", "brush", "just a normal brush , what did you expect ...", 33,
+                new[] {Arts.Name});
+
+            /* ----------------------------  discounts -------------------------------*/
+
+            //    Discount dis1 = new Discount();
+            //    dis1.ModifyItem(camera, 1499.99);
+            //    dis1.ModifyItem(shoes, 49.90);
+
+            //    Discount dis2 = new Discount();
+            //    dis2.ModifyItem(shampo, 9.99);
+
+
+            /* ----------------------------  purchase -------------------------------*/
+
+
+            //    Purchase pr1 = new Purchase();
+            //    Purchase pr2 = new Purchase();
+            //    pr1.addProduct(camera, 1);
+            //    pr1.addProduct(shoes, 2);
+            //    pr2.addProduct(shampo, 1);
+            //    pr2.addProduct(camera, 1);
+            //    pr2.addProduct(flats, 1);
+            //    pr2.addProduct(cream, 5);
+
+
+            /* ----------------------------- Stores ---------------------------------*/
+
+            OpenShop("mohamedm", "MohamedStore", "MohamedPolicy");
+            MakeNewManger("mohamedm", "MohamedStore", "yara", new List<int>());
+            //         MohamedStore.AddDiscount(dis1);
+            AddItemToStore("MohamedStore", "3", 8);
+            AddItemToStore("MohamedStore", "1", 11);
+
+
+            OpenShop("adnan", "AdnanStore", "AdnanPolicy");
+            MakeNewManger("adnan", "AdnanStore", "shadi", new List<int>());
+            //     AdnanStore.AddDiscount(dis2);
+            AddItemToStore("AdnanStore", "2", 12);
+            AddItemToStore("AdnanStore", "4", 20);
+            AddItemToStore("AdnanStore", "5", 7);
+
+
+            /*--------------------------------------------------------------------------*/
+
+            AddProductToBasket("mohameda", "AdnanStore", "5", 3);
+            AddProductToBasket("mohameda", "AdnanStore", "2", 4);
+            AddProductToBasket("adnan", "MohamedStore", "1", 2);
+            AddProductToBasket("yara", "MohamedStore", "5", 1);
+            AddProductToBasket("shadi", "AdnanStore", "4", 10);
+
+
+            /*--------------------------------------------------------------------------*/
         }
     }
 }
