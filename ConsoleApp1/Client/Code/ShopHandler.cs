@@ -111,6 +111,38 @@ namespace Client.Code
 
         }
 
+        public bool AddItemToStore(string shopName, string itemBarCode, int amount)
+        {
+            string param = string.Format("shopName={0}&itemBarCode={1}&amount={2}", shopName, itemBarCode, amount);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "AddItemToStore", param));
+
+        }
+
+        public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
+           string categories)
+        {
+            
+            string param = string.Format("barcode={0}&productName={1}&description={2}&price={3}&categories={4}", barcode, productName, description,price,categories);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "AddNewProductToSystem", param));
+        }
+
+        public DataSet GetStoreManagers(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.SHOP, "GetStoreManagers", param).ToString());
+            DataTable t1 = new DataTable("manager");
+            t1.Columns.Add("username");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i]);
+            }
+
+            DataSet d1 = new DataSet("manager");
+            d1.Tables.Add(t1);
+            return d1;
+        }
+
 
     }
 }

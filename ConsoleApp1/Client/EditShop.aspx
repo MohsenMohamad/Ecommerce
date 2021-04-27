@@ -58,7 +58,10 @@
                         <td class="auto-style14">
                             <asp:TextBox ID="TextBoxbarcode" runat="server"></asp:TextBox>
                         </td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <asp:Label ID="Labelerrorbarcode" runat="server" Text="the barcode is Existing 
+                                change the barcode"></asp:Label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="auto-style13">
@@ -96,9 +99,16 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
+                        <td class="auto-style13">Amount : </td>
+                        <td class="auto-style14">
+                            <asp:TextBox ID="TextBoxAmount" runat="server"></asp:TextBox>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
                         <td class="auto-style13">&nbsp;</td>
                         <td class="auto-style14">
-                            <asp:Button ID="ButtonAdd" runat="server" Text="Add" />
+                            <asp:Button ID="ButtonAdd" runat="server" Text="Add" OnClick="ButtonAdd_Click" />
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -131,7 +141,7 @@
         <tr>
             <td class="auto-style17">&nbsp;</td>
             <td>
-                <asp:Button ID="Buttonaddmanager" runat="server" Text="Add" />
+                <asp:Button ID="Buttonaddmanager" runat="server" Text="Add" OnClick="Buttonaddmanager_Click" />
             </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>

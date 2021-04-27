@@ -75,6 +75,15 @@ namespace Version1.Service_Layer
             return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
         }
 
+        public bool AddNewProductToSystem1(string barcode, string productName, string description, double price,
+           string categories1)
+        {
+            string[] categories = categories1.Split(',');
+            if (categories == null || categories.Length == 0)
+                return false;
+            return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
+        }
+
         //high priority
         public string[][] get_items_in_shop(string shopName)
         {
@@ -442,6 +451,7 @@ namespace Version1.Service_Layer
 
             OpenShop("adnan", "AdnanStore", "AdnanPolicy");
             MakeNewManger("adnan", "AdnanStore", "shadi", 1);
+            MakeNewOwner("AdnanStore", "shadi", "1");
             //     AdnanStore.AddDiscount(dis2);
             AddItemToStore("AdnanStore", "2", 12);
             AddItemToStore("AdnanStore", "4", 20);

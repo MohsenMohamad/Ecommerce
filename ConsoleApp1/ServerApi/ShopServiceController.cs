@@ -107,6 +107,30 @@ namespace ServerApi
          
         }
 
+        [HttpGet]
+        public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
+           string categories)
+        {
+            return facade.AddNewProductToSystem1(barcode, productName, description, price, categories);
+        }
+
+        [HttpGet]
+        public bool AddItemToStore(string shopName, string itemBarCode, int amount)
+        {
+            return facade.AddItemToStore(shopName, itemBarCode, amount);
+        }
+
+        [HttpGet]
+        public string[] GetStoreOwners(string storeName)
+        {
+            return facade.GetStoreOwners(storeName);
+        }
+
+        [HttpGet]
+        public string[] GetStoreManagers(string storeName)
+        {
+            return facade.GetStoreManagers(storeName);
+        }
 
     }
 }

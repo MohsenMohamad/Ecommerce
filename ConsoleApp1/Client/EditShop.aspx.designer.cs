@@ -69,6 +69,15 @@ namespace Client
         protected global::System.Web.UI.WebControls.TextBox TextBoxbarcode;
 
         /// <summary>
+        /// Labelerrorbarcode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Labelerrorbarcode;
+
+        /// <summary>
         /// LabelproductName control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace Client
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxcategories;
+
+        /// <summary>
+        /// TextBoxAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAmount;
 
         /// <summary>
         /// ButtonAdd control.
