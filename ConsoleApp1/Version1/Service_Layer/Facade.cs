@@ -94,6 +94,17 @@ namespace Version1.Service_Layer
             return result;
         }
 
+
+        public string[] GetStoreOwners(string storeName)
+        {
+            return logicInstance.GetStoreOwners(storeName)?.ToArray();
+        }
+        
+        public string[] GetStoreManagers(string storeName)
+        {
+            return logicInstance.GetStoreManagers(storeName)?.ToArray();
+        }
+        
         //high priority
         public bool MakeNewOwner(string apointerid, string storeName, string apointeeid)
         {
@@ -158,9 +169,14 @@ namespace Version1.Service_Layer
         }
 
 
-        public string[] GetAllLogInUsersInSystem()
+        public string[] GetAllLoggedInUsers()
         {
             return logicInstance.GetAllLoggedInUsers().ToArray();
+        }
+        
+        public string[] GetAllUserNamesInSystem()
+        {
+            return logicInstance.GetAllUserNamesInSystem().ToArray();
         }
 
         public string[][] GetUserBaskets(string userName)

@@ -43,20 +43,7 @@ namespace Version1.DataAccessLayer
             SystemAdmin.RecieveComplainToUser(msg, username);
         }
 
-        internal string getbasketinfo()
-        {
-            User us = DataHandler.Instance.GetUser(logged_in_user.UserName);
-            return us.GetBasketInfo();
-        }
 
-        internal void buyProduct(string barcode, string store, int amount)
-        {
-            User us = DataHandler.Instance.GetUser(logged_in_user.UserName);
-            Product pr = DataHandler.Instance.GetProduct(barcode);
-            us.AddItemToBasket(store, pr, amount);
-            shopping.BuyProduct(barcode, amount, store);
-        }
-        
         internal void checkout()
         {
             Console.WriteLine("bougth :");

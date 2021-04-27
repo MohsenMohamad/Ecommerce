@@ -103,6 +103,21 @@ namespace Version1.LogicLayer
         {
             return UserLogic.GetAllLoggedInUsers();
         }
+
+        public List<string> GetAllUserNamesInSystem()
+        {
+            return UserLogic.GetAllUserNamesInSystem();
+        }
+
+        public List<string> GetStoreOwners(string storeName)
+        {
+            return StoreLogic.GetStoreOwners(storeName);
+        }
+        
+        public List<string> GetStoreManagers(string storeName)
+        {
+            return StoreLogic.GetStoreManagers(storeName);
+        }
         
         public List<Product> GetUserBaskets(string userName)
         {

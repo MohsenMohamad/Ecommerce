@@ -38,6 +38,19 @@ namespace Version1.LogicLayer
                 return false;
             return true;
         }
+
+        public static List<string> GetStoreOwners(string storeName)
+        {
+            var store = DataHandler.GetStore(storeName);
+            return store?.GetOwners();
+        }
+        
+        public static List<string> GetStoreManagers(string storeName)
+        {
+            var store = DataHandler.GetStore(storeName);
+            return store?.GetManagers();
+        }
+
         
         
         public static bool AddOwner(string storeName, string username)

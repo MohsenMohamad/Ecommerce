@@ -9,16 +9,16 @@ namespace Version1.LogicLayer
     {
         private static readonly DataHandler DataHandler = DataHandler.Instance;
 
-        public static bool AddProductToBasket(string userName ,string storeName, string productCode,int amount)
+        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
         {
-            var product = DataHandler.GetProduct(productCode);
+            var user = DataHandler.GetUser(userName);
             var store = DataHandler.GetStore(storeName);
-            
-            if (product == null || store == null)
-                return false;
-            
+            var product = DataHandler.GetProduct(productCode);
 
-            return DataHandler.GetUser(userName).AddItemToBasket(storeName,product, amount);
+            if (user == null || store == null || product == null)
+                return false;
+
+            return user.GetShoppingCart().AddProductToBasket(storeName, product, amount);
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
@@ -29,24 +29,24 @@ namespace Version1.LogicLayer
 
             if (user == null || store == null || product == null)
                 return false;
-            
+
             var cart = user.GetShoppingCart();
             if (!cart.shoppingBaskets.ContainsKey(storeName))
                 return false;
             var result = cart.shoppingBaskets[storeName].RemoveProduct(product, amount);
             return result;
         }
-        
+
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode)
         {
             var user = DataHandler.GetUser(userName);
             var store = DataHandler.GetStore(storeName);
             var product = DataHandler.GetProduct(productBarcode);
-            
+
             if (user == null || store == null || product == null)
                 return false;
             var cart = user.GetShoppingCart();
-            
+
             if (!cart.shoppingBaskets.ContainsKey(storeName))
                 return false;
             var result = cart.shoppingBaskets[storeName].RemoveProduct(product);
@@ -56,9 +56,8 @@ namespace Version1.LogicLayer
 
         public static List<Product> GetBasketProducts(string userName, string storeName)
         {
-            
             var userBaskets = DataHandler.GetUser(userName).shoppingCart.shoppingBaskets;
-            if(userBaskets.ContainsKey(storeName))
+            if (userBaskets.ContainsKey(storeName))
                 return userBaskets[storeName].Products.Keys.ToList();
             return null;
         }
@@ -78,6 +77,24 @@ namespace Version1.LogicLayer
 
             return products;
         }
+        
 
+        public static string GetBasketInfo(string userName, string storeName)
+        {
+            var user = DataHandler.GetUser(userName);
+            var store = DataHandler.GetStore(storeName);
+
+            if (user == null || storeName == null)
+                return null;
+
+            var output = "--------------------------";
+
+            foreach (var shoppingBasket in user.GetShoppingCart().shoppingBaskets.Values)
+            {
+                output += shoppingBasket.ToString() + "/n---------------------/n";
+            }
+
+            return output;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
 
@@ -63,6 +64,11 @@ namespace Version1.LogicLayer
         public static List<string> GetAllLoggedInUsers()
         {
             return _loggedInUsers;
+        }
+        
+        public static List<string> GetAllUserNamesInSystem()
+        {
+            return DataHandler.Users.Keys.ToList();
         }
         
         public static List<string> GetUserNotifications(string userName)
