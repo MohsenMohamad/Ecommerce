@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="domainLayer\Hashing.cs" />
+    <Compile Include="domainLayer\Permissions.cs" />
     <Compile Include="EventLogs\ErrorLog.cs" />
     <Compile Include="EventLogs\EventLog.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
