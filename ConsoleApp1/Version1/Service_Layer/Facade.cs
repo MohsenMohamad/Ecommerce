@@ -106,16 +106,16 @@ namespace Version1.Service_Layer
         }
         
         //high priority
-        public bool MakeNewOwner(string apointerid, string storeName, string apointeeid)
+        public bool MakeNewOwner(string storeName, string apointerid, string apointeeid)
         {
-            return logicInstance.AddOwner(apointerid, storeName, apointeeid);
+            return logicInstance.AddOwner(storeName, apointerid, apointeeid);
         }
 
         //todo make sure that the each number of the permissions
         // appoint to different permission from a *table* of permissions.
-        public bool MakeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
+        public bool MakeNewManger(string storeName,string apointerid, string apointeeid, int permissions)
         {
-            return logicInstance.AddManager(apointerid, storeName, apointeeid, permissions);
+            return logicInstance.AddManager(storeName, apointerid, apointeeid, permissions);
         }
 
         public bool RemoveOwner(string apointerid, string storeName, string apointeeid)
@@ -434,14 +434,14 @@ namespace Version1.Service_Layer
             /* ----------------------------- Stores ---------------------------------*/
 
             OpenShop("mohamedm", "MohamedStore", "MohamedPolicy");
-            MakeNewManger("mohamedm", "MohamedStore", "yara", new List<int>());
+            MakeNewManger("mohamedm", "MohamedStore", "yara", 4);
             //         MohamedStore.AddDiscount(dis1);
             AddItemToStore("MohamedStore", "3", 8);
             AddItemToStore("MohamedStore", "1", 11);
 
 
             OpenShop("adnan", "AdnanStore", "AdnanPolicy");
-            MakeNewManger("adnan", "AdnanStore", "shadi", new List<int>());
+            MakeNewManger("adnan", "AdnanStore", "shadi", 1);
             //     AdnanStore.AddDiscount(dis2);
             AddItemToStore("AdnanStore", "2", 12);
             AddItemToStore("AdnanStore", "4", 20);

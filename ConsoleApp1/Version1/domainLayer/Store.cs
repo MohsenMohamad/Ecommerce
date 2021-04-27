@@ -8,11 +8,12 @@ namespace Version1.domainLayer
     public class Store
     {
         private string name { get; set; }
+        private string originalOwner { get; }
         private string sellingPolicy { get; set; }
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
-        private List<string> managers { get; }
-        private List<string> owners { get; }
+        private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
+        private Dictionary<string,List<string>> owners { get; } // key : owner name , value : appointed owners
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<string,int> inventory { get; }
@@ -21,11 +22,12 @@ namespace Version1.domainLayer
         public Store(string owner,String sellpol,string name)
         {
             sellingPolicy = sellpol;
-            managers = new List<string>();
+            managers = new Dictionary<string, int>();
             inventory = new ConcurrentDictionary<string, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
-            owners = new List<string> {owner};
+            owners = new Dictionary<string, List<string>> {{owner, new List<string>()}};
+            originalOwner = owner;
             paymentInfo = new List<string>();
             this.name = name;
             notifications = new List<string>();
@@ -35,17 +37,17 @@ namespace Version1.domainLayer
         {
             string output = "";
             output += "Store name: " + name;
-            output += "/nStore Owner: " + owners[0];
+            output += "/nStore Owner: " + originalOwner;
             output += "/nmanagers:/n ";
-            for (int i = 0; i < managers.Count; i++)
+            foreach (var manager in managers.Keys)
             {
-                output += "/n " + managers[i];
+                output += "/n " + manager;
             }
             output += "/n--------------------------------------/n";
             output += "/nco owners:/n ";
-            for (int i = 1; i < managers.Count; i++)
+            foreach (var owner in owners.Keys)
             {
-                output += "/n " + owners[i];
+                output += "/n " + owner;
             }
             output += "/n--------------------------------------/n";
             output += inventory.ToString();
@@ -67,7 +69,7 @@ namespace Version1.domainLayer
 
         public string GetOwner()
         {
-            return owners[0];
+            return originalOwner;
         }
 
         public List<Purchase> GetHistory()
@@ -75,12 +77,12 @@ namespace Version1.domainLayer
             return history;
         }
 
-        public List<string> GetManagers()
+        public Dictionary<string,int> GetManagers()
         {
             return managers;
         }
         
-        public List<string> GetOwners()
+        public Dictionary<string,List<string>> GetOwners()
         {
             return owners;
         }

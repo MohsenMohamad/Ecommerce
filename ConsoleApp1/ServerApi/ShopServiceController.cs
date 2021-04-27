@@ -80,7 +80,7 @@ namespace ServerApi
             return facade.MakeNewOwner(apointerid,storeName,apointeeid);
         }
         [HttpGet]
-        public bool makeNewManger(string apointerid, string storeName, string apointeeid, List<int> permissions)
+        public bool makeNewManger(string apointerid, string storeName, string apointeeid, int permissions)
         {   //todo split the permissions and make dataStructures that saves the permissions
             return facade.MakeNewManger(apointerid,storeName,apointeeid,permissions);
         }

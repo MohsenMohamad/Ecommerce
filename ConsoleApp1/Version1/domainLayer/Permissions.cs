@@ -59,6 +59,17 @@ namespace Version1.domainLayer
 
             return permissions;
         }
+
+        public static bool IsValidPermission(int permission)
+        {
+            var numOfPermissions = Enum.GetValues(typeof(StorePermissions)).Length;
+            double maxVal = 0;
+            for (var i = 0; i < numOfPermissions; i++)
+            {
+                maxVal += Math.Pow(2,i);
+            }
+            return permission > 0 && permission <= maxVal;
+        }
         
     }
 }

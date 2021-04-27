@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
 
@@ -34,7 +36,15 @@ namespace Version1.LogicLayer
         public static bool IsManger(string storeName, string mangerName)
         {
             if (!DataHandler.Stores.ContainsKey(storeName) ||
-                !DataHandler.Stores[storeName].GetManagers().Contains(mangerName))
+                !DataHandler.Stores[storeName].GetManagers().Keys.Contains(mangerName))
+                return false;
+            return true;
+        }
+        
+        public static bool IsOwner(string storeName, string ownerName)
+        {
+            if (!DataHandler.Stores.ContainsKey(storeName) ||
+                !DataHandler.Stores[storeName].GetOwners().Keys.Contains(ownerName))
                 return false;
             return true;
         }
@@ -42,32 +52,37 @@ namespace Version1.LogicLayer
         public static List<string> GetStoreOwners(string storeName)
         {
             var store = DataHandler.GetStore(storeName);
-            return store?.GetOwners();
+            return store?.GetOwners().Keys.ToList();
         }
         
         public static List<string> GetStoreManagers(string storeName)
         {
             var store = DataHandler.GetStore(storeName);
-            return store?.GetManagers();
+            return store?.GetManagers().Keys.ToList();
         }
 
         
         
-        public static bool AddOwner(string storeName, string username)
+        public static bool AddOwner(string storeName, string apointerid, string apointeeid)
         {
-            var newOwner = DataHandler.GetUser(username);
+            var appointerUser = DataHandler.GetUser(apointerid); 
+            var newOwner = DataHandler.GetUser(apointeeid);
             var store = DataHandler.GetStore(storeName);
-            if (newOwner == null || store == null || store.GetOwners().Contains(username)) return false;
-            store.GetOwners().Add(username);
+            if (appointerUser == null || newOwner == null || store == null ) return false;
+            if (IsOwner(storeName, apointeeid)) return false;
+            store.GetOwners().Add(apointeeid, new List<string>());
+            store.GetOwners()[apointerid].Add(apointeeid);
             return true;
         }
         
-        public static bool AddManager(string storeName, string username)
+        public static bool AddManager(string storeName, string apointerid, string apointeeid, int permissions)
         {
-            var newManager = DataHandler.GetUser(username);
+            var appointerUser = DataHandler.GetUser(apointerid);
+            var newManager = DataHandler.GetUser(apointeeid);
             var store = DataHandler.GetStore(storeName);
-            if (newManager == null || store == null || store.GetManagers().Contains(username)) return false;
-            store.GetManagers().Add(username);
+            if (appointerUser == null || newManager == null || store == null) return false;
+            if (IsManger(storeName, apointeeid) || !IsValidPermission(permissions)) return false;
+            store.GetManagers().Add(apointeeid , permissions);
             return true;
         }
         
@@ -88,6 +103,11 @@ namespace Version1.LogicLayer
             
             return store.GetManagers().Remove(username); // returns false if the manager was not found
         }
+
+        private static bool IsValidPermission(int permissions)
+        {
+            return Permissions.IsValidPermission(permissions);
+        }
         
         
 //---------------------------------------- Getters ----------------------------------------//   
@@ -105,7 +125,7 @@ namespace Version1.LogicLayer
             
             foreach (var store in GetAllStores())
             {
-                if(store.GetOwners().Contains(userName) || store.GetManagers().Contains(userName))
+                if(IsOwner(store.GetName(),userName) || IsManger(store.GetName(),userName))
                     stores.Add(store);
             }
 
