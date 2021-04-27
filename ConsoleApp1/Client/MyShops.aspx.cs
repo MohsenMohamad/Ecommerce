@@ -24,6 +24,7 @@ namespace Client
         {
             if (e.CommandName == "editshop")
             {
+                Session["editshop"] = e.CommandArgument;
                 Response.Redirect("~/EditShop.aspx");
             }
         }
