@@ -1,5 +1,5 @@
 ﻿
-namespace Version1.domainLayer
+namespace Version1.domainLayer.DataStructures
 {
     public abstract class Person
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Version1.domainLayer
+namespace Version1.domainLayer.DataStructures
 {
     public class Guest : Person
     {

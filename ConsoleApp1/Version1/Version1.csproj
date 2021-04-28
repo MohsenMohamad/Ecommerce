@@ -52,10 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domainLayer\DataStructures\Category.cs" />
+    <Compile Include="domainLayer\DataStructures\Guest.cs" />
+    <Compile Include="domainLayer\DataStructures\Person.cs" />
+    <Compile Include="domainLayer\DataStructures\Product.cs" />
+    <Compile Include="domainLayer\DataStructures\Purchase.cs" />
+    <Compile Include="domainLayer\DataStructures\Review.cs" />
+    <Compile Include="domainLayer\DataStructures\ShoppingBasket.cs" />
+    <Compile Include="domainLayer\DataStructures\ShoppingCart.cs" />
+    <Compile Include="domainLayer\DataStructures\Store.cs" />
+    <Compile Include="domainLayer\DataStructures\User.cs" />
     <Compile Include="domainLayer\Errors.cs" />
     <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="domainLayer\Permissions.cs" />
-    <Compile Include="domainLayer\Review.cs" />
     <Compile Include="domainLayer\StorePolicies\IPurchasePolicy.cs" />
     <Compile Include="EventLogs\ErrorLog.cs" />
     <Compile Include="EventLogs\EventLog.cs" />
@@ -64,16 +73,7 @@
     <Compile Include="ExternalServices\Mockups\ExternalFinanceServiceMock.cs" />
     <Compile Include="ExternalServices\Mockups\ExternalSupplyServiceMock.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
-    <Compile Include="domainLayer\Category.cs" />
     <Compile Include="domainLayer\Discount.cs" />
-    <Compile Include="domainLayer\Guest.cs" />
-    <Compile Include="domainLayer\Person.cs" />
-    <Compile Include="domainLayer\Product.cs" />
-    <Compile Include="domainLayer\Purchase.cs" />
-    <Compile Include="domainLayer\ShoppingBasket.cs" />
-    <Compile Include="domainLayer\ShoppingCart.cs" />
-    <Compile Include="domainLayer\Store.cs" />
-    <Compile Include="domainLayer\User.cs" />
     <Compile Include="domainLayer\UserRoles\StoreManager.cs" />
     <Compile Include="domainLayer\UserRoles\StoreOwner.cs" />
     <Compile Include="domainLayer\UserRoles\SystemAdmin.cs" />

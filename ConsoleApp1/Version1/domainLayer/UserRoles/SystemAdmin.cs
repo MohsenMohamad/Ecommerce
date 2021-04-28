@@ -1,4 +1,5 @@
 ﻿using Version1.DataAccessLayer;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.UserRoles
 {

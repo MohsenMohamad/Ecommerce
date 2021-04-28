@@ -2,6 +2,7 @@
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
 {
@@ -19,6 +20,11 @@ namespace Version1.LogicLayer
                 return false;
 
             return user.GetShoppingCart().AddProductToBasket(storeName, product, amount);
+        }
+
+        public static bool Purchase()
+        {
+            return false;
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)

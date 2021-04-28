@@ -2,6 +2,7 @@
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
 {

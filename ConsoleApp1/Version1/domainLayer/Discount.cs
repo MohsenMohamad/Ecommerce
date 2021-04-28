@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer
 {

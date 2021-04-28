@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Version1.DataAccessLayer;
 
-namespace Version1.domainLayer
+namespace Version1.domainLayer.DataStructures
 {
     public class ShoppingBasket
     {
@@ -21,7 +21,9 @@ namespace Version1.domainLayer
             
             if (storeProducts.ContainsKey(product.Barcode) && storeProducts[product.Barcode] >= amount)
             {
-                Products.Add(product, amount);
+                if (Products.ContainsKey(product))
+                    Products[product] += amount;
+                else Products.Add(product, amount);
                 return true;
             }
             return false;

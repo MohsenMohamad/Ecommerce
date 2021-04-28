@@ -1,4 +1,4 @@
-﻿namespace Version1.domainLayer
+﻿namespace Version1.domainLayer.DataStructures
 {
     public class Category
     {

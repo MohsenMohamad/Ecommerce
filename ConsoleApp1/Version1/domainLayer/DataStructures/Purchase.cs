@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Version1.domainLayer
+namespace Version1.domainLayer.DataStructures
 {
     public class Purchase
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer.StorePolicies;
 
-namespace Version1.domainLayer
+namespace Version1.domainLayer.DataStructures
 {
     public class Store
     {

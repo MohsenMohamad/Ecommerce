@@ -4,6 +4,7 @@ using Version1.Service_Layer;
 using Version1.domainLayer.UserRoles;
 using NUnit.Framework;
 using Project_tests;
+using Version1.domainLayer.DataStructures;
 
 namespace Project_Tests.AcceptanceTests
 {

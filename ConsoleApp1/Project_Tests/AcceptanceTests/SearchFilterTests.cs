@@ -2,6 +2,7 @@
 using Version1.domainLayer;
 using NUnit.Framework;
 using Project_tests;
+using Version1.domainLayer.DataStructures;
 
 namespace Project_Tests.AcceptanceTests
 {
