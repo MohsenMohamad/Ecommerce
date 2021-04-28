@@ -10,10 +10,10 @@ namespace ServerApi.DataObserver
     class ObserverUser
     {
         public IWebSocketConnection socket;
-        public int user_id;
-        public ObserverUser(int user_id, IWebSocketConnection socket)
+        public string userName;
+        public ObserverUser(string userName, IWebSocketConnection socket)
         {
-            this.user_id = user_id;
+            this.userName = userName;
             this.socket = socket;
         }
         public void SetSocket(IWebSocketConnection socket)
