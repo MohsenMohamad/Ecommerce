@@ -28,12 +28,10 @@ namespace Client.Code
             for (int i = 0; i < jarray.Count; i++) {
                 t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4],jarray[i][5]);
             }
-
             DataSet d1 = new DataSet("products");
             d1.Tables.Add(t1);
-            //Notifications.SendMessage("userName","message That you Want To Send");
             return d1;
-
+            //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
         public bool OpenShop(string userName, string shopName, string policy)

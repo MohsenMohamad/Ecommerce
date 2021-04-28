@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Client.Code
 {
@@ -78,6 +81,27 @@ namespace Client.Code
             string param = string.Format("apointerid={0}&storeName={1}&apointeeid={2}", apointerid, storeName, apointeeid);
             return bool.Parse(System.SendApi(System.Service_type.SHOP, "removeManager", param));
 
+        }
+
+        public DataSet GetAllNotifications(string userName)
+        {
+            string param = string.Format("userName={0}", userName);
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.TRANSACTION, "GetAllNotifications", param).ToString());
+            DataTable t1 = new DataTable("Notifications");
+            t1.Columns.Add("id");
+            t1.Columns.Add("msg");
+            for (int i = 0; i < arr.Count && arr[i] != null; i++)
+            {
+                try
+                {
+                    t1.Rows.Add(i, arr[i]);
+                }
+                catch
+                { }
+            }
+            DataSet set = new DataSet("Notification");
+            set.Tables.Add(t1);
+            return set;
         }
     }
 }
