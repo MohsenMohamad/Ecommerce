@@ -70,7 +70,7 @@ margin-bottom: 16px;
     <table class="auto-style5">
         <tr>
             <td class="auto-style15">
-                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack ="true " OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack ="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                       <asp:ListItem Enabled="true" Text="Select" Value="-1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Item" Value="1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
