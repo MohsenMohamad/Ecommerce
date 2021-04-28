@@ -15,7 +15,7 @@ namespace Version1.LogicLayer
         public static bool OpenStore(string managerName, string storeName, string policy)
         {
             if (!DataHandler.Exists(managerName)) return false;
-            var store = new Store(managerName, policy, storeName);
+            var store = new Store(managerName, storeName);
             return DataHandler.AddStore(store);
         }
 
@@ -136,7 +136,7 @@ namespace Version1.LogicLayer
         public static string GetStorePolicy(string storeName)
         {
             var store = DataHandler.GetStore(storeName);
-            return store?.GetSellingPolicy();
+            return store?.GetPurchasePolicies().ToString();
         }
 
         public static List<string> GetStoresNames()
@@ -148,7 +148,7 @@ namespace Version1.LogicLayer
         {
             var store = DataHandler.GetStore(storeName);
             if (store == null) return false;
-            store.SetSellingPolicy(newPolicy);
+        //    store.SetPurchasePolicies(newPolicy);
             
             // update DataAccess
 

@@ -53,6 +53,15 @@ namespace Version1.LogicLayer
             return result;
         }
 
+        public static bool BuyProduct(string barcode, int amount, string storeName)
+        {
+            var pr = DataHandler.GetProduct(barcode);
+            var st = DataHandler.GetStore(storeName);
+            
+
+            return false;
+        }
+
 
         public static List<Product> GetBasketProducts(string userName, string storeName)
         {
@@ -77,7 +86,7 @@ namespace Version1.LogicLayer
 
             return products;
         }
-        
+
 
         public static string GetBasketInfo(string userName, string storeName)
         {

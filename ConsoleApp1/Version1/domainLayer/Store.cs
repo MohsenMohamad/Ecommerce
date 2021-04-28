@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Version1.domainLayer.StorePolicies;
 
 namespace Version1.domainLayer
 {
@@ -9,7 +10,7 @@ namespace Version1.domainLayer
     {
         private string name { get; set; }
         private string originalOwner { get; }
-        private string sellingPolicy { get; set; }
+        private List<IPurchasePolicy> purchasePolicies { get; set; }
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
         private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
@@ -19,9 +20,9 @@ namespace Version1.domainLayer
         private ConcurrentDictionary<string,int> inventory { get; }
         
         
-        public Store(string owner,String sellpol,string name)
+        public Store(string owner,string name)
         {
-            sellingPolicy = sellpol;
+            purchasePolicies = new List<IPurchasePolicy>();
             managers = new Dictionary<string, int>();
             inventory = new ConcurrentDictionary<string, int>();
             discounts = new List<Discount>();
@@ -62,9 +63,9 @@ namespace Version1.domainLayer
             return name;
         }
         
-        public string GetSellingPolicy()
+        public List<IPurchasePolicy> GetPurchasePolicies()
         {
-            return sellingPolicy;
+            return purchasePolicies;
         }
 
         public string GetOwner()
@@ -109,9 +110,9 @@ namespace Version1.domainLayer
         
 //----------------------------------- Setters -----------------------------------//
         
-        public void SetSellingPolicy(string newPolicy)
+        public void SetPurchasePolicies(List<IPurchasePolicy> newPolicies)
         {
-            sellingPolicy = newPolicy;
+            purchasePolicies = newPolicies;
         }
         
 

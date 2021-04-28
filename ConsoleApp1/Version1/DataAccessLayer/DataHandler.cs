@@ -12,7 +12,7 @@ namespace Version1.DataAccessLayer
         internal Dictionary<string,Category> Categories { get; }
         internal Dictionary<string, Product> Products { get; }
         internal Dictionary<string, Store> Stores { get; }
-        private List<ReviewDao> Reviews { get; }
+        private List<Review> Reviews { get; }
 
 
         private DataHandler()
@@ -21,7 +21,7 @@ namespace Version1.DataAccessLayer
             Guests = new Dictionary<long, Guest>();
             Stores = new Dictionary<string, Store>();
             Products = new Dictionary<string, Product>();
-            Reviews = new List<ReviewDao>();
+            Reviews = new List<Review>();
         }
 
         public static DataHandler Instance
@@ -158,7 +158,7 @@ namespace Version1.DataAccessLayer
         
         internal void AddReview(string userName, string desc)
         {
-            Reviews.Add(new ReviewDao(userName, desc));
+            Reviews.Add(new Review(userName, desc));
         }
     }
 }

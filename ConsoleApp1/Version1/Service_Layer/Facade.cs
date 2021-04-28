@@ -11,10 +11,8 @@ namespace Version1.Service_Layer
 {
     public class Facade
     {
-        private Logic logicInstance = new Logic();
+        private readonly Logic logicInstance = new Logic();
         private SystemAdmin admin;
-        private ShoppingHandler shoppingHandler = new ShoppingHandler();
-        private StoreAdministration storeAdministration = new StoreAdministration();
 
 
         //high priority
@@ -307,7 +305,7 @@ namespace Version1.Service_Layer
                 string[] storeData = new string[4];
                 storeData[0] = store.GetName();
                 storeData[1] = store.GetOwner();
-                storeData[2] = store.GetSellingPolicy();
+                storeData[2] = store.GetPurchasePolicies().ToString();
 
                 var messages = "";
                 foreach (var message in store.GetNotifications())
@@ -450,8 +448,8 @@ namespace Version1.Service_Layer
 
 
             OpenShop("adnan", "AdnanStore", "AdnanPolicy");
-            MakeNewManger("adnan", "AdnanStore", "shadi", 1);
-            MakeNewOwner("AdnanStore", "shadi", "1");
+            MakeNewManger("AdnanStore", "adnan", "shadi", 1);
+            MakeNewOwner("AdnanStore", "adnan", "yara");
             //     AdnanStore.AddDiscount(dis2);
             AddItemToStore("AdnanStore", "2", 12);
             AddItemToStore("AdnanStore", "4", 20);
