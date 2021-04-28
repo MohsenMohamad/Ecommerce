@@ -244,9 +244,9 @@ namespace Version1.Service_Layer
             return logicInstance.AddUserNotification(userName, msg);
         }
 
-        public string[] GetAllUserNotifications(string userid)
+        public string[] GetAllUserNotifications(string userName)
         {
-            var notifications = logicInstance.GetUserNotifications(userid);
+            var notifications = logicInstance.GetUserNotifications(userName);
             return notifications?.ToArray();
         }
 

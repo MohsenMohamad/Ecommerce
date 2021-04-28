@@ -32,6 +32,11 @@ namespace ServerApi
         {
             return facade.Logout(username);
         }
+        [HttpGet]
+        public string[] GetAllNotifications(string userName)
+        {
+            return facade.GetAllUserNotifications(userName);
+        }
         
     } 
 }

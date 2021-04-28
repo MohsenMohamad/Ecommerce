@@ -40,7 +40,7 @@ namespace ServiceApi
                 }
                 catch (Exception xxx)
                 {
-                 Logger.GetInstance().Error("fatal error exeption in server program start exited infinite waiting period");   
+                 Logger.GetInstance().Error("fatal error exception in server program start exited infinite waiting period");   
                 }
             });
             
@@ -58,26 +58,28 @@ namespace ServiceApi
                             {
                                 string userName = socket.ConnectionInfo.Path.ToString().Replace("/?user=", "");
                                 
-                                List<ObserverUser> res = observerUsers.Where(x => x.userName == userName).ToList();
+                                var res = observerUsers.Where(x => x.userName == userName).ToList();
                                 foreach (var t in res)
                                 {
                                     try
                                     {
+                                        //disconnect sockets for users that have been logged in in second
+                                        //time to make sure the are no duplicated sockets fo each user
                                         t.socket.Close();
                                     }
                                     catch
                                     {
-                                        // ignored
+                                        // socket has been disconnected before we disconnect his socket
                                     }
                                 }
                                 observerUsers.RemoveAll(x => x.userName == userName);
                                 observerUsers.Add(new ObserverUser(userName, socket));
                                 if (userName == "") socket.Close();
-                                Console.WriteLine("Open socket for - " + userName);
+                                Console.WriteLine("connected to socket userName : " + userName);
                             }
                             else
                             {
-                                Console.WriteLine("Open! - " + "server");
+                                Console.WriteLine("Open " + "server");
                             }
                         };
                         socket.OnClose = () =>
@@ -85,21 +87,25 @@ namespace ServiceApi
                             if (socket.ConnectionInfo.Path.ToString().Contains("user"))
                             {
                                 string userName = socket.ConnectionInfo.Path.ToString().Replace("/?user=", "");
-                                
+                                //disconnect user when logging out from socket
                                 observerUsers.RemoveAll(x => x.userName == userName);
-                                Console.WriteLine("Close! - " + userName);
+                                Console.WriteLine("disConnected from socket userName : " + userName);
                             }
                             else
                             {
-                                Console.WriteLine("Open! - " + "server");
+                                Console.WriteLine("Open " + "server");
                             }
                         };
                         socket.OnMessage = message =>
                         {
-                            //userid#msg
+                            //userid # msg
                             string[] cmd = message.Split('#');
                             string userName = cmd[0];
+                            
+                            //get userNameList to notify
                             List<ObserverUser> res = observerUsers.Where(x => x.userName == userName).ToList();
+                            
+                            //send notification for the user that the message has been arrived ???
                             if (res.Count > 0) res[0].notify(cmd[1]);
 
                             Console.WriteLine(message + " " + res.Count);
@@ -114,8 +120,8 @@ namespace ServiceApi
             });
             thread1.Start();
             thread2.Start();
-            /*thread1.Join();
-            thread2.Join();*/
+            thread1.Join();
+            thread2.Join();
             Console.ReadLine();
             /*Logger logger = Logger.GetInstance();
             try
