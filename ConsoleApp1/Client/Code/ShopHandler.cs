@@ -144,5 +144,42 @@ namespace Client.Code
         }
 
 
+        public DataSet GetStoreOwners(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.SHOP, "GetStoreOwners", param).ToString());
+            DataTable t1 = new DataTable("owners");
+            t1.Columns.Add("username");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i]);
+            }
+
+            DataSet d1 = new DataSet("owners");
+            d1.Tables.Add(t1);
+            return d1;
+        }
+
+        public DataSet GetAllUserNamesInSystem()
+        {
+            string param = "";
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.SHOP, "GetAllUserNamesInSystem", param).ToString());
+            DataTable t1 = new DataTable("Users");
+            t1.Columns.Add("username");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i]);
+            }
+
+            DataSet d1 = new DataSet("Users");
+            d1.Tables.Add(t1);
+            return d1;
+        }
+
+
+
+
     }
 }

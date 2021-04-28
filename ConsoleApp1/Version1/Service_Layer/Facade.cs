@@ -124,6 +124,7 @@ namespace Version1.Service_Layer
         // appoint to different permission from a *table* of permissions.
         public bool MakeNewManger(string storeName,string apointerid, string apointeeid, int permissions)
         {
+            Console.WriteLine(storeName+" "+ apointerid + " " + apointeeid + " " + permissions + " ");
             return logicInstance.AddManager(storeName, apointerid, apointeeid, permissions);
         }
 
@@ -442,7 +443,7 @@ namespace Version1.Service_Layer
 
             /* ----------------------------- Stores ---------------------------------*/
 
-            OpenShop("mohamedm", "MohamedStore", "MohamedPolicy");
+            OpenShop("MohamedStore", "mohamedm", "MohamedPolicy");
             MakeNewManger("mohamedm", "MohamedStore", "yara", 4);
             //         MohamedStore.AddDiscount(dis1);
             AddItemToStore("MohamedStore", "3", 8);
@@ -450,7 +451,8 @@ namespace Version1.Service_Layer
 
 
             OpenShop("adnan", "AdnanStore", "AdnanPolicy");
-            MakeNewManger("adnan", "AdnanStore", "shadi", 1);
+            MakeNewManger("AdnanStore", "adnan", "shadi", 1);
+            MakeNewManger("AdnanStore", "adnan", "mohamedm", 1);
             MakeNewOwner("AdnanStore", "shadi", "1");
             //     AdnanStore.AddDiscount(dis2);
             AddItemToStore("AdnanStore", "2", 12);

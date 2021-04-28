@@ -22,6 +22,47 @@
         .auto-style19 {
             width: 245px;
         }
+        .auto-style20 {
+            width: 246px;
+            height: 27px;
+        }
+        .auto-style21 {
+            height: 27px;
+        }
+        .auto-style22 {
+            width: 430px;
+            height: 27px;
+        }
+        .addstylee {
+            background-color: limegreen;
+        }
+        .removestylee{
+             background-color:red ;
+        }
+        .btnsuccess {
+            background: #1F60F0; 
+            color: #eee;
+
+        }
+        .btnsuccesshover {
+            background: #111; 
+            color: #eee; 
+
+        }
+        .pgalogin {
+background: none repeat scroll 0 0 #2EA2CC;
+border-color: #0074A2;
+box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+color: #FFFFFF;
+text-decoration: none;
+text-align: center;
+vertical-align: middle;
+border-radius: 3px;
+padding: 4px;
+height: 27px;
+font-size: 14px;
+margin-bottom: 16px;
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -108,7 +149,7 @@
                     <tr>
                         <td class="auto-style13">&nbsp;</td>
                         <td class="auto-style14">
-                            <asp:Button ID="ButtonAdd" runat="server" Text="Add" OnClick="ButtonAdd_Click" />
+                            <asp:Button ID="ButtonAdd" CssClass="addstylee" runat="server" Text="Add" OnClick="ButtonAdd_Click" Height="39px" Width="90px" />
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -141,14 +182,14 @@
         <tr>
             <td class="auto-style17">&nbsp;</td>
             <td>
-                <asp:Button ID="Buttonaddmanager" runat="server" Text="Add" OnClick="Buttonaddmanager_Click" />
+                <asp:Button ID="Buttonaddmanager" CssClass="addstylee" runat="server" Text="Add" OnClick="Buttonaddmanager_Click" Height="37px" Width="68px" />
             </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style17">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
+            <td class="auto-style20"></td>
+            <td class="auto-style21"></td>
+            <td class="auto-style22"></td>
         </tr>
         <tr>
             <td class="auto-style17">&nbsp;</td>
@@ -182,7 +223,7 @@
         <tr>
             <td class="auto-style18">&nbsp;</td>
             <td>
-                <asp:Button ID="Button1" runat="server" Text="Add" />
+                <asp:Button ID="Button1" CssClass="addstylee" runat="server" Text="Add" OnClick="Button1_Click" Height="38px" Width="72px" />
             </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>
@@ -220,7 +261,7 @@
         <tr>
             <td class="auto-style18">&nbsp;</td>
             <td>
-                <asp:Button ID="Button2" runat="server" Text="Remove" />
+                <asp:Button ID="Button2" CssClass="removestylee" runat="server" Text="Remove" OnClick="Button2_Click" />
             </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>
@@ -258,7 +299,7 @@
         <tr>
             <td class="auto-style19">&nbsp;</td>
             <td>
-                <asp:Button ID="Button3" runat="server" Text="Remove" />
+                <asp:Button ID="Button3" CssClass="removestylee" runat="server" Text="Remove" OnClick="Button3_Click" />
             </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>

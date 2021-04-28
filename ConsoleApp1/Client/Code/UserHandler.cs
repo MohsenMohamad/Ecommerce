@@ -55,10 +55,29 @@ namespace Client.Code
             string param = string.Format("mangerName={0}&storename={1}&newOwner={2}", mangerName, storename, newOwner);
             return bool.Parse(System.SendApi(System.Service_type.USER, "AddNewOwner", param));
         }
-        public bool AddNewManger(string userName, string storeName, string NewOwnerName, string permissions)
+        public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {
-            string param = string.Format("userName={0}&storeName={1}&NewOwnerName={2}&permissions={3}", userName, storeName, permissions);
-            return bool.Parse(System.SendApi(System.Service_type.USER, "AddNewManger", param));
+            string param = string.Format("storeName={0}&apointerid={1}&apointeeid={2}&permissions={3}", storeName, apointerid, apointeeid, permissions);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "MakeNewManger", param));
+        }
+
+        public bool MakeNewOwner(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            string param = string.Format("storeName={0}&apointerid={1}&apointeeid={2}&permissions={3}", storeName, apointerid, apointeeid, permissions);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "MakeNewOwner", param));
+        }
+
+        public bool removeOwner(string apointerid, string storeName, string apointeeid)
+        {
+            string param = string.Format("apointerid={0}&storeName={1}&apointeeid={2}", apointerid,  storeName,  apointeeid);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "removeOwner", param));
+
+        }
+        public bool removeManager(string apointerid, string storeName, string apointeeid)
+        {
+            string param = string.Format("apointerid={0}&storeName={1}&apointeeid={2}", apointerid, storeName, apointeeid);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "removeManager", param));
+
         }
     }
 }

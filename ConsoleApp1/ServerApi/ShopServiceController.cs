@@ -75,14 +75,14 @@ namespace ServerApi
             return facade.SearchByKeyword(keyword);
         }
         [HttpGet]
-        public bool makeNewOwner(string apointerid, string storeName, string apointeeid)
+        public bool makeNewOwner(string storeName, string apointerid, string apointeeid)
         {
-            return facade.MakeNewOwner(apointerid,storeName,apointeeid);
+            return facade.MakeNewOwner(storeName, apointerid, apointeeid);
         }
         [HttpGet]
-        public bool makeNewManger(string apointerid, string storeName, string apointeeid, int permissions)
+        public bool makeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {   //todo split the permissions and make dataStructures that saves the permissions
-            return facade.MakeNewManger(apointerid,storeName,apointeeid,permissions);
+            return facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
         }
         [HttpGet]
         public bool removeOwner(string apointerid, string storeName, string apointeeid)
@@ -130,6 +130,12 @@ namespace ServerApi
         public string[] GetStoreManagers(string storeName)
         {
             return facade.GetStoreManagers(storeName);
+        }
+
+        [HttpGet]
+        public string[] GetAllUserNamesInSystem()
+        {
+            return facade.GetAllUserNamesInSystem();
         }
 
     }
