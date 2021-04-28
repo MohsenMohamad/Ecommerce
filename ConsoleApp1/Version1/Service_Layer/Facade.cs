@@ -22,6 +22,11 @@ namespace Version1.Service_Layer
             return logicInstance.UserLogin(username, password);
         }
 
+        public long GuestLogin()
+        {
+            return logicInstance.GuestLogin();
+        }
+
         //high priority
         public bool Register(string username, string password)
         {
@@ -91,6 +96,11 @@ namespace Version1.Service_Layer
                 return null;
             var result = ProductsTo2DStringArray(products.Keys.ToList());
             return result;
+        }
+
+        public bool Purchase(string userName)
+        {
+            return true;
         }
 
         //high priority
