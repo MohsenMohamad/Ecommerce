@@ -7,39 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client {
-    
-    
-    public partial class Home {
-        
+namespace Client
+{
+
+
+    public partial class Home
+    {
+
         /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// DataListproducts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList DataListproducts;
-        
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new Client.m1 Master {
-            get {
-                return ((Client.m1)(base.Master));
-            }
-        }
     }
 }
