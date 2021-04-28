@@ -56,5 +56,10 @@ namespace Version1.domainLayer.UserRoles
         {
             return data.GetStore(storeName);
         }
+        public bool InitSystem()
+        {
+            return true;
+            //return InitSystem();
+        }
     }
 }

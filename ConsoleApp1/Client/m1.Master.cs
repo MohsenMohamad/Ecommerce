@@ -25,7 +25,11 @@ namespace Client
                 Login_table.Visible = false;
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
-
+            }
+            else
+            {
+                UserHandler u = new UserHandler();
+                
             }
         }
 
@@ -130,6 +134,15 @@ namespace Client
         protected void MyShops_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/MyShops.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (TextBox2.Text.Trim().Length == 0) { }
+            else
+            {
+                Response.Redirect("~/Home.aspx?keyword=" + TextBox2.Text.ToString());
+            }
         }
     }
 }
