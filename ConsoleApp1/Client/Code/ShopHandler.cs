@@ -200,6 +200,12 @@ namespace Client.Code
             return d1;
         }
 
+        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        {
+            string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&amount={3}", userName, storeName, productBarcode , amount);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "remove_item_from_cart", param));
+        }
+
 
 
 

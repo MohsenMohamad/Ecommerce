@@ -63,7 +63,6 @@ namespace Version1.LogicLayer
         {
             var pr = DataHandler.GetProduct(barcode);
             var st = DataHandler.GetStore(storeName);
-            
 
             return false;
         }

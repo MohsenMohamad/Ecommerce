@@ -39,6 +39,10 @@ namespace Version1.domainLayer.DataStructures
             if (!Products.ContainsKey(product) || Products[product] < amount)
                 return false;
             Products[product] -= amount;
+            if (Products[product] == 0)
+            {
+                Products.Remove(product);
+            }
             // remove it if new amount = 0 ?
             return true;
         }

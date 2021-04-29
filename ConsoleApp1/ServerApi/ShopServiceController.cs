@@ -138,5 +138,11 @@ namespace ServerApi
             return facade.GetAllUserNamesInSystem();
         }
 
+        [HttpGet]
+        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        {
+            return facade.remove_item_from_cart(userName, storeName, productBarcode, amount);
+        }
+
     }
 }
