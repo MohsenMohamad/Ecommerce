@@ -8,21 +8,16 @@ using System.Web.UI.WebControls;
 
 namespace Client
 {
-    public partial class Cart : System.Web.UI.Page
+    public partial class Notifications : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ShopHandler a = new ShopHandler();
-            
-            Data_cart.DataSource = a.GetUserBaskets(Session["username"].ToString());
+            UserHandler a = new UserHandler();
+
+            Data_cart.DataSource = a.GetAllNotifications(Session["username"].ToString());
             Data_cart.DataBind();
 
 
-        }
-
-        protected void DataList1_ItemCommand1(object source, DataListCommandEventArgs e)
-        {
-          
         }
 
         protected void Data_cart_SelectedIndexChanged(object sender, EventArgs e)

@@ -37,6 +37,12 @@ namespace ServerApi
         {
             return facade.GetAllUserNotifications(userName);
         }
-        
+
+        [HttpGet]
+        public long GuestLogin()
+        {
+            return facade.GuestLogin();
+        }
+
     } 
 }

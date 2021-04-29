@@ -108,8 +108,27 @@ namespace Version1.Service_Layer
         {
             var productList = logicInstance.SearchByKeyWord(keyword);
             var result = ProductsTo2DStringArray(productList);
+            var lists1 = result.Select(a => a.ToList()).ToList();
 
-            return result;
+            var finalList = new List<List<string>>();
+            var storeNames = logicInstance.GetStoresNames();
+            foreach (var storeName in storeNames)
+            {
+                var storeInventory = get_items_in_shop(storeName);
+                var lists = storeInventory.Select(a => a.ToList()).ToList();
+                foreach (var product in lists1) {
+                    foreach (var productData in lists) {
+                        if (productData[2].Equals(product[2]))
+                        {
+                            product.Add(storeName);
+                        }
+                    }
+                }
+
+                finalList.AddRange(lists1);
+            }
+
+            return finalList.Select(a => a.ToArray()).ToArray();
         }
 
 

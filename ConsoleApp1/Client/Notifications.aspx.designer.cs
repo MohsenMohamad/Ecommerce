@@ -11,7 +11,7 @@ namespace Client
 {
 
 
-    public partial class Cart
+    public partial class Notifications
     {
 
         /// <summary>

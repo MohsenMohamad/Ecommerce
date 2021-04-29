@@ -12,11 +12,14 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             LabelPasword.Visible = false;
             LabelUsername.Visible = false;
             Labelname.Visible = true;
             OpenShop.Visible = false;
             MyShops.Visible = false;
+            Notifications.Visible = false;
+
 
 
             if (Session["isLogin"] != null)
@@ -25,11 +28,19 @@ namespace Client
                 Login_table.Visible = false;
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
+                Notifications.Visible = true;
             }
-            else
+            else if (Session["username"] == null)
             {
-                UserHandler u = new UserHandler();
-                
+                UserHandler h = new UserHandler();
+                Session["username"] = h.GuestLogin().ToString();
+                Labelname.Text = "Hello " + Session["username"].ToString();
+                Labelname.Visible = true;
+
+            }
+            else {
+                Labelname.Text = "Hello " + Session["username"].ToString();
+                Labelname.Visible = true;
             }
         }
 
@@ -63,6 +74,7 @@ namespace Client
                         Labelname.Text = "Hello " + txtusername.Text;
                         Session["userid"] = msg;
                         OpenShop.Visible = true;
+                        Notifications.Visible = true;
                         MyShops.Visible = true;
 
                     Session["basket"] = null;
@@ -143,6 +155,11 @@ namespace Client
             {
                 Response.Redirect("~/Home.aspx?keyword=" + TextBox2.Text.ToString());
             }
+        }
+
+        protected void Notifications_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Notifications.aspx");
         }
     }
 }

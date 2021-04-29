@@ -157,6 +157,7 @@
     <Content Include="img\select-button-png-th.png" />
     <Content Include="img\shopping_cart_black_72x72.png" />
     <Content Include="MyShops.aspx" />
+    <Content Include="Notifications.aspx" />
     <Content Include="Open_shop.aspx" />
     <Content Include="Product.aspx" />
     <Content Include="Register.aspx" />
@@ -202,6 +203,13 @@
     </Compile>
     <Compile Include="MyShops.aspx.designer.cs">
       <DependentUpon>MyShops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications.aspx.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notifications.aspx.designer.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
     <Compile Include="Open_shop.aspx.cs">
       <DependentUpon>Open_shop.aspx</DependentUpon>

@@ -48,6 +48,13 @@ namespace Client.Code
                 return false;
             }
         }
+
+
+        public long GuestLogin()
+        {
+            string param = "";
+            return long.Parse(System.SendApi(System.Service_type.USER, "GuestLogin", param));
+        }
         public bool Logout(string userName)
         {
             string param = string.Format("username={0}", userName);
@@ -86,7 +93,7 @@ namespace Client.Code
         public DataSet GetAllNotifications(string userName)
         {
             string param = string.Format("userName={0}", userName);
-            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.TRANSACTION, "GetAllNotifications", param).ToString());
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi(System.Service_type.USER, "GetAllNotifications", param).ToString());
             DataTable t1 = new DataTable("Notifications");
             t1.Columns.Add("id");
             t1.Columns.Add("msg");
