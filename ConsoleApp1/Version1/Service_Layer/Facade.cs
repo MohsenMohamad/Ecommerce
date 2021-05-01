@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,13 +11,13 @@ using Version1.LogicLayer;
 
 namespace Version1.Service_Layer
 {
-    public class Facade
+    public class Facade : GenInterface
     {
         private readonly Logic logicInstance = new Logic();
         private SystemAdmin admin;
 
 
-        //high priority
+        
         public bool Login(string username, string password)
         {
             return logicInstance.UserLogin(username, password);
@@ -27,19 +28,29 @@ namespace Version1.Service_Layer
             return logicInstance.GuestLogin();
         }
 
-        //high priority
+        public bool GuestLogout()
+        {
+            throw new NotImplementedException();
+        }
+        public bool guestLogin()
+        {
+            return true;
+        }
+        
+
+        
         public bool Register(string username, string password)
         {
             return logicInstance.Register(username, password);
         }
 
-        //high priority
+        
         public bool Logout(string userid)
         {
             return logicInstance.UserLogout(userid);
         }
 
-        //high priority
+        
         public string[][] GetStoresProducts()
         {
             var finalList = new List<List<string>>();
@@ -57,20 +68,22 @@ namespace Version1.Service_Layer
             return finalList.Select(a => a.ToArray()).ToArray();
         }
 
-        //high priority
+        
         public string[][] GetAllStores()
         {
             var result = StoresTo2DStringArray(logicInstance.GetAllStores());
             return result;
         }
 
-        //high priority
+        
         public bool AddItemToStore(string shopName, string itemBarCode, int amount)
         {
             return logicInstance.AddProductToStore(shopName, itemBarCode, amount);
         }
 
-        //high priority
+        
+
+        
         public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
             string[] categories)
         {
@@ -88,7 +101,7 @@ namespace Version1.Service_Layer
             return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
         }
 
-        //high priority
+        
         public string[][] get_items_in_shop(string shopName)
         {
             var products = logicInstance.GetProductsFromShop(shopName);
@@ -98,12 +111,14 @@ namespace Version1.Service_Layer
             return result;
         }
 
-        public bool Purchase(string userName)
+        
+
+        public bool Purchase(string userName,string barcode,int amount,string storeName)
         {
             return true;
         }
 
-        //high priority
+        
         public string[][] SearchByKeyword(string keyword)
         {
             var productList = logicInstance.SearchByKeyWord(keyword);
@@ -136,19 +151,53 @@ namespace Version1.Service_Layer
         {
             return logicInstance.GetStoreOwners(storeName)?.ToArray();
         }
+        public bool IsOwner(string storeName, string ownerName)
+        {
+            return GetStoreOwners(storeName).Contains(ownerName);
+        }
+        //do not use
+        public bool AddNewManger(string user, string store, string newMangerName)
+        {
+            //todo add permissions parameter
+            return MakeNewManger(store, user, newMangerName, 0);
+        }
+
+        public bool IsManger(string storeName, string mangerName)
+        {
+            return GetStoreManagers(storeName).Contains(mangerName);
+        }
+
         
+
+        public bool deleteManger(string ownerUser, string storeName, string oldMangerName)
+        {
+            return RemoveManager(ownerUser, storeName, oldMangerName);
+        }
+
+        public bool buyProduct(string buyer, string store, string product, int amount)
+        {
+            return Purchase(buyer, product, amount, store);
+        }
+
+        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
+            List<string> categories)
+        {
+            return UpdateProduct(storeOwnerName,productName,  productName, amount);
+        }
+
+        
+
         public string[] GetStoreManagers(string storeName)
         {
             return logicInstance.GetStoreManagers(storeName)?.ToArray();
         }
         
-        //high priority
+        
         public bool MakeNewOwner(string storeName, string apointerid, string apointeeid)
         {
             return logicInstance.AddOwner(storeName, apointerid, apointeeid);
         }
 
-        //todo make sure that the each number of the permissions
         // appoint to different permission from a *table* of permissions.
         public bool MakeNewManger(string storeName,string apointerid, string apointeeid, int permissions)
         {
@@ -173,33 +222,19 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool UpdateProduct(string name, string desc, string barcode, List<string> categories)
+        public bool UpdateProduct(string userName, string shopName, string barcode, int amount)
         {
-            throw new NotImplementedException();
+            return updateProductsInShop(userName, shopName, barcode, amount);
         }
 
-        // low
-        public bool DeleteProduct(string shopName, string userName, string productBarCode)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public bool OpenShop(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName, shopName, policy);
         }
 
-        // low
-        public bool CloseShop(string shopName, string ownerName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasPermission(string shopName, string userName, int permission)
-        {
-            throw new NotImplementedException();
-        }
-
+        
 
         public bool IsLoggedIn(string userName)
         {
@@ -248,10 +283,7 @@ namespace Version1.Service_Layer
             return logicInstance.RemoveProductFromCart(userName, storeName, productBarcode, amount);
         }
 
-        public bool IsAdmin(string userName)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         // low
         public int[] GetAppointmentPermissions(int shopid, int apointeeid)
@@ -259,7 +291,7 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        // high
+        
         public string[][] GetBasketProducts(string userName, string storeName)
         {
             var products = logicInstance.GetBasketProducts(userName, storeName);
@@ -394,8 +426,9 @@ namespace Version1.Service_Layer
 
             return result;
         }
-
-        public void InitSystem()
+    
+        
+        public bool InitSystem()
 
 
         {
@@ -497,6 +530,118 @@ namespace Version1.Service_Layer
 
 
             /*--------------------------------------------------------------------------*/
+            return true;
         }
+        
+        /* ******************* high priority todo all this function for the tests ********************* */ 
+        public string GetStoreInfo(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        //do not use
+        public string[][] get_items_in_shop(string ownerName, string storeName)
+        {
+            return get_items_in_shop(storeName);
+        }
+        public string getMangerResponsibilities(string user, string store, string newMangerName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] getUsersStore(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        //todo makesure of the username's permission
+        public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
+        {
+            return AddItemToStore(storeName, productCode, amount);
+        }
+        //todo make sure of the username's permission
+        /*public string[][]  get_items_in_shop(string owner, string storeName)
+        {
+            return get_items_in_shop(storeName);
+        }*/
+        public string getInfo(string user, string store)
+        {
+            throw new NotImplementedException();
+        }
+        public bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities)
+        {
+            throw new NotImplementedException();
+        }
+        public bool CheckStoreInventory(string storeName, Hashtable products)
+        {
+            throw new NotImplementedException();
+        }
+        
+
+        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] GetCartByStore(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        public bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities)
+        {
+            throw new NotImplementedException();
+        }
+        public List<string> getStorePurchaseHistory(string ownerUser, string store)
+        {
+            throw new NotImplementedException();
+        }
+        public bool initSystem(string admin)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool addProductsToShop(string user, string shopName, string product, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool removeProductsInShop(string user, string shopName, string product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool updateProductsInShop(string userName, string shopName, string product, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> getPaymentInfo(string owner, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> addPaymentInfo(string owner, string storeName, string info)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
+        {
+            throw new NotImplementedException();
+        }
+        // low
+        public bool DeleteProduct(string shopName, string userName, string productBarCode)
+        {
+            throw new NotImplementedException();
+        }// low
+        public bool CloseShop(string shopName, string ownerName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasPermission(string shopName, string userName, int permission)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

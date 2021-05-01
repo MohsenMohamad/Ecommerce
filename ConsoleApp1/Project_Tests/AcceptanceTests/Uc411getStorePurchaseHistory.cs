@@ -19,27 +19,26 @@ namespace Project_Tests.AcceptanceTests
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
+            InitiateSystem();
             ownerUser = new User("user0", "userPass");
             Register("user1","user1");
             Register("user2","user2");
             storeName = "aliExpress";
             OpenStore(ownerUser.UserName,"sellPolicy", storeName);
-            store = getUsersStore(ownerUser,storeName);
         }
 
         [Test]
         public void Test()
         {
-            User buyer1 = loginGuest("user1","user1");
-            User buyer2 = loginGuest("user2","user2");
-            Product product = new Product("shampoo", "des", "15", new List<Category>());
-            addProductsToShop(ownerUser, storeName, product, 13);
+            UserLogin("user1","user1");
+            UserLogin("user2","user2");
+            Product product = new Product("shampoo", "des", "15", 655,new List<string>());
+            addProductsToShop(ownerUser.UserName, storeName, product.Barcode, 13);
 
-            Assert.True(buyProduct(buyer1, store, product, 2));
-            Assert.True(buyProduct(buyer2, store, product, 3));
+            Assert.True(buyProduct("user1", store.GetName(), product.Barcode, 2));
+            Assert.True(buyProduct("user2", store.GetName(), product.Barcode, 3));
             //happy
-            Assert.NotNull(getStorePurchaseHistory(ownerUser, store));
+            Assert.NotNull(getStorePurchaseHistory(ownerUser.UserName, store.GetName()));
         }
        
     }

@@ -24,26 +24,26 @@ namespace Project_Tests.AcceptanceTests
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
+            InitiateSystem();
             
             //user = new User("user", "userPass");
             storeName = "helloWorldMarket";
             Register("user","userPass");
-            user = loginGuest("user","userPass");
+            UserLogin("user","userPass");
             OpenStore(user.UserName,"", storeName);
             productName = "shampoo";
-            product = new Product("shampoo",productName,"1",new List<Category>());
-            product2 = new Product("pringles",productName,"1",new List<Category>());
+            product = new Product("shampoo",productName,"1",65,new List<Category>());
+            product2 = new Product("pringles",productName,"1",99,new List<Category>());
             amount = 100;
         }
 
         [Test]
         public void TestAdd()
         {
-            addProductsToShop(user, storeName, product, amount);
+            addProductsToShop("user", storeName, product.Barcode, amount);
             
             //happy
-            Assert.True(getProductsFromShop(user,storeName).ContainsKey(product));
+            Assert.True(getProductsFromShop(user.UserName,storeName).ContainsKey(product));
             //bad
             Assert.True(addProductsToShop(user, storeName, product, 50));
         }
