@@ -11,19 +11,18 @@ namespace Project_Tests.AcceptanceTests
     public class Uc46UpdateMangerResponsibilities:ATProject
     {
         private static SystemAdmin admin;
-        private static User user;
-        private static Store store;
         string storeName;
+        private string userName;
         
         [SetUp]
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
-            
-            //user = new User("user0", "userPass");
+            admin.InitSystem();
+
+            userName = "user0";
             Register("user0","userPass");
-            user = loginGuest("user0", "userPass");
+            UserLogin("user0", "userPass");
             
             Register("user1","user1");
             Register("user2","user2");
@@ -32,10 +31,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "ebay";
            
             
-            OpenStore(user.UserName,"sellPolicy", storeName);
-            store = getUsersStore(user,storeName);
-            
-                
+            OpenStore(userName, storeName,"sellPolicy");
         }
 
         [Test]
@@ -43,20 +39,21 @@ namespace Project_Tests.AcceptanceTests
         {
             //happy
             string newMangerName = "user1";
-            string newRespon = "newResp";
-            Assert.True(AddNewManger(user, store, newMangerName));
-            Assert.True(IsManger(store, newMangerName));
-            List<string> responsibilities = getMangerResponsibilities(user, store,newMangerName);
+            string newRespon = "1";
+            Assert.True(AddNewManger(storeName, userName, newMangerName));
+            Assert.True(IsManger(storeName, newMangerName));
+            List<string> responsibilities = getMangerResponsibilities(userName, storeName,newMangerName);
+            responsibilities.Remove("0");
             responsibilities.Add(newRespon);
 
-            Assert.True(updateMangerResponsibilities(user, storeName, responsibilities));
-            Assert.Equals(responsibilities, getMangerResponsibilities(user, store, newMangerName));
+            Assert.True(updateMangerResponsibilities(userName, storeName, responsibilities));
+            Assert.Equals(responsibilities, getMangerResponsibilities(userName, storeName, newMangerName));
             
             
             
             //bad
             responsibilities.Remove(newRespon);
-            Assert.AreNotEqual(responsibilities, getMangerResponsibilities(user, store, newMangerName));
+            Assert.AreNotEqual(responsibilities, getMangerResponsibilities(userName, storeName, newMangerName));
             
         }
        

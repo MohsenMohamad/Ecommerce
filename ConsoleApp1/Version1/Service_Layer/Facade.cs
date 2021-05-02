@@ -81,6 +81,13 @@ namespace Version1.Service_Layer
             return logicInstance.AddProductToStore(shopName, itemBarCode, amount);
         }
 
+        public bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount,double price,string productName,string descreption,string[] categories)
+        {
+            bool f = AddNewProductToSystem(barcode, productName, descreption, price, categories);
+            bool s = AddItemToStore(shopName, barcode, amount);
+            return s & f;
+
+        }
         
 
         
@@ -195,7 +202,7 @@ namespace Version1.Service_Layer
         
         public bool MakeNewOwner(string storeName, string apointerid, string apointeeid)
         {
-            return logicInstance.AddOwner(storeName, apointerid, apointeeid);
+            return logicInstance.AddOwner(storeName,apointerid, apointeeid);
         }
 
         // appoint to different permission from a *table* of permissions.
@@ -532,107 +539,21 @@ namespace Version1.Service_Layer
             /*--------------------------------------------------------------------------*/
             return true;
         }
-        
-        /* ******************* high priority todo all this function for the tests ********************* */ 
-        public string GetStoreInfo(string userName, string storeName)
-        {
-            throw new NotImplementedException();
-        }
         //do not use
         public string[][] get_items_in_shop(string ownerName, string storeName)
         {
             return get_items_in_shop(storeName);
         }
-        public string getMangerResponsibilities(string user, string store, string newMangerName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string[] getUsersStore(string userName, string storeName)
-        {
-            throw new NotImplementedException();
-        }
         //todo makesure of the username's permission
         public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
         {
             return AddItemToStore(storeName, productCode, amount);
-        }
-        //todo make sure of the username's permission
-        /*public string[][]  get_items_in_shop(string owner, string storeName)
-        {
-            return get_items_in_shop(storeName);
-        }*/
-        public string getInfo(string user, string store)
-        {
-            throw new NotImplementedException();
-        }
-        public bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities)
-        {
-            throw new NotImplementedException();
-        }
-        public bool CheckStoreInventory(string storeName, Hashtable products)
-        {
-            throw new NotImplementedException();
-        }
-        
-
-        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string[] GetCartByStore(string userName, string storeName)
-        {
-            throw new NotImplementedException();
-        }
-        public bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities)
-        {
-            throw new NotImplementedException();
-        }
-        public List<string> getStorePurchaseHistory(string ownerUser, string store)
-        {
-            throw new NotImplementedException();
-        }
-        public bool initSystem(string admin)
-        {
-            throw new NotImplementedException();
-        }
-
-
+        } 
         public bool addProductsToShop(string user, string shopName, string product, int amount)
         {
-            throw new NotImplementedException();
+            return AddItemToStore(shopName, product, amount);
         }
-
-        public bool removeProductsInShop(string user, string shopName, string product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool updateProductsInShop(string userName, string shopName, string product, int amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<string> getPaymentInfo(string owner, string storeName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<string> addPaymentInfo(string owner, string storeName, string info)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
-        {
-            throw new NotImplementedException();
-        }
-        // low
-        public bool DeleteProduct(string shopName, string userName, string productBarCode)
-        {
-            throw new NotImplementedException();
-        }// low
+        
         public bool CloseShop(string shopName, string ownerName)
         {
             throw new NotImplementedException();
@@ -642,6 +563,78 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }
+        public bool CheckStoreInventory(string storeName, Hashtable products)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
+        {
+            throw new NotImplementedException();
+        }
 
+        public string[] GetCartByStore(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public string[] getUsersStore(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        
+        /* ******************* high priority todo all this function for the tests ********************* */
+        //1
+        public bool updateProductsInShop(string userName, string shopName, string product, int amount)
+        {
+            throw new NotImplementedException();
+        }//2
+        public bool removeProductsInShop(string user, string shopName, string product)
+        {
+            throw new NotImplementedException();
+        }//3
+        public string getInfo(string user, string store)
+        {
+            throw new NotImplementedException();
+        }
+        //4
+        public bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities)
+        {
+            throw new NotImplementedException();
+        }
+        //5
+        public List<string> getMangerResponsibilities(string user, string store, string newMangerName)
+        {
+            throw new NotImplementedException();
+        }
+        //6
+        public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
+        {
+            throw new NotImplementedException();
+        }
+        //7
+        public List<string> getPaymentInfo(string owner, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        //8
+        public List<string> addPaymentInfo(string owner, string storeName, string info)
+        {
+            throw new NotImplementedException();
+        }//9
+        public List<string> getStorePurchaseHistory(string ownerUser, string store)
+        {
+            throw new NotImplementedException();
+        }//10
+        public string GetStoreInfo(string userName, string storeName)
+        {
+            throw new NotImplementedException();
+        }
+        // ???? make sure that the one who is init the system is sysAdmin
+        public bool initSystem(string admin)
+        {
+            throw new NotImplementedException();
+        }
+       
     }
 }

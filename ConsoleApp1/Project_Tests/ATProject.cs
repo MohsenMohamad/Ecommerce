@@ -47,15 +47,21 @@ namespace Project_tests
         {
             return service.Logout(name);
         }
+        protected bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
+            string productName, string descreption, string[] categories)
+        {
+            return service.addNewProductToTheSystemAndAddItToShop(shopName, barcode, amount, price, productName,
+                descreption, categories);
+        }
 
         protected string[] LoggedInUserName()
         {
             return service.GetAllLoggedInUsers();
         }
         
-        protected bool OpenStore(string managerName, string policy, string storeName)
+        protected bool OpenStore(string managerName, string storeName, string policy)
         {
-            return service.OpenShop(managerName, policy, storeName);
+            return service.OpenShop(managerName, storeName, policy);
         }
         
         protected string GetStoreInfo(string userName, string storeName)
@@ -135,9 +141,9 @@ namespace Project_tests
             return service.MakeNewOwner(user, store, newOwnerName);
         }
         
-        protected bool AddNewManger(string storeName, string apointerid, string apointeeid)
+        protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
         {
-            return service.MakeNewOwner(storeName, apointerid, apointeeid);
+            return service.MakeNewOwner(storeName, apointerName, apointeeNAme);
         }
 
         protected bool IsOwner(string storeName, string ownerName)
@@ -149,7 +155,7 @@ namespace Project_tests
             return service.IsOwner(storeName, mangerName);
         }
 
-        protected string getMangerResponsibilities(string user,string store, string newMangerName)
+        protected List<string> getMangerResponsibilities(string user,string store, string newMangerName)
         {
             return service.getMangerResponsibilities(user, store, newMangerName);
         }

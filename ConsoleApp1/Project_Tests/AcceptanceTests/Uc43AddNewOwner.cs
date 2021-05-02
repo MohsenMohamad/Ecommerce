@@ -10,35 +10,26 @@ namespace Project_Tests.AcceptanceTests
     public class Uc43AddNewOwner:ATProject
     {
         private static SystemAdmin admin;
-        private static User user;
-        private static Store store;
+        //private static User user;
         string storeName;
-        
+        private string userName ;
         [SetUp]
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
-            
+            admin.InitSystem();
+            userName = "user0";
             //user = new User("user0", "userPass");
-            Register("user0","userPass");
-            user = loginGuest("user0", "userPass");
+            Register(userName,"userPass");
+            UserLogin(userName, "userPass");
             
             Register("user1","user1");
             Register("user2","user2");
             Register("user3","user3");
             Register("user4","user4");
-
-            storeName = "storeName";
-           
             
-            OpenStore(user.UserName,"sellPolicy", storeName);
-            store = getUsersStore(user,storeName);
-            }
-
-        private User loginGuest(string user0, string userpass)
-        {
-            throw new System.NotImplementedException();
+            storeName = "storeName";
+            OpenStore(userName, storeName,"sellPolicy");
         }
 
         [Test]
@@ -47,12 +38,12 @@ namespace Project_Tests.AcceptanceTests
             //happy
             string newOwnerName = "user1";
             
-            Assert.True(AddNewOwner(user, store, newOwnerName));
-            Assert.True(IsOwner(store, newOwnerName));
+            Assert.True(AddNewOwner("user0", storeName, newOwnerName));
+            Assert.True(IsOwner(storeName, newOwnerName));
             
             //bad
-            User userNewOwner = loginGuest(newOwnerName, "user1");
-            Assert.False(AddNewOwner(userNewOwner, store, "user0"));
+            UserLogin(newOwnerName, "user1");
+            Assert.False(AddNewOwner("user1", storeName, "user0"));
         }
        
     }

@@ -1,7 +1,7 @@
-﻿namespace Project_Tests.AcceptanceTests
+﻿/*namespace Project_Tests.AcceptanceTests
 {
     public class PurchasesHistoryTests
     {
         
     }
-}
+}*/

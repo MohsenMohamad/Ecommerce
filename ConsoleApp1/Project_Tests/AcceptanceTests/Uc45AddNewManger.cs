@@ -10,28 +10,25 @@ namespace Project_Tests.AcceptanceTests
     public class Uc45AddNewManger:ATProject
     {
         private static SystemAdmin admin;
-        private static User user;
-        private static Store store;
         string storeName;
-        
+        string userName;
         [SetUp]
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
+            admin.InitSystem();
             
             //user = new User("user0", "userPass");
             Register("user0","userPass");
-            user = loginGuest("user0", "userPass");
+            UserLogin("user0", "userPass");
             Register("user1","user1");
             Register("user2","user2");
             Register("user3", "user3");
 
-            storeName = "<myStoreName";
-           
+            storeName = "myStoreName";
+            userName = "user0";
             
-            OpenStore(user.UserName,"sellPolicy", storeName);
-            store = getUsersStore(user,storeName);
+            OpenStore(userName, storeName,"sellPolicy");
         }
 
         [Test]
@@ -40,12 +37,12 @@ namespace Project_Tests.AcceptanceTests
             //happy
             string newOwnerName = "user1";
             
-            Assert.True(AddNewManger(user, store, newOwnerName));
-            Assert.True(IsManger(store, newOwnerName));
+            Assert.True(AddNewManger(storeName,userName,  newOwnerName));
+            Assert.True(IsManger(storeName, newOwnerName));
             
             //bad
-            User userNewOwner = loginGuest(newOwnerName, "user1");
-            Assert.False(AddNewManger(userNewOwner, store, "user0"));
+            UserLogin(newOwnerName, "user1");
+            Assert.False(AddNewManger(storeName,newOwnerName , userName));
             
         }
        

@@ -186,6 +186,18 @@ namespace Project_tests
             return real.updatePaymentInfo(owner, storeName ,allInfo);
         }
 
+        public bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
+            string productName, string descreption, string[] categories)
+        {
+            if (real == null)
+            {
+                return false;    
+            }
+
+            return real.addNewProductToTheSystemAndAddItToShop(shopName, barcode, amount, price, productName,
+                descreption, categories);
+        }
+
         public string[][] get_items_in_shop(string owner, string storeName)
         {
             if (real == null)
@@ -246,7 +258,7 @@ namespace Project_tests
             return real.IsManger(storeName, mangerName);
         }
 
-        public string getMangerResponsibilities(string user, string store, string newMangerName)
+        public List<string> getMangerResponsibilities(string user, string store, string newMangerName)
         {
             if (real == null)
             {

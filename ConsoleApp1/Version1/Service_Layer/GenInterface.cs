@@ -31,7 +31,7 @@ namespace Version1
         bool IsOwner(string storeName, string ownerName); 
         bool AddNewManger(string user, string store, string newMangerName);
         bool IsManger(string storeName, string mangerName);
-        string getMangerResponsibilities(string user, string store, string newMangerName);
+        List<string> getMangerResponsibilities(string user, string store, string newMangerName);
         string getInfo(string user, string store);
         bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities);
         bool deleteManger(string ownerUser, string storeName, string newMangerName);
@@ -45,6 +45,9 @@ namespace Version1
         List<string> getPaymentInfo(string owner, string storeName);
         List<string> addPaymentInfo(string owner,string storeName,string info);
         List<string> updatePaymentInfo(string owner,string storeName,List<string> allInfo);
+
+        bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
+            string productName, string descreption, string[] categories);
 
 
     }

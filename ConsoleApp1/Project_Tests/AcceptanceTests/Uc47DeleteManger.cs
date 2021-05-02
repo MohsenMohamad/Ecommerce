@@ -10,19 +10,18 @@ namespace Project_Tests.AcceptanceTests
     public class Uc47DeleteManger:ATProject
     {
         private static SystemAdmin admin;
-        private static User ownerUser;
-        private static Store store;
+        private string ownerUser;
         string storeName;
         
         [SetUp]
         public void Setup()
         {
             admin = new SystemAdmin();
-            initSystem(admin);
+            admin.InitSystem();
+            ownerUser = "user0";
             
-            //ownerUser = new User("user0", "userPass");
             Register("user0","userPass");
-            ownerUser = loginGuest("user0", "userPass");
+            UserLogin("user0", "userPass");
             
             Register("user1","user1");
             Register("user2","user2");
@@ -31,8 +30,7 @@ namespace Project_Tests.AcceptanceTests
             storeName = "ebay2";
            
             
-            OpenStore(ownerUser.UserName,"sellPolicy", storeName);
-            store = getUsersStore(ownerUser,storeName);
+            OpenStore(ownerUser, storeName,"sellPolicy");
         }
 
         [Test]
@@ -41,13 +39,13 @@ namespace Project_Tests.AcceptanceTests
             //happy
             string newMangerName = "user1";
             
-            Assert.True(AddNewManger(ownerUser, store, newMangerName));
-            Assert.True(IsManger(store, newMangerName));
+            Assert.True(AddNewManger(storeName, ownerUser, newMangerName));
+            Assert.True(IsManger(storeName, newMangerName));
             //successful delete
             Assert.True(deleteManger(ownerUser, storeName, newMangerName));
             
             //bad
-            Assert.False(IsManger(store,newMangerName));
+            Assert.False(IsManger(storeName,newMangerName));
         }
        
     }

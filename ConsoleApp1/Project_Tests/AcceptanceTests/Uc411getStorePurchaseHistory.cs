@@ -12,19 +12,18 @@ namespace Project_Tests.AcceptanceTests
     {
         private static SystemAdmin admin;
         private static User ownerUser;
-        private static Store store;
         string storeName;
         
         [SetUp]
         public void Setup()
         {
             admin = new SystemAdmin();
-            InitiateSystem();
+            admin.InitSystem();
             ownerUser = new User("user0", "userPass");
             Register("user1","user1");
             Register("user2","user2");
             storeName = "aliExpress";
-            OpenStore(ownerUser.UserName,"sellPolicy", storeName);
+            OpenStore(ownerUser.UserName,storeName,"sellPolicy");
         }
 
         [Test]
@@ -35,10 +34,10 @@ namespace Project_Tests.AcceptanceTests
             Product product = new Product("shampoo", "des", "15", 655,new List<string>());
             addProductsToShop(ownerUser.UserName, storeName, product.Barcode, 13);
 
-            Assert.True(buyProduct("user1", store.GetName(), product.Barcode, 2));
-            Assert.True(buyProduct("user2", store.GetName(), product.Barcode, 3));
+            Assert.True(buyProduct("user1", storeName, product.Barcode, 2));
+            Assert.True(buyProduct("user2", storeName, product.Barcode, 3));
             //happy
-            Assert.NotNull(getStorePurchaseHistory(ownerUser.UserName, store.GetName()));
+            Assert.NotNull(getStorePurchaseHistory(ownerUser.UserName, storeName));
         }
        
     }
