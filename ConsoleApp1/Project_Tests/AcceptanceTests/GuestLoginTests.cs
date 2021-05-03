@@ -1,4 +1,4 @@
-﻿/*using NUnit.Framework;
+﻿using NUnit.Framework;
 using Project_tests;
 
 namespace Project_Tests.AcceptanceTests
@@ -15,9 +15,10 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
-            Assert.True(GuestLogin());
-            Assert.IsNull(LoggedInUserName());
+            var id = GuestLogin();
+            Assert.True(id > 0);
+            GuestLogout(id);
         }
 
     }
-}*/
+}

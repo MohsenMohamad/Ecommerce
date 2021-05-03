@@ -140,6 +140,20 @@ namespace Version1.LogicLayer
         {
             return DataHandler.Instance.Stores.Keys.ToList();
         }
+        
+        public static List<string> GetStorePurchaseHistory(string ownerUser, string storeName)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) return null;
+            var history = new List<string>();
+
+            foreach (var purchase in store.GetHistory())
+            {
+                history.Add(purchase.ToString());
+            }
+
+            return history;
+        }
 
         public static bool UpdateStorePolicy(string storeName, string newPolicy)
         {

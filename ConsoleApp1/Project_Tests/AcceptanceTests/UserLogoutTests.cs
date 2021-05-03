@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Project_tests;
+using Version1;
 
 
 namespace Project_Tests.AcceptanceTests
@@ -9,7 +11,7 @@ namespace Project_Tests.AcceptanceTests
         private const string TestUserName = "LogoutTest";
         private const string TestUserPassword = "LogoutTest";
         
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             Register(TestUserName, TestUserPassword);
@@ -29,7 +31,7 @@ namespace Project_Tests.AcceptanceTests
             // logout does not work
             UserLogin(TestUserName, TestUserPassword);
             Assert.True(UserLogout(TestUserName));
-            Assert.Null(LoggedInUserName());
+            Assert.False(GetAllLoggedInUsers().ToList().Contains(TestUserName));
         }
 
         [Test]
@@ -43,10 +45,12 @@ namespace Project_Tests.AcceptanceTests
             UserLogout(TestUserName);   // not for the test
         }
 
-        [Test]
-        public void ShouldFail()
+        [OneTimeTearDown]
+        public void TearDown()
         {
-            // 
+            var real = new RealProject();
+            
+            real.DeleteUser(TestUserName);
         }
         
     }

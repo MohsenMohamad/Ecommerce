@@ -38,7 +38,7 @@ namespace Version1.LogicLayer
 
         public static bool UserLogin(string name, string password)
         {
-            var result = DataHandler.Instance.Login(name, password);
+            var result = !_loggedInUsers.Contains(name) && DataHandler.Instance.Login(name, password);
             if (result)
                 _loggedInUsers.Add(name);
             return result;

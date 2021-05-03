@@ -19,7 +19,7 @@ namespace Version1
 
         public void DeleteUser(string userName)
         {
-            TestsLogic.DeleteStore(userName);
+            TestsLogic.DeleteUser(userName);
         }
 
         public void DeleteProduct(string productBarcode)

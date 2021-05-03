@@ -27,18 +27,18 @@ namespace Project_tests
             return real.AdminInitSystem();
         }
 
-        public bool guestLogin()
+        public long GuestLogin()
         {
             if (real == null)
-                return false;
-            return real.guestLogin();
+                return -1;
+            return real.GuestLogin();
         }
 
-        public bool GuestLogout()
+        public bool GuestLogout(long id)
         {
             if (real == null)
                 return true;
-            return real.GuestLogout();
+            return real.GuestLogout(id);
         }
 
 

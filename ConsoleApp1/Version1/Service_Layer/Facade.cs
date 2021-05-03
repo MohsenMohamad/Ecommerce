@@ -28,17 +28,11 @@ namespace Version1.Service_Layer
             return logicInstance.GuestLogin();
         }
 
-        public bool GuestLogout()
+        public bool GuestLogout(long id)
         {
-            throw new NotImplementedException();
+            return logicInstance.GuestLogout(id);
         }
-        public bool guestLogin()
-        {
-            return true;
-        }
-        
 
-        
         public bool Register(string username, string password)
         {
             return logicInstance.Register(username, password);
@@ -629,13 +623,13 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }//9
-        public List<string> getStorePurchaseHistory(string ownerUser, string store)
+        public List<string> getStorePurchaseHistory(string ownerUser, string storeName)
         {
-            throw new NotImplementedException();
+            return logicInstance.GetStorePurchaseHistory(ownerUser, storeName);
         }//10
         public string GetStoreInfo(string userName, string storeName)
         {
-            throw new NotImplementedException();
+            return logicInstance.GetStorePolicy(storeName);
         }
         // ???? make sure that the one who is init the system is sysAdmin
         public bool initSystem(string admin)

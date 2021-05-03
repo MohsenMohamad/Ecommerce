@@ -6,7 +6,7 @@ namespace Project_tests.ConcurrencyTests
 {
     public class ConcurrentStoreOpening : ATProject
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             Register("User1", "123");
@@ -54,7 +54,7 @@ namespace Project_tests.ConcurrencyTests
             Assert.True(result1 ^ result2);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             var real = new RealProject();

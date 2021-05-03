@@ -237,6 +237,12 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.GetStoresNames();
         }
+
+        public List<string> GetStorePurchaseHistory(string ownerUser, string storeName)
+        {
+            return StoreLogic.GetStorePurchaseHistory(ownerUser, storeName);
+        }
+
         
     }
 }

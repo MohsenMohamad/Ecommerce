@@ -10,8 +10,8 @@ namespace Version1
     public interface GenInterface
     {
         bool AdminInitSystem(); //
-        bool guestLogin();  //
-        bool GuestLogout(); //
+        long GuestLogin();  //
+        bool GuestLogout(long id); //
         bool Register(string name, string password);    //
         bool Login(string name, string password);   //
         bool Logout(string name);   //

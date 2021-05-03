@@ -1,25 +1,26 @@
-/*using NUnit.Framework;
+using NUnit.Framework;
 using Project_tests;
+using Version1;
 
 namespace Project_Tests.AcceptanceTests
 {
     public class LoginTests:ATProject
     {
         
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            Register("asd", "123");
-            Register("adam", "adam");
+            Register("User1", "123");
+            Register("User2", "adam");
         }
 
         [Test]
         public void Happy()
         {
-            Assert.True(UserLogin("asd", "123"));
-            UserLogout("asd");
-            Assert.True(UserLogin("adam", "adam"));
-            UserLogout("adam");
+            Assert.True(UserLogin("User1", "123"));
+            UserLogout("User1");
+            Assert.True(UserLogin("User2", "adam"));
+            UserLogout("User2");
         }
 
         [Test]
@@ -27,10 +28,10 @@ namespace Project_Tests.AcceptanceTests
         {
             // login with the wrong password OR username
             
-            Assert.False(UserLogin("asd","321"));
-            Assert.False(UserLogin("adam", "123"));
-            Assert.False(UserLogin("asd", "adam"));
-            Assert.False(UserLogin("adam", "321"));
+            Assert.False(UserLogin("User1","321"));
+            Assert.False(UserLogin("User2", "123"));
+            Assert.False(UserLogin("User1", "adam"));
+            Assert.False(UserLogin("User2", "321"));
 
 
         }
@@ -40,10 +41,19 @@ namespace Project_Tests.AcceptanceTests
         {
             // a logged in user trying to login again
             
-            Assert.True(UserLogin("asd","123"));
-            Assert.False(UserLogin("asd","123"));
+            Assert.True(UserLogin("User1","123"));
+            Assert.False(UserLogin("User1","123"));
+            UserLogout("User1");
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser("User1");
+            real.DeleteUser("User2");
+        }
         
     }
-}*/
+}

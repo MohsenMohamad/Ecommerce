@@ -1,14 +1,15 @@
-/*using NUnit.Framework;
+using NUnit.Framework;
 using Project_tests;
+using Version1;
 
 namespace Project_Tests.AcceptanceTests
 {
     public class RegisterTests : ATProject
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            Register("adam", "adam");
+            Register("User1", "adam");
         }
 
         [Test]
@@ -16,9 +17,9 @@ namespace Project_Tests.AcceptanceTests
         {
             // register new users
             
-            Assert.True(Register("dsa", "321"));
-            Assert.True(Register("aaa", "111"));
-            Assert.True(Register("bbb", "222"));
+            Assert.True(Register("User2", "321"));
+            Assert.True(Register("User3", "111"));
+            Assert.True(Register("User4", "222"));
         }
 
         [Test]
@@ -26,14 +27,22 @@ namespace Project_Tests.AcceptanceTests
         {
             // try to register existing users
             
-            Assert.True(Register("asd","123"));
-            Assert.False(Register("asd","123"));
+            Assert.True(Register("User5","123"));
+            Assert.False(Register("User5","123"));
         }
 
-        public void ShouldFail()
+        [OneTimeTearDown]
+        public void TearDown()
         {
-            Assert.False(Register(null, null));
+            var real = new RealProject();
+            
+            real.DeleteUser("User1");
+            real.DeleteUser("User2");
+            real.DeleteUser("User3");
+            real.DeleteUser("User4");
+            real.DeleteUser("User5");
+
         }
 
     }
-}*/
+}

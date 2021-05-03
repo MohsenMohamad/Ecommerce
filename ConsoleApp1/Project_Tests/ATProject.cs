@@ -28,14 +28,14 @@ namespace Project_tests
             return service.Register(name, password);
         }
 
-        protected bool GuestLogin()
+        protected long GuestLogin()
         {
-            return service.guestLogin();
+            return service.GuestLogin();
         }
         
-        protected bool GuestLogout()
+        protected bool GuestLogout(long id)
         {
-            return service.GuestLogout();
+            return service.GuestLogout(id);
         }
 
         protected bool UserLogin(string name, string password)
@@ -54,7 +54,7 @@ namespace Project_tests
                 descreption, categories);
         }
 
-        protected string[] LoggedInUserName()
+        protected string[] GetAllLoggedInUsers()
         {
             return service.GetAllLoggedInUsers();
         }

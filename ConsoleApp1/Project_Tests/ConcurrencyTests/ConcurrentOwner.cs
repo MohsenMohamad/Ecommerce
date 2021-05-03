@@ -7,7 +7,7 @@ namespace Project_tests.ConcurrencyTests
     public class ConcurrentOwner : ATProject
     {
     
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             Register("owner1", "owner1");
@@ -71,7 +71,7 @@ namespace Project_tests.ConcurrencyTests
             
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             var real = new RealProject();

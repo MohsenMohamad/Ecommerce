@@ -1,14 +1,15 @@
-﻿/*using NUnit.Framework;
+﻿using NUnit.Framework;
 using Project_tests;
+using Version1;
 
 namespace Project_Tests.AcceptanceTests
 {
     public class OpenStoreTests : ATProject
     {
-        private const string TestUserName = "admin";
-        private const string TestUserPassword = "admin";
+        private const string TestUserName = "User1";
+        private const string TestUserPassword = "Password1";
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             Register(TestUserName, TestUserPassword);
@@ -20,9 +21,8 @@ namespace Project_Tests.AcceptanceTests
         {
             const string storePolicy = "policy";
             const string storeName = "test";
-            Assert.True(OpenStore(TestUserName, storePolicy, storeName));
-
-            // remove the store
+            Assert.True(OpenStore(TestUserName, storeName, storePolicy));
+            
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Project_Tests.AcceptanceTests
         {
             const string storePolicy = "policy2";
             const string storeName = "test2";
-            Assert.True(OpenStore(TestUserName, storePolicy, storeName));
+            Assert.True(OpenStore(TestUserName, storeName, storePolicy));
 
         }
 
@@ -38,14 +38,13 @@ namespace Project_Tests.AcceptanceTests
         public void Bad()
         {
             const string storePolicy = "policy";
-            const string storeName = "test";
-            Assert.True(OpenStore(TestUserName, storePolicy, storeName));
+            const string storeName = "test3";
+            Assert.True(OpenStore(TestUserName, storeName, storePolicy));
 
             UserLogout(TestUserName);
-            GuestLogin();
-            Assert.NotNull(GetStoreInfo(null, storeName));
-            GuestLogout();
-            UserLogin(TestUserName, TestUserPassword);
+            var guestId = GuestLogin();
+            Assert.NotNull(GetStoreInfo(guestId.ToString(), storeName));
+            GuestLogout(guestId);
         }
 
         [Test]
@@ -53,14 +52,24 @@ namespace Project_Tests.AcceptanceTests
         {
             // guests should not be able to open a store
             
-            UserLogout(TestUserName);
-            GuestLogin();
+            var guestId = GuestLogin();
             const string storePolicy = "policy";
             const string storeName = "test";
             
-            Assert.False(OpenStore(null, storePolicy, storeName));
+            Assert.False(OpenStore(guestId.ToString(), storeName, storePolicy));
             
-            GuestLogout();
+            GuestLogout(guestId);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser(TestUserName);
+            real.DeleteStore("test");
+            real.DeleteStore("test2");
+            real.DeleteStore("test3");
         }
     }
-}*/
+}

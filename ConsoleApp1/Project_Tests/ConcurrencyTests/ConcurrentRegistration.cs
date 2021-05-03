@@ -7,7 +7,7 @@ namespace Project_tests.ConcurrencyTests
     public class ConcurrentRegistration : ATProject
     {
         
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
            
@@ -48,13 +48,13 @@ namespace Project_tests.ConcurrencyTests
 
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             var real = new RealProject();
             
             real.DeleteUser("User1");
-            real.DeleteUser("User1");
+            real.DeleteUser("User2");
             real.DeleteUser("User3");
 
         }
