@@ -122,7 +122,8 @@ namespace Version1.Service_Layer
 
         public bool Purchase(string userName,string barcode,int amount,string storeName)
         {
-            return logicInstance.Purchase(userName, creditCard);
+            //return logicInstance.Purchase(userName, creditCard);
+            throw new Exception();
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
