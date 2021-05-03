@@ -1,104 +1,14 @@
-4/27/2021 12:31:47 AM: This is Logger  .
-4/27/2021 12:34:20 AM: This is Logger  .
-4/27/2021 3:14:48 AM: This is Logger  .
-4/27/2021 3:15:00 AM: This is Logger  .
-4/27/2021 3:17:31 AM: This is Logger  .
-4/27/2021 3:26:09 AM: This is Logger  .
-4/27/2021 3:26:47 AM: This is Logger  .
-4/27/2021 3:26:58 AM: This is Logger  .
-4/27/2021 3:28:52 AM: This is Logger  .
-4/27/2021 3:28:58 AM: This is Logger  .
-4/27/2021 3:29:37 AM: This is Logger  .
-4/27/2021 3:29:42 AM: This is Logger  .
-4/27/2021 3:30:36 AM: This is Logger  .
-4/27/2021 3:31:06 AM: This is Logger  .
-4/27/2021 3:32:12 AM: This is Logger  .
-4/27/2021 3:50:53 AM: This is Logger  .
-4/27/2021 3:51:46 AM: This is Logger  .
-4/27/2021 4:08:41 AM: This is Logger  .
-4/27/2021 4:10:35 AM: This is Logger  .
-4/27/2021 6:11:32 PM: This is Logger  .
-4/27/2021 6:12:17 PM: This is Logger  .
-4/27/2021 6:48:05 PM: This is Logger  .
-4/27/2021 6:48:17 PM: This is Logger  .
-4/27/2021 6:50:11 PM: This is Logger  .
-4/27/2021 6:50:17 PM: This is Logger  .
-4/27/2021 6:51:41 PM: This is Logger  .
-4/27/2021 6:51:53 PM: This is Logger  .
-4/27/2021 6:55:15 PM: This is Logger  .
-4/27/2021 6:58:17 PM: This is Logger  .
-4/27/2021 6:58:23 PM: This is Logger  .
-4/27/2021 7:00:50 PM: This is Logger  .
-4/27/2021 7:00:56 PM: This is Logger  .
-4/27/2021 7:01:14 PM: This is Logger  .
-4/27/2021 7:03:20 PM: This is Logger  .
-4/27/2021 7:03:26 PM: This is Logger  .
-4/27/2021 7:05:04 PM: This is Logger  .
-4/27/2021 7:05:13 PM: This is Logger  .
-4/27/2021 7:07:13 PM: This is Logger  .
-4/27/2021 7:07:22 PM: This is Logger  .
-4/27/2021 7:10:40 PM: This is Logger  .
-4/27/2021 7:10:48 PM: This is Logger  .
-4/27/2021 7:11:58 PM: This is Logger  .
-4/27/2021 7:12:03 PM: This is Logger  .
-4/27/2021 7:12:51 PM: This is Logger  .
-4/27/2021 7:12:58 PM: This is Logger  .
-4/27/2021 7:14:08 PM: This is Logger  .
-4/27/2021 7:14:18 PM: This is Logger  .
-4/27/2021 8:38:31 PM: This is Logger  .
-4/27/2021 8:40:19 PM: This is Logger  .
-4/27/2021 8:42:27 PM: This is Logger  .
-4/27/2021 9:43:20 PM: This is Logger  .
-4/27/2021 9:45:21 PM: This is Logger  .
-4/27/2021 9:58:03 PM: This is Logger  .
-4/27/2021 10:13:22 PM: This is Logger  .
-4/27/2021 10:13:29 PM: This is Logger  .
-4/27/2021 10:18:53 PM: This is Logger  .
-4/27/2021 10:19:01 PM: This is Logger  .
-4/27/2021 10:24:18 PM: This is Logger  .
-4/27/2021 10:24:30 PM: This is Logger  .
-4/27/2021 10:26:06 PM: This is Logger  .
-4/27/2021 10:26:15 PM: This is Logger  .
-4/27/2021 10:28:48 PM: This is Logger  .
-4/27/2021 11:01:38 PM: This is Logger  .
-4/28/2021 1:07:25 AM: This is Logger  .
-4/28/2021 1:11:11 AM: This is Logger  .
-4/28/2021 1:13:10 AM: This is Logger  .
-4/28/2021 1:13:21 AM: This is Logger  .
-4/28/2021 1:16:12 AM: This is Logger  .
-4/28/2021 1:17:24 AM: This is Logger  .
-4/28/2021 1:21:28 AM: This is Logger  .
-4/28/2021 1:22:21 AM: This is Logger  .
-4/28/2021 1:23:10 AM: This is Logger  .
-4/28/2021 1:27:16 AM: This is Logger  .
-4/28/2021 1:29:40 AM: This is Logger  .
-4/28/2021 1:36:59 AM: This is Logger  .
-4/28/2021 1:39:13 AM: This is Logger  .
-4/28/2021 1:47:34 AM: This is Logger  .
-4/28/2021 1:49:22 AM: This is Logger  .
-4/28/2021 1:49:33 AM: This is Logger  .
-4/28/2021 1:50:11 AM: This is Logger  .
-4/28/2021 1:50:25 AM: This is Logger  .
-4/28/2021 1:51:52 AM: This is Logger  .
-4/28/2021 1:51:58 AM: This is Logger  .
-4/28/2021 1:53:22 AM: This is Logger  .
-4/28/2021 1:54:07 AM: This is Logger  .
-4/28/2021 1:55:43 AM: This is Logger  .
-4/28/2021 2:06:04 AM: This is Logger  .
-4/28/2021 2:08:37 AM: This is Logger  .
-4/28/2021 2:08:43 AM: This is Logger  .
-4/28/2021 2:13:23 AM: This is Logger  .
-4/28/2021 2:16:02 AM: This is Logger  .
-4/28/2021 2:18:00 AM: This is Logger  .
-4/28/2021 2:18:06 AM: This is Logger  .
-4/28/2021 2:19:57 AM: This is Logger  .
-4/28/2021 2:20:06 AM: This is Logger  .
-4/28/2021 3:37:30 AM: This is Logger  .
-4/28/2021 3:38:34 AM: This is Logger  .
-4/28/2021 3:41:49 AM: This is Logger  .
-4/28/2021 3:47:16 AM: This is Logger  .
-4/28/2021 4:59:50 AM: This is Logger  .
-4/28/2021 5:14:09 AM: This is Logger  .
-4/28/2021 5:15:13 AM: This is Logger  .
-4/28/2021 5:31:24 AM: This is Logger  .
-28/04/2021 11:53:07: This is Logger  .
+03/05/2021 15:14:07: Guest has connected with pid : 1  .
+03/05/2021 15:14:28: aaahas Register succesfully   .
+03/05/2021 15:14:31: aaahas LoggedIn   .
+03/05/2021 15:14:34: Guest has connected with pid : 2  .
+03/05/2021 15:21:27: Guest has connected with pid : 1  .
+03/05/2021 15:21:27: Guest has connected with pid : 2  .
+03/05/2021 15:24:56: Guest has connected with pid : 1  .
+03/05/2021 15:24:56: Guest has connected with pid : 2  .
+03/05/2021 15:46:25: Guest has connected with pid : 1  .
+03/05/2021 15:46:25: Guest has connected with pid : 2  .
+03/05/2021 15:46:32: ahas Register succesfully   .
+03/05/2021 15:46:34: ahas LoggedIn   .
+03/05/2021 15:46:38: a has has added product :5form store: AdnanStore to his Basket  .
+03/05/2021 15:46:41: a has has added product :4form store: AdnanStore to his Basket  .

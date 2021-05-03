@@ -19,18 +19,34 @@ namespace ServerApi
         [HttpGet]
         public bool Register(string username, string password)
         {
-            return facade.Register(username, password);
+            
+                bool output = facade.Register(username, password);
+                if (output)
+                {
+                    Logger.GetInstance().Event(username + "has Register succesfully ");
+                }
+                return output;
         }
 
         [HttpGet]
         public bool Login(string username, string password)
         {
-            return facade.Login(username, password) ;
+            bool output = facade.Login(username, password) ;
+            if (output)
+            {
+                Logger.GetInstance().Event(username + "has LoggedIn ");
+            }
+            return output;
         }
         [HttpGet]
         public bool Logout(string username)
         {
-            return facade.Logout(username);
+            bool output =facade.Logout(username);
+            if (output)
+            {
+                Logger.GetInstance().Event(username + "has LoggedOut ");
+            }
+            return output;
         }
         [HttpGet]
         public string[] GetAllNotifications(string userName)
@@ -41,7 +57,9 @@ namespace ServerApi
         [HttpGet]
         public long GuestLogin()
         {
-            return facade.GuestLogin();
+            long output = facade.GuestLogin();
+            Logger.GetInstance().Event( "Guest has connected with pid : " + output);
+            return output;
         }
 
     } 

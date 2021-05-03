@@ -98,6 +98,7 @@ namespace ServiceApi
                         };
                         socket.OnMessage = message =>
                         {
+                            Logger.GetInstance().Event(message);
                             //userid # msg
                             string[] cmd = message.Split('#');
                             string userName = cmd[0];
@@ -134,20 +135,6 @@ namespace ServiceApi
                 logger.Error(e.Message);    
             }*/
             
-            
-            /*facade.Register("zzz", "123");
-            facade.Login("zzz", "123");
-
-            facade.OpenShop("zzz", "store1", "ss");
-            facade.OpenShop("zzz", "store2", "ss");
-
-            facade.AddNewProductToSystem("111", "product1", "descreption1", 2.5, new[] { "cat1" });
-            facade.AddNewProductToSystem("333", "product2", "descreption1", 2.5, new[] { "cat1" });
-            facade.AddNewProductToSystem("44", "product4", "descreption1", 2.5, new[] { "dog" });
-            facade.AddItemToStore("store1", "111", 11);
-            facade.AddItemToStore("store2", "333", 11);
-            facade.AddItemToStore("store2", "44", 11);*/
-            //  facade.AddProductToBasket("zzz", "store1", "111");
 
             
         }
