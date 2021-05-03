@@ -85,5 +85,25 @@ namespace Version1.LogicLayer
                 return true;
             }
             */
+        public static string GetHash(string inputString)
+        {
+            byte[] encrypted = Hashing.GetHash("password");
+            var str = System.Text.Encoding.Default.GetString(encrypted);
+            if (str != null && !str.Equals(""))
+                return str;
+            return null;
+
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            byte[] encrypted = Hashing.GetHash("password");
+            var str = System.Text.Encoding.Default.GetString(encrypted);
+            string decrypted = Hashing.GetHashString(str);
+            if (decrypted.Equals("password"))
+                return decrypted;
+            return null;
+        }
+
     }
 }

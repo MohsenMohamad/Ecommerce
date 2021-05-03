@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using Version1.domainLayer;
 using System.IO;
 using NUnit.Framework;
 
@@ -16,8 +17,8 @@ namespace Project_Tests.UnitTests
             {
                 using (AesManaged aes = new AesManaged())
                 {
-                    byte[] encrypted = Encrypt("password", aes.Key, aes.IV);
-                    Debug.Assert(encrypted != null && !encrypted.Equals(""));
+                    byte[] encrypted = Hashing.GetHash("password");
+                    Assert.True(encrypted != null && !encrypted.Equals(""));
                 }
             }
             catch
@@ -26,15 +27,18 @@ namespace Project_Tests.UnitTests
             }
         }
 
+        
         public static void Decrypted()
         {
             try
             {
                 using (AesManaged aes = new AesManaged())
                 {
-                    byte[] encrypted = Encrypt("password", aes.Key, aes.IV);
-                    string decrypted = Decrypt(encrypted, aes.Key, aes.IV);
-                    Debug.Assert(decrypted.Equals("password"));
+                    byte[] encrypted = Hashing.GetHash("password");
+                    var str = System.Text.Encoding.Default.GetString(encrypted);
+                    string decrypted = Hashing.GetHashString(str);
+                    Assert.True(decrypted.Equals("password"));
+                   
                 }
             }
             catch
@@ -44,6 +48,7 @@ namespace Project_Tests.UnitTests
 
         }
 
+        /*
         private static string Decrypt(byte[] encrypted, byte[] key, byte[] iV)
         {
             string message = null;
@@ -98,7 +103,7 @@ namespace Project_Tests.UnitTests
 
 
             return encrypted;
-        }
+        }*/
 
     }
 }

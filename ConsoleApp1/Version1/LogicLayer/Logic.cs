@@ -227,6 +227,15 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.GetStoresNames();
         }
-        
+
+        public string GetHash(string inputString)
+        {
+            return UserLogic.GetHash(inputString);
+        }
+
+        public string GetHashString(string inputString)
+        {
+            return UserLogic.GetHashString(inputString);
+        }
     }
 }
