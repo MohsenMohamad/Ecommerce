@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using Version1.domainLayer;
 using NUnit.Framework;
 using Project_tests;
@@ -65,4 +65,4 @@ namespace Project_Tests.AcceptanceTests
             Assert.IsNull(info);
         }
     }
-}
+}*/

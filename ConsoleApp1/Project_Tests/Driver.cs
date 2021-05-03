@@ -8,7 +8,7 @@ namespace Project_tests
         public static GenInterface getInstance()
         {
             var proxy = new ProxyImp();
-            //proxy.SetReal(new RealProject());
+            proxy.SetReal(new Facade());
             return proxy;
         }
     }

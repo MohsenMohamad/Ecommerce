@@ -101,8 +101,8 @@ namespace Version1.LogicLayer
             var manager = DataHandler.GetUser(username);
             var store = DataHandler.GetStore(storeName);
             if (manager == null || store == null) return false;
-            
-            return store.GetManagers().Remove(username); // returns false if the manager was not found
+            Dictionary<string, int> mangers = store.GetManagers();
+            return mangers.Remove(username); // returns false if the manager was not found
         }
 
         private static bool IsValidPermission(int permissions)

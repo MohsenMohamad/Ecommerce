@@ -9,42 +9,45 @@ namespace Version1
 {
     public interface GenInterface
     {
-        bool InitiateSystem(); //
-        bool GuestLogin();  //
+        bool InitSystem(); //
+        bool guestLogin();  //
         bool GuestLogout(); //
         bool Register(string name, string password);    //
-        bool UserLogin(string name, string password);   //
-        bool UserLogout(string name);   //
-        string LoggedInUserName(); // return the logged in user username , return null if he is a guest
-        bool OpenStore(string managerName, string policy, string storeName);    //
-        Store GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
+        bool Login(string name, string password);   //
+        bool Logout(string name);   //
+        string[] GetAllLoggedInUsers(); // return the logged in user username , return null if he is a guest
+        bool OpenShop(string managerName, string storeName, string policy);    //
+        string GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //
         bool AddProductToStore(string managerName, string storeName, string productCode, int amount);  //
         List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
-        bool AddProductToCart(string userName, string storeName, string productCode);  //
-        List<Product> GetCartByStore(string userName, string storeName);
+        bool AddProductToBasket(string userName, string storeName, string productCode,int amount);  //
+        string[] GetCartByStore(string userName, string storeName);
         
         
-        ConcurrentDictionary<Product,int>  getProductsFromShop(User owner, string storeName);
-        Store getUsersStore(string userName, string storeName);
-        bool AddNewOwner(User user, Store store, string newOwnerName);
+        string[][] get_items_in_shop(string ownerName, string storeName);
+        string[] getUsersStore(string userName, string storeName);
+        bool MakeNewOwner(string storeName, string apointerid, string apointeeid);
         bool IsOwner(string storeName, string ownerName); 
-        bool AddNewManger(User user, Store store, string newMangerName);
+        bool AddNewManger(string user, string store, string newMangerName);
         bool IsManger(string storeName, string mangerName);
-        List<string> getMangerResponsibilities(User user, Store store, string newMangerName);
-        List<string> getInfo(User user, Store store);
-        bool updateMangerResponsibilities(User user, string storeName, List<string> responsibilities);
-        bool deleteManger(User ownerUser, string storeName, string newMangerName);
-        bool buyProduct(User buyer, Store store, Product product, int amount);
-        List<string> getStorePurchaseHistory(User ownerUser, Store store);
-        bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName ,string productName,string desc,int amount, List<Category> categories);
-        bool initSystem(SystemAdmin admin);
-        bool addProductsToShop(User user,string shopName, Product product, int amount);
-        bool removeProductsInShop(User user,string shopName, Product product);
-        bool updateProductsInShop(User user,string shopName, Product product, int amount);
-        List<string> getPaymentInfo(User owner, string storeName);
-        List<string> addPaymentInfo(User owner,string storeName,string info);
-        List<string> updatePaymentInfo(User owner,string storeName,List<string> allInfo);
+        List<string> getMangerResponsibilities(string user, string store, string newMangerName);
+        string getInfo(string user, string store);
+        bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities);
+        bool deleteManger(string ownerUser, string storeName, string newMangerName);
+        bool buyProduct(string buyer, string store, string product, int amount);
+        List<string> getStorePurchaseHistory(string ownerUser, string store);
+        bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName ,string productName,string shopName,int amount, List<string> categories);
+        bool initSystem(string admin);
+        bool addProductsToShop(string user,string shopName, string product, int amount);
+        bool removeProductsInShop(string user,string shopName, string product);
+        bool updateProductsInShop(string user,string shopName, string product, int amount);
+        List<string> getPaymentInfo(string owner, string storeName);
+        List<string> addPaymentInfo(string owner,string storeName,string info);
+        List<string> updatePaymentInfo(string owner,string storeName,List<string> allInfo);
+
+        bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
+            string productName, string descreption, string[] categories);
 
 
     }

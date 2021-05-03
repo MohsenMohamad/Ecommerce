@@ -20,7 +20,7 @@ namespace Project_tests
 
         protected bool InitiateSystem()
         {
-            return service.InitiateSystem();
+            return service.InitSystem();
         }
 
         protected bool Register(string name, string password)
@@ -30,7 +30,7 @@ namespace Project_tests
 
         protected bool GuestLogin()
         {
-            return service.GuestLogin();
+            return service.guestLogin();
         }
         
         protected bool GuestLogout()
@@ -40,25 +40,31 @@ namespace Project_tests
 
         protected bool UserLogin(string name, string password)
         {
-            return service.UserLogin(name, password);
+            return service.Login(name, password);
         }
 
         protected bool UserLogout(string name)
         {
-            return service.UserLogout(name);
+            return service.Logout(name);
+        }
+        protected bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
+            string productName, string descreption, string[] categories)
+        {
+            return service.addNewProductToTheSystemAndAddItToShop(shopName, barcode, amount, price, productName,
+                descreption, categories);
         }
 
-        protected string LoggedInUserName()
+        protected string[] LoggedInUserName()
         {
-            return service.LoggedInUserName();
+            return service.GetAllLoggedInUsers();
         }
         
-        protected bool OpenStore(string managerName, string policy, string storeName)
+        protected bool OpenStore(string managerName, string storeName, string policy)
         {
-            return service.OpenStore(managerName, policy, storeName);
+            return service.OpenShop(managerName, storeName, policy);
         }
         
-        protected Store GetStoreInfo(string userName, string storeName)
+        protected string GetStoreInfo(string userName, string storeName)
         {
             return service.GetStoreInfo(userName, storeName);
         }
@@ -78,66 +84,66 @@ namespace Project_tests
             return service.SearchFilter(userName, sortOption, filters);
         }
 
-        protected bool AddProductToCart(string userName, string storeName, string productCode)
+        protected bool AddProductToCart(string userName, string storeName, string productCode,int amount)
         {
-            return service.AddProductToCart(userName, storeName, productCode);
+            return service.AddProductToBasket(userName, storeName, productCode,amount);
         }
 
-        protected List<Product> GetCartByStore(string userName, string storeName)
+        protected string[] GetCartByStore(string userName, string storeName)
         {
             return service.GetCartByStore(userName, storeName);
         }
 
-        protected bool initSystem(SystemAdmin admin)
+        protected bool initSystem(string admin)
         {
             return service.initSystem(admin);
         }
 
-        protected bool addProductsToShop(User user, string shopName, Product product, int amount)
+        protected bool addProductsToShop(string user, string shopName, string product, int amount)
         {
             return service.addProductsToShop(user, shopName, product, amount);
         }
 
-        protected bool removeProductsInShop(User user, string shopName, Product product)
+        protected bool removeProductsInShop(string user, string shopName, string product)
         {
             return service.removeProductsInShop(user, shopName, product);
         }
 
-        protected bool updateProductsInShop(User user, string shopName, Product product, int amount)
+        protected bool updateProductsInShop(string user, string shopName, string product, int amount)
         {
             return service.updateProductsInShop(user, shopName, product, amount);
         }
         
-        protected List<string> getPaymentInfo(User owner, string storeName)
+        protected List<string> getPaymentInfo(string owner, string storeName)
         {
             return service.getPaymentInfo(owner, storeName);
         }
-        protected List<string> updatePaymentInfo(User owner, string storeName ,List<string> allInfo)
+        protected List<string> updatePaymentInfo(string owner, string storeName ,List<string> allInfo)
         {
             return service.updatePaymentInfo(owner, storeName,allInfo);
         }
-        protected List<string> addPaymentInfo(User owner, string storeName ,string info)
+        protected List<string> addPaymentInfo(string owner, string storeName ,string info)
         {
             return service.addPaymentInfo(owner, storeName,info);
         }
-        protected ConcurrentDictionary<Product,int> getProductsFromShop(User owner,string storeName)
+        protected string[][] getProductsFromShop(string owner,string storeName)
         {
-            return service.getProductsFromShop(owner, storeName);
+            return service.get_items_in_shop(owner, storeName);
         }
         
-        protected Store getUsersStore(string userName,string  storeName)
+        protected string[] getUsersStore(string userName,string  storeName)
         {
             return service.getUsersStore(userName, storeName);
         }
 
-        protected bool AddNewOwner(User user,Store store,string  newOwnerName)
+        protected bool AddNewOwner(string user,string store,string  newOwnerName)
         {
-            return service.AddNewOwner(user, store, newOwnerName);
+            return service.MakeNewOwner(user, store, newOwnerName);
         }
         
-        protected bool AddNewManger(User user,Store store,string  newMangerName)
+        protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
         {
-            return service.AddNewOwner(user, store, newMangerName);
+            return service.MakeNewOwner(storeName, apointerName, apointeeNAme);
         }
 
         protected bool IsOwner(string storeName, string ownerName)
@@ -149,29 +155,29 @@ namespace Project_tests
             return service.IsOwner(storeName, mangerName);
         }
 
-        protected List<string> getMangerResponsibilities(User user,Store store, string newMangerName)
+        protected List<string> getMangerResponsibilities(string user,string store, string newMangerName)
         {
             return service.getMangerResponsibilities(user, store, newMangerName);
         }
 
-        protected bool updateMangerResponsibilities(User user,string storeName,List<string> responsibilities)
+        protected bool updateMangerResponsibilities(string user,string storeName,List<string> responsibilities)
         {
             return service.updateMangerResponsibilities(user, storeName, responsibilities);
         }
 
-        protected bool deleteManger(User ownerUser, string storeName,string newMangerName)
+        protected bool deleteManger(string ownerUser, string storeName,string newMangerName)
         {
             return service.deleteManger(ownerUser, storeName, newMangerName);
         }
-        protected List<string> getInfo(User ownerUser, Store store)
+        protected string getInfo(string ownerUser, string store)
         {
             return service.getInfo(ownerUser, store);
         }
-        protected List<string> getStorePurchaseHistory(User ownerUser,Store store)
+        protected List<string> getStorePurchaseHistory(string ownerUser,string store)
         {
             return service.getStorePurchaseHistory(ownerUser, store);
         }
-        protected bool buyProduct(User buyer,Store store,Product product, int amount)
+        protected bool buyProduct(string buyer,string store,string product, int amount)
         {
             return service.buyProduct(buyer, store,product,amount);
         }
