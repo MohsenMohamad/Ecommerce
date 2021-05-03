@@ -127,7 +127,17 @@ namespace Version1.Service_Layer
             return logicInstance.UpdateCart(userName, storeName, productBarcode, newAmount);
         }
 
-        
+        public string GetHash(string inputString)
+        {
+            return logicInstance.GetHash(inputString);
+        }
+
+        public string GetHashString(string inputString)
+        {
+            return logicInstance.GetHashString(inputString);
+        }
+
+
         public string[][] SearchByKeyword(string keyword)
         {
             var productList = logicInstance.SearchByKeyWord(keyword);

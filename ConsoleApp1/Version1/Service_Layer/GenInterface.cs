@@ -50,7 +50,8 @@ namespace Version1
         bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
             string productName, string descreption, string[] categories);
 
-
+        bool GetHash(string inputString);
+        bool GetHashString(string inputString);
     }
     
 }

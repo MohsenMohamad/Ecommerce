@@ -187,6 +187,14 @@ namespace Project_tests
             return service.Purchase(userName, creditCard);
         }
         
+        protected bool GetHash(string inputString)
+        {
+            return service.GetHash(inputString);
+        }
 
+        protected bool GetHashString(string inputString)
+        {
+            return service.GetHashString(inputString);
+        }
     }
 }

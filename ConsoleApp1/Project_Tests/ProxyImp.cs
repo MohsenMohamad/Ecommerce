@@ -333,5 +333,19 @@ namespace Project_tests
 
             return real.getInfo(ownerUser, store);
         }
+
+        public bool GetHash(string inputString)
+        {
+            if (real == null)
+                return true;
+            return real.GetHash(inputString);
+        }
+
+        public bool GetHashString(string inputString)
+        {
+            if (real == null)
+                return true;
+            return real.GetHashString(inputString);
+        }
     }
 }
