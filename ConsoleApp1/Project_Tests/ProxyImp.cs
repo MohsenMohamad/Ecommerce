@@ -27,6 +27,13 @@ namespace Project_tests
             return real.AdminInitSystem();
         }
 
+        public bool Purchase(string userName, string creditCard)
+        {
+            if (real == null)
+                return true;
+            return real.Purchase(userName, creditCard);
+        }
+
         public long GuestLogin()
         {
             if (real == null)

@@ -181,6 +181,11 @@ namespace Project_tests
         {
             return service.buyProduct(buyer, store,product,amount);
         }
+
+        protected bool Purchase(string userName, string creditCard)
+        {
+            return service.Purchase(userName, creditCard);
+        }
         
 
     }
