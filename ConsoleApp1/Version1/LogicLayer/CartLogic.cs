@@ -42,13 +42,12 @@ namespace Version1.LogicLayer
             foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
             {
                 var store = DataHandler.GetStore(basket.StoreName);
-                foreach (var productAndAmount in basket.Products)
+                foreach (var product in basket.Products.Keys.ToList())
                 {
-                    var productBarcode = productAndAmount.Key.Barcode;
-                    var amount = productAndAmount.Value;
+                    var amount = basket.Products[product];
                     
-                    RemoveProductFromBasket(userName, store.GetName(), productBarcode);
-                    store.GetInventory()[productBarcode] -= amount;
+              //      RemoveProductFromBasket(userName, store.GetName(), product);
+              //      store.GetInventory()[product] -= amount;
                 }
             }
 

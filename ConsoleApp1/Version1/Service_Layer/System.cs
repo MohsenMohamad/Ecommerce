@@ -39,24 +39,7 @@ namespace Version1.Service_Layer
 
         Console.WriteLine(result.Count);*/
 
-            facade.InitSystem();
-            string [] a =facade.GetStoreManagers("AdnanStore");
-
-            for (int i = 0; i < a.Length; i++) {
-                Console.WriteLine(a[i]);
-            }
-            Console.WriteLine(a.Length);
-
-
-            string[] ab = facade.GetStoreOwners("AdnanStore");
-
-            for (int i = 0; i < ab.Length; i++)
-            {
-                Console.WriteLine(ab[i]);
-            }
-            Console.WriteLine(ab.Length);
-            Console.ReadLine();
-
+           // facade.adminInitSystem();
         }   
 
 

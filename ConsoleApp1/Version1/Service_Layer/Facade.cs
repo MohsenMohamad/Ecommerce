@@ -120,10 +120,9 @@ namespace Version1.Service_Layer
 
         
 
-        public bool Purchase(string userName,string barcode,int amount,string storeName)
+        public bool Purchase(string userName,string creditCard)
         {
-            //return logicInstance.Purchase(userName, creditCard);
-            throw new Exception();
+            return logicInstance.Purchase(userName, creditCard);
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
@@ -189,7 +188,8 @@ namespace Version1.Service_Layer
 
         public bool buyProduct(string buyer, string store, string product, int amount)
         {
-            return Purchase(buyer, product, amount, store);
+            return true;
+           // return Purchase(buyer, product, amount, store);
         }
 
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
@@ -441,9 +441,7 @@ namespace Version1.Service_Layer
         }
     
         
-        public bool InitSystem()
-
-
+        public bool adminInitSystem()
         {
             var facade = new Facade();
             /* ----------------------------  users -------------------------------*/

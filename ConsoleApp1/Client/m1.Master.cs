@@ -19,6 +19,7 @@ namespace Client
             OpenShop.Visible = false;
             MyShops.Visible = false;
             Notifications.Visible = false;
+            InitSystem.Visible = false;
 
 
 
@@ -29,6 +30,10 @@ namespace Client
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
                 Notifications.Visible = true;
+                if (Session["admin"] != null) {
+                    InitSystem.Visible=true;
+                }
+                else { InitSystem.Visible = false; }
             }
             else if (Session["username"] == null)
             {
@@ -76,10 +81,15 @@ namespace Client
                         OpenShop.Visible = true;
                         Notifications.Visible = true;
                         MyShops.Visible = true;
+                        Session["admin"] = null;
 
                     Session["basket"] = null;
+                    if (txtusername.Text.ToString().Equals("admin")) {
+                        Session["admin"] = "admin";
+                        InitSystem.Visible = true;
+                        }
                     }
-            }
+                }
 
             //todo make sure of that
 
@@ -160,6 +170,14 @@ namespace Client
         protected void Notifications_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Notifications.aspx");
+        }
+
+        protected void InitSystem_Click(object sender, EventArgs e)
+        {
+            ShopHandler s = new ShopHandler();
+            s.InitSystem();
+            Response.Redirect("~/Home.aspx");
+
         }
     }
 }

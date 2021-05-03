@@ -12,3 +12,44 @@
 03/05/2021 15:46:34: ahas LoggedIn   .
 03/05/2021 15:46:38: a has has added product :5form store: AdnanStore to his Basket  .
 03/05/2021 15:46:41: a has has added product :4form store: AdnanStore to his Basket  .
+5/3/2021 5:06:00 PM: Guest has connected with pid : 1  .
+5/3/2021 5:06:03 PM: adnanhas LoggedIn   .
+5/3/2021 5:06:06 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 5:07:03 PM: Guest has connected with pid : 1  .
+5/3/2021 5:07:07 PM: adnanhas LoggedIn   .
+5/3/2021 5:07:16 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 5:09:18 PM: Guest has connected with pid : 1  .
+5/3/2021 5:09:27 PM: adnanhas LoggedIn   .
+5/3/2021 5:09:34 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 5:10:02 PM: adnan has has added product :2form store: AdnanStore to his Basket  .
+5/3/2021 5:27:29 PM: Guest has connected with pid : 1  .
+5/3/2021 5:27:35 PM: adnanhas LoggedIn   .
+5/3/2021 5:27:38 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 5:29:20 PM: Guest has connected with pid : 1  .
+5/3/2021 5:29:21 PM: adnanhas LoggedIn   .
+5/3/2021 5:29:26 PM: adnan has has added product :2form store: AdnanStore to his Basket  .
+5/3/2021 5:36:54 PM: Guest has connected with pid : 1  .
+5/3/2021 5:37:03 PM: adnanhas LoggedIn   .
+5/3/2021 5:37:06 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 5:37:10 PM: adnan has has added product :2form store: AdnanStore to his Basket  .
+5/3/2021 5:37:15 PM: adnan has has added product :5form store: AdnanStore to his cart  .
+5/3/2021 5:38:31 PM: Guest has connected with pid : 1  .
+5/3/2021 5:38:35 PM: adnanhas LoggedIn   .
+5/3/2021 5:38:39 PM: adnan has has added product :5form store: AdnanStore to his Basket  .
+5/3/2021 6:09:20 PM: Guest has connected with pid : 1  .
+5/3/2021 6:10:06 PM: asdhas Register succesfully   .
+5/3/2021 6:10:10 PM: asdhas LoggedIn   .
+5/3/2021 6:16:11 PM: Guest has connected with pid : 1  .
+5/3/2021 6:16:21 PM: adminhas LoggedIn   .
+5/3/2021 6:16:33 PM: adminhas LoggedOut   .
+5/3/2021 6:16:33 PM: Guest has connected with pid : 2  .
+5/3/2021 6:16:34 PM: adnanhas LoggedIn   .
+5/3/2021 6:22:50 PM: Guest has connected with pid : 1  .
+5/3/2021 6:23:00 PM: adminhas LoggedIn   .
+5/3/2021 6:24:03 PM: Guest has connected with pid : 1  .
+5/3/2021 6:24:36 PM: adminhas LoggedIn   .
+5/3/2021 6:24:53 PM: Guest has connected with pid : 2  .
+5/3/2021 6:24:54 PM: adnanhas LoggedIn   .
+5/3/2021 6:25:00 PM: adnan has has added product :2form store: AdnanStore to his Basket  .
+5/3/2021 6:25:05 PM: adnan has has added product :2form store: AdnanStore to his cart  .
+5/3/2021 6:25:09 PM: Guest has connected with pid : 3  .
