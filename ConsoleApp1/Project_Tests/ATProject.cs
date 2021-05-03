@@ -89,7 +89,7 @@ namespace Project_tests
             return service.AddProductToBasket(userName, storeName, productCode,amount);
         }
 
-        protected string[] GetCartByStore(string userName, string storeName)
+        protected Dictionary<string,int> GetCartByStore(string userName, string storeName)
         {
             return service.GetCartByStore(userName, storeName);
         }
@@ -136,14 +136,14 @@ namespace Project_tests
             return service.getUsersStore(userName, storeName);
         }
 
-        protected bool AddNewOwner(string user,string store,string  newOwnerName)
+        protected bool AddNewOwner(string store,string user, string  newOwnerName)
         {
-            return service.MakeNewOwner(user, store, newOwnerName);
+            return service.MakeNewOwner(store, user, newOwnerName);
         }
         
         protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
         {
-            return service.MakeNewOwner(storeName, apointerName, apointeeNAme);
+            return service.AddNewManger(storeName, apointerName, apointeeNAme);
         }
 
         protected bool IsOwner(string storeName, string ownerName)

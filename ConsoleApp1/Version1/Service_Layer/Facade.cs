@@ -114,13 +114,16 @@ namespace Version1.Service_Layer
             var products = logicInstance.GetProductsFromShop(shopName);
             if (products == null)
                 return null;
-            var result = ProductsTo2DStringArray(products.Keys.ToList());
+            var productsList = new List<string>();
+            foreach (var product in products.Keys)
+            {
+                productsList.Add(product.Barcode);
+            }
+            var result = ProductsTo2DStringArray(productsList);
             return result;
         }
-
         
-
-        public bool Purchase(string userName,string barcode,int amount,string storeName)
+        public bool Purchase(string userName,string creditCard)
         {
             return logicInstance.Purchase(userName, creditCard);
         }
@@ -188,7 +191,7 @@ namespace Version1.Service_Layer
 
         public bool buyProduct(string buyer, string store, string product, int amount)
         {
-            return Purchase(buyer, product, amount, store);
+            return Purchase(buyer, "111");
         }
 
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
@@ -277,7 +280,7 @@ namespace Version1.Service_Layer
                 {
                     productData.Add(storeName);
                     productData.Add(DataHandler.Instance.GetUser(userName).GetShoppingCart().GetBasket(storeName)
-                        .Products[DataHandler.Instance.GetProduct(productData[2])].ToString());
+                        .Products[productData[2]].ToString());
                 }
 
                 finalList.AddRange(lists);
@@ -342,12 +345,13 @@ namespace Version1.Service_Layer
             return logicInstance.GetStorePolicy(shopName);
         }
 
-        private string[][] ProductsTo2DStringArray(List<Product> products)
+        private string[][] ProductsTo2DStringArray(List<string> products)
         {
             string[][] result = new string[products.Count][];
             int index = 0;
-            foreach (var product in products)
+            foreach (var productCode in products)
             {
+                var product = DataHandler.Instance.GetProduct(productCode);
                 string[] productData = new string[5];
 
                 productData[0] = product.Name;
@@ -578,9 +582,9 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public string[] GetCartByStore(string userName, string storeName)
+        public Dictionary<string,int> GetCartByStore(string userName, string storeName)
         {
-            throw new NotImplementedException();
+            return logicInstance.GetCartByStore(userName,storeName);
         }
         
         public string[] getUsersStore(string userName, string storeName)

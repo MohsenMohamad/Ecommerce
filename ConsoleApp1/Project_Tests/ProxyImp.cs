@@ -115,7 +115,7 @@ namespace Project_tests
             return real.AddProductToBasket(userName, storeName, productCode,amount);
         }
 
-        public string[] GetCartByStore(string userName, string storeName)
+        public Dictionary<string,int> GetCartByStore(string userName, string storeName)
         {
             if (real == null)
                 return null;

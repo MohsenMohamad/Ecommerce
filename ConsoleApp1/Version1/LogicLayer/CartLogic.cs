@@ -8,30 +8,39 @@ namespace Version1.LogicLayer
 {
     public static class CartLogic
     {
-        private static readonly DataHandler DataHandler = DataHandler.Instance;
 
         public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
         {
-            var user = DataHandler.GetUser(userName);
-            var store = DataHandler.GetStore(storeName);
-            var product = DataHandler.GetProduct(productCode);
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+            var product = DataHandler.Instance.GetProduct(productCode);
 
             if (user == null || store == null || product == null)
                 return false;
 
-            return user.GetShoppingCart().AddProductToBasket(storeName, product, amount);
+            return user.GetShoppingCart().AddProductToBasket(storeName, productCode, amount);
+        }
+
+        public static Dictionary<string, int> GetCartByStore(string userName, string storeName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (user == null || store == null || user.GetShoppingCart().GetBasket(storeName) == null)
+                return null;
+            var basket = user.GetShoppingCart().GetBasket(storeName);
+            return basket.Products;
         }
 
         public static bool Purchase(string userName, string creditCard)
         {
-            var user = DataHandler.GetUser(userName);
+            var user = DataHandler.Instance.GetUser(userName);
             
             foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
             {
-                var store = DataHandler.GetStore(basket.StoreName);
+                var store = DataHandler.Instance.GetStore(basket.StoreName);
                 foreach (var productAndAmount in basket.Products)
                 {
-                    var productBarcode = productAndAmount.Key.Barcode;
+                    var productBarcode = productAndAmount.Key;
                     var amount = productAndAmount.Value;
                     if (!store.GetInventory().ContainsKey(productBarcode) ||
                         store.GetInventory()[productBarcode] < amount)
@@ -41,14 +50,13 @@ namespace Version1.LogicLayer
             
             foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
             {
-                var store = DataHandler.GetStore(basket.StoreName);
-                foreach (var productAndAmount in basket.Products)
+                var store = DataHandler.Instance.GetStore(basket.StoreName);
+                foreach (var product in basket.Products.Keys.ToList())
                 {
-                    var productBarcode = productAndAmount.Key.Barcode;
-                    var amount = productAndAmount.Value;
+                    var amount = basket.Products[product];
                     
-                    RemoveProductFromBasket(userName, store.GetName(), productBarcode);
-                    store.GetInventory()[productBarcode] -= amount;
+                    RemoveProductFromBasket(userName, store.GetName(), product);
+                    store.GetInventory()[product] -= amount;
                 }
             }
 
@@ -58,23 +66,23 @@ namespace Version1.LogicLayer
 
         public static bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
-            var user = DataHandler.GetUser(userName);
-            var store = DataHandler.GetStore(storeName);
-            var product = DataHandler.GetProduct(productBarcode);
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+            var product = DataHandler.Instance.GetProduct(productBarcode);
             
             if (user == null || store == null || product == null || newAmount < 0) return false;
 
             var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
-            if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(product)) return false;
-            shoppingBasket.Products[product] = newAmount;
+            if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
+            shoppingBasket.Products[productBarcode] = newAmount;
             return true;
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
         {
-            var user = DataHandler.GetUser(userName);
-            var store = DataHandler.GetStore(storeName);
-            var product = DataHandler.GetProduct(productBarcode);
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+            var product = DataHandler.Instance.GetProduct(productBarcode);
 
             if (user == null || store == null || product == null)
                 return false;
@@ -82,15 +90,15 @@ namespace Version1.LogicLayer
             var cart = user.GetShoppingCart();
             if (!cart.shoppingBaskets.ContainsKey(storeName))
                 return false;
-            var result = cart.shoppingBaskets[storeName].RemoveProduct(product, amount);
+            var result = cart.shoppingBaskets[storeName].RemoveProduct(productBarcode, amount);
             return result;
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode)
         {
-            var user = DataHandler.GetUser(userName);
-            var store = DataHandler.GetStore(storeName);
-            var product = DataHandler.GetProduct(productBarcode);
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+            var product = DataHandler.Instance.GetProduct(productBarcode);
 
             if (user == null || store == null || product == null)
                 return false;
@@ -98,25 +106,25 @@ namespace Version1.LogicLayer
 
             if (!cart.shoppingBaskets.ContainsKey(storeName))
                 return false;
-            var result = cart.shoppingBaskets[storeName].RemoveProduct(product);
+            var result = cart.shoppingBaskets[storeName].RemoveProduct(productBarcode);
             return result;
         }
 
         
-        public static List<Product> GetBasketProducts(string userName, string storeName)
+        public static List<string> GetBasketProducts(string userName, string storeName)
         {
-            var userBaskets = DataHandler.GetUser(userName).shoppingCart.shoppingBaskets;
+            var userBaskets = DataHandler.Instance.GetUser(userName).shoppingCart.shoppingBaskets;
             if (userBaskets.ContainsKey(storeName))
                 return userBaskets[storeName].Products.Keys.ToList();
             return null;
         }
 
-        public static List<Product> GetUserBaskets(string userName)
+        public static List<string> GetUserBaskets(string userName)
         {
-            var user = DataHandler.GetUser(userName);
+            var user = DataHandler.Instance.GetUser(userName);
             if (user == null)
                 return null;
-            var products = new List<Product>();
+            var products = new List<string>();
 
             foreach (var store in user.GetShoppingCart().shoppingBaskets.Keys)
             {
@@ -130,8 +138,8 @@ namespace Version1.LogicLayer
 
         public static string GetBasketInfo(string userName, string storeName)
         {
-            var user = DataHandler.GetUser(userName);
-            var store = DataHandler.GetStore(storeName);
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
 
             if (user == null || storeName == null)
                 return null;

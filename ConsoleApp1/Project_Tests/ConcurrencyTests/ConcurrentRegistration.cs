@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using Version1;
 
 namespace Project_tests.ConcurrencyTests
 {
@@ -20,8 +21,8 @@ namespace Project_tests.ConcurrencyTests
             var result1 =false;
             var result2 = false;
             
-            var task1 = Task.Factory.StartNew(() => result1 = Register("shadi","12345"));
-            var task2 = Task.Factory.StartNew(() => result2 = Register("Adnan","1234"));
+            var task1 = Task.Factory.StartNew(() => result1 = Register("User1","12345"));
+            var task2 = Task.Factory.StartNew(() => result2 = Register("User2","1234"));
 
             Task.WaitAll(task1, task2);
 
@@ -38,12 +39,23 @@ namespace Project_tests.ConcurrencyTests
             var result1 =false;
             var result2 = false;
             
-            var task1 = Task.Factory.StartNew(() => result1 = Register("omar","54321"));
-            var task2 = Task.Factory.StartNew(() => result2 = Register("omar","11111"));
+            var task1 = Task.Factory.StartNew(() => result1 = Register("User3","54321"));
+            var task2 = Task.Factory.StartNew(() => result2 = Register("User3","11111"));
 
             Task.WaitAll(task1, task2);
             
             Assert.True(result1 ^ result2); // XOR
+
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser("User1");
+            real.DeleteUser("User1");
+            real.DeleteUser("User3");
 
         }
         

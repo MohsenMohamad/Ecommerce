@@ -47,6 +47,7 @@ namespace Version1.Service_Layer
             }
             Console.WriteLine(a.Length);
 
+            facade.Purchase("mohameda", "111");
 
             string[] ab = facade.GetStoreOwners("AdnanStore");
 

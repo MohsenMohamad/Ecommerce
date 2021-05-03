@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 
@@ -8,20 +9,20 @@ namespace Version1.DataAccessLayer
     {
         private static readonly object padlock = new object();
         private static DataHandler instance = null;
-        internal Dictionary<string, User> Users { get; }
-        internal Dictionary<long, Guest> Guests { get; }
-        internal Dictionary<string,Category> Categories { get; }
-        internal Dictionary<string, Product> Products { get; }
-        internal Dictionary<string, Store> Stores { get; }
+        internal ConcurrentDictionary<string, User> Users { get; }
+        private ConcurrentDictionary<long, Guest> Guests { get; }
+        internal ConcurrentDictionary<string,Category> Categories { get; }
+        internal ConcurrentDictionary<string, Product> Products { get; }
+        internal ConcurrentDictionary<string, Store> Stores { get; }
         private List<Review> Reviews { get; }
 
 
         private DataHandler()
         {
-            Users = new Dictionary<string, User>();
-            Guests = new Dictionary<long, Guest>();
-            Stores = new Dictionary<string, Store>();
-            Products = new Dictionary<string, Product>();
+            Users = new ConcurrentDictionary<string, User>();
+            Guests = new ConcurrentDictionary<long, Guest>();
+            Stores = new ConcurrentDictionary<string, Store>();
+            Products = new ConcurrentDictionary<string, Product>();
             Reviews = new List<Review>();
         }
 
@@ -45,25 +46,22 @@ namespace Version1.DataAccessLayer
 
         internal bool AddGuest(Guest guest)
         {
-            Guests.Add(guest.GetId(),guest);
-            return true;
+            return Guests.TryAdd(guest.GetId(),guest);
         }
         
         internal bool AddUser(User user)
         {
-            Users.Add(user.UserName, user);
-            return true;
+            return Users.TryAdd(user.UserName, user);
         }
 
         internal bool RemoveUser(string userName)
         {
-            Users.Remove(userName);
-            return true;
+            return Users.TryRemove(userName, out _);
         }
 
         internal bool RemoveGuest(long guestId)
         {
-            return Guests.Remove(guestId);
+            return Guests.TryRemove(guestId, out _);
         }
 
         internal Person GetUser(string username)
@@ -97,7 +95,7 @@ namespace Version1.DataAccessLayer
             {
                 if (Stores.ContainsKey(store.GetName()))
                     return false;
-                Stores.Add(store.GetName(), store);
+                Stores.TryAdd(store.GetName(), store);
                 return true;
             }
         }
@@ -106,7 +104,7 @@ namespace Version1.DataAccessLayer
         {
             lock (Stores)
             {
-                return Stores.Remove(storeName);
+                return Stores.TryRemove(storeName, out _);
             }
         }
 
@@ -148,7 +146,7 @@ namespace Version1.DataAccessLayer
             {
                 if (Products.ContainsKey(product.Barcode))
                     return false;
-                Products.Add(product.Barcode, product);
+                Products.TryAdd(product.Barcode, product);
                 return true;
             }
         }
