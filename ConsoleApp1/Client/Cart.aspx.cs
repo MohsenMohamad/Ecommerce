@@ -119,7 +119,10 @@ namespace Client
             }
             else {
                 s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString());
+
             }
+            Response.Redirect("~/PurchaseDone.aspx");
+
         }
     }
 }
