@@ -172,7 +172,7 @@ namespace ServerApi
         [HttpGet]
         public bool InitSystem()
         {
-            return facade.adminInitSystem();
+            return facade.AdminInitSystem();
         }
     }
 }

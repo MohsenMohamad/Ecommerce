@@ -444,7 +444,7 @@ namespace Version1.Service_Layer
         }
     
         
-        public bool adminInitSystem()
+        public bool AdminInitSystem()
         {
             var facade = new Facade();
             /* ----------------------------  users -------------------------------*/

@@ -18,9 +18,9 @@ namespace Project_tests
             service = Driver.getInstance();
         }
 
-        protected bool InitiateSystem()
+        protected bool AdminInitiateSystem()
         {
-            return service.InitSystem();
+            return service.AdminInitSystem();
         }
 
         protected bool Register(string name, string password)

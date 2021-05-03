@@ -19,12 +19,12 @@ namespace Project_tests
             real = realInstance;
         }
 
-        public bool InitSystem()
+        public bool AdminInitSystem()
         {
             if (real == null) 
                 return true;    
             
-            return real.InitSystem();
+            return real.AdminInitSystem();
         }
 
         public bool guestLogin()

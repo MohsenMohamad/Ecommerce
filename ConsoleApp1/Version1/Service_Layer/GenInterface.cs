@@ -9,7 +9,7 @@ namespace Version1
 {
     public interface GenInterface
     {
-        bool adminInitSystem(); //
+        bool AdminInitSystem(); //
         bool guestLogin();  //
         bool GuestLogout(); //
         bool Register(string name, string password);    //
