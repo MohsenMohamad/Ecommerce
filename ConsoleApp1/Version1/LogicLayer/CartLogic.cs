@@ -22,9 +22,52 @@ namespace Version1.LogicLayer
             return user.GetShoppingCart().AddProductToBasket(storeName, product, amount);
         }
 
-        public static bool Purchase()
+        public static bool Purchase(string userName, string creditCard)
         {
-            return false;
+            var user = DataHandler.GetUser(userName);
+            
+            foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
+            {
+                var store = DataHandler.GetStore(basket.StoreName);
+                foreach (var productAndAmount in basket.Products)
+                {
+                    var productBarcode = productAndAmount.Key.Barcode;
+                    var amount = productAndAmount.Value;
+                    if (!store.GetInventory().ContainsKey(productBarcode) ||
+                        store.GetInventory()[productBarcode] < amount)
+                        return false;
+                }
+            }
+            
+            foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
+            {
+                var store = DataHandler.GetStore(basket.StoreName);
+                foreach (var productAndAmount in basket.Products)
+                {
+                    var productBarcode = productAndAmount.Key.Barcode;
+                    var amount = productAndAmount.Value;
+                    
+                    RemoveProductFromBasket(userName, store.GetName(), productBarcode);
+                    store.GetInventory()[productBarcode] -= amount;
+                }
+            }
+
+            return true;
+
+        }
+
+        public static bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        {
+            var user = DataHandler.GetUser(userName);
+            var store = DataHandler.GetStore(storeName);
+            var product = DataHandler.GetProduct(productBarcode);
+            
+            if (user == null || store == null || product == null || newAmount < 0) return false;
+
+            var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
+            if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(product)) return false;
+            shoppingBasket.Products[product] = newAmount;
+            return true;
         }
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
@@ -59,15 +102,7 @@ namespace Version1.LogicLayer
             return result;
         }
 
-        public static bool BuyProduct(string barcode, int amount, string storeName)
-        {
-            var pr = DataHandler.GetProduct(barcode);
-            var st = DataHandler.GetStore(storeName);
-
-            return false;
-        }
-
-
+        
         public static List<Product> GetBasketProducts(string userName, string storeName)
         {
             var userBaskets = DataHandler.GetUser(userName).shoppingCart.shoppingBaskets;
@@ -110,5 +145,6 @@ namespace Version1.LogicLayer
 
             return output;
         }
+        
     }
 }

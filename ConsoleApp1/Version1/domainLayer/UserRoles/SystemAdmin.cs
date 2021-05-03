@@ -12,50 +12,7 @@ namespace Version1.domainLayer.UserRoles
             data = DataHandler.Instance;
         }
 
-        public bool CloseStore(string storeName)
-        {
-            return data.RemoveStore(storeName);
-        }
-
-        public bool RemoveUser(string username)
-        {
-            return data.RemoveUser(username);
-        }
-
-        public string GetHistoryOfStore(string storeName)
-        {
-            var store = data.GetStore(storeName);
-            if (store == null)
-                return "no store was found";
-            return store.GetHistory().ToString();
-        }
-
-        public string GetHistoryOfUser(string username)
-        {
-            var user = data.GetUser(username);
-            if (user == null)
-                return "no user was found";
-            return user.GetPersonalPurchaseHistory();
-        }
-
-        public static void RecieveComplainToStore(string msg, string storeName)
-        {
-            var store = DataHandler.Instance.GetStore(storeName);
-            if (store != null)
-                store.ReceiveMsg(msg);
-        }
-
-        public static void RecieveComplainToUser(string msg, string userName)
-        {
-            var user = DataHandler.Instance.GetUser(userName);
-            if (user != null)
-                user.AddNotification(msg);
-        }
-
-        internal Store GetStore(string storeName)
-        {
-            return data.GetStore(storeName);
-        }
+        
         public bool InitSystem()
         {
             return true;

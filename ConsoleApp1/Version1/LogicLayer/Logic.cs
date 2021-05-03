@@ -126,6 +126,16 @@ namespace Version1.LogicLayer
 
         }
 
+        public bool Purchase(string userName, string creditCard)
+        {
+            return CartLogic.Purchase(userName, creditCard);
+        }
+
+        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        {
+            return CartLogic.UpdateCart(userName, storeName, productBarcode, newAmount);
+        }
+
         public bool AddOwner(string storeName, string apointerid, string apointeeid)
         {
             return StoreLogic.AddOwner(storeName, apointerid,apointeeid);
@@ -168,12 +178,14 @@ namespace Version1.LogicLayer
         
         public bool AddUserNotification(string userName, string notification)
         {
-            return UserLogic.AddUserNotification(userName, notification);
+            return false;
+            // return UserLogic.AddUserNotification(userName, notification);
         }
         
         public List<string> GetUserNotifications(string userName)
         {
-            return UserLogic.GetUserNotifications(userName);
+            return null;
+            //return UserLogic.GetUserNotifications(userName);
         }
         
         public string GetStorePolicy(string storeName)

@@ -98,9 +98,14 @@ namespace Version1.Service_Layer
             return result;
         }
 
-        public bool Purchase(string userName)
+        public bool Purchase(string userName, string creditCard)
         {
-            return true;
+            return logicInstance.Purchase(userName, creditCard);
+        }
+
+        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        {
+            return logicInstance.UpdateCart(userName, storeName, productBarcode, newAmount);
         }
 
         //high priority

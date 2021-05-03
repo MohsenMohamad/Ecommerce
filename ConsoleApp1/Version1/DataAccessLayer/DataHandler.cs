@@ -66,10 +66,13 @@ namespace Version1.DataAccessLayer
             return Guests.Remove(guestId);
         }
 
-        internal User GetUser(string username)
+        internal Person GetUser(string username)
         {
-            if (Users.ContainsKey(username))
+            var id = IsGuest(username);
+            if (id < 0 && Users.ContainsKey(username))
                 return Users[username];
+            if (id >= 0 && Guests.ContainsKey(id))
+                return Guests[id];
             return null;
         }
 
@@ -77,7 +80,7 @@ namespace Version1.DataAccessLayer
         {
             if (!Exists(userName)) return false;
             
-            var user = GetUser(userName);
+            var user = (User)GetUser(userName);
             return user.Password.Equals(password);
         }
 
@@ -160,6 +163,13 @@ namespace Version1.DataAccessLayer
         internal void AddReview(string userName, string desc)
         {
             Reviews.Add(new Review(userName, desc));
+        }
+        
+        private static long IsGuest(string userName)
+        {
+            var result = long.TryParse(userName, out var id);
+            if (!result) return -1;
+            return id;
         }
     }
 }
