@@ -40,6 +40,9 @@ namespace Version1.Service_Layer
         Console.WriteLine(result.Count);*/
 
            // facade.adminInitSystem();
+            facade.Purchase("mohameda", "111");
+            facade.Purchase("mohameda", "111");
+            facade.Purchase("mohameda", "111");
         }   
 
 

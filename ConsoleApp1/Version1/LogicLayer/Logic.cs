@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
@@ -95,6 +94,12 @@ namespace Version1.LogicLayer
 
 //-------------------------------------- Other ---------------------------------//
 
+        public void DeleteStore(string storeName)
+        {
+            
+        }
+
+        
         public bool IsLoggedIn(string userName)
         {
             return UserLogic.IsLoggedIn(userName);
@@ -120,10 +125,15 @@ namespace Version1.LogicLayer
             return StoreLogic.GetStoreManagers(storeName);
         }
         
-        public List<Product> GetUserBaskets(string userName)
+        public List<string> GetUserBaskets(string userName)
         {
             return CartLogic.GetUserBaskets(userName);
 
+        }
+
+        public Dictionary<string, int> GetCartByStore(string userName, string storeName)
+        {
+            return CartLogic.GetCartByStore(userName, storeName);
         }
 
         public bool Purchase(string userName, string creditCard)
@@ -161,7 +171,7 @@ namespace Version1.LogicLayer
             return InventoryLogic.AddNewProduct(barcode, productName, description, price, categories);
         }
 
-        public List<Product> GetBasketProducts(string userName, string storeName)
+        public List<string> GetBasketProducts(string userName, string storeName)
         {
             return CartLogic.GetBasketProducts(userName, storeName);
         }
@@ -198,7 +208,7 @@ namespace Version1.LogicLayer
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
         
-        public List<Product> SearchByKeyWord(string keyWord)
+        public List<string> SearchByKeyWord(string keyWord)
         {
             return InventoryLogic.SearchByKeyWord(keyWord);
         }

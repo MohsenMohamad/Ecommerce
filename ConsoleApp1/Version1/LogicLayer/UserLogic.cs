@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Version1.DataAccessLayer;
-using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
 {
     public static class UserLogic
     {
-        private static readonly DataHandler DataHandler = DataHandler.Instance;
         private static List<string> _loggedInUsers = new List<string>();
 
         public static long GuestLogin()
         {
             var guest = new Guest();
-            if (!DataHandler.AddGuest(guest)) return -1;
+            if (!DataHandler.Instance.AddGuest(guest)) return -1;
 
             return guest.GetId();
         }
@@ -23,24 +21,24 @@ namespace Version1.LogicLayer
 
         public static bool GuestLogout(long guestId)
         {
-            return DataHandler.RemoveGuest(guestId);
+            return DataHandler.Instance.RemoveGuest(guestId);
         }
 
         // 2.3) Register
 
         public static bool Register(string userName, string userPassword)
         {
-            if (DataHandler.Exists(userName))
+            if (DataHandler.Instance.Exists(userName))
                 return false;
             var user = new User(userName, userPassword);
-            return DataHandler.AddUser(user);
+            return DataHandler.Instance.AddUser(user);
         }
 
         // 2.4) Login as a user
 
         public static bool UserLogin(string name, string password)
         {
-            var result = DataHandler.Login(name, password);
+            var result = DataHandler.Instance.Login(name, password);
             if (result)
                 _loggedInUsers.Add(name);
             return result;
@@ -68,7 +66,7 @@ namespace Version1.LogicLayer
 
         public static List<string> GetAllUserNamesInSystem()
         {
-            return DataHandler.Users.Keys.ToList();
+            return DataHandler.Instance.Users.Keys.ToList();
         }
         /*    
             public static List<string> GetUserNotifications(string userName)

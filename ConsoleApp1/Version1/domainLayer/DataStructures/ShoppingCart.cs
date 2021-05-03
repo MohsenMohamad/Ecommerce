@@ -30,11 +30,11 @@ namespace Version1.domainLayer.DataStructures
             return shoppingBaskets.Remove(shoppingBasket.StoreName);
         }
 
-        public bool AddProductToBasket(string storeName, Product product, int amount)
+        public bool AddProductToBasket(string storeName, string productBarCode, int amount)
         {
             if (!shoppingBaskets.ContainsKey(storeName))
                 AddBasket(new ShoppingBasket(storeName));
-            return shoppingBaskets[storeName].AddProduct(product, amount);
+            return shoppingBaskets[storeName].AddProduct(productBarCode, amount);
         }
     }
 }

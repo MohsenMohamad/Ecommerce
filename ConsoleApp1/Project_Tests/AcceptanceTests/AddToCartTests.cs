@@ -1,10 +1,10 @@
-﻿/*using Version1.domainLayer;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Project_tests;
 using Version1.domainLayer.DataStructures;
 
 namespace Project_Tests.AcceptanceTests
 {
+    /*
     public class AddToCartTests : ATProject
     {
         private const string TestUserName = "AddToCartTester";
@@ -34,8 +34,8 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
-            GuestLogin();
-            Assert.True(AddProductToCart(null, TestStoreName, tea.Barcode));
+            var id = GuestLogin();
+            Assert.True(AddProductToCart(id.ToString(), TestStoreName, tea.Barcode,1));
             GuestLogout();
         }
 
@@ -44,8 +44,8 @@ namespace Project_Tests.AcceptanceTests
         {
             // bread has 0 amount in the store but we should still be able to add it
 
-            GuestLogin();
-            Assert.True(AddProductToCart(null, TestStoreName, bread.Barcode));
+            var id = GuestLogin();
+            Assert.True(AddProductToCart(id.ToString(), TestStoreName, bread.Barcode,0));
             GuestLogout();
         }
 
@@ -54,9 +54,9 @@ namespace Project_Tests.AcceptanceTests
         {
             // the user should not be able to add to the cart the same product from the same store twice
 
-            GuestLogin();
-            Assert.True(AddProductToCart(null, TestStoreName, tea.Barcode));
-            Assert.False(AddProductToCart(null, TestStoreName, tea.Barcode));
+            var id = GuestLogin();
+            Assert.True(AddProductToCart(id.ToString(), TestStoreName, tea.Barcode,1));
+            Assert.False(AddProductToCart(id.ToString(), TestStoreName, tea.Barcode,1));
             GuestLogout();
         }
 
@@ -65,13 +65,20 @@ namespace Project_Tests.AcceptanceTests
         {
             // add to cart , then logout , then login as guest again , check if the product still exists
 
-            GuestLogin();
-            Assert.True(AddProductToCart(null, TestStoreName, tea.Barcode));
+            var id = GuestLogin();
+            Assert.True(AddProductToCart(id.ToString(), TestStoreName, tea.Barcode,1));
             GuestLogout();
 
-            GuestLogin();
-            Assert.False(GetCartByStore(null, TestStoreName).Contains(tea));
+            id = GuestLogin();
+            Assert.False(GetCartByStore(id.ToString(), TestStoreName).Contains(tea));
             GuestLogout();
         }
+
+        [TearDown]
+        public void TearDown()
+        {
+            
+        }
     }
-}*/
+    */
+}

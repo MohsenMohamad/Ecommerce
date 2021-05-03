@@ -22,7 +22,7 @@ namespace Version1
         bool AddProductToStore(string managerName, string storeName, string productCode, int amount);  //
         List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
         bool AddProductToBasket(string userName, string storeName, string productCode,int amount);  //
-        string[] GetCartByStore(string userName, string storeName);
+        Dictionary<string,int> GetCartByStore(string userName, string storeName);
         
         
         string[][] get_items_in_shop(string ownerName, string storeName);

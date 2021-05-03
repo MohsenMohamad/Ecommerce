@@ -83,6 +83,7 @@
     <Compile Include="LogicLayer\InventoryLogic.cs" />
     <Compile Include="LogicLayer\Logic.cs" />
     <Compile Include="LogicLayer\StoreLogic.cs" />
+    <Compile Include="LogicLayer\TestsLogic.cs" />
     <Compile Include="LogicLayer\UserLogic.cs" />
     <Compile Include="Service_Layer\Facade.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />
