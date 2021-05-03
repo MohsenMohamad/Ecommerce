@@ -206,6 +206,26 @@ namespace Client.Code
             return bool.Parse(System.SendApi(System.Service_type.SHOP, "remove_item_from_cart", param));
         }
 
+        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        {
+            string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&newAmount={3}", userName, storeName, productBarcode, newAmount);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "UpdateCart", param));
+        }
+
+
+        public bool Purchase(string userName, string creditCard)
+        {
+            string param = string.Format("userName={0}&creditCard={1}", userName,creditCard);
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "Purchase", param));
+
+        }
+
+        public bool InitSystem()
+        {
+            string param = "";
+            return bool.Parse(System.SendApi(System.Service_type.SHOP, "InitSystem", param));
+        }
+
 
 
 

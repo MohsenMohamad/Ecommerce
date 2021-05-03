@@ -14,6 +14,8 @@ namespace Client
         {
             if (!Page.IsPostBack)
             {
+                Labelerrorcreditcard.Visible = false;
+                Labelerroraddress.Visible = false;
                 ShopHandler a = new ShopHandler();
 
                 Data_cart.DataSource = a.GetUserBaskets(Session["username"].ToString());
@@ -58,8 +60,31 @@ namespace Client
                 }
             }
 
-            if (e.CommandName == "checkbox_command")
+            if (e.CommandName == "up_command")
             {
+                string[] cargs = e.CommandArgument.ToString().Split(',');
+                Session["productName"] = cargs[0];
+                Session["barcode"] = cargs[1];
+                Session["nameShop"] = cargs[2];
+                Session["Amount"] = cargs[3];
+
+                ShopHandler s = new ShopHandler();
+                s.UpdateCart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()) + 1);
+                Response.Redirect("~/Cart.aspx");
+
+            }
+            if (e.CommandName == "down_command")
+            {
+                string[] cargs = e.CommandArgument.ToString().Split(',');
+                Session["productName"] = cargs[0];
+                Session["barcode"] = cargs[1];
+                Session["nameShop"] = cargs[2];
+                Session["Amount"] = cargs[3];
+                ShopHandler s = new ShopHandler();
+                s.UpdateCart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()) - 1);
+                Response.Redirect("~/Cart.aspx");
+
+
             }
         }
         protected void Data_cart_SelectedIndexChanged(object sender, EventArgs e)
@@ -80,6 +105,21 @@ namespace Client
         protected void Data_cart_SelectedIndexChanged1(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            ShopHandler s = new ShopHandler();
+            if (TextBoxCreditcard.Text.Length == 0) {
+                Labelerrorcreditcard.Visible = true;
+            }
+            else if (TextBoxaddress.Text.Length == 0)
+            {
+                Labelerroraddress.Visible = true;
+            }
+            else {
+                s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString());
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ using Version1.Service_Layer;
 namespace ServerApi
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class UserServiceController : ApiController
+    public class bb : ApiController
     {
         private Facade facade = new Facade();
         

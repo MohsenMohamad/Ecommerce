@@ -33,13 +33,22 @@ namespace Client
         protected global::System.Web.UI.WebControls.Label LabelCreditcard;
 
         /// <summary>
-        /// TextBox3 control.
+        /// TextBoxCreditcard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxCreditcard;
+
+        /// <summary>
+        /// Labelerrorcreditcard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Labelerrorcreditcard;
 
         /// <summary>
         /// Labeladdress control.
@@ -58,6 +67,15 @@ namespace Client
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxaddress;
+
+        /// <summary>
+        /// Labelerroraddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Labelerroraddress;
 
         /// <summary>
         /// Button3 control.

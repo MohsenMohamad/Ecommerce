@@ -11,7 +11,7 @@ using Version1.Service_Layer;
 namespace ServerApi
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ShopServiceController : ApiController
+    public class aa : ApiController
     {
         private Facade facade = new Facade();
         [HttpGet]
@@ -26,13 +26,13 @@ namespace ServerApi
             return facade.GetAllStores();
         }
         [HttpGet]
-        public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string[] catagories)
-        {
-            Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
+        public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName,string descreption,string[] catagories)
+        {   
+            Logger.GetInstance().Event("product with barcode " + itemBarCode +" has been added to the shop " +shopName);
             //todo check if works from mohsen!
             if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
             {
-                return facade.AddItemToStore(shopName, itemBarCode, amount);
+                return facade.AddItemToStore(shopName,itemBarCode,amount);    
             }
             //the item barcode does not match the ProductName in the inventory. 
             return false;
@@ -47,8 +47,8 @@ namespace ServerApi
         [HttpGet]
         public bool OpenShop(string userName, string shopName, string policy)
         {
-            Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
-            return facade.OpenShop(userName, shopName, policy);
+            Logger.GetInstance().Event(userName +  " has opened shop : " + shopName);
+            return facade.OpenShop(userName , shopName, policy);
         }
 
         [HttpGet]
@@ -77,7 +77,7 @@ namespace ServerApi
         [HttpGet]
         public bool removeOwner(string apointerid, string storeName, string apointeeid)
         {
-            bool output = facade.RemoveOwner(apointerid, storeName, apointeeid);
+            bool output = facade.RemoveOwner(apointerid,storeName,apointeeid);
             Logger.GetInstance().Event(output
                 ? apointerid + " has has removed owner" + apointeeid + "form store: " + storeName
                 : apointerid + " could not removed owner for " + storeName);
@@ -86,21 +86,21 @@ namespace ServerApi
         [HttpGet]
         public bool removeManager(string apointerid, string storeName, string apointeeid)
         {
-            bool output = facade.RemoveManager(apointerid, storeName, apointeeid);
+            bool output = facade.RemoveManager(apointerid,storeName,apointeeid);
             Logger.GetInstance().Event(output
                 ? apointerid + " has has removed manger" + apointeeid + "form store: " + storeName
                 : apointerid + " could not removed manger for " + storeName);
             return output;
         }
         [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode,int amount)
         {
             bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount);
             Logger.GetInstance().Event(output
-                ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
-                : userName + " could not add product :" + productBarCode + "form store: " + storeName + " to his Basket");
+                ? userName + " has has added product :" + productBarCode + "form store: " + storeName +" to his Basket"
+                : userName + " could not add product :" + productBarCode + "form store: " + storeName +" to his Basket");
             return output;
-
+            
         }
 
         [HttpGet]
@@ -109,10 +109,10 @@ namespace ServerApi
         {
             bool output = facade.AddNewProductToSystem1(barcode, productName, description, price, categories);
             Logger.GetInstance().Event(output
-                ? productName + "with barcode:" + barcode + " has been added to the system "
-                : productName + "with barcode:" + barcode + " has not been added to the system");
+                ? productName + "with barcode:"+ barcode+ " has been added to the system "
+                : productName + "with barcode:"+ barcode+ " has not been added to the system");
             return output;
-
+            
         }
 
         [HttpGet]
@@ -120,8 +120,8 @@ namespace ServerApi
         {
             bool output = facade.AddItemToStore(shopName, itemBarCode, amount);
             Logger.GetInstance().Event(output
-                ? " barcode: " + itemBarCode + " has been added to the shop : " + shopName
-                : " barcode: " + itemBarCode + " has not been added to the shop : " + shopName);
+                ? " barcode: "+ itemBarCode+ " has been added to the shop : " + shopName
+                : " barcode: "+ itemBarCode+ " has not been added to the shop : " + shopName);
             return output;
         }
         [HttpGet]
@@ -129,10 +129,10 @@ namespace ServerApi
         {
             bool output = facade.remove_item_from_cart(userName, storeName, productBarcode, amount);
             Logger.GetInstance().Event(output
-                ? userName + " has has added product :" + productBarcode + "form store: " + storeName + " to his cart"
-                : userName + " could not add product :" + productBarcode + "form store: " + storeName + " to his cart");
+                ? userName + " has has added product :" + productBarcode + "form store: " + storeName +" to his cart"
+                : userName + " could not add product :" + productBarcode + "form store: " + storeName +" to his cart");
             return output;
-
+            
         }
 
         [HttpGet]
@@ -155,24 +155,6 @@ namespace ServerApi
         public string[] GetAllUserNamesInSystem()
         {
             return facade.GetAllUserNamesInSystem();
-        }
-
-        [HttpGet]
-        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
-        {
-            return facade.UpdateCart(userName, storeName, productBarcode, newAmount);
-        }
-
-        [HttpGet]
-        public bool Purchase(string userName, string creditCard)
-        {
-            return facade.Purchase(userName, creditCard);
-        }
-
-        [HttpGet]
-        public bool InitSystem()
-        {
-            return facade.AdminInitSystem();
         }
     }
 }
