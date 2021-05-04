@@ -10,26 +10,11 @@ namespace Client.Code
     public class System
     {
         private const string server_domain = "https://localhost:44300/api";
-        public enum Service_type { USER, SHOP, TRANSACTION }
 
-        public static string SendApi(Service_type type, string method_name, string Parameters)
+        public static string SendApi(string method_name, string Parameters)
         {
             string service = "";
-            switch (type)
-            {
-                case Service_type.USER:
-                    service = "UserService";
-                    break;
-                case Service_type.TRANSACTION:
-                    service = "TransactionService";
-                    break;
-                case Service_type.SHOP:
-                    service = "ShopService";
-                    break;
-                default:
-                    return "Service not found";
-
-            }
+            service = "facade";
 
             string URI = string.Format("{0}/{1}/{2}?{3}", server_domain, service, method_name, Parameters);
             try

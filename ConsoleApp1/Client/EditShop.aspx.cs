@@ -21,8 +21,8 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
-                table6.Visible = false;
                 Labelerrorbarcode.Visible = false;
+                firegif.Visible = false;
 
             }
             else { }
@@ -34,6 +34,8 @@ namespace Client
             DropDownList2.Items.Clear();
             DropDownList3.Items.Clear();
             DropDownList4.Items.Clear();
+            DropDownList5.Items.Clear();
+
             if (DropDownList1.SelectedItem.Text == "Select")
             {
                 table1.Visible = false;
@@ -41,7 +43,6 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
-                table6.Visible = false;
 
             }
 
@@ -52,7 +53,6 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
-                table6.Visible = false;
 
             }
             if (DropDownList1.SelectedItem.Text == "Add New Manager")
@@ -62,7 +62,6 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
-                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetAllUserNamesInSystem();
@@ -100,7 +99,6 @@ namespace Client
                 table3.Visible = true;
                 table4.Visible = false;
                 table5.Visible = false;
-                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetAllUserNamesInSystem();
@@ -139,7 +137,6 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = true;
                 table5.Visible = false;
-                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreManagers(Session["editshop"].ToString());
@@ -149,6 +146,7 @@ namespace Client
 
                     DropDownList4.Items.Insert(i, new ListItem(d.Tables[0].Rows[i]["username"].ToString()));
                 }
+                firegif.Visible = true;
 
             }
             if (DropDownList1.SelectedItem.Text == "Fire Owner")
@@ -159,16 +157,18 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = true;
-                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreOwners(Session["editshop"].ToString());
                 DropDownList5.Items.Add(new ListItem("please select a Owner", "0"));
                 for (int i = 0; i < d.Tables[0].Rows.Count; i++)
                 {
-
-                    DropDownList5.Items.Insert(i, new ListItem(d.Tables[0].Rows[i]["username"].ToString()));
+                    if (!d.Tables[0].Rows[i]["username"].ToString().Equals(Session["username"]))
+                    {
+                        DropDownList5.Items.Insert(i, new ListItem(d.Tables[0].Rows[i]["username"].ToString()));
+                    }
                 }
+                firegif.Visible = true;
 
 
             }
@@ -240,7 +240,6 @@ namespace Client
                 DropDownList5.Items.Clear();
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-
         }
     }
 }

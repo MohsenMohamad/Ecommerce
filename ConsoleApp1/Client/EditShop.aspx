@@ -76,7 +76,7 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Owner" Value="3"></asp:ListItem>
                                                 <asp:ListItem Text="Fire Manager" Value="4"></asp:ListItem>
-                                                <asp:ListItem Text="Fire Owner" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="Fire Owner" Value="5"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>&nbsp;</td>
@@ -310,41 +310,11 @@ margin-bottom: 16px;
         </tr>
         <tr>
             <td class="auto-style19">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>
+                            <img id="firegif" runat="server" src="img/tenor.gif" alt="gif image" class="auto-style19" />
+               </td>
             <td class="auto-style16">&nbsp;</td>
         </tr>
     </table>
 
-    <table class="auto-style5" id="table6"  runat="server">
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style16">&nbsp;</td>
-        </tr>
-    </table>
-</asp:Content>
+    </asp:Content>

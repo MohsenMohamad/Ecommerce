@@ -455,6 +455,9 @@ namespace Version1.Service_Layer
             
             /* ----------------------------  users -------------------------------*/
 
+            ExternalServices.ExternalFinanceService.createConnection();
+            ExternalServices.ExternalSupplyService.createConnection();
+
             Register("mohamedm", "1111");
             Register("adnan", "2222");
             Register("mohameda", "3333");

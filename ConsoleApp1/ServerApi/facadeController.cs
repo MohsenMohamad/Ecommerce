@@ -11,7 +11,7 @@ using Version1.Service_Layer;
 namespace ServerApi
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ShopServiceController : ApiController
+    public class facadeController : ApiController
     {
         private Facade facade = new Facade();
         [HttpGet]
@@ -173,6 +173,52 @@ namespace ServerApi
         public bool InitSystem()
         {
             return facade.AdminInitSystem();
+        }
+
+        [HttpGet]
+        public bool Register(string username, string password)
+        {
+
+            bool output = facade.Register(username, password);
+            if (output)
+            {
+                Logger.GetInstance().Event(username + "has Register succesfully ");
+            }
+            return output;
+        }
+
+        [HttpGet]
+        public bool Login(string username, string password)
+        {
+            bool output = facade.Login(username, password);
+            if (output)
+            {
+                Logger.GetInstance().Event(username + "has LoggedIn ");
+            }
+            return output;
+        }
+        [HttpGet]
+        public bool Logout(string username)
+        {
+            bool output = facade.Logout(username);
+            if (output)
+            {
+                Logger.GetInstance().Event(username + "has LoggedOut ");
+            }
+            return output;
+        }
+        [HttpGet]
+        public string[] GetAllNotifications(string userName)
+        {
+            return facade.GetAllUserNotifications(userName);
+        }
+
+        [HttpGet]
+        public long GuestLogin()
+        {
+            long output = facade.GuestLogin();
+            Logger.GetInstance().Event("Guest has connected with pid : " + output);
+            return output;
         }
     }
 }
