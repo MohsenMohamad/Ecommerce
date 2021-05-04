@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.StorePolicies;
 
 namespace Version1.LogicLayer
 {
@@ -199,7 +200,7 @@ namespace Version1.LogicLayer
             return StoreLogic.GetStorePolicy(storeName);
         }
 
-        public bool UpdateStorePolicy(string storeName, string newPolicy)
+        public bool UpdateStorePolicy(string storeName, IPurchasePolicy newPolicy)
         {
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }

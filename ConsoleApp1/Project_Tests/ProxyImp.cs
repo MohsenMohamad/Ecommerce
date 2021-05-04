@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1;
-using Version1.domainLayer;
-using Version1.domainLayer.DataStructures;
-using Version1.domainLayer.UserRoles;
+using Version1.domainLayer.StorePolicies;
 using Version1.Service_Layer;
 
 
@@ -127,6 +125,13 @@ namespace Project_tests
             if (real == null)
                 return null;
             return real.GetCartByStore(userName, storeName);
+        }
+
+        public bool UpdatePurchasePolicy(string storeName, IPurchasePolicy policy)
+        {
+            if (real == null)
+                return true;
+            return real.UpdatePurchasePolicy(storeName, policy);
         }
 
         public bool initSystem(string admin)

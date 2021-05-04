@@ -3,6 +3,7 @@ using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.StorePolicies;
 
 namespace Version1.LogicLayer
 {
@@ -188,13 +189,12 @@ namespace Version1.LogicLayer
             return history;
         }
 
-        public static bool UpdateStorePolicy(string storeName, string newPolicy)
+        public static bool UpdateStorePolicy(string storeName, IPurchasePolicy newPolicy)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) return false;
-        //    store.SetPurchasePolicies(newPolicy);
             
-            // update DataAccess
+            store.GetPurchasePolicies().Add(newPolicy);
 
             return true;
 

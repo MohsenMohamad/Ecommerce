@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.StorePolicies;
 using Version1.domainLayer.UserRoles;
 using Version1.LogicLayer;
 
@@ -332,7 +333,7 @@ namespace Version1.Service_Layer
             return notifications?.ToArray();
         }
 
-        public bool UpdatePurchasePolicy(string shopName, string policy)
+        public bool UpdatePurchasePolicy(string shopName, IPurchasePolicy policy)
         {
             return logicInstance.UpdateStorePolicy(shopName, policy);
         }
@@ -555,7 +556,14 @@ namespace Version1.Service_Layer
             /*--------------------------------------------------------------------------*/
             return true;
         }
+        
+        public bool SetStorePolicy(string userName, string storeName, IPurchasePolicy policy)
+        {
+            throw new NotImplementedException();
+        }
+        
         //do not use
+
         public ConcurrentDictionary<string,int> get_items_in_shop(string ownerName, string storeName)
         {
             return  logicInstance.GetProductsFromShop(storeName);

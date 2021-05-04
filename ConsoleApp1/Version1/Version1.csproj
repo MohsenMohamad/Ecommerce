@@ -66,6 +66,7 @@
     <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="domainLayer\Permissions.cs" />
     <Compile Include="domainLayer\StorePolicies\IPurchasePolicy.cs" />
+    <Compile Include="domainLayer\StorePolicies\MaxAmountPolicy.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
     <Compile Include="ExternalServices\ExternalSupplyService.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />

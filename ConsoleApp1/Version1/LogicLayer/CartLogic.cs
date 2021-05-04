@@ -69,6 +69,13 @@ namespace Version1.LogicLayer
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
                 {
                     var store = DataHandler.Instance.GetStore(basket.StoreName);
+
+                    foreach (var policy in store.GetPurchasePolicies())
+                    {
+                        if (!policy.Validate(basket))
+                            return false;
+                    }
+
                     foreach (var product in basket.Products.Keys.ToList())
                     {
                         var amount = basket.Products[product];

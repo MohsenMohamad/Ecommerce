@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Version1;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.StorePolicies;
 using Version1.domainLayer.UserRoles;
 
 
@@ -196,5 +197,11 @@ namespace Project_tests
         {
             return service.GetHashString(inputString);
         }
+
+        protected bool UpdatePurchasePolicy(string storeName, IPurchasePolicy policy)
+        {
+            return service.UpdatePurchasePolicy(storeName, policy);
+        }
+
     }
 }
