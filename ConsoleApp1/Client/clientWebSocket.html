@@ -1,0 +1,37 @@
+﻿<!--
+&lt;!&ndash;testing class of the websockets connection with the server&ndash;&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script>
+        var uri = "ws://localhost:8181/?user=1";
+        function connect() {
+            socket = new WebSocket(uri);
+
+            socket.onopen = function(event) {
+                console.log("opened connection to " + uri);
+            };
+            socket.onclose = function(event) {
+                console.log("closed connection from " + uri);
+            };
+            socket.onmessage = function(event) {
+                console.log(event.data);
+            };
+            socket.onerror = function(event) {
+                console.log("error: " + event.data);
+            };
+        }
+        connect();
+        function sendMessage(message) {
+            console.log("Sending: " + message);
+            socket.send(message);
+        }
+    </script>
+</head>
+<body>
+    <input id="Submit1" onclick="sendMessage('shady# shady Message TO the server')" type="submit" value="submit" />
+</body>
+</html>
+-->
