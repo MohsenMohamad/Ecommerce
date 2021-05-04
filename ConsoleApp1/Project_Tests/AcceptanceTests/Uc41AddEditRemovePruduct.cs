@@ -48,7 +48,7 @@ namespace Project_Tests.AcceptanceTests
             //addProductsToShop("user", storeName, product.Barcode, amount);
             
             //happy
-            Assert.True(getProductsFromShop("user", storeName)[0].Contains(productName));
+            Assert.True(getProductsFromShop("user", storeName).ContainsKey(product.Barcode));
             //bad
             Assert.True(addProductsToShop("user", storeName, product.Barcode, 50));
         }
@@ -56,15 +56,15 @@ namespace Project_Tests.AcceptanceTests
         public void TestUpdate()
         {
             //happy
-            updateProductsInShop("user", storeName, product.Barcode, amount - 1);
-            string newAmount = (amount - 1) + "";
-            Assert.True(getProductsFromShop("user",storeName)[0].Contains(newAmount)) ;
+            UpdateProductAmountInStore("user", storeName, product.Barcode, amount - 1);
+            int newAmount = (amount - 1);
+            Assert.True(getProductsFromShop("user",storeName).ContainsKey(product.Barcode) && getProductsFromShop("user",storeName)[product.Barcode] == newAmount) ;
             //bad
-            newAmount = (amount - 5)+ "";
-            updateProductsInShop("user", storeName, product2.Barcode,amount - 5 );
+            newAmount = (amount - 5);
+            UpdateProductAmountInStore("user", storeName, product2.Barcode,amount - 5 );
             foreach (var VARIABLE in getProductsFromShop("user",storeName))
             {
-                Assert.False(VARIABLE.Contains(newAmount));
+                Assert.False(VARIABLE.Value == (newAmount));
             }
             
         }
@@ -73,10 +73,10 @@ namespace Project_Tests.AcceptanceTests
         {
             
             //happy
-            Assert.True(removeProductsInShop( UserName, storeName, product.Barcode));
+            Assert.True(RemoveProductFromStore( UserName, storeName, product.Barcode));
             
             //bad
-            Assert.False(removeProductsInShop( UserName, storeName, product2.Barcode));
+            Assert.False(RemoveProductFromStore( UserName, storeName, product2.Barcode));
         }
     }
 }

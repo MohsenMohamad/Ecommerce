@@ -26,7 +26,7 @@ namespace Version1
         Dictionary<string,int> GetCartByStore(string userName, string storeName);
         
         
-        string[][] get_items_in_shop(string ownerName, string storeName);
+        ConcurrentDictionary<string,int> get_items_in_shop(string ownerName, string storeName);
         string[] getUsersStore(string userName, string storeName);
         bool MakeNewOwner(string storeName, string apointerid, string apointeeid);
         bool IsOwner(string storeName, string ownerName); 
@@ -41,8 +41,8 @@ namespace Version1
         bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName ,string productName,string shopName,int amount, List<string> categories);
         bool initSystem(string admin);
         bool addProductsToShop(string user,string shopName, string product, int amount);
-        bool removeProductsInShop(string user,string shopName, string product);
-        bool updateProductsInShop(string user,string shopName, string product, int amount);
+        bool RemoveProductFromStore(string userName, string storeName, string productBarcode);
+        bool UpdateProductAmountInStore(string userName,string storeName, string productBarcode, int amount);
         List<string> getPaymentInfo(string owner, string storeName);
         List<string> addPaymentInfo(string owner,string storeName,string info);
         List<string> updatePaymentInfo(string owner,string storeName,List<string> allInfo);
@@ -50,8 +50,8 @@ namespace Version1
         bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
             string productName, string descreption, string[] categories);
 
-        bool GetHash(string inputString);
-        bool GetHashString(string inputString);
+        string GetHash(string inputString);
+        string GetHashString(string inputString);
     }
     
 }

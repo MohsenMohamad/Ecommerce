@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
@@ -95,12 +98,15 @@ namespace Version1.LogicLayer
 
         public static string GetHashString(string inputString)
         {
-            byte[] encrypted = Hashing.GetHash("password");
-            var str = System.Text.Encoding.Default.GetString(encrypted);
-            string decrypted = Hashing.GetHashString(str);
-            if (decrypted.Equals("password"))
-                return decrypted;
-            return null;
+            try
+            {
+                var encrypt = Hashing.GetHashString(inputString);
+                return encrypt;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
     }

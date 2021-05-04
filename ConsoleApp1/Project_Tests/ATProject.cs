@@ -104,14 +104,14 @@ namespace Project_tests
             return service.addProductsToShop(user, shopName, product, amount);
         }
 
-        protected bool removeProductsInShop(string user, string shopName, string product)
+        protected bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
-            return service.removeProductsInShop(user, shopName, product);
+            return service.RemoveProductFromStore(userName, storeName, productBarcode);
         }
 
-        protected bool updateProductsInShop(string user, string shopName, string product, int amount)
+        protected bool UpdateProductAmountInStore(string userName,string storeName, string productBarcode, int amount)
         {
-            return service.updateProductsInShop(user, shopName, product, amount);
+            return service.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
         }
         
         protected List<string> getPaymentInfo(string owner, string storeName)
@@ -126,7 +126,7 @@ namespace Project_tests
         {
             return service.addPaymentInfo(owner, storeName,info);
         }
-        protected string[][] getProductsFromShop(string owner,string storeName)
+        protected ConcurrentDictionary<string,int> getProductsFromShop(string owner,string storeName)
         {
             return service.get_items_in_shop(owner, storeName);
         }
@@ -187,12 +187,12 @@ namespace Project_tests
             return service.Purchase(userName, creditCard);
         }
         
-        protected bool GetHash(string inputString)
+        protected string GetHash(string inputString)
         {
             return service.GetHash(inputString);
         }
 
-        protected bool GetHashString(string inputString)
+        protected string GetHashString(string inputString)
         {
             return service.GetHashString(inputString);
         }

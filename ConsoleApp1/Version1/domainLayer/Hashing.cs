@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Version1.domainLayer
 {
-    public class Hashing
+    public static class Hashing
     {
         /// <summary>
         /// Compute hash as bytes from input string

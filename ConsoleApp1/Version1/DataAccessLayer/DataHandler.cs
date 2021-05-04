@@ -7,6 +7,7 @@ namespace Version1.DataAccessLayer
 {
     public class DataHandler
     {
+        public object InefficientLock { get; set; }
         private static readonly object padlock = new object();
         private static DataHandler instance = null;
         internal ConcurrentDictionary<string, User> Users { get; }
@@ -24,6 +25,7 @@ namespace Version1.DataAccessLayer
             Stores = new ConcurrentDictionary<string, Store>();
             Products = new ConcurrentDictionary<string, Product>();
             Reviews = new List<Review>();
+            InefficientLock = new object();
         }
 
         public static DataHandler Instance

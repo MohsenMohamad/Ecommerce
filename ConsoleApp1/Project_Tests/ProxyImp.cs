@@ -145,22 +145,22 @@ namespace Project_tests
             return real.addProductsToShop(user,shopName,product,amount);
         }
 
-        public bool removeProductsInShop(string user,string shopName, string product)
+        public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             if (real == null)
             {
                 return false;    
             }
-            return real.removeProductsInShop( user,shopName,product);
+            return real.RemoveProductFromStore( userName,storeName,productBarcode);
         }
 
-        public bool updateProductsInShop(string user,string shopName, string product, int amount)
+        public bool UpdateProductAmountInStore(string userName,string storeName, string productBarcode, int amount)
         {
             if (real == null)
             {
                 return false;    
             }
-            return real.updateProductsInShop( user,shopName,product,amount);
+            return real.UpdateProductAmountInStore(userName,storeName,productBarcode,amount);
         }
         
         public List<string> getPaymentInfo(string owner,string storeName)
@@ -205,7 +205,7 @@ namespace Project_tests
                 descreption, categories);
         }
 
-        public string[][] get_items_in_shop(string owner, string storeName)
+        public ConcurrentDictionary<string,int> get_items_in_shop(string owner, string storeName)
         {
             if (real == null)
             {
@@ -334,18 +334,14 @@ namespace Project_tests
             return real.getInfo(ownerUser, store);
         }
 
-        public bool GetHash(string inputString)
+        public string GetHash(string inputString)
         {
-            if (real == null)
-                return true;
-            return real.GetHash(inputString);
+            return real?.GetHash(inputString);
         }
 
-        public bool GetHashString(string inputString)
+        public string GetHashString(string inputString)
         {
-            if (real == null)
-                return true;
-            return real.GetHashString(inputString);
+            return real?.GetHashString(inputString);
         }
     }
 }

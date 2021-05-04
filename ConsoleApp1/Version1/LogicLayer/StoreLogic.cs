@@ -46,6 +46,39 @@ namespace Version1.LogicLayer
             return true;
         }
 
+        public static bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                var user = DataHandler.Instance.GetUser(userName);
+                var store = DataHandler.Instance.GetStore(storeName);
+                var product = DataHandler.Instance.GetProduct(productBarcode);
+
+                if (user == null || store == null || product == null) return false;
+                
+                var inventory = store.GetInventory();
+                if (!inventory.ContainsKey(productBarcode)) return false;
+                inventory[productBarcode]= amount;
+                return true;
+            }
+        }
+
+
+        public static bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                var user = DataHandler.Instance.GetUser(userName);
+                var store = DataHandler.Instance.GetStore(storeName);
+                var product = DataHandler.Instance.GetProduct(productBarcode);
+
+                if (user == null || store == null || product == null) return false;
+
+                var inventory = store.GetInventory();
+                return inventory.ContainsKey(productBarcode) && inventory.TryRemove(productBarcode, out _);
+            }
+        }
+
         public static List<string> GetStoreOwners(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);

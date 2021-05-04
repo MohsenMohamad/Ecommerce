@@ -37,17 +37,16 @@ namespace Version1.LogicLayer
             return new List<string>();
         }
 
-        public static ConcurrentDictionary<Product, int> GetProductsFromShop(string storeName)
+        public static ConcurrentDictionary<string, int> GetProductsFromShop(string storeName)
         {
-            var products = new ConcurrentDictionary<Product, int>();
+            var products = new ConcurrentDictionary<string, int>();
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null)
                 return null;
             var inventory = store.GetInventory();
             foreach (var barcode in inventory.Keys)
             {
-                var product = DataHandler.Instance.GetProduct(barcode);
-                products.TryAdd(product, inventory[barcode]);
+                products.TryAdd(barcode, inventory[barcode]);
             }
             return products;
         }

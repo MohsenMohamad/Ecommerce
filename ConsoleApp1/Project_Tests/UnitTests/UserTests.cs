@@ -35,13 +35,10 @@ namespace Project_Tests.UnitTests
         [Test]
         public void Login()
         {
-            if (!Register(TestUserName, TestUserPassword))
-            {
-                Assert.Fail("fail to regist");
-            }
+
             //User user1 = new User("yara", "123");
-            long UserId = UserLogic.GuestLogin();
-            if (UserId == -1)
+            var userId = GuestLogin();
+            if (userId == -1)
             {
                 Assert.Fail("fail to login ");
             }
@@ -52,31 +49,18 @@ namespace Project_Tests.UnitTests
         [Test]
         public void Logout()
         {
-            if (!Register(TestUserName, TestUserPassword))
-            {
-                Assert.Fail("fail to regist");
-            }
-            long UserId = UserLogic.GuestLogin();
-            if (UserId == -1)
+
+            var userId = GuestLogin();
+            if (userId == -1)
             {
                 Assert.Fail("fail to login ");
             }
-            if (!UserLogic.UserLogout(TestUserName))
+            if (!GuestLogout(userId))
             {
                 Assert.Fail("fail to logout");
             }
             Assert.IsTrue(true);
         }
-
-        [Test]
-        public void Register()
-        {
-            if (!Register(TestUserName, TestUserPassword))
-            {
-                Assert.Fail("fail to regist");
-            }
-            Assert.IsTrue(true);
-        }
-
+        
     }
 }

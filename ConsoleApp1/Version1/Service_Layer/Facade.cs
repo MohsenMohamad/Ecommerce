@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
-using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.UserRoles;
 using Version1.LogicLayer;
@@ -20,7 +20,8 @@ namespace Version1.Service_Layer
         
         public bool Login(string username, string password)
         {
-            return logicInstance.UserLogin(username, password);
+            var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
+            return hashPassword != null && logicInstance.UserLogin(username, hashPassword);
         }
 
         public long GuestLogin()
@@ -35,7 +36,8 @@ namespace Version1.Service_Layer
 
         public bool Register(string username, string password)
         {
-            return logicInstance.Register(username, password);
+            var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
+            return hashPassword != null && logicInstance.Register(username, hashPassword);
         }
 
         
@@ -111,7 +113,7 @@ namespace Version1.Service_Layer
             var productsList = new List<string>();
             foreach (var product in products.Keys)
             {
-                productsList.Add(product.Barcode);
+                productsList.Add(product);
             }
             var result = ProductsTo2DStringArray(productsList);
             return result;
@@ -243,7 +245,7 @@ namespace Version1.Service_Layer
 
         public bool UpdateProduct(string userName, string shopName, string barcode, int amount)
         {
-            return updateProductsInShop(userName, shopName, barcode, amount);
+            return UpdateProductAmountInStore(userName, shopName, barcode, amount);
         }
 
         
@@ -450,7 +452,7 @@ namespace Version1.Service_Layer
         
         public bool AdminInitSystem()
         {
-            var facade = new Facade();
+            
             /* ----------------------------  users -------------------------------*/
 
             Register("mohamedm", "1111");
@@ -551,9 +553,9 @@ namespace Version1.Service_Layer
             return true;
         }
         //do not use
-        public string[][] get_items_in_shop(string ownerName, string storeName)
+        public ConcurrentDictionary<string,int> get_items_in_shop(string ownerName, string storeName)
         {
-            return get_items_in_shop(storeName);
+            return  logicInstance.GetProductsFromShop(storeName);
         }
         //todo makesure of the username's permission
         public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
@@ -596,13 +598,17 @@ namespace Version1.Service_Layer
         
         /* ******************* high priority todo all this function for the tests ********************* */
         //1
-        public bool updateProductsInShop(string userName, string shopName, string product, int amount)
+
+        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
-            throw new NotImplementedException();
-        }//2
-        public bool removeProductsInShop(string user, string shopName, string product)
+            return logicInstance.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
+
+        }
+
+        //2
+        public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
-            throw new NotImplementedException();
+            return logicInstance.RemoveProductFromStore(userName,storeName,productBarcode);
         }//3
         public string getInfo(string user, string store)
         {

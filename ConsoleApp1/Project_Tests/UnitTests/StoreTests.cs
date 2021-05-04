@@ -16,7 +16,7 @@ namespace Project_Tests.UnitTests
         private const string TestOwnerName = "member";
         private const string TestOwnerPassword = "member";
         private const string TestStorePolicy = "policy";
-        private User user = new User("Admin", "Admin");
+        
         [SetUp]
         public void Setup()
         {
@@ -38,14 +38,14 @@ namespace Project_Tests.UnitTests
 
         }
 
-
+        [Test]
         public void Open_Store()
         {
-            if (!UserLogin("Admin", "Admin"))
+            if (!UserLogin("member", "member"))
             {
                 Assert.Fail("fail to login");
             }
-            if (!OpenStore(TestOwnerName, TestStorePolicy, StoreName))
+            if (!OpenStore(TestOwnerName, StoreName, TestStorePolicy))
             {
                 Assert.Fail("fail to open store");
             }
