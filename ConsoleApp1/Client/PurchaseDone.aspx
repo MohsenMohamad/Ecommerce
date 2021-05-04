@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td>
-            <img src="img/done.gif" alt="gif image" class="auto-style19" /></td>
+            <img  src="img/done.gif" alt="gif image" class="auto-style19" /></td>
             <td>&nbsp;</td>
         </tr>
     </table>

@@ -159,6 +159,7 @@
     <Content Include="img\select-button-png-md.png" />
     <Content Include="img\select-button-png-th.png" />
     <Content Include="img\shopping_cart_black_72x72.png" />
+    <Content Include="img\tenor.gif" />
     <Content Include="MyShops.aspx" />
     <Content Include="Notifications.aspx" />
     <Content Include="Open_shop.aspx" />

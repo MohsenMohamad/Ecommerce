@@ -15,7 +15,6 @@ namespace ServerApi
     {
         public void Configuration(IAppBuilder appBuilder)
         {
-
             HttpConfiguration CONFIG = new HttpConfiguration();
             CONFIG.EnableCors();
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
@@ -76,7 +77,7 @@ namespace Version1.DataAccessLayer
 
         internal bool Login(string userName, string password)
         {
-            if (!Exists(userName)) return false;
+            if (!Exists(userName)) { throw new Exception("fuck"); }
             
             var user = (User)GetUser(userName);
             return user.Password.Equals(password);

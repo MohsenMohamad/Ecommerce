@@ -63,7 +63,6 @@ namespace Client
                     if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
                     LabelPasword.Visible = true;
                 }
-                //  Response.Redirect(Request.RawUrl);
             }
                 else
                 {

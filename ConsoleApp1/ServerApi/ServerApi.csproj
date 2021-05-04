@@ -115,11 +115,8 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShopServiceController.cs" />
+    <Compile Include="facadeController.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="InventoryHandler.cs" />
-    <Compile Include="SysAdminHandler.cs" />
-    <Compile Include="UserServiceController .cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
