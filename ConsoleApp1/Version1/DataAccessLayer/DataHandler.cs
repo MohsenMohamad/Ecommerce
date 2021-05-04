@@ -79,7 +79,7 @@ namespace Version1.DataAccessLayer
 
         internal bool Login(string userName, string password)
         {
-            if (!Exists(userName)) { throw new Exception("fuck"); }
+            if (!Exists(userName)) return false; 
             
             var user = (User)GetUser(userName);
             return user.Password.Equals(password);
@@ -166,7 +166,7 @@ namespace Version1.DataAccessLayer
             Reviews.Add(new Review(userName, desc));
         }
         
-        private static long IsGuest(string userName)
+        internal long IsGuest(string userName)
         {
             var result = long.TryParse(userName, out var id);
             if (!result) return -1;

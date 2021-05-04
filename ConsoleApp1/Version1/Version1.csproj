@@ -68,8 +68,6 @@
     <Compile Include="domainLayer\StorePolicies\IPurchasePolicy.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
     <Compile Include="ExternalServices\ExternalSupplyService.cs" />
-    <Compile Include="ExternalServices\Mockups\ExternalFinanceServiceMock.cs" />
-    <Compile Include="ExternalServices\Mockups\ExternalSupplyServiceMock.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
     <Compile Include="domainLayer\Discount.cs" />
     <Compile Include="domainLayer\UserRoles\StoreManager.cs" />

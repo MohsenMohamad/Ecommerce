@@ -1,29 +1,35 @@
-﻿namespace Version1.ExternalServices
+﻿using System.Collections.Generic;
+
+namespace Version1.ExternalServices
 {
     public class ExternalFinanceService
     {
+        public static List<string> log;
         private ExternalFinanceService()
         {
-
+            log = new List<string> {"connected"};
         }
 
-        public static ExternalFinanceService createConnection()
+        public static ExternalFinanceService CreateConnection()
         {
             return new ExternalFinanceService();
         }
 
-        public bool acceptPurchase(double total_price,string card_number)
+        public bool AcceptPurchase(double totalPrice,string cardNumber)
         {
+            log.Add("accept");
             return true;
         }
 
-        public bool denyPurchase(double total_price, string card_number)
+        public bool DenyPurchase(double totalPrice, string cardNumber)
         {
+            log.Add("deny");
             return false;
         }
 
-        public bool returnPayment(double total_price,string card_number)
+        public bool ReturnPayment(double totalPrice,string cardNumber)
         {
+            log.Add("return");
             return true;
         }
     }

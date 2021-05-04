@@ -73,7 +73,7 @@ namespace Project_tests.ConcurrencyTests
         [Test]
         public void ShouldFail()
         {
-            // adding a product with 0 current amount and buying at the same time (sometimes fails sometimes works)
+            // adding an amount to a product with 0 current amount and buying at the same time (sometimes fails sometimes works)
             
             AddProductToStore("adnan", "AdnanStore", "1", 2);
             AddProductToCart("User1", "AdnanStore", "1", 2);
