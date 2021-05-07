@@ -9,7 +9,9 @@
     </asp:ContentPlaceHolder>
 </head>
     <style>
+
         body {
+             background-color: skyblue; 
             font-family: Arial, Helvetica, sans-serif;
         }
         form {

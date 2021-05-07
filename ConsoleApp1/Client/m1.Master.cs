@@ -21,8 +21,6 @@ namespace Client
             Notifications.Visible = false;
             InitSystem.Visible = false;
 
-
-
             if (Session["isLogin"] != null)
             {
                 OpenShop.Visible = true;
