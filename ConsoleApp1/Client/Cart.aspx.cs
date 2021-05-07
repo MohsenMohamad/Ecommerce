@@ -110,18 +110,22 @@ namespace Client
         protected void Button3_Click(object sender, EventArgs e)
         {
             ShopHandler s = new ShopHandler();
-            if (TextBoxCreditcard.Text.Length == 0) {
+            if (TextBoxCreditcard.Text.Length == 0)
+            {
                 Labelerrorcreditcard.Visible = true;
             }
             else if (TextBoxaddress.Text.Length == 0)
             {
                 Labelerroraddress.Visible = true;
             }
-            else {
-                s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString());
-
+            else
+            {
+                bool buy = s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString());
+                if (buy)
+                {
+                    Response.Redirect("~/PurchaseDone.aspx");
+                }
             }
-            Response.Redirect("~/PurchaseDone.aspx");
 
         }
     }

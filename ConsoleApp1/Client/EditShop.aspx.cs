@@ -22,7 +22,7 @@ namespace Client
                 table4.Visible = false;
                 table5.Visible = false;
                 Labelerrorbarcode.Visible = false;
-                firegif.Visible = false;
+                firegif.Visible = true;
 
             }
             else { }
@@ -240,6 +240,8 @@ namespace Client
                 DropDownList5.Items.Clear();
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            firegif.Visible = true;
+
         }
     }
 }

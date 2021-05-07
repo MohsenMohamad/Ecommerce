@@ -43,6 +43,10 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
 
+               if(user == null || user.shoppingCart.shoppingBaskets.Values.Count == 0)
+               {
+                    return false;
+               }
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
                 {
                     var store = DataHandler.Instance.GetStore(basket.StoreName);
