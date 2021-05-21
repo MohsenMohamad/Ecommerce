@@ -328,7 +328,7 @@ namespace Version1.Service_Layer
         // products : <string,List<string>> = <storeName,List<barcode>>
         private string[][] ProductsTo2DStringArray(Dictionary<string, List<string>> products)
         {
-            string[][] result = new string[products.Count][];
+            string[][] result = new string[products.Values.SelectMany(p => p).Count()][];
             int index = 0;
 
             foreach (var storeProducts in products)

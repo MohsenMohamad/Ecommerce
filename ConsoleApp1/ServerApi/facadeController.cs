@@ -26,16 +26,21 @@ namespace ServerApi
             return facade.GetAllStores();
         }
         [HttpGet]
-        public bool addItemToStore(string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string[] catagories)
+        public bool addItemToStore(string ownername,string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
             Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
             //todo check if works from mohsen!
-            if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
-            {
-                return facade.AddItemToStore(shopName, itemBarCode, amount);
-            }
+/*            if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
+            {*/
+                return facade.AddProductToStore(ownername, shopName, itemBarCode, item_name,descreption,price, catagorie, amount);
+          /*  }*/
             //the item barcode does not match the ProductName in the inventory. 
-            return false;
+        }
+
+        [HttpGet]
+        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        {
+            return facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
         }
 
         [HttpGet]
@@ -102,7 +107,7 @@ namespace ServerApi
             return output;
 
         }
-
+/*
         [HttpGet]
         public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
            string categories)
@@ -113,17 +118,17 @@ namespace ServerApi
                 : productName + "with barcode:" + barcode + " has not been added to the system");
             return output;
 
-        }
+        }*/
 
-        [HttpGet]
-        public bool AddItemToStore(string shopName, string itemBarCode, int amount)
+      //  [HttpGet]
+        /*public bool AddItemToStore(string shopName, string itemBarCode, int amount)
         {
             bool output = facade.AddItemToStore(shopName, itemBarCode, amount);
             Logger.GetInstance().Event(output
                 ? " barcode: " + itemBarCode + " has been added to the shop : " + shopName
                 : " barcode: " + itemBarCode + " has not been added to the shop : " + shopName);
             return output;
-        }
+        }*/
         [HttpGet]
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {

@@ -223,3 +223,33 @@
 5/7/2021 5:54:03 PM: adnanhas LoggedIn   .
 5/7/2021 5:57:08 PM: Guest has connected with pid : 1  .
 5/7/2021 5:57:13 PM: adminhas LoggedIn   .
+5/21/2021 6:25:00 PM: Guest has connected with pid : 1  .
+5/21/2021 6:25:14 PM: adminhas LoggedIn   .
+5/21/2021 6:39:57 PM: Guest has connected with pid : 1  .
+5/21/2021 6:40:04 PM: adminhas LoggedIn   .
+5/21/2021 6:40:09 PM: Guest has connected with pid : 2  .
+5/21/2021 6:40:10 PM: adnanhas LoggedIn   .
+5/21/2021 6:40:39 PM: product with barcode 12222122 has been added to the shop AdnanStore  .
+5/21/2021 6:40:44 PM: product with barcode 12222122 has been added to the shop AdnanStore  .
+5/21/2021 6:45:46 PM: Guest has connected with pid : 1  .
+5/21/2021 6:45:52 PM: adminhas LoggedIn   .
+5/21/2021 6:45:58 PM: Guest has connected with pid : 2  .
+5/21/2021 6:46:00 PM: adnanhas LoggedIn   .
+5/21/2021 6:46:19 PM: product with barcode 222222222222 has been added to the shop AdnanStore  .
+5/21/2021 6:46:22 PM: product with barcode 222222222222 has been added to the shop AdnanStore  .
+5/21/2021 6:48:23 PM: Guest has connected with pid : 1  .
+5/21/2021 6:48:29 PM: adminhas LoggedIn   .
+5/21/2021 6:48:45 PM: Guest has connected with pid : 2  .
+5/21/2021 6:48:47 PM: adnanhas LoggedIn   .
+5/21/2021 6:49:30 PM: product with barcode 123456 has been added to the shop AdnanStore  .
+5/21/2021 6:50:48 PM: product with barcode 1234563232 has been added to the shop AdnanStore  .
+5/21/2021 6:52:04 PM: adnan could not add product :1234563232form store: AdnanStore to his Basket  .
+5/21/2021 6:52:13 PM: adnan has has added product :1234563232form store: AdnanStore to his Basket  .
+5/21/2021 6:53:45 PM: product with barcode 5555 has been added to the shop AdnanStore  .
+5/21/2021 6:53:48 PM: product with barcode 5555 has been added to the shop AdnanStore  .
+5/21/2021 6:54:01 PM: adnan could not add product :5555form store: AdnanStore to his Basket  .
+5/21/2021 6:54:12 PM: adnan could not add product :5555form store: AdnanStore to his Basket  .
+5/21/2021 6:54:20 PM: adnan has has added product :123456form store: AdnanStore to his Basket  .
+5/21/2021 6:54:29 PM: adnan has has added product :5555form store: AdnanStore to his Basket  .
+5/21/2021 6:54:40 PM: adnan has has added product :5555form store: AdnanStore to his Basket  .
+5/21/2021 6:55:17 PM: Guest has connected with pid : 3  .
