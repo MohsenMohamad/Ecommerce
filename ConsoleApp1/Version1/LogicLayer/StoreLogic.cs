@@ -30,9 +30,9 @@ namespace Version1.LogicLayer
                       return false;
               }*/
 
-            var product = new Product(productName, description, barcode, price, categories);
-
-            return DataHandler.Instance.AddProduct(product, storeName) && store.GetInventory().TryAdd(product, amount);
+            var product = new Product(barcode,productName, description, price, categories);
+        
+            return store.GetInventory().TryAdd(product, amount);
 
         }
 

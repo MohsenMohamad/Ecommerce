@@ -9,7 +9,7 @@ namespace Version1.domainLayer.DataStructures
         private List<string> categories;
         private double price;
         
-        public Product(string name,string desc,string barcode,double price, List<string> categories)
+        public Product(string barcode,string name,string desc,double price, List<string> categories)
         {
             description = desc;
             this.barcode = barcode;

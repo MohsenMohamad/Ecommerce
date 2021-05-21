@@ -132,13 +132,6 @@ namespace Version1.DataAccessLayer
 
 //------------------------------------------ Product ------------------------------------------//
 
-        internal bool AddProduct(Product product, string storeName)
-        {
-            var store = GetStore(storeName);
-            if (store == null) return false;
-            var storeProducts = store.GetInventory();
-            return !storeProducts.ContainsKey(product) && storeProducts.TryAdd(product, 0);
-        }
 
         internal Product GetProduct(string barcode, string storeName)
         {

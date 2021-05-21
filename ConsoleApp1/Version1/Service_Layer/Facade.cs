@@ -173,12 +173,14 @@ namespace Version1.Service_Layer
         {
             return Purchase(buyer, "111");
         }
-
+        
+        
+        // change this so it calls addProductToStore
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName,
             string desc, int amount,
             List<string> categories)
         {
-            return UpdateProduct(storeOwnerName, productName, productName, amount);
+            return UpdateProductAmountInStore(storeOwnerName, storeName, productName, amount);
         }
 
 
@@ -196,7 +198,6 @@ namespace Version1.Service_Layer
         // appoint to different permission from a *table* of permissions.
         public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {
-            Console.WriteLine(storeName + " " + apointerid + " " + apointeeid + " " + permissions + " ");
             return logicInstance.AddManager(storeName, apointerid, apointeeid, permissions);
         }
 
@@ -215,14 +216,7 @@ namespace Version1.Service_Layer
         {
             return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount);
         }
-
-
-        public bool UpdateProduct(string userName, string shopName, string barcode, int amount)
-        {
-            return UpdateProductAmountInStore(userName, shopName, barcode, amount);
-        }
-
-
+        
         public bool OpenStore(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName, shopName, policy);
