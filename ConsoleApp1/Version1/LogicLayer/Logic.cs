@@ -162,12 +162,6 @@ namespace Version1.LogicLayer
             return StoreLogic.RemoveManager(storeName, apointeeid);
         }
 
-        public bool AddNewProduct(string barcode, string productName, string description, double price,
-            List<string> categories)
-        {
-            return InventoryLogic.AddNewProduct(barcode, productName, description, price, categories);
-        }
-
         public List<string> GetBasketProducts(string userName, string storeName)
         {
             return CartLogic.GetBasketProducts(userName, storeName);
@@ -205,14 +199,15 @@ namespace Version1.LogicLayer
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
 
-        public List<string> SearchByKeyWord(string keyWord)
+        public Dictionary<string,List<string>> SearchByKeyWord(string keyWord)
         {
             return InventoryLogic.SearchByKeyWord(keyWord);
         }
 
-        public bool AddProductToStore(string shopName, string barcode, int amount)
+        public bool AddProductToStore(string storeName, string barcode, string productName, string description, double price,
+            List<string> categories, int amount)
         {
-            return StoreLogic.AddProductToStore(shopName, barcode, amount);
+            return StoreLogic.AddProductToStore(storeName, barcode,productName,description,price,categories, amount);
         }
 
         public bool IsManger(string storeName, string mangerName)
@@ -220,14 +215,14 @@ namespace Version1.LogicLayer
             return StoreLogic.IsManger(storeName, mangerName);
         }
 
-        public Dictionary<string, Product> GetInventory()
-        {
-            return InventoryLogic.GetInventory();
-        }
-
-        public ConcurrentDictionary<string, int> GetProductsFromShop(string storeName)
+        public ConcurrentDictionary<string, int> GetStoreInventory(string storeName)
         {
             return InventoryLogic.GetProductsFromShop(storeName);
+        }
+
+        public List<string> GetStoreProducts(string storeName)
+        {
+            return StoreLogic.GetStoreProducts(storeName);
         }
 
         public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)

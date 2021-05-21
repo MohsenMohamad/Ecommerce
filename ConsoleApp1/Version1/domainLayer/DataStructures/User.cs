@@ -34,10 +34,6 @@ namespace Version1.domainLayer.DataStructures
         {
             return notifications;
         }
-
-        internal void AddNotification(string notification)
-        {
-            notifications.Add(notification);
-        }
+        
     }
 }

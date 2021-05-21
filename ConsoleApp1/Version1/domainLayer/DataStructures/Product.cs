@@ -23,28 +23,9 @@ namespace Version1.domainLayer.DataStructures
         public string Description { get => description; }
         public List<string> Categories { get => categories; }
         public double Price { get => price;  }
-        // functions
-        public bool AddCategory(string cat)
-        {
-            if (Categories.Contains(cat))
-            {
-                Categories.Add(cat);
-                return true;
-            }
-            
-            return false;
-        }
-        public bool RemoveCategory(string cat)
-        {
-            if (Categories.Contains(cat))
-            {
-                Categories.Remove(cat);
-                return true;
-            }
-            else return false;
-        }
-
         
+        
+
         public override string ToString()
         {
             string output = "";

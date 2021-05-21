@@ -18,23 +18,5 @@ namespace Version1.domainLayer.DataStructures
                 return null;
             return shoppingBaskets[storeName];
         }
-        public bool AddBasket(ShoppingBasket shoppingBasket)
-        {
-            if (shoppingBaskets.ContainsKey(shoppingBasket.StoreName))
-                return false;
-            shoppingBaskets.Add(shoppingBasket.StoreName,shoppingBasket);
-            return true;
-        }
-        public bool RemoveBasket(ShoppingBasket shoppingBasket)
-        {
-            return shoppingBaskets.Remove(shoppingBasket.StoreName);
-        }
-
-        public bool AddProductToBasket(string storeName, string productBarCode, int amount)
-        {
-            if (!shoppingBaskets.ContainsKey(storeName))
-                AddBasket(new ShoppingBasket(storeName));
-            return shoppingBaskets[storeName].AddProduct(productBarCode, amount);
-        }
     }
 }

@@ -48,7 +48,7 @@ namespace ServerApi
         public bool OpenShop(string userName, string shopName, string policy)
         {
             Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
-            return facade.OpenShop(userName, shopName, policy);
+            return facade.OpenStore(userName, shopName, policy);
         }
 
         [HttpGet]

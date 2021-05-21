@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer;
+using System.Linq;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.DataAccessLayer
 {
     public class DataHandler
     {
-        public object InefficientLock { get; set; }
-        private static readonly object padlock = new object();
-        private static DataHandler instance = null;
+        public object InefficientLock { get; }
+        private static readonly object Padlock = new object();
+        private static DataHandler _instance = null;
         internal ConcurrentDictionary<string, User> Users { get; }
         private ConcurrentDictionary<long, Guest> Guests { get; }
-        internal ConcurrentDictionary<string,Category> Categories { get; }
-        internal ConcurrentDictionary<string, Product> Products { get; }
+        private ConcurrentDictionary<string, Category> Categories;
         internal ConcurrentDictionary<string, Store> Stores { get; }
         private List<Review> Reviews { get; }
 
@@ -24,8 +22,8 @@ namespace Version1.DataAccessLayer
             Users = new ConcurrentDictionary<string, User>();
             Guests = new ConcurrentDictionary<long, Guest>();
             Stores = new ConcurrentDictionary<string, Store>();
-            Products = new ConcurrentDictionary<string, Product>();
             Reviews = new List<Review>();
+            Categories = new ConcurrentDictionary<string, Category>();
             InefficientLock = new object();
         }
 
@@ -33,14 +31,14 @@ namespace Version1.DataAccessLayer
         {
             get
             {
-                lock (padlock)
+                lock (Padlock)
                 {
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = new DataHandler();
+                        _instance = new DataHandler();
                     }
 
-                    return instance;
+                    return _instance;
                 }
             }
         }
@@ -49,9 +47,9 @@ namespace Version1.DataAccessLayer
 
         internal bool AddGuest(Guest guest)
         {
-            return Guests.TryAdd(guest.GetId(),guest);
+            return Guests.TryAdd(guest.GetId(), guest);
         }
-        
+
         internal bool AddUser(User user)
         {
             return Users.TryAdd(user.UserName, user);
@@ -79,9 +77,9 @@ namespace Version1.DataAccessLayer
 
         internal bool Login(string userName, string password)
         {
-            if (!Exists(userName)) return false; 
-            
-            var user = (User)GetUser(userName);
+            if (!Exists(userName)) return false;
+
+            var user = (User) GetUser(userName);
             return user.Password.Equals(password);
         }
 
@@ -89,7 +87,7 @@ namespace Version1.DataAccessLayer
         {
             return GetUser(username) != null;
         }
-        
+
 //------------------------------------------ Store ------------------------------------------//
 
         internal bool AddStore(Store store)
@@ -121,19 +119,10 @@ namespace Version1.DataAccessLayer
             }
         }
 
-        internal bool SendMessageToStore(string msg, string storeName)
-        {
-            if (!Stores.ContainsKey(storeName))
-                return false;
-
-            Stores[storeName].ReceiveMsg(msg);
-            return true;
-        }
-
         public string GetStoresInfo()
         {
             var output = "the list of stores:";
-            foreach(var store in Stores.Values)
+            foreach (var store in Stores.Values)
             {
                 output += "---------------------/n" + store.ToString();
             }
@@ -143,29 +132,53 @@ namespace Version1.DataAccessLayer
 
 //------------------------------------------ Product ------------------------------------------//
 
-        internal bool AddProduct(Product product)
+        internal bool AddProduct(Product product, string storeName)
         {
-            lock (Products)
+            var store = GetStore(storeName);
+            if (store == null) return false;
+            var storeProducts = store.GetInventory();
+            return !storeProducts.ContainsKey(product) && storeProducts.TryAdd(product, 0);
+        }
+
+        internal Product GetProduct(string barcode, string storeName)
+        {
+            var store = GetStore(storeName);
+            if (store == null) return null;
+            foreach (var product in store.GetInventory().Keys)
             {
-                if (Products.ContainsKey(product.Barcode))
-                    return false;
-                Products.TryAdd(product.Barcode, product);
-                return true;
+                if (product.Barcode.Equals(barcode))
+                    return product;
             }
+
+            return null;
         }
-        internal Product GetProduct(string barcode)
+        
+        public bool RemoveProduct(string productBarcode, string storeName)
         {
-            if (!Products.ContainsKey(barcode))
-                return null;
-            return Products[barcode];
+            var store = GetStore(storeName);
+            var product = GetProduct(storeName, productBarcode);
+            if (store == null || product == null) return false;
+            return store.GetInventory().TryRemove(product, out _);
         }
-        
-        
+
+        internal Dictionary<string, List<Product>> GetAllProducts()
+        {
+            var products = new Dictionary<string, List<Product>>();
+            foreach (var store in Stores.Values)
+            {
+                var storeProducts = store.GetInventory();
+                products.Add(store.GetName(),storeProducts.Keys.ToList());
+            }
+
+            return products;
+        }
+
+
         internal void AddReview(string userName, string desc)
         {
             Reviews.Add(new Review(userName, desc));
         }
-        
+
         internal long IsGuest(string userName)
         {
             var result = long.TryParse(userName, out var id);

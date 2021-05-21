@@ -15,14 +15,14 @@ namespace Version1.domainLayer.DataStructures
         private Dictionary<string,List<string>> owners { get; } // key : owner name , value : appointed owners
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
-        private ConcurrentDictionary<string,int> inventory { get; }
+        private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
         
         
         public Store(string owner,string name)
         {
             purchasePolicies = new List<IPurchasePolicy>();
             managers = new Dictionary<string, int>();
-            inventory = new ConcurrentDictionary<string, int>();
+            inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
             owners = new Dictionary<string, List<string>> {{owner, new List<string>()}};
@@ -96,7 +96,7 @@ namespace Version1.domainLayer.DataStructures
             return discounts;
         }
         
-        public ConcurrentDictionary<string, int> GetInventory()
+        public ConcurrentDictionary<Product, int> GetInventory()
         {
             return inventory;
         }
@@ -113,72 +113,5 @@ namespace Version1.domainLayer.DataStructures
             purchasePolicies = newPolicies;
         }
         
-
-        internal void ReceiveMsg(string msg)
-        {
-            notifications.Add(msg);
-        }
-
-        public bool AddDiscount(Discount dis)
-        {
-            if (discounts.Contains(dis))
-                return false;
-            discounts.Add(dis);
-            return true;
-        }
-        public bool RemoveDiscount(Discount dis)
-        {
-            if (!discounts.Contains(dis))
-                return false;
-            discounts.Remove(dis);
-            return true;
-        }
-        public bool AddPurchase(Purchase purchase)
-        {
-            if (history.Contains(purchase))
-                return false;
-            history.Add(purchase);
-            return true;
-        }
-        public bool RemovePurchase(Purchase purchase)
-        {
-            if (!history.Contains(purchase))
-                return false;
-            history.Remove(purchase);
-            return true;
-        }
-        public void addProduct(string pr, int amount)
-        {
-            if (inventory.ContainsKey(pr))
-                inventory[pr] = inventory[pr] +amount;
-            else if(amount>=0) inventory[pr] = amount;
-
-        }
-        public bool RemoveProduct(string pr, int amount)
-        {
-            if (inventory.ContainsKey(pr) && inventory[pr] >= amount)
-            {
-                inventory[pr] = inventory[pr] - amount;
-                return true;
-            }
-            return false;
-
-        }
-        public bool RemoveProduct(string pr)
-        {
-            if (inventory.ContainsKey(pr))
-            {
-                inventory[pr] = 0;
-                return true;
-            }
-            return false;
-
-        }
-        public int Checkinventory(string pr)
-        {
-            if (inventory.ContainsKey(pr))
-                return (int)inventory[pr];
-            else return -1;
-        }
     }
 }

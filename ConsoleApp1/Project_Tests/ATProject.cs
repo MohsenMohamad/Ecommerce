@@ -48,12 +48,6 @@ namespace Project_tests
         {
             return service.Logout(name);
         }
-        protected bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
-            string productName, string descreption, string[] categories)
-        {
-            return service.addNewProductToTheSystemAndAddItToShop(shopName, barcode, amount, price, productName,
-                descreption, categories);
-        }
 
         protected string[] GetAllLoggedInUsers()
         {
@@ -62,7 +56,7 @@ namespace Project_tests
         
         protected bool OpenStore(string managerName, string storeName, string policy)
         {
-            return service.OpenShop(managerName, storeName, policy);
+            return service.OpenStore(managerName, storeName, policy);
         }
         
         protected string GetStoreInfo(string userName, string storeName)
@@ -70,9 +64,10 @@ namespace Project_tests
             return service.GetStoreInfo(userName, storeName);
         }
 
-        protected bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
+        protected bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
+            string categories, int amount)
         {
-            return service.AddProductToStore(managerName, storeName, productCode, amount);
+            return service.AddProductToStore(managerName, storeName, barcode, productName, description, amount, categories, amount);
         }
 
         protected bool CheckStoreInventory(string storeName, Hashtable products)
@@ -100,11 +95,6 @@ namespace Project_tests
             return service.initSystem(admin);
         }
 
-        protected bool addProductsToShop(string user, string shopName, string product, int amount)
-        {
-            return service.addProductsToShop(user, shopName, product, amount);
-        }
-
         protected bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             return service.RemoveProductFromStore(userName, storeName, productBarcode);
@@ -127,9 +117,9 @@ namespace Project_tests
         {
             return service.addPaymentInfo(owner, storeName,info);
         }
-        protected ConcurrentDictionary<string,int> getProductsFromShop(string owner,string storeName)
+        protected ConcurrentDictionary<string,int> GetStoreInventory(string owner,string storeName)
         {
-            return service.get_items_in_shop(owner, storeName);
+            return service.GetStoreInventory(owner, storeName);
         }
         
         protected string[] getUsersStore(string userName,string  storeName)

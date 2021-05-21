@@ -15,12 +15,26 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productCode);
+                var product = DataHandler.Instance.GetProduct(productCode, storeName);
 
-                if (user == null || store == null || product == null)
+                if (user == null || store == null || product == null || amount < 0)
                     return false;
 
-                return user.GetShoppingCart().AddProductToBasket(storeName, productCode, amount);
+                var userCart = user.GetShoppingCart();
+                if (!userCart.shoppingBaskets.ContainsKey(storeName))
+                    userCart.shoppingBaskets.Add(storeName,new ShoppingBasket(storeName));
+                
+                var storeProducts = DataHandler.Instance.GetStore(storeName).GetInventory();
+                var userStoreBasket = userCart.GetBasket(storeName);
+                if (storeProducts.ContainsKey(product) && storeProducts[product] >= amount)
+                {
+                    if (userStoreBasket.Products.ContainsKey(product.Barcode))
+                        userStoreBasket.Products[product.Barcode] += amount;
+                    else userStoreBasket.Products.Add(product.Barcode, amount);
+                    return true;
+                }
+
+                return false;
             }
         }
 
@@ -43,19 +57,20 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
 
-               if(user == null || user.shoppingCart.shoppingBaskets.Values.Count == 0)
-               {
+                if (user == null || user.shoppingCart.shoppingBaskets.Values.Count == 0)
+                {
                     return false;
-               }
+                }
+
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
                 {
                     var store = DataHandler.Instance.GetStore(basket.StoreName);
                     foreach (var productAndAmount in basket.Products)
                     {
-                        var productBarcode = productAndAmount.Key;
+                        var product = DataHandler.Instance.GetProduct(productAndAmount.Key,basket.StoreName);
                         var amount = productAndAmount.Value;
-                        if (!store.GetInventory().ContainsKey(productBarcode) ||
-                            store.GetInventory()[productBarcode] < amount)
+                        if (product == null || !store.GetInventory().ContainsKey(product) ||
+                            store.GetInventory()[product] < amount)
                             return false;
                     }
                 }
@@ -80,20 +95,20 @@ namespace Version1.LogicLayer
                             return false;
                     }
 
-                    foreach (var product in basket.Products.Keys.ToList())
+                    foreach (var productBarcode in basket.Products.Keys.ToList())
                     {
-                        var amount = basket.Products[product];
-
-                        RemoveProductFromBasket(userName, store.GetName(), product);
+                        var product = DataHandler.Instance.GetProduct(productBarcode, basket.StoreName);
+                        var amount = basket.Products[productBarcode];
+                        RemoveProductFromBasket(userName, store.GetName(), product.Barcode);
                         store.GetInventory()[product] -= amount;
                     }
 
-                    store.AddPurchase(new Purchase());
+                    // store.AddPurchase(new Purchase());
                 }
 
                 if (DataHandler.Instance.IsGuest(userName) < 0)
                 {
-                    ((User)user).history.Add(new Purchase());
+                    ((User) user).history.Add(new Purchase());
                 }
 
                 return true;
@@ -106,7 +121,7 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode);
+                var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
                 if (user == null || store == null || product == null || newAmount < 0) return false;
 
@@ -123,7 +138,7 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode);
+                var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
                 if (user == null || store == null || product == null)
                     return false;
@@ -131,8 +146,18 @@ namespace Version1.LogicLayer
                 var cart = user.GetShoppingCart();
                 if (!cart.shoppingBaskets.ContainsKey(storeName))
                     return false;
-                var result = cart.shoppingBaskets[storeName].RemoveProduct(productBarcode, amount);
-                return result;
+
+                var storeBasketProducts = cart.shoppingBaskets[storeName].Products;
+
+                if (!storeBasketProducts.ContainsKey(productBarcode) || storeBasketProducts[productBarcode] < amount)
+                    return false;
+                storeBasketProducts[productBarcode] -= amount;
+                if (storeBasketProducts[productBarcode] == 0)
+                {
+                    storeBasketProducts.Remove(productBarcode);
+                }
+                // remove it if new amount = 0 ?
+                return true;
             }
         }
 
@@ -142,7 +167,7 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode);
+                var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
                 if (user == null || store == null || product == null)
                     return false;
@@ -150,7 +175,7 @@ namespace Version1.LogicLayer
 
                 if (!cart.shoppingBaskets.ContainsKey(storeName))
                     return false;
-                var result = cart.shoppingBaskets[storeName].RemoveProduct(productBarcode);
+                var result = cart.shoppingBaskets[storeName].Products.Remove(productBarcode);
                 return result;
             }
         }
@@ -221,7 +246,7 @@ namespace Version1.LogicLayer
                 double total = 0;
                 foreach (var productPair in basket.Products)
                 {
-                    var product = DataHandler.Instance.GetProduct(productPair.Key);
+                    var product = DataHandler.Instance.GetProduct(productPair.Key, storeName);
                     if (product == null) return -1;
 
                     var productTotalCost = product.Price * productPair.Value;
@@ -231,7 +256,8 @@ namespace Version1.LogicLayer
                 return total;
             }
         }
-
+        
+        
         public static string GetBasketInfo(string userName, string storeName)
         {
             var user = DataHandler.Instance.GetUser(userName);

@@ -9,7 +9,7 @@ using Version1.Service_Layer;
 namespace Project_tests
 {
     public class ProxyImp : GenInterface
-    {   
+    {
         private GenInterface real;
 
         public void SetReal(Facade realInstance)
@@ -19,9 +19,9 @@ namespace Project_tests
 
         public bool AdminInitSystem()
         {
-            if (real == null) 
-                return true;    
-            
+            if (real == null)
+                return true;
+
             return real.AdminInitSystem();
         }
 
@@ -58,9 +58,10 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return true;    
+                return true;
             }
-            return real.Login(name,password);
+
+            return real.Login(name, password);
         }
 
         public bool Logout(string name)
@@ -70,7 +71,7 @@ namespace Project_tests
             return real.Logout(name);
         }
 
-        public string[]  GetAllLoggedInUsers()
+        public string[] GetAllLoggedInUsers()
         {
             if (real == null)
                 return null;
@@ -78,11 +79,11 @@ namespace Project_tests
         }
 
 
-        public bool OpenShop(string managerName,string policy,string storeName)
+        public bool OpenStore(string managerName, string policy, string storeName)
         {
             if (real == null)
                 return true;
-            return real.OpenShop(managerName,policy,storeName);
+            return real.OpenStore(managerName, policy, storeName);
         }
 
         public string GetStoreInfo(string userName, string storeName)
@@ -99,11 +100,13 @@ namespace Project_tests
             return real.CheckStoreInventory(storeName, products);
         }
 
-        public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
+        public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
+            string description, double price,
+            string categories1, int amount)
         {
             if (real == null)
                 return true;
-            return real.AddProductToStore(managerName, storeName, productCode, amount);
+            return real.AddProductToStore(managerName, storeName, barcode, productName, description,price , categories1, amount);
         }
 
         public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
@@ -113,14 +116,14 @@ namespace Project_tests
             return real.SearchFilter(userName, sortOption, filters);
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode,int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
         {
             if (real == null)
                 return true;
-            return real.AddProductToBasket(userName, storeName, productCode,amount);
+            return real.AddProductToBasket(userName, storeName, productCode, amount);
         }
 
-        public Dictionary<string,int> GetCartByStore(string userName, string storeName)
+        public Dictionary<string, int> GetCartByStore(string userName, string storeName)
         {
             if (real == null)
                 return null;
@@ -141,90 +144,71 @@ namespace Project_tests
             return real.initSystem(admin);
         }
 
-        public bool addProductsToShop(string user,string shopName, string product, int amount)
-        {
-            if (real == null)
-            {
-                return false;    
-            }
-            return real.addProductsToShop(user,shopName,product,amount);
-        }
-
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
-            return real.RemoveProductFromStore( userName,storeName,productBarcode);
+
+            return real.RemoveProductFromStore(userName, storeName, productBarcode);
         }
 
-        public bool UpdateProductAmountInStore(string userName,string storeName, string productBarcode, int amount)
+        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
-            return real.UpdateProductAmountInStore(userName,storeName,productBarcode,amount);
+
+            return real.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
         }
-        
-        public List<string> getPaymentInfo(string owner,string storeName)
+
+        public List<string> getPaymentInfo(string owner, string storeName)
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
             return real.getPaymentInfo(owner, storeName);
         }
 
-        public List<string> addPaymentInfo(string owner,string storeName,string info)
+        public List<string> addPaymentInfo(string owner, string storeName, string info)
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
-            return real.addPaymentInfo(owner, storeName,info);
+            return real.addPaymentInfo(owner, storeName, info);
         }
 
-        public List<string> updatePaymentInfo(string owner,string storeName, List<string> allInfo)
+        public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
-            return real.updatePaymentInfo(owner, storeName ,allInfo);
+            return real.updatePaymentInfo(owner, storeName, allInfo);
         }
 
-        public bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount, double price,
-            string productName, string descreption, string[] categories)
+        public ConcurrentDictionary<string, int> GetStoreInventory(string owner, string storeName)
         {
             if (real == null)
             {
-                return false;    
+                return null;
             }
 
-            return real.addNewProductToTheSystemAndAddItToShop(shopName, barcode, amount, price, productName,
-                descreption, categories);
+            return real.GetStoreInventory(owner, storeName);
         }
 
-        public ConcurrentDictionary<string,int> get_items_in_shop(string owner, string storeName)
-        {
-            if (real == null)
-            {
-                return null;    
-            }
-
-            return real.get_items_in_shop(owner, storeName);
-        }
-        
         public string[] getUsersStore(string userName, string storeName)
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
             return real.getUsersStore(userName, storeName);
@@ -234,37 +218,37 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
-            return real.MakeNewOwner(user, store,newOwnerName);
+            return real.MakeNewOwner(user, store, newOwnerName);
         }
 
         public bool IsOwner(string storeName, string ownerName)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
             return real.IsOwner(storeName, ownerName);
         }
-        
+
         public bool AddNewManger(string user, string store, string newMangerName)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
-            return real.AddNewManger(user, store,newMangerName);
+            return real.AddNewManger(user, store, newMangerName);
         }
 
         public bool IsManger(string storeName, string mangerName)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
             return real.IsManger(storeName, mangerName);
@@ -274,17 +258,17 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
-            return real.getMangerResponsibilities(user,store,newMangerName);
+            return real.getMangerResponsibilities(user, store, newMangerName);
         }
 
         public bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities)
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
             return real.updateMangerResponsibilities(user, storeName, responsibilities);
@@ -294,7 +278,7 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
             return real.deleteManger(ownerUser, storeName, newMangerName);
@@ -304,7 +288,7 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return false;    
+                return false;
             }
 
             return real.buyProduct(buyer, store, product, amount);
@@ -314,14 +298,15 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
             return real.getStorePurchaseHistory(ownerUser, store);
         }
-        
-        
-        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
+
+
+        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName,
+            string desc, int amount,
             List<string> categories)
         {
             if (real == null)
@@ -333,7 +318,7 @@ namespace Project_tests
         {
             if (real == null)
             {
-                return null;    
+                return null;
             }
 
             return real.getInfo(ownerUser, store);
