@@ -47,7 +47,7 @@ namespace Version1.LogicLayer
         public static bool IsOwner(string storeName, string ownerName)
         {
             if (!DataHandler.Instance.Stores.ContainsKey(storeName) ||
-                !DataHandler.Instance.Stores[storeName].GetOwners().Keys.Contains(ownerName))
+                !DataHandler.Instance.Stores[storeName].GetOwners().Contains(ownerName))
                 return false;
             return true;
         }
@@ -88,7 +88,7 @@ namespace Version1.LogicLayer
         public static List<string> GetStoreOwners(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store?.GetOwners().Keys.ToList();
+            return store?.GetOwners();
         }
         
         public static List<string> GetStoreManagers(string storeName)
@@ -106,8 +106,7 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             if (appointerUser == null || newOwner == null || store == null ) return false;
             if (!IsOwner(storeName,apointerid) || IsOwner(storeName, apointeeid)) return false;
-            store.GetOwners().Add(apointeeid, new List<string>());
-            store.GetOwners()[apointerid].Add(apointeeid);
+            store.GetOwners().Add(apointeeid);
             return true;
         }
         

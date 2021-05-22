@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer.StorePolicies;
 
@@ -7,12 +8,12 @@ namespace Version1.domainLayer.DataStructures
     public class Store
     {
         private string name { get; set; }
-        private string originalOwner { get; }
         private List<IPurchasePolicy> purchasePolicies { get; set; }
+        private Node<string, int> staff;
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
         private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
-        private Dictionary<string,List<string>> owners { get; } // key : owner name , value : appointed owners
+        private List<string> owners { get; } // key : owner name , value : appointed owners
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
@@ -20,13 +21,14 @@ namespace Version1.domainLayer.DataStructures
         
         public Store(string owner,string name)
         {
+            var originalOwner = new Tuple<string,int>(owner,-1);
+            staff = new Node<string,int>(owner,-1);
             purchasePolicies = new List<IPurchasePolicy>();
             managers = new Dictionary<string, int>();
             inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
-            owners = new Dictionary<string, List<string>> {{owner, new List<string>()}};
-            originalOwner = owner;
+            owners = new List<string> {owner};
             paymentInfo = new List<string>();
             this.name = name;
             notifications = new List<string>();
@@ -36,7 +38,7 @@ namespace Version1.domainLayer.DataStructures
         {
             string output = "";
             output += "Store name: " + name;
-            output += "/nStore Owner: " + originalOwner;
+            output += "/nStore Owner: " + GetOwner();
             output += "/nmanagers:/n ";
             foreach (var manager in managers.Keys)
             {
@@ -44,7 +46,7 @@ namespace Version1.domainLayer.DataStructures
             }
             output += "/n--------------------------------------/n";
             output += "/nco owners:/n ";
-            foreach (var owner in owners.Keys)
+            foreach (var owner in GetOwners())
             {
                 output += "/n " + owner;
             }
@@ -68,7 +70,7 @@ namespace Version1.domainLayer.DataStructures
 
         public string GetOwner()
         {
-            return originalOwner;
+            return staff.Key;
         }
 
         public List<Purchase> GetHistory()
@@ -81,7 +83,7 @@ namespace Version1.domainLayer.DataStructures
             return managers;
         }
         
-        public Dictionary<string,List<string>> GetOwners()
+        public List<string> GetOwners()
         {
             return owners;
         }

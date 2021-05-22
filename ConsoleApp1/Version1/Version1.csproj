@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="domainLayer\DataStructures\Category.cs" />
     <Compile Include="domainLayer\DataStructures\Guest.cs" />
+    <Compile Include="domainLayer\DataStructures\Node.cs" />
     <Compile Include="domainLayer\DataStructures\Person.cs" />
     <Compile Include="domainLayer\DataStructures\Product.cs" />
     <Compile Include="domainLayer\DataStructures\Purchase.cs" />
