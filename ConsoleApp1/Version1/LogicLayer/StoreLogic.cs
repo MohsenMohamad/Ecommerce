@@ -17,17 +17,22 @@ namespace Version1.LogicLayer
             return DataHandler.Instance.AddStore(store);
         }
 
-        public static  bool AddProductToStore(string storeName, string barcode, int amount)
+        public static  bool AddProductToStore(string storeName, string barcode, string productName, string description, double price,
+            List<string> categories, int amount)
         {
-            var product = DataHandler.Instance.GetProduct(barcode);
+
             var store = DataHandler.Instance.GetStore(storeName);
-            if (product == null || store == null) return false;
-            
-            store.addProduct(barcode, amount);
-            
-            // add to data access
-            
-            return true;
+            if (store == null || DataHandler.Instance.GetProduct(barcode,storeName) != null) return false;
+
+            /*  foreach (var category in categories)
+              {
+                  if (!DataHandler.Instance.Categories.ContainsKey(category))
+                      return false;
+              }*/
+
+            var product = new Product(barcode,productName, description, price, categories);
+        
+            return store.GetInventory().TryAdd(product, amount);
 
         }
 
@@ -53,13 +58,13 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode);
+                var product = DataHandler.Instance.GetProduct(productBarcode,storeName);
 
                 if (user == null || store == null || product == null) return false;
                 
                 var inventory = store.GetInventory();
-                if (!inventory.ContainsKey(productBarcode)) return false;
-                inventory[productBarcode]= amount;
+                if (!inventory.ContainsKey(product)) return false;
+                inventory[product]= amount;
                 return true;
             }
         }
@@ -71,12 +76,12 @@ namespace Version1.LogicLayer
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode);
+                var product = DataHandler.Instance.GetProduct(productBarcode,storeName);
 
                 if (user == null || store == null || product == null) return false;
 
                 var inventory = store.GetInventory();
-                return inventory.ContainsKey(productBarcode) && inventory.TryRemove(productBarcode, out _);
+                return inventory.ContainsKey(product) && inventory.TryRemove(product, out _);
             }
         }
 
@@ -199,6 +204,14 @@ namespace Version1.LogicLayer
             return true;
 
         }
+
+        public static List<string> GetStoreProducts(string storeName)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+
+            return store?.GetInventory().Keys.Select(p=> p.Barcode).ToList();
+        }
         
+
     }
 }

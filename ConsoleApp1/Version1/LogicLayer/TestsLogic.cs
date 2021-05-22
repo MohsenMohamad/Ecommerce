@@ -15,9 +15,9 @@ namespace Version1.LogicLayer
             DataHandler.Instance.Users.TryRemove(userName, out _);
         }
 
-        public static void DeleteProduct(string productBarcode)
+        public static void DeleteProduct(string productBarcode, string storeName)
         {
-            DataHandler.Instance.Products.TryRemove(productBarcode, out _);
+            DataHandler.Instance.RemoveProduct(productBarcode, storeName);
         }
     }
 }

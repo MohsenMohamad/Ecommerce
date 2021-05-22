@@ -37,13 +37,17 @@ namespace Version1.Service_Layer
             Console.WriteLine(permission);
         }
 
-        Console.WriteLine(result.Count);*/
+        Console.WriteLine(result.Count);
 
-           // facade.adminInitSystem();
-            facade.Purchase("mohameda", "111");
-            facade.Purchase("mohameda", "111");
-            facade.Purchase("mohameda", "111");
-            facade.Purchase("mohameda", "111");
+            facade.AdminInitSystem();
+
+            var product = DataHandler.Instance.GetProduct("2", "AdnanStore");
+            var oldAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
+            var up = facade.UpdateProductAmountInStore("adnan", "AdnanStore", "2", 1000);
+            var newAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
+
+            Console.ReadKey();
+            */
         }   
 
 

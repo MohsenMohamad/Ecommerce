@@ -22,9 +22,9 @@ namespace Version1
             TestsLogic.DeleteUser(userName);
         }
 
-        public void DeleteProduct(string productBarcode)
+        public void DeleteProduct(string productBarcode,string storeName)
         {
-            TestsLogic.DeleteProduct(productBarcode);
+            TestsLogic.DeleteProduct(productBarcode, storeName);
         }
         
     }

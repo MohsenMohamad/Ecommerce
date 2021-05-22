@@ -1,37 +1,12 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using Version1.DataAccessLayer;
-using Version1.domainLayer;
-using Version1.domainLayer.DataStructures;
 
 namespace Version1.LogicLayer
 {
     public static class InventoryLogic
     {
-
-        public static Dictionary<string, Product> GetInventory()
-        {
-            return new Dictionary<string,Product> (DataHandler.Instance.Products);
-        }
-
-        public static bool AddNewProduct(string barcode, string productName, string description, double price,
-            List<string> categories)
-        {
-            if (DataHandler.Instance.Products.ContainsKey(barcode))
-                return false;
-
-          /*  foreach (var category in categories)
-            {
-                if (!DataHandler.Instance.Categories.ContainsKey(category))
-                    return false;
-            }*/
-            
-            var product = new Product(productName, description, barcode, price, categories);
-            return DataHandler.Instance.AddProduct(product);
-        }
-
-
+        
         public static List<string> SearchFilter(string sortOption, List<string> filters)
         {
             return new List<string>();
@@ -44,25 +19,34 @@ namespace Version1.LogicLayer
             if (store == null)
                 return null;
             var inventory = store.GetInventory();
-            foreach (var barcode in inventory.Keys)
+            foreach (var product in inventory.Keys)
             {
-                products.TryAdd(barcode, inventory[barcode]);
+                products.TryAdd(product.Barcode, inventory[product]);
             }
+
             return products;
         }
 
-        public static List<string> SearchByKeyWord(string keyWord)
+        public static Dictionary<string,List<string>> SearchByKeyWord(string keyWord)
         {
-            var searchResult = new List<string>();
-            var allProducts = DataHandler.Instance.Products.Values;
-            foreach (var product in allProducts)
+            var searchResult = new Dictionary<string, List<string>>();
+            var allProducts = DataHandler.Instance.GetAllProducts();
+            
+            foreach (var products in allProducts)
             {
-                if (product.Name.Contains(keyWord) || product.Description.Contains(keyWord))
-                    searchResult.Add(product.Barcode);
+                var storeName = products.Key;
+                foreach (var product in products.Value)
+                {
+                    if (!product.Name.Contains(keyWord) && !product.Description.Contains(keyWord)) continue;
+                    
+                    if(!searchResult.ContainsKey(storeName))
+                        searchResult.Add(storeName,new List<string>());
+                    searchResult[storeName].Add(product.Barcode);
+                }
+                
             }
 
             return searchResult;
         }
-        
     }
 }

@@ -110,21 +110,27 @@ namespace Client.Code
 
         }
 
-        public bool AddItemToStore(string shopName, string itemBarCode, int amount)
+        public bool AddItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
-            string param = string.Format("shopName={0}&itemBarCode={1}&amount={2}", shopName, itemBarCode, amount);
+            string param = string.Format("ownername={0}&itemBarCode={1}&item_name={2}&amount={3}&price={4}&shopName={5}&descreption={6}&catagorie={7}", ownername, itemBarCode, item_name, amount, price, shopName, descreption, catagorie);
             return bool.Parse(System.SendApi("AddItemToStore", param));
 
         }
 
-        public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
-           string categories)
+        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
-            
-            string param = string.Format("barcode={0}&productName={1}&description={2}&price={3}&categories={4}", barcode, productName, description,price,categories);
-            return bool.Parse(System.SendApi("AddNewProductToSystem", param));
+            string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&amount={3}", userName, storeName, productBarcode, amount);
+            return bool.Parse(System.SendApi("UpdateProductAmountInStore", param));
         }
 
+        /* public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
+            string categories)
+         {
+
+             string param = string.Format("barcode={0}&productName={1}&description={2}&price={3}&categories={4}", barcode, productName, description,price,categories);
+             return bool.Parse(System.SendApi("AddNewProductToSystem", param));
+         }
+ */
         public DataSet GetStoreManagers(string storeName)
         {
             string param = string.Format("storeName={0}", storeName);

@@ -7,7 +7,6 @@ using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
-using Version1.domainLayer.UserRoles;
 using Version1.LogicLayer;
 
 namespace Version1.Service_Layer
@@ -15,10 +14,8 @@ namespace Version1.Service_Layer
     public class Facade : GenInterface
     {
         private readonly Logic logicInstance = new Logic();
-        private SystemAdmin admin;
 
 
-        
         public bool Login(string username, string password)
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
@@ -41,20 +38,20 @@ namespace Version1.Service_Layer
             return hashPassword != null && logicInstance.Register(username, hashPassword);
         }
 
-        
+
         public bool Logout(string userid)
         {
             return logicInstance.UserLogout(userid);
         }
 
-        
+
         public string[][] GetStoresProducts()
         {
             var finalList = new List<List<string>>();
             var storeNames = logicInstance.GetStoresNames();
             foreach (var storeName in storeNames)
             {
-                var storeInventory = get_items_in_shop(storeName);
+                var storeInventory = GetStoreProducts(storeName);
                 var lists = storeInventory.Select(a => a.ToList()).ToList();
                 foreach (var productData in lists)
                     productData.Add(storeName);
@@ -65,62 +62,35 @@ namespace Version1.Service_Layer
             return finalList.Select(a => a.ToArray()).ToArray();
         }
 
-        
+
         public string[][] GetAllStores()
         {
             var result = StoresTo2DStringArray(logicInstance.GetAllStores());
             return result;
         }
 
-        
-        public bool AddItemToStore(string shopName, string itemBarCode, int amount)
+
+        public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
+            string description, double price,
+            string categories1, int amount)
         {
-            return logicInstance.AddProductToStore(shopName, itemBarCode, amount);
+            if (string.IsNullOrEmpty(categories1)) return false;
+            var categories = categories1.Split(',').ToList();
+            return logicInstance.AddProductToStore(storeName, barcode, productName, description, price, categories,
+                amount);
         }
 
-        public bool addNewProductToTheSystemAndAddItToShop(string shopName, string barcode, int amount,double price,string productName,string descreption,string[] categories)
+        public string[][] GetStoreProducts(string storeName)
         {
-            bool f = AddNewProductToSystem(barcode, productName, descreption, price, categories);
-            bool s = AddItemToStore(shopName, barcode, amount);
-            return s & f;
-
-        }
-        
-
-        
-        public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
-            string[] categories)
-        {
-            if (categories == null || categories.Length == 0)
-                return false;
-            return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
-        }
-
-        public bool AddNewProductToSystem1(string barcode, string productName, string description, double price,
-           string categories1)
-        {
-            string[] categories = categories1.Split(',');
-            if (categories == null || categories.Length == 0)
-                return false;
-            return logicInstance.AddNewProduct(barcode, productName, description, price, categories.ToList());
-        }
-
-        
-        public string[][] get_items_in_shop(string shopName)
-        {
-            var products = logicInstance.GetProductsFromShop(shopName);
-            if (products == null)
+            var storeProducts = logicInstance.GetStoreProducts(storeName);
+            if (storeProducts == null)
                 return null;
-            var productsList = new List<string>();
-            foreach (var product in products.Keys)
-            {
-                productsList.Add(product);
-            }
-            var result = ProductsTo2DStringArray(productsList);
-            return result;
+            var products = new Dictionary<string, List<string>> {{storeName, storeProducts}};
+
+            return ProductsTo2DStringArray(products);
         }
-        
-        public bool Purchase(string userName,string creditCard)
+
+        public bool Purchase(string userName, string creditCard)
         {
             return logicInstance.Purchase(userName, creditCard);
         }
@@ -143,18 +113,20 @@ namespace Version1.Service_Layer
 
         public string[][] SearchByKeyword(string keyword)
         {
-            var productList = logicInstance.SearchByKeyWord(keyword);
-            var result = ProductsTo2DStringArray(productList);
+            var searchResult = logicInstance.SearchByKeyWord(keyword);
+            var result = ProductsTo2DStringArray(searchResult);
             var lists1 = result.Select(a => a.ToList()).ToList();
 
             var finalList = new List<List<string>>();
             var storeNames = logicInstance.GetStoresNames();
             foreach (var storeName in storeNames)
             {
-                var storeInventory = get_items_in_shop(storeName);
+                var storeInventory = GetStoreProducts(storeName);
                 var lists = storeInventory.Select(a => a.ToList()).ToList();
-                foreach (var product in lists1) {
-                    foreach (var productData in lists) {
+                foreach (var product in lists1)
+                {
+                    foreach (var productData in lists)
+                    {
                         if (productData[2].Equals(product[2]))
                         {
                             product.Add(storeName);
@@ -173,10 +145,12 @@ namespace Version1.Service_Layer
         {
             return logicInstance.GetStoreOwners(storeName)?.ToArray();
         }
+
         public bool IsOwner(string storeName, string ownerName)
         {
             return GetStoreOwners(storeName).Contains(ownerName);
         }
+
         //do not use
         public bool AddNewManger(string user, string store, string newMangerName)
         {
@@ -189,7 +163,6 @@ namespace Version1.Service_Layer
             return GetStoreManagers(storeName).Contains(mangerName);
         }
 
-        
 
         public bool deleteManger(string ownerUser, string storeName, string oldMangerName)
         {
@@ -200,30 +173,31 @@ namespace Version1.Service_Layer
         {
             return Purchase(buyer, "111");
         }
-
-        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string desc, int amount,
+        
+        
+        // change this so it calls addProductToStore
+        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName,
+            string desc, int amount,
             List<string> categories)
         {
-            return UpdateProduct(storeOwnerName,productName,  productName, amount);
+            return UpdateProductAmountInStore(storeOwnerName, storeName, productName, amount);
         }
 
-        
 
         public string[] GetStoreManagers(string storeName)
         {
             return logicInstance.GetStoreManagers(storeName)?.ToArray();
         }
-        
-        
+
+
         public bool MakeNewOwner(string storeName, string apointerid, string apointeeid)
         {
-            return logicInstance.AddOwner(storeName,apointerid, apointeeid);
+            return logicInstance.AddOwner(storeName, apointerid, apointeeid);
         }
 
         // appoint to different permission from a *table* of permissions.
-        public bool MakeNewManger(string storeName,string apointerid, string apointeeid, int permissions)
+        public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {
-            Console.WriteLine(storeName+" "+ apointerid + " " + apointeeid + " " + permissions + " ");
             return logicInstance.AddManager(storeName, apointerid, apointeeid, permissions);
         }
 
@@ -242,21 +216,12 @@ namespace Version1.Service_Layer
         {
             return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount);
         }
-
-
-        public bool UpdateProduct(string userName, string shopName, string barcode, int amount)
-        {
-            return UpdateProductAmountInStore(userName, shopName, barcode, amount);
-        }
-
         
-
-        public bool OpenShop(string userName, string shopName, string policy)
+        public bool OpenStore(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName, shopName, policy);
         }
 
-        
 
         public bool IsLoggedIn(string userName)
         {
@@ -268,7 +233,7 @@ namespace Version1.Service_Layer
         {
             return logicInstance.GetAllLoggedInUsers().ToArray();
         }
-        
+
         public string[] GetAllUserNamesInSystem()
         {
             return logicInstance.GetAllUserNamesInSystem().ToArray();
@@ -305,7 +270,6 @@ namespace Version1.Service_Layer
             return logicInstance.RemoveProductFromCart(userName, storeName, productBarcode, amount);
         }
 
-        
 
         // low
         public int[] GetAppointmentPermissions(int shopid, int apointeeid)
@@ -313,12 +277,14 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        
+
         public string[][] GetBasketProducts(string userName, string storeName)
         {
-            var products = logicInstance.GetBasketProducts(userName, storeName);
-            if (products == null)
+            var basketProducts = logicInstance.GetBasketProducts(userName, storeName);
+            if (basketProducts == null)
                 return null;
+            var products = new Dictionary<string, List<string>> {{storeName, basketProducts}};
+
             return ProductsTo2DStringArray(products);
         }
 
@@ -352,31 +318,38 @@ namespace Version1.Service_Layer
             return logicInstance.GetStorePolicy(shopName);
         }
 
-        private string[][] ProductsTo2DStringArray(List<string> products)
+
+        // products : <string,List<string>> = <storeName,List<barcode>>
+        private string[][] ProductsTo2DStringArray(Dictionary<string, List<string>> products)
         {
-            string[][] result = new string[products.Count][];
+            string[][] result = new string[products.Values.SelectMany(p => p).Count()][];
             int index = 0;
-            foreach (var productCode in products)
+
+            foreach (var storeProducts in products)
             {
-                var product = DataHandler.Instance.GetProduct(productCode);
-                string[] productData = new string[5];
-
-                productData[0] = product.Name;
-                productData[1] = product.Description;
-                productData[2] = product.Barcode;
-                productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
-
-                var categories = "";
-                foreach (var category in product.Categories)
+                var storeName = storeProducts.Key;
+                foreach (var productBarcode in storeProducts.Value)
                 {
-                    categories = categories + category + "#";
+                    var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
+                    string[] productData = new string[5];
+
+                    productData[0] = product.Name;
+                    productData[1] = product.Description;
+                    productData[2] = product.Barcode;
+                    productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+
+                    var categories = "";
+                    foreach (var category in product.Categories)
+                    {
+                        categories = categories + category + "#";
+                    }
+
+                    productData[4] = categories;
+
+
+                    result[index] = productData;
+                    index += 1;
                 }
-
-                productData[4] = categories;
-
-
-                result[index] = productData;
-                index += 1;
             }
 
             return result;
@@ -449,11 +422,10 @@ namespace Version1.Service_Layer
 
             return result;
         }
-    
-        
+
+
         public bool AdminInitSystem()
         {
-            
             /* ----------------------------  users -------------------------------*/
 
             ExternalServices.ExternalFinanceService.CreateConnection();
@@ -468,40 +440,28 @@ namespace Version1.Service_Layer
 
             /* ----------------------------  categories -------------------------------*/
 
-            Category Electronics = new Category("Electronics");
-            Category Fashion = new Category("Fashion");
-            Category Health = new Category("Health");
-            Category Beauty = new Category("Beauty");
-            Category Sports = new Category("Sports");
-            Category Arts = new Category("Arts");
-            Category Industrial_Equipment = new Category("Industrial_Equipment");
-
-            List<Category> categories = new List<Category>();
-
-            categories.Add(Electronics);
-            categories.Add(Fashion);
-            categories.Add(Health);
-            categories.Add(Beauty);
-            categories.Add(Sports);
-            categories.Add(Arts);
-            categories.Add(Industrial_Equipment);
-
+            var electronics = new Category("Electronics");
+            var fashion = new Category("Fashion");
+            var health = new Category("Health");
+            var beauty = new Category("Beauty");
+            var sports = new Category("Sports");
+            var arts = new Category("Arts");
 
             /* ----------------------------  products -------------------------------*/
 
-            AddNewProductToSystem("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            var product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
                 800,
-                new[] {Electronics.Name});
-            AddNewProductToSystem("2", "women shoes",
+                new[] {electronics.Name}.ToList());
+            var product2 = new Product("2", "women shoes",
                 "Nike React Element 55 Women’s Running Shoes Grey Purple Blue Size 11 BQ2728-008.", 450,
-                new[] {Fashion.Name, Sports.Name});
-            AddNewProductToSystem("3", "shampo keef", "shampo", 25, new[] {Beauty.Name});
-            AddNewProductToSystem("4", "hand cream", "hand cream with good smell", 50,
-                new[] {Health.Name, Beauty.Name});
-            AddNewProductToSystem("5", "sandals", "comfortable sandals", 349.99,
-                new[] {Fashion.Name, Health.Name, Sports.Name});
-            AddNewProductToSystem("6", "brush", "just a normal brush , what did you expect ...", 33,
-                new[] {Arts.Name});
+                new[] {fashion.Name, sports.Name}.ToList());
+            var product3 = new Product("3", "shampo keef", "shampo", 25, new[] {beauty.Name}.ToList());
+            var product4 = new Product("4", "hand cream", "hand cream with good smell", 50,
+                new[] {health.Name, beauty.Name}.ToList());
+            var product5 = new Product("5", "sandals", "comfortable sandals", 349.99,
+                new[] {fashion.Name, health.Name, sports.Name}.ToList());
+            var product6 = new Product("6", "brush", "just a normal brush , what did you expect ...", 33,
+                new[] {arts.Name}.ToList());
 
             /* ----------------------------  discounts -------------------------------*/
 
@@ -528,20 +488,27 @@ namespace Version1.Service_Layer
 
             /* ----------------------------- Stores ---------------------------------*/
 
-            OpenShop("MohamedStore", "mohamedm", "MohamedPolicy");
-            MakeNewManger("mohamedm", "MohamedStore", "yara", 4);
+            OpenStore("mohamedm", "MohamedStore", "MohamedPolicy");
+            MakeNewManger("MohamedStore", "mohamedm", "yara", 4);
             //         MohamedStore.AddDiscount(dis1);
-            AddItemToStore("MohamedStore", "3", 8);
-            AddItemToStore("MohamedStore", "1", 11);
+            AddProductToStore("mohamedm", "MohamedStore", product3.Barcode, product3.Name, product3.Description,
+                product3.Price, product3.Categories.ToString(), 8);
+            AddProductToStore("mohamedm", "MohamedStore", product1.Barcode, product1.Name, product1.Description,
+                product1.Price, product1.Categories.ToString(), 11);
+            AddProductToStore("mohamedm", "MohamedStore", product6.Barcode, product6.Name, product6.Description,
+                product6.Price, product6.Categories.ToString(), 20);
 
 
-            OpenShop("adnan", "AdnanStore", "AdnanPolicy");
+            OpenStore("adnan", "AdnanStore", "AdnanPolicy");
             MakeNewManger("AdnanStore", "adnan", "shadi", 1);
             MakeNewOwner("AdnanStore", "adnan", "yara");
             //     AdnanStore.AddDiscount(dis2);
-            AddItemToStore("AdnanStore", "2", 12);
-            AddItemToStore("AdnanStore", "4", 20);
-            AddItemToStore("AdnanStore", "5", 7);
+            AddProductToStore("adnan", "AdnanStore", product2.Barcode, product2.Name, product2.Description,
+                product2.Price, product2.Categories.ToString(), 18);
+            AddProductToStore("adnan", "AdnanStore", product4.Barcode, product4.Name, product4.Description,
+                product4.Price, product4.Categories.ToString(), 20);
+            AddProductToStore("adnan", "AdnanStore", product5.Barcode, product5.Name, product5.Description,
+                product5.Price, product5.Categories.ToString(), 7);
 
 
             /*--------------------------------------------------------------------------*/
@@ -556,28 +523,19 @@ namespace Version1.Service_Layer
             /*--------------------------------------------------------------------------*/
             return true;
         }
-        
+
         public bool SetStorePolicy(string userName, string storeName, IPurchasePolicy policy)
         {
             throw new NotImplementedException();
         }
-        
+
         //do not use
 
-        public ConcurrentDictionary<string,int> get_items_in_shop(string ownerName, string storeName)
+        public ConcurrentDictionary<string, int> GetStoreInventory(string ownerName, string storeName)
         {
-            return  logicInstance.GetProductsFromShop(storeName);
+            return logicInstance.GetStoreInventory(storeName);
         }
-        //todo makesure of the username's permission
-        public bool AddProductToStore(string managerName, string storeName, string productCode, int amount)
-        {
-            return AddItemToStore(storeName, productCode, amount);
-        } 
-        public bool addProductsToShop(string user, string shopName, string product, int amount)
-        {
-            return AddItemToStore(shopName, product, amount);
-        }
-        
+
         public bool CloseShop(string shopName, string ownerName)
         {
             throw new NotImplementedException();
@@ -587,82 +545,90 @@ namespace Version1.Service_Layer
         {
             throw new NotImplementedException();
         }
+
         public bool CheckStoreInventory(string storeName, Hashtable products)
         {
             throw new NotImplementedException();
         }
-        
+
         public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
         {
             throw new NotImplementedException();
         }
 
-        public Dictionary<string,int> GetCartByStore(string userName, string storeName)
+        public Dictionary<string, int> GetCartByStore(string userName, string storeName)
         {
-            return logicInstance.GetCartByStore(userName,storeName);
+            return logicInstance.GetCartByStore(userName, storeName);
         }
-        
+
         public string[] getUsersStore(string userName, string storeName)
         {
             throw new NotImplementedException();
         }
-        
+
         /* ******************* high priority todo all this function for the tests ********************* */
         //1
 
         public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             return logicInstance.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
-
         }
 
         //2
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
-            return logicInstance.RemoveProductFromStore(userName,storeName,productBarcode);
-        }//3
+            return logicInstance.RemoveProductFromStore(userName, storeName, productBarcode);
+        } //3
+
         public string getInfo(string user, string store)
         {
             throw new NotImplementedException();
         }
+
         //4
         public bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities)
         {
             throw new NotImplementedException();
         }
+
         //5
         public List<string> getMangerResponsibilities(string user, string store, string newMangerName)
         {
             throw new NotImplementedException();
         }
+
         //6
         public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
         {
             throw new NotImplementedException();
         }
+
         //7
         public List<string> getPaymentInfo(string owner, string storeName)
         {
             throw new NotImplementedException();
         }
+
         //8
         public List<string> addPaymentInfo(string owner, string storeName, string info)
         {
             throw new NotImplementedException();
-        }//9
+        } //9
+
         public List<string> getStorePurchaseHistory(string ownerUser, string storeName)
         {
             return logicInstance.GetStorePurchaseHistory(ownerUser, storeName);
-        }//10
+        } //10
+
         public string GetStoreInfo(string userName, string storeName)
         {
             return logicInstance.GetStorePolicy(storeName);
         }
+
         // ???? make sure that the one who is init the system is sysAdmin
         public bool initSystem(string admin)
         {
             throw new NotImplementedException();
         }
-       
     }
 }

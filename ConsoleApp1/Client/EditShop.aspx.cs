@@ -177,20 +177,27 @@ namespace Client
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
             ShopHandler a = new ShopHandler();
-            if (!a.AddNewProductToSystem(TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), TextBoxdescription.Text.ToString()
-                , double.Parse(TextBoxprice.Text.ToString()), TextBoxcategories.Text.ToString()))
-            {
+            /* if (!a.AddNewProductToSystem(TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), TextBoxdescription.Text.ToString()
+                 , double.Parse(TextBoxprice.Text.ToString()), TextBoxcategories.Text.ToString()))
+             {
 
-                Labelerrorbarcode.Visible = true;
+                 Labelerrorbarcode.Visible = true;
 
-            }
-            else
+             }
+             else
+             {*/
+            //  a.AddItemToStore(Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+            if (a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
+                 int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString()))
             {
-                a.AddItemToStore(Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
                 table1.Visible = false;
                 DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             }
-
+            else {
+                a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+            }
+                /*   }
+           }*/
         }
 
         protected void Buttonaddmanager_Click(object sender, EventArgs e)
