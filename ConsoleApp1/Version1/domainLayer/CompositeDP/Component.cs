@@ -1,4 +1,5 @@
 ﻿using System;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.CompositeDP
 {
@@ -9,7 +10,7 @@ namespace Version1.domainLayer.CompositeDP
         // The base Component may implement some default behavior or leave it to
         // concrete classes (by declaring the method containing the behavior as
         // "abstract").
-        public abstract string Operation();
+        public abstract bool Validate(ShoppingBasket shoppingBasket);
 
         // In some cases, it would be beneficial to define the child-management
         // operations right in the base Component class. This way, you won't

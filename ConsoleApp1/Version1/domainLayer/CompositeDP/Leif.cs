@@ -1,4 +1,6 @@
-﻿namespace Version1.domainLayer.CompositeDP
+﻿using Version1.domainLayer.DataStructures;
+
+namespace Version1.domainLayer.CompositeDP
 {
     
     public class Leif : Component
@@ -11,9 +13,9 @@
         // objects only delegate to their sub-components.
         
         
-        public override string Operation()
+        public override bool Validate(ShoppingBasket shoppingBasket)
         {
-            return "Leaf";
+            return false;
         }
 
         public override bool IsComposite()
