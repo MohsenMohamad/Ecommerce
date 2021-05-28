@@ -106,7 +106,8 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             if (appointerUser == null || newOwner == null || store == null ) return false;
             if (!IsOwner(storeName,apointerid) || IsOwner(storeName, apointeeid)) return false;
-            store.GetOwners().Add(apointeeid);
+            
+            store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid,-1);
             return true;
         }
         
@@ -117,7 +118,7 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             if (appointerUser == null || newManager == null || store == null) return false;
             if (IsManger(storeName, apointeeid) || !IsValidPermission(permissions)) return false;
-            store.GetManagers().Add(apointeeid , permissions);
+            store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid,permissions);
             return true;
         }
         
@@ -126,8 +127,8 @@ namespace Version1.LogicLayer
             var owner = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storeName);
             if (owner == null || store == null) return false;
-            
-            return store.GetOwners().Remove(username); // returns false if the owner was not found
+
+            return store.GetStaffTree().DeleteNode(username); // returns false if the owner was not found
         }
         
         public static bool RemoveManager(string storeName, string username)
@@ -135,8 +136,8 @@ namespace Version1.LogicLayer
             var manager = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storeName);
             if (manager == null || store == null) return false;
-            Dictionary<string, int> mangers = store.GetManagers();
-            return mangers.Remove(username); // returns false if the manager was not found
+           
+            return store.GetStaffTree().DeleteNode(username);
         }
 
         private static bool IsValidPermission(int permissions)

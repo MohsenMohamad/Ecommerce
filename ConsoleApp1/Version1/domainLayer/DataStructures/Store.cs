@@ -98,6 +98,11 @@ namespace Version1.domainLayer.DataStructures
             return inventory;
         }
 
+        public Node<string, int> GetStaffTree()
+        {
+            return staff;
+        }
+
         public List<string> GetPaymentsInfo()
         {
             return paymentInfo;
