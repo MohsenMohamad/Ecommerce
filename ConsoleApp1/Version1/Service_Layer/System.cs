@@ -12,8 +12,8 @@ namespace Version1.Service_Layer
     {
         public static void Main(string[] args)
         {
-
-            
+            Console.WriteLine("\"\"");
+            Console.ReadLine();
                 var facade = new Facade();
             /*    
             facade.Register("zzz", "123");

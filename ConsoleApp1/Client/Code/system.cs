@@ -13,8 +13,7 @@ namespace Client.Code
 
         public static string SendApi(string method_name, string Parameters)
         {
-            string service = "";
-            service = "facade";
+            string service = "facade";
 
             string URI = string.Format("{0}/{1}/{2}?{3}", server_domain, service, method_name, Parameters);
             try

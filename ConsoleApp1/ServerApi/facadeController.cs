@@ -181,26 +181,39 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool Register(string username, string password)
+        public string Register(string username, string password)
         {
 
-            bool output = facade.Register(username, password);
-            if (output)
+            try
             {
-                Logger.GetInstance().Event(username + "has Register succesfully ");
+                bool output = facade.Register(username, password);
+                if (output)
+                {
+                    Logger.GetInstance().Event(username + "has Register succesfully ");
+                }
+                return output.ToString();
             }
-            return output;
+            catch (Exception e) {
+                return e.Message;
+            }
         }
 
         [HttpGet]
-        public bool Login(string username, string password)
+        public string Login(string username, string password)
         {
-            bool output = facade.Login(username, password);
-            if (output)
+            try
             {
-                Logger.GetInstance().Event(username + "has LoggedIn ");
+                bool output = facade.Login(username, password);
+                if (output)
+                {
+                    Logger.GetInstance().Event(username + "has LoggedIn ");
+                }
+                return output.ToString();
             }
-            return output;
+            catch(Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
         public bool Logout(string username)

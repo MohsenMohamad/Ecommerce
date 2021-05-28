@@ -14,39 +14,17 @@ namespace Client.Code
 
         public  UserHandler(){}
 
-        public bool Register(string username, string password)
+        public string Register(string username, string password)
         {
-            try
-            {
-                string param = string.Format("username={0}&password={1}", username, password);
-                return bool.Parse(System.SendApi("Register", param));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("illegal user or this user is already registered");
-                return false;
-            }
-            /*string param = string.Format("username={0}&password={1}", username, password);
-            string res = System.SendApi(System.Service_type.USER, "Register", param);
-            if( res != null)
-            {
-                return int.Parse(res);
-            }
-            //failure case
-            return -1;*/
+
+            string param = string.Format("username={0}&password={1}", username, password);
+            return (System.SendApi("Register", param));
+
         }
-        public bool Login(string username, string password)
+        public string Login(string username, string password)
         {
-            try
-            {
-                string param = string.Format("username={0}&password={1}", username, password);
-                return bool.Parse(System.SendApi("Login", param));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("bad username or pass");
-                return false;
-            }
+            string param = string.Format("username={0}&password={1}", username, password);
+            return (System.SendApi("Login", param));
         }
 
 
