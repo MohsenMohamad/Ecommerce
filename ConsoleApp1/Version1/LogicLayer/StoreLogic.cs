@@ -26,7 +26,7 @@ namespace Version1.LogicLayer
         {
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
-            var exists = DataHandler.Instance.GetProduct(barcode, storeName) == null;
+            var exists = DataHandler.Instance.GetProduct(barcode, storeName) != null;
             if (exists) throw new Exception(Errors.ProductBarcodeNotAvailable);
 
             /*  foreach (var category in categories)
