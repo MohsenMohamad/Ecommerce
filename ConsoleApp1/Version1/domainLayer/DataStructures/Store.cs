@@ -12,8 +12,6 @@ namespace Version1.domainLayer.DataStructures
         private Node<string, int> staff;
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
-        private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
-        private List<string> owners { get; } // key : owner name , value : appointed owners
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
@@ -21,14 +19,11 @@ namespace Version1.domainLayer.DataStructures
         
         public Store(string owner,string name)
         {
-            var originalOwner = new Tuple<string,int>(owner,-1);
             staff = new Node<string,int>(owner,-1);
             purchasePolicies = new List<IPurchasePolicy>();
-            managers = new Dictionary<string, int>();
             inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
-            owners = new List<string> {owner};
             paymentInfo = new List<string>();
             this.name = name;
             notifications = new List<string>();
@@ -40,7 +35,7 @@ namespace Version1.domainLayer.DataStructures
             output += "Store name: " + name;
             output += "/nStore Owner: " + GetOwner();
             output += "/nmanagers:/n ";
-            foreach (var manager in managers.Keys)
+            foreach (var manager in GetManagers())
             {
                 output += "/n " + manager;
             }
@@ -78,14 +73,14 @@ namespace Version1.domainLayer.DataStructures
             return history;
         }
 
-        public Dictionary<string,int> GetManagers()
+        public List<string> GetManagers()
         {
-            return managers;
+            return staff.GetNotNull();
         }
         
         public List<string> GetOwners()
         {
-            return owners;
+            return staff.GetByValue(-1); // -1 = no specified permission = owner
         }
 
         public List<string> GetNotifications()

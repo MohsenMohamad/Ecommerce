@@ -39,7 +39,7 @@ namespace Version1.LogicLayer
         public static bool IsManger(string storeName, string mangerName)
         {
             if (!DataHandler.Instance.Stores.ContainsKey(storeName) ||
-                !DataHandler.Instance.Stores[storeName].GetManagers().Keys.Contains(mangerName))
+                !DataHandler.Instance.Stores[storeName].GetManagers().Contains(mangerName))
                 return false;
             return true;
         }
@@ -94,7 +94,7 @@ namespace Version1.LogicLayer
         public static List<string> GetStoreManagers(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store?.GetManagers().Keys.ToList();
+            return store?.GetManagers();
         }
 
         

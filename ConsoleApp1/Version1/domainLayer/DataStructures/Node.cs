@@ -51,6 +51,36 @@ namespace Version1.domainLayer.DataStructures
 
             return null;
         }
+
+        public List<T1> GetByValue(T2 value)
+        {
+            var result = new List<T1>();
+            
+            if(Value.Equals(value))
+                result.Add(Key);
+            foreach (var node in Children)
+            {
+                var childrenResults = node.GetByValue(value);
+                result.AddRange(childrenResults);
+            }
+            
+            return result;
+        }
+        
+        public List<T1> GetNotNull()
+        {
+            var result = new List<T1>();
+            
+            if(!Value.Equals(-1))
+                result.Add(Key);
+            foreach (var node in Children)
+            {
+                var childrenResults = node.GetNotNull();
+                result.AddRange(childrenResults);
+            }
+            
+            return result;
+        }
         
         public IEnumerator<Node<T1,T2>> GetEnumerator()
         {
