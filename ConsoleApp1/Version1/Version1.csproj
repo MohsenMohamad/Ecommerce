@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domainLayer\CompositeDP\Component.cs" />
+    <Compile Include="domainLayer\CompositeDP\Composite.cs" />
+    <Compile Include="domainLayer\CompositeDP\Leif.cs" />
     <Compile Include="domainLayer\DataStructures\Category.cs" />
     <Compile Include="domainLayer\DataStructures\Guest.cs" />
     <Compile Include="domainLayer\DataStructures\Person.cs" />
