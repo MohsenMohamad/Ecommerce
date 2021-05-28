@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
@@ -32,7 +31,8 @@ namespace Version1.LogicLayer
         public static bool Register(string userName, string userPassword)
         {
             if (DataHandler.Instance.Exists(userName))
-                return false;
+                throw new Exception(Errors.UserNameNotAvailable);
+            
             var user = new User(userName, userPassword);
             return DataHandler.Instance.AddUser(user);
         }
@@ -41,10 +41,13 @@ namespace Version1.LogicLayer
 
         public static bool UserLogin(string name, string password)
         {
-            var result = !_loggedInUsers.Contains(name) && DataHandler.Instance.Login(name, password);
-            if (result)
-                _loggedInUsers.Add(name);
-            return result;
+            var result = DataHandler.Instance.Login(name, password);
+            if (!result)
+                throw new Exception(Errors.UserNotFound);
+            if (_loggedInUsers.Contains(name)) throw new Exception(Errors.UserAlreadyLoggedIn);
+            
+            _loggedInUsers.Add(name);
+            return true;
         }
 
         // 3.1 Logout as a user
