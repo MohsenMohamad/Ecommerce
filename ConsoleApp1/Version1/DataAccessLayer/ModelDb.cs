@@ -23,8 +23,12 @@ namespace Version1.DataAccessLayer
             Database.CreateIfNotExists();
             Configuration.AutoDetectChangesEnabled = true;
             Database.SetInitializer<ModelDB>(null);
-
+            
         }
+
+        
+
+
 
         //how to get values https://stackoverflow.com/questions/2946089/entity-framework-4-poco-with-dictionary
         //string text = (from sv in q.SelectableValues where sv.Code == "MyKey" select sv.Text).First();
@@ -260,11 +264,34 @@ namespace Version1.DataAccessLayer
     }
 
 
-
-    internal class database
+    public class database
     {
-        public ModelDB db = new ModelDB();
-        public JavaScriptSerializer oJS = new JavaScriptSerializer();
+        public ModelDB db;
+
+        public JavaScriptSerializer oJS;
+        
+        private static database _mySingleton = null;
+
+        private database() {
+            db = new ModelDB();
+            oJS = new JavaScriptSerializer();
+        }
+
+        public static database GetInstance()
+        {
+            if (_mySingleton is null) // The first check
+            {
+                
+                    if (_mySingleton is null) // The second (double) check
+                    {
+                        _mySingleton = new database();
+                    }
+                
+            }
+
+            return _mySingleton;
+        }
+
 
 
         /*
@@ -773,7 +800,14 @@ namespace Version1.DataAccessLayer
         private PurchaseDB getPurchaseDb(Purchase pr)
         {
             PurchaseDB p = new PurchaseDB();
-            p.date = pr.date;
+            if(pr.date != null)
+            {
+                p.date = pr.date;
+            }
+            else
+            {
+                p.date = DateTime.Now;
+            }
             p.purchaseId = pr.purchaseId;
             p.storeName = pr.store;
             p.UserName = pr.user;
@@ -922,7 +956,9 @@ namespace Version1.DataAccessLayer
 
     }
 
-}
+    }
+
+
 
 
 

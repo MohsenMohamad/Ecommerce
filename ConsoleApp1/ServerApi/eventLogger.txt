@@ -255,3 +255,13 @@
 5/21/2021 6:55:17 PM: Guest has connected with pid : 3  .
 29/05/2021 15:29:16: Guest has connected with pid : 1  .
 29/05/2021 15:31:10: Guest has connected with pid : 1  .
+29/05/2021 15:34:16: Guest has connected with pid : 1  .
+29/05/2021 15:37:26: Guest has connected with pid : 1  .
+29/05/2021 17:02:35: Guest has connected with pid : 1  .
+29/05/2021 17:04:36: Guest has connected with pid : 1  .
+29/05/2021 17:04:36: Guest has connected with pid : 2  .
+29/05/2021 19:37:52: Guest has connected with pid : 1  .
+29/05/2021 19:38:22: shadyhas Register succesfully   .
+29/05/2021 19:38:42: shadyhas LoggedIn   .
+29/05/2021 19:38:46: shadyhas LoggedOut   .
+29/05/2021 19:38:46: Guest has connected with pid : 2  .

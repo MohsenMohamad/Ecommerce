@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using System.Web;
 
 namespace Client.Code
@@ -15,6 +16,7 @@ namespace Client.Code
 
         public DataSet getAllProducts()
         {
+            Thread.Sleep(10);
             string param = "";
             JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoresProducts", param).ToString());
             DataTable t1 = new DataTable("products");

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Threading;
 
 namespace Client.Code
 {
@@ -13,6 +14,7 @@ namespace Client.Code
 
         public static string SendApi(string method_name, string Parameters)
         {
+            
             string service = "";
             service = "facade";
 

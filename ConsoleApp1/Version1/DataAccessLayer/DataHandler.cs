@@ -15,16 +15,22 @@ namespace Version1.DataAccessLayer
         private ConcurrentDictionary<string, Category> Categories;
         internal ConcurrentDictionary<string, Store> Stores { get; }
         private List<Review> Reviews { get; }
-
+        
 
         private DataHandler()
         {
+            database db = database.GetInstance();
+            
             Users = new ConcurrentDictionary<string, User>();
+            //upload users
+            db.getAllUsers().ToList().ForEach((user) => Users.TryAdd(user.UserName,new User(user.UserName, user.Password)));
+
             Guests = new ConcurrentDictionary<long, Guest>();
             Stores = new ConcurrentDictionary<string, Store>();
             Reviews = new List<Review>();
             Categories = new ConcurrentDictionary<string, Category>();
             InefficientLock = new object();
+            
         }
 
         public static DataHandler Instance
@@ -52,7 +58,13 @@ namespace Version1.DataAccessLayer
 
         internal bool AddUser(User user)
         {
-            return Users.TryAdd(user.UserName, user);
+            //return Users.TryAdd(user.UserName, user);
+            if (Users.TryAdd(user.UserName, user))
+            {
+                database db = database.GetInstance();
+                return db.InsertUser(user);
+            }
+            return true;
         }
 
         internal bool RemoveUser(string userName)
