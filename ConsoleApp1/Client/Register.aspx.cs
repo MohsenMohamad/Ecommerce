@@ -20,13 +20,15 @@ namespace Client
         {
             if ((txt_Username.Text.Trim().Length != 0) && (txt_password.Text.Trim().Length != 0))
             {
-                if (new UserHandler().Register(txt_Username.Text, txt_password.Text))
+                
+                string msg =  new UserHandler().Register(txt_Username.Text, txt_password.Text);
+                if (msg.Equals("\"True\""))
                 {
                     Response.Redirect("~/Home.aspx");
                     LabelUsername.Visible = true;
                 }else
                 {
-                    //error message username in use
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
                 }
             }
             else

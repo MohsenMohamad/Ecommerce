@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
@@ -9,20 +10,24 @@ namespace Version1.LogicLayer
 {
     public static class StoreLogic
     {
-
         public static bool OpenStore(string managerName, string storeName, string policy)
         {
-            if (!DataHandler.Instance.Exists(managerName)) return false;
+            if (!DataHandler.Instance.Exists(managerName)) throw new Exception(Errors.UserNotFound);
             var store = new Store(managerName, storeName);
-            return DataHandler.Instance.AddStore(store);
+            var result = DataHandler.Instance.AddStore(store);
+            if (!result)
+                throw new Exception(Errors.StoreNameNotAvailable);
+            return true;
         }
 
-        public static  bool AddProductToStore(string storeName, string barcode, string productName, string description, double price,
+        public static bool AddProductToStore(string storeName, string barcode, string productName, string description,
+            double price,
             List<string> categories, int amount)
         {
-
             var store = DataHandler.Instance.GetStore(storeName);
-            if (store == null || DataHandler.Instance.GetProduct(barcode,storeName) != null) return false;
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+            var exists = DataHandler.Instance.GetProduct(barcode, storeName) != null;
+            if (exists) throw new Exception(Errors.ProductBarcodeNotAvailable);
 
             /*  foreach (var category in categories)
               {
@@ -30,10 +35,9 @@ namespace Version1.LogicLayer
                       return false;
               }*/
 
-            var product = new Product(barcode,productName, description, price, categories);
-        
-            return store.GetInventory().TryAdd(product, amount);
+            var product = new Product(barcode, productName, description, price, categories);
 
+            return store.GetInventory().TryAdd(product, amount);
         }
 
         public static bool IsManger(string storeName, string mangerName)
@@ -43,7 +47,7 @@ namespace Version1.LogicLayer
                 return false;
             return true;
         }
-        
+
         public static bool IsOwner(string storeName, string ownerName)
         {
             if (!DataHandler.Instance.Stores.ContainsKey(storeName) ||
@@ -52,19 +56,21 @@ namespace Version1.LogicLayer
             return true;
         }
 
-        public static bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        public static bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode,
+            int amount)
         {
             lock (DataHandler.Instance.InefficientLock)
             {
                 var user = DataHandler.Instance.GetUser(userName);
+                if (user == null) throw new Exception(Errors.UserNotFound);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode,storeName);
+                if (store == null) throw new Exception(Errors.StoreNotFound);
+                var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
+                if (product == null) throw new Exception(Errors.ProductNotFound);
 
-                if (user == null || store == null || product == null) return false;
-                
                 var inventory = store.GetInventory();
                 if (!inventory.ContainsKey(product)) return false;
-                inventory[product]= amount;
+                inventory[product] = amount;
                 return true;
             }
         }
@@ -75,10 +81,11 @@ namespace Version1.LogicLayer
             lock (DataHandler.Instance.InefficientLock)
             {
                 var user = DataHandler.Instance.GetUser(userName);
+                if (user == null) throw new Exception(Errors.UserNotFound);
                 var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productBarcode,storeName);
-
-                if (user == null || store == null || product == null) return false;
+                if (store == null) throw new Exception(Errors.StoreNotFound);
+                var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
+                if (product == null) throw new Exception(Errors.ProductNotFound);
 
                 var inventory = store.GetInventory();
                 return inventory.ContainsKey(product) && inventory.TryRemove(product, out _);
@@ -90,62 +97,78 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             return store?.GetOwners().Keys.ToList();
         }
-        
+
         public static List<string> GetStoreManagers(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             return store?.GetManagers().Keys.ToList();
         }
 
-        
-        
+
         public static bool AddOwner(string storeName, string apointerid, string apointeeid)
         {
-            var appointerUser = DataHandler.Instance.GetUser(apointerid); 
+            var appointerUser = DataHandler.Instance.GetUser(apointerid);
+            if (appointerUser == null) throw new Exception(Errors.UserNotFound);
             var newOwner = DataHandler.Instance.GetUser(apointeeid);
+            if (newOwner == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
-            if (appointerUser == null || newOwner == null || store == null ) return false;
-            if (!IsOwner(storeName,apointerid) || IsOwner(storeName, apointeeid)) return false;
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            if (!IsOwner(storeName, apointerid)) throw new Exception(Errors.PermissionError);
+            if (IsOwner(storeName, apointeeid)) throw new Exception(Errors.AlreadyOwner);
+
             store.GetOwners().Add(apointeeid, new List<string>());
             store.GetOwners()[apointerid].Add(apointeeid);
             return true;
         }
-        
+
         public static bool AddManager(string storeName, string apointerid, string apointeeid, int permissions)
         {
             var appointerUser = DataHandler.Instance.GetUser(apointerid);
+            if (appointerUser == null) throw new Exception(Errors.UserNotFound);
             var newManager = DataHandler.Instance.GetUser(apointeeid);
+            if (newManager == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
-            if (appointerUser == null || newManager == null || store == null) return false;
-            if (IsManger(storeName, apointeeid) || !IsValidPermission(permissions)) return false;
-            store.GetManagers().Add(apointeeid , permissions);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            if (!IsOwner(storeName, apointerid)) throw new Exception(Errors.PermissionError);
+            if (IsManger(storeName, apointeeid)) throw new Exception(Errors.AlreadyManager);
+
+            store.GetManagers().Add(apointeeid, permissions);
             return true;
         }
-        
+
         public static bool RemoveOwner(string storeName, string username)
         {
             var owner = DataHandler.Instance.GetUser(username);
+            if (owner == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
-            if (owner == null || store == null) return false;
-            
-            return store.GetOwners().Remove(username); // returns false if the owner was not found
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var result = store.GetOwners().Remove(username); // returns false if the owner was not found
+            if (!result) throw new Exception(Errors.NotAnOwner);
+            return true;
         }
-        
+
         public static bool RemoveManager(string storeName, string username)
         {
             var manager = DataHandler.Instance.GetUser(username);
+            if (manager == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
-            if (manager == null || store == null) return false;
-            Dictionary<string, int> mangers = store.GetManagers();
-            return mangers.Remove(username); // returns false if the manager was not found
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+            
+            var result = store.GetManagers().Remove(username); // returns false if the manager was not found
+            if(!result)  throw new Exception(Errors.NotAManager);
+
+            return true;
         }
 
         private static bool IsValidPermission(int permissions)
         {
             return Permissions.IsValidPermission(permissions);
         }
-        
-        
+
+
 //---------------------------------------- Getters ----------------------------------------//   
 
         public static List<Store> GetAllStores()
@@ -158,10 +181,10 @@ namespace Version1.LogicLayer
             var stores = new List<Store>();
             if (DataHandler.Instance.GetUser(userName) == null)
                 return null;
-            
+
             foreach (var store in GetAllStores())
             {
-                if(IsOwner(store.GetName(),userName) || IsManger(store.GetName(),userName))
+                if (IsOwner(store.GetName(), userName) || IsManger(store.GetName(), userName))
                     stores.Add(store);
             }
 
@@ -179,7 +202,7 @@ namespace Version1.LogicLayer
         {
             return DataHandler.Instance.Stores.Keys.ToList();
         }
-        
+
         public static List<string> GetStorePurchaseHistory(string ownerUser, string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -198,20 +221,17 @@ namespace Version1.LogicLayer
         {
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) return false;
-            
+
             store.GetPurchasePolicies().Add(newPolicy);
 
             return true;
-
         }
 
         public static List<string> GetStoreProducts(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
 
-            return store?.GetInventory().Keys.Select(p=> p.Barcode).ToList();
+            return store?.GetInventory().Keys.Select(p => p.Barcode).ToList();
         }
-        
-
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 
 namespace Version1.LogicLayer
 {
@@ -16,9 +18,10 @@ namespace Version1.LogicLayer
         {
             var products = new ConcurrentDictionary<string, int>();
             var store = DataHandler.Instance.GetStore(storeName);
-            if (store == null)
-                return null;
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+            
             var inventory = store.GetInventory();
+            
             foreach (var product in inventory.Keys)
             {
                 products.TryAdd(product.Barcode, inventory[product]);

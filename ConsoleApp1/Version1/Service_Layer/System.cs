@@ -12,9 +12,9 @@ namespace Version1.Service_Layer
     {
         public static void Main(string[] args)
         {
-
-            
+                
                 var facade = new Facade();
+            facade.AdminInitSystem();
             /*    
             facade.Register("zzz", "123");
            facade.Login("zzz", "123");
