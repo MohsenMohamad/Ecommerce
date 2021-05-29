@@ -9,7 +9,7 @@ namespace Version1.domainLayer.DataStructures
 
         internal T1 Key;
         internal T2 Value;
-        private List<Node<T1,T2>> Children;
+        public List<Node<T1,T2>> Children;
         
         
         public Node(T1 key ,T2 value)

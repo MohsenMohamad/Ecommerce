@@ -4,10 +4,10 @@ namespace Version1.domainLayer.DataStructures
 {
     public class Product
     {
-        private string name,description;
-        private string barcode;
-        private List<string> categories;
-        private double price;
+        public string name,description;
+        public string barcode;
+        public List<string> categories;
+        public double price;
         
         public Product(string barcode,string name,string desc,double price, List<string> categories)
         {

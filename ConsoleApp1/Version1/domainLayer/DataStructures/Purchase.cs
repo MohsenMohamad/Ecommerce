@@ -5,11 +5,11 @@ namespace Version1.domainLayer.DataStructures
 {
     public class Purchase
     {
-        private long purchaseId;
-        private string store;
-        private string user;
+        public long purchaseId;
+        public string store;
+        public string user;
         public List<KeyValuePair<Product, int>> items { get; }
-        private PurchaseType purchaseType;
+        public PurchaseType purchaseType;
         public DateTime date { get; set; }
 
         public Purchase()
@@ -29,7 +29,7 @@ namespace Version1.domainLayer.DataStructures
         }
 
 
-        private enum PurchaseType
+        public enum PurchaseType
         {
             DirectPurchase
         }

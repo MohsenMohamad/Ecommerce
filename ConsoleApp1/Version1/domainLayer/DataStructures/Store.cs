@@ -7,14 +7,14 @@ namespace Version1.domainLayer.DataStructures
 {
     public class Store
     {
-        private string name { get; set; }
-        private List<IPurchasePolicy> purchasePolicies { get; set; }
-        private Node<string, int> staff;
-        private List<string> notifications;
-        private List<string> paymentInfo{ get; set; }
-        private List<Discount> discounts { get; }
-        private List<Purchase> history { get; }
-        private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
+        public string name { get; set; }
+        public List<IPurchasePolicy> purchasePolicies { get; set; }
+        public Node<string, int> staff;
+        public List<string> notifications;
+        public List<string> paymentInfo{ get; set; }
+        public List<Discount> discounts { get; }
+        public List<Purchase> history { get; }
+        public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
         
         
         public Store(string owner,string name)
