@@ -241,6 +241,11 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
+        public string[][] GetAllWorkerinStore(string storename)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public bool IsLoggedIn(string userName)
         {
