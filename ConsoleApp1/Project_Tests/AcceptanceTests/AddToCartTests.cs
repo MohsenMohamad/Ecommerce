@@ -34,7 +34,7 @@ namespace Project_Tests.AcceptanceTests
 
             var id = GuestLogin();
             Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 1));
-            Assert.True(getProductsFromShop(TestStoreOwner, TestStoreName)[TestProductBarcode] == 2);
+            Assert.True(GetStoreInventory(TestStoreOwner, TestStoreName)[TestProductBarcode] == 2);
             GuestLogout(id);
         }
 

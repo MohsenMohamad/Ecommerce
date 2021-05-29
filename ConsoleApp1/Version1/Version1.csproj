@@ -55,6 +55,7 @@
     <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
     <Compile Include="domainLayer\CompositeDP\Component.cs" />
     <Compile Include="domainLayer\CompositeDP\Composite.cs" />
+    <Compile Include="domainLayer\CompositeDP\ConditioningPolicy.cs" />
     <Compile Include="domainLayer\CompositeDP\Leif.cs" />
     <Compile Include="domainLayer\CompositeDP\OrComposite.cs" />
     <Compile Include="domainLayer\DataStructures\Category.cs" />
