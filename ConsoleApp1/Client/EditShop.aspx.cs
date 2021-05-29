@@ -187,28 +187,45 @@ namespace Client
              else
              {*/
             //  a.AddItemToStore(Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
-            if (a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
-                 int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString()))
+            string msg = a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
+                  int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString());
+            if (msg.Equals("\"True\""))
             {
                 table1.Visible = false;
                 DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             }
-            else {
-                a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+            else if (msg.Equals("\"False\""))
+            {
+                string msg2 = a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+                if (msg2.Equals("\"True\""))
+                {
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg2 + "')", true);
+                }
             }
-                /*   }
-           }*/
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+            }
+            /*   }
+       }*/
         }
 
         protected void Buttonaddmanager_Click(object sender, EventArgs e)
         {
             UserHandler u = new UserHandler();
-            if (u.MakeNewManger(Session["editshop"].ToString(), Session["username"].ToString(), DropDownList2.SelectedItem.Text.ToString(), 1))
+            string msg = u.MakeNewManger(Session["editshop"].ToString(), Session["username"].ToString(), DropDownList2.SelectedItem.Text.ToString(), 1);
+            if (msg.Equals("\"True\""))
             {
                 table2.Visible = false;
-                DropDownList2.Items.Clear(); 
+                DropDownList2.Items.Clear();
             }
-                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            else {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+            }
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
            
 
         }
@@ -216,10 +233,15 @@ namespace Client
         protected void Button1_Click(object sender, EventArgs e)
         {
             UserHandler u = new UserHandler();
-            if (u.MakeNewOwner(Session["editshop"].ToString(), Session["username"].ToString(), DropDownList3.SelectedItem.Text.ToString(), 1))
+            string msg = u.MakeNewOwner(Session["editshop"].ToString(), Session["username"].ToString(), DropDownList3.SelectedItem.Text.ToString(), 1);
+            if (msg.Equals("\"True\""))
             {
                 table3.Visible = false;
                 DropDownList3.Items.Clear();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
 
@@ -229,10 +251,14 @@ namespace Client
         protected void Button2_Click(object sender, EventArgs e)
         {
             UserHandler u = new UserHandler();
-            if (u.removeManager( Session["username"].ToString(), Session["editshop"].ToString(), DropDownList4.SelectedItem.Text.ToString()))
+            string msg = u.removeManager(Session["username"].ToString(), Session["editshop"].ToString(), DropDownList4.SelectedItem.Text.ToString());
+            if (msg.Equals("\"True\""))
             {
                 table4.Visible = false;
                 DropDownList4.Items.Clear();
+            }
+            else {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
 
@@ -241,10 +267,14 @@ namespace Client
         protected void Button3_Click(object sender, EventArgs e)
         {
             UserHandler u = new UserHandler();
-            if (u.removeOwner(Session["username"].ToString(), Session["editshop"].ToString(), DropDownList5.SelectedItem.Text.ToString()))
+            string msg = u.removeOwner(Session["username"].ToString(), Session["editshop"].ToString(), DropDownList5.SelectedItem.Text.ToString());
+            if (msg.Equals("\"True\""))
             {
                 table5.Visible = false;
                 DropDownList5.Items.Clear();
+            }
+            else {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             firegif.Visible = true;

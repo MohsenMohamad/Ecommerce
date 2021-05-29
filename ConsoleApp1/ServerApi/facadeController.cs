@@ -26,21 +26,33 @@ namespace ServerApi
             return facade.GetAllStores();
         }
         [HttpGet]
-        public bool addItemToStore(string ownername,string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
+        public string addItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
-            Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
-            //todo check if works from mohsen!
-/*            if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
-            {*/
-                return facade.AddProductToStore(ownername, shopName, itemBarCode, item_name,descreption,price, catagorie, amount);
-          /*  }*/
-            //the item barcode does not match the ProductName in the inventory. 
+            try
+            {
+                Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
+
+                bool msg = facade.AddProductToStore(ownername, shopName, itemBarCode, item_name, descreption, price, catagorie, amount);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
-        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
-            return facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
+            try
+            {
+                bool msg = facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -50,10 +62,18 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool OpenShop(string userName, string shopName, string policy)
+        public string OpenShop(string userName, string shopName, string policy)
         {
-            Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
-            return facade.OpenStore(userName, shopName, policy);
+            try
+            {
+                Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
+                bool msg=facade.OpenStore(userName, shopName, policy);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -62,40 +82,67 @@ namespace ServerApi
             return facade.SearchByKeyword(keyword);
         }
         [HttpGet]
-        public bool makeNewOwner(string storeName, string apointerid, string apointeeid)
+        public string makeNewOwner(string storeName, string apointerid, string apointeeid)
         {
-            bool output = facade.MakeNewOwner(storeName, apointerid, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has make new owner for " + storeName
-                : apointerid + " could not make new owner for " + storeName);
-            return output;
+            try {
+                bool output = facade.MakeNewOwner(storeName, apointerid, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has make new owner for " + storeName
+                    : apointerid + " could not make new owner for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool makeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        public string makeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {   //todo split the permissions and make dataStructures that saves the permissions
-            bool output = facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has make new manger " + apointeeid + " for " + storeName
-                : apointerid + " could not make new manger for " + storeName);
-            return output;
+            try
+            {
+                bool output = facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has make new manger " + apointeeid + " for " + storeName
+                    : apointerid + " could not make new manger for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool removeOwner(string apointerid, string storeName, string apointeeid)
+        public string removeOwner(string apointerid, string storeName, string apointeeid)
         {
-            bool output = facade.RemoveOwner(apointerid, storeName, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has has removed owner" + apointeeid + "form store: " + storeName
-                : apointerid + " could not removed owner for " + storeName);
-            return output;
+            try
+            {
+                bool output = facade.RemoveOwner(apointerid, storeName, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has has removed owner" + apointeeid + "form store: " + storeName
+                    : apointerid + " could not removed owner for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool removeManager(string apointerid, string storeName, string apointeeid)
+        public string removeManager(string apointerid, string storeName, string apointeeid)
         {
-            bool output = facade.RemoveManager(apointerid, storeName, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has has removed manger" + apointeeid + "form store: " + storeName
-                : apointerid + " could not removed manger for " + storeName);
-            return output;
+            try
+            {
+                bool output = facade.RemoveManager(apointerid, storeName, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has has removed manger" + apointeeid + "form store: " + storeName
+                    : apointerid + " could not removed manger for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
         public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)

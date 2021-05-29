@@ -34,10 +34,10 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
-        public bool OpenShop(string userName, string shopName, string policy)
+        public string OpenShop(string userName, string shopName, string policy)
         {
             string param = string.Format("userName={0}&shopName={1}&policy={2}", userName, shopName, policy);
-            return bool.Parse(System.SendApi("OpenShop", param));
+            return (System.SendApi("OpenShop", param));
         }
 
         public DataSet getAllStores() {
@@ -110,17 +110,17 @@ namespace Client.Code
 
         }
 
-        public bool AddItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
+        public string AddItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
             string param = string.Format("ownername={0}&itemBarCode={1}&item_name={2}&amount={3}&price={4}&shopName={5}&descreption={6}&catagorie={7}", ownername, itemBarCode, item_name, amount, price, shopName, descreption, catagorie);
-            return bool.Parse(System.SendApi("AddItemToStore", param));
+            return (System.SendApi("AddItemToStore", param));
 
         }
 
-        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&amount={3}", userName, storeName, productBarcode, amount);
-            return bool.Parse(System.SendApi("UpdateProductAmountInStore", param));
+            return (System.SendApi("UpdateProductAmountInStore", param));
         }
 
         /* public bool AddNewProductToSystem(string barcode, string productName, string description, double price,

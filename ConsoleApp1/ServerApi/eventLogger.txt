@@ -327,3 +327,17 @@
 5/28/2021 8:48:19 PM: adminhas LoggedIn   .
 5/28/2021 8:58:54 PM: Guest has connected with pid : 1  .
 5/28/2021 8:59:00 PM: adminhas LoggedIn   .
+5/29/2021 2:38:57 AM: Guest has connected with pid : 1  .
+5/29/2021 2:39:04 AM: adminhas LoggedIn   .
+5/29/2021 2:39:13 AM: admin has opened shop :   .
+5/29/2021 3:28:55 AM: Guest has connected with pid : 1  .
+5/29/2021 3:29:04 AM: adminhas LoggedIn   .
+5/29/2021 3:30:27 AM: admin has opened shop : ad  .
+5/29/2021 3:30:50 AM: product with barcode 5 has been added to the shop ad  .
+5/29/2021 3:47:06 AM: Guest has connected with pid : 1  .
+5/29/2021 3:47:16 AM: adminhas LoggedIn   .
+5/29/2021 3:47:22 AM: Guest has connected with pid : 2  .
+5/29/2021 3:47:23 AM: adnanhas LoggedIn   .
+5/29/2021 3:47:43 AM: product with barcode 4 has been added to the shop AdnanStore  .
+5/29/2021 3:47:50 AM: product with barcode 4 has been added to the shop AdnanStore  .
+5/29/2021 3:47:55 AM: product with barcode 41 has been added to the shop AdnanStore  .
