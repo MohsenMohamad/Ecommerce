@@ -2,17 +2,17 @@
 
 namespace Version1.ExternalServices
 {
-    public class ExternalFinanceService
+    public class MockUpFinanceService : IFinanceServiceAdapter
     {
         public static List<string> log;
-        private ExternalFinanceService()
+        private MockUpFinanceService()
         {
             log = new List<string> {"connected"};
         }
 
-        public static ExternalFinanceService CreateConnection()
+        public static MockUpFinanceService CreateConnection()
         {
-            return new ExternalFinanceService();
+            return new MockUpFinanceService();
         }
 
         public bool AcceptPurchase(double totalPrice,string cardNumber)
@@ -31,6 +31,21 @@ namespace Version1.ExternalServices
         {
             log.Add("return");
             return true;
+        }
+
+        public bool Handshake()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Pay()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CancelPay()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

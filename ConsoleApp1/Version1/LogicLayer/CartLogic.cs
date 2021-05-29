@@ -85,8 +85,8 @@ namespace Version1.LogicLayer
                     }
                 }
 
-                var supply = ExternalSupplyService.CreateConnection();
-                var finance = ExternalFinanceService.CreateConnection();
+                var supply = MockUpSupplyService.CreateConnection();
+                var finance = MockUpFinanceService.CreateConnection();
 
                 if (supply == null || finance == null) return false;
 
