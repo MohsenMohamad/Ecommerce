@@ -9,6 +9,7 @@ using ServerApi;
 using Version1.domainLayer.UserRoles;
 using Version1.Service_Layer;
 using Version1.DataAccessLayer;
+using System.Data.Entity.Validation;
 
 namespace ServiceApi
 {
@@ -50,15 +51,17 @@ namespace ServiceApi
             {
                 try
                 {
-                    var facade = new Facade();
-                    Console.WriteLine("before admin");
+                    
+                    
                     SystemAdmin sysadmin = new SystemAdmin();
-                    Console.WriteLine("after sysadmin admin");
+                    //await retrieveDataAsync();
+                    var facade = new Facade();
+                    
                     facade.Register("admin", "admin");
-                    Console.WriteLine("After admin");
+                    
                     // sysadmin.InitSystem();
                     // facade.InitSystem();
-
+                    //Thread.Sleep(15000);
                     string domainAddress = "https://localhost:44300/";
                     using (WebApp.Start(url: domainAddress))
                     {
@@ -68,10 +71,26 @@ namespace ServiceApi
                     }
 
                 }
-                catch (Exception xxx)
+                catch (DbEntityValidationException e)
                 {
-                    Logger.GetInstance().Error("fatal error exception in server program start exited infinite waiting period");
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
                 }
+                /*catch (Exception xxx)
+                {
+                    
+                    
+                    Logger.GetInstance().Error("fatal error exception in server program start exited infinite waiting period");
+                }*/
             });
 
             Thread thread2 = new Thread(delegate ()

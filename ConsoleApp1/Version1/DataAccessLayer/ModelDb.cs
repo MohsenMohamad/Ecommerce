@@ -20,7 +20,7 @@ namespace Version1.DataAccessLayer
         public ModelDB()
             : base("ModelDB")
         {
-            Database.CreateIfNotExists();
+            bool createdNew = Database.CreateIfNotExists();
             Configuration.AutoDetectChangesEnabled = true;
             Database.SetInitializer<ModelDB>(null);
             
@@ -369,7 +369,7 @@ namespace Version1.DataAccessLayer
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                throw;
+                return false;
             }
 
 

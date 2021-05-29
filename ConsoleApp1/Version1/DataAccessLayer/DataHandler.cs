@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -23,8 +24,27 @@ namespace Version1.DataAccessLayer
             database db = database.GetInstance();
             oJS = new JavaScriptSerializer();
             Users = new ConcurrentDictionary<string, User>();
-            //upload users
-            db.getAllUsers().ToList().ForEach((user) => Users.TryAdd(user.UserName,new User(user.UserName,user.Password)));
+            try
+            {
+                //upload users
+                if (db != null && db.getAllUsers() != null)
+                {
+                    db.getAllUsers().ToList().ForEach((user) =>
+                    {
+                        if (user != null)
+                            Users.TryAdd(user.UserName, getUserFromUserDb(user));
+                        else
+                            habal();
+
+                    });
+                }
+            }
+            catch (Exception xxx)
+            {
+                int i = 0;
+                i++;
+            }
+
 
             Guests = new ConcurrentDictionary<long, Guest>();
             Stores = new ConcurrentDictionary<string, Store>();
@@ -38,7 +58,12 @@ namespace Version1.DataAccessLayer
             InefficientLock = new object();
             
         }
-        
+
+        private bool habal()
+        {
+            return true;
+        }
+
         private User getUserFromUserDb(UserDB u)
         {
             User user = new User(u.UserName, u.Password);
@@ -124,7 +149,17 @@ namespace Version1.DataAccessLayer
             if (Users.TryAdd(user.UserName, user))
             {
                 database db = database.GetInstance();
-                return db.InsertUser(user);
+                if (db.db.UsersTable.Any(o => o.UserName == user.UserName))
+                {
+                    //alreadyExist
+                     return false;
+                }
+                else
+                {
+                    db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
+                    return db.InsertUser(user);
+                }
+                
             }
             return true;
         }

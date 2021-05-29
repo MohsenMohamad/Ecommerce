@@ -127,9 +127,9 @@ namespace Version1.Service_Layer
 
                 //database d = database.GetInstance();
                 Facade facade = new Facade();
-                /*facade.Register("zzz", "123");
+                facade.Register("zzz", "123");
                 facade.Login("zzz", "123");
-                facade.OpenStore("zzz", "store1", "");*/
+                facade.OpenStore("zzz", "store1", "");
 
                 /*
                                 //d.InsertDiscount(new Discount(p,50));

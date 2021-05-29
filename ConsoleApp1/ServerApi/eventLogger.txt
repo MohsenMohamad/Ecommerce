@@ -288,3 +288,18 @@
 29/05/2021 22:28:12: admin has opened shop : haha  .
 29/05/2021 22:29:14: Guest has connected with pid : 2  .
 29/05/2021 22:47:33: Guest has connected with pid : 1  .
+29/05/2021 23:43:23: Guest has connected with pid : 1  .
+29/05/2021 23:43:35: adminhas LoggedIn   .
+29/05/2021 23:43:37: adminhas LoggedOut   .
+29/05/2021 23:43:38: Guest has connected with pid : 2  .
+29/05/2021 23:43:46: ashas LoggedIn   .
+29/05/2021 23:43:49: ashas LoggedOut   .
+29/05/2021 23:43:49: Guest has connected with pid : 3  .
+29/05/2021 23:43:56: adminhas LoggedIn   .
+29/05/2021 23:46:06: Guest has connected with pid : 1  .
+29/05/2021 23:46:36: adminhas LoggedIn   .
+29/05/2021 23:50:24: Guest has connected with pid : 1  .
+29/05/2021 23:51:46: Guest has connected with pid : 1  .
+29/05/2021 23:54:27: Guest has connected with pid : 1  .
+29/05/2021 23:54:36: asdhas LoggedIn   .
+29/05/2021 23:54:43: asd has opened shop : asd  .
