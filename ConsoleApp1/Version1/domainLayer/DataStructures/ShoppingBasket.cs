@@ -5,10 +5,10 @@ namespace Version1.domainLayer.DataStructures
     public class ShoppingBasket
     {
         //todo mohsen
-        public int id;
-        internal string StoreName { get; }
-        internal Dictionary<string, int> Products { get; }
-        
+        public long id { get; set; }
+        public string StoreName { get; set; }
+        public Dictionary<string, int> Products { get; set; }
+
         public ShoppingBasket(string storeName)
         {
             Products = new Dictionary<string, int>();

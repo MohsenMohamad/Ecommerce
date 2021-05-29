@@ -186,7 +186,8 @@ namespace Version1.DataAccessLayer
         [Key]
         [Required]
         public int ShoppingCartId { get; set; }
-        public ICollection<string> keys { get; set; }
+        //here
+        public string keys { get; set; }
         public ICollection<ShoppingBasketDB> values { get; set; }
 
     }
@@ -811,7 +812,7 @@ namespace Version1.DataAccessLayer
             p.purchaseId = pr.purchaseId;
             p.storeName = pr.store;
             p.UserName = pr.user;
-            p.purchaseType = pr.purchaseType.ToString();
+            p.purchaseType = oJS.Serialize(pr.purchaseType);
 
             p.items = new itemsHasmapforPurchaseDB();//new List<KeyValuePair<ProductDB, int>>();
 
@@ -890,12 +891,17 @@ namespace Version1.DataAccessLayer
             ShoppingCartDB p = new ShoppingCartDB();
             p.ShoppingCartId = pr.id;
             p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
-
+            //here
+            List<string> list = new List<string>();
             foreach (KeyValuePair<string, ShoppingBasket> pair in pr.shoppingBaskets)
             {
-                p.shoppingBaskets.keys.Add(pair.Key);
+                //here
+                // p.shoppingBaskets.keys.Add(pair.Key);
+                list.Add(pair.Key);
                 p.shoppingBaskets.values.Add(getShoppingBasketDB(pair.Value));
             }
+            //here
+            p.shoppingBaskets.keys = oJS.Serialize(list);
             p.shoppingBaskets.ShoppingCartId = pr.id;
             return p;
         }

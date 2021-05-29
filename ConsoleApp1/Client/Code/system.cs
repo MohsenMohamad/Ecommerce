@@ -32,6 +32,8 @@ namespace Client.Code
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URI);
                 request.Method = "GET";
                 String test = String.Empty;
+                //while counter < 10
+                //try
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     Stream dataStream = response.GetResponseStream();

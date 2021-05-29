@@ -16,6 +16,7 @@ namespace Client.Code
 
         public DataSet getAllProducts()
         {
+            
             string param = "";
             JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoresProducts", param).ToString());
             DataTable t1 = new DataTable("products");

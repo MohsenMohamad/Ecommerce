@@ -118,15 +118,18 @@ namespace Version1.Service_Layer
                 sbc.SaveChanges();*/
 
 
-               /* List<string> catagories = new List<string>();
-                catagories.Add("cat12");
-                Product p = new Product("proc=ductba3rcode", "product name", "dessc", 0.0, catagories);
-                Store s = new Store("aa", "ad");
-                s.notifications = new List<string>();
-                s.notifications.Add("asdasf");*/
+                /* List<string> catagories = new List<string>();
+                 catagories.Add("cat12");
+                 Product p = new Product("proc=ductba3rcode", "product name", "dessc", 0.0, catagories);
+                 Store s = new Store("aa", "ad");
+                 s.notifications = new List<string>();
+                 s.notifications.Add("asdasf");*/
 
-                database d = database.GetInstance();
-                
+                //database d = database.GetInstance();
+                Facade facade = new Facade();
+                /*facade.Register("zzz", "123");
+                facade.Login("zzz", "123");
+                facade.OpenStore("zzz", "store1", "");*/
 
                 /*
                                 //d.InsertDiscount(new Discount(p,50));

@@ -51,8 +51,11 @@ namespace ServiceApi
                 try
                 {
                     var facade = new Facade();
+                    Console.WriteLine("before admin");
                     SystemAdmin sysadmin = new SystemAdmin();
+                    Console.WriteLine("after sysadmin admin");
                     facade.Register("admin", "admin");
+                    Console.WriteLine("After admin");
                     // sysadmin.InitSystem();
                     // facade.InitSystem();
 

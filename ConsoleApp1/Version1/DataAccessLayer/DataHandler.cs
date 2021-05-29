@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Script.Serialization;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.DataAccessLayer
@@ -15,22 +16,83 @@ namespace Version1.DataAccessLayer
         private ConcurrentDictionary<string, Category> Categories;
         internal ConcurrentDictionary<string, Store> Stores { get; }
         private List<Review> Reviews { get; }
-        
+        public JavaScriptSerializer oJS;
 
         private DataHandler()
         {
             database db = database.GetInstance();
-            
+            oJS = new JavaScriptSerializer();
             Users = new ConcurrentDictionary<string, User>();
             //upload users
-            db.getAllUsers().ToList().ForEach((user) => Users.TryAdd(user.UserName,new User(user.UserName, user.Password)));
+            db.getAllUsers().ToList().ForEach((user) => Users.TryAdd(user.UserName,new User(user.UserName,user.Password)));
 
             Guests = new ConcurrentDictionary<long, Guest>();
             Stores = new ConcurrentDictionary<string, Store>();
+            /*db.getAllStores().ToList().ForEach((store) => Stores.TryAdd(store.storeName, new Store(
+                store.staff.key,
+                store.storeName)));*/
+
+
             Reviews = new List<Review>();
             Categories = new ConcurrentDictionary<string, Category>();
             InefficientLock = new object();
             
+        }
+        
+        private User getUserFromUserDb(UserDB u)
+        {
+            User user = new User(u.UserName, u.Password);
+            
+            user.notifications = oJS.Deserialize<List<string>>(u.notifications);
+
+            user.history = new List<Purchase>();
+            u.history.ToList().ForEach((p) => user.history.Add(getPurchaseFromPurchaseDB(p)));
+
+
+            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            return user;
+        }
+
+        
+
+        private Purchase getPurchaseFromPurchaseDB(PurchaseDB p)
+        {
+            Purchase purchase = new Purchase();
+
+            purchase.purchaseId = p.purchaseId;
+            purchase.purchaseType = oJS.Deserialize<Purchase.PurchaseType>(p.purchaseType);
+            purchase.store = p.storeName;
+            purchase.user = p.UserName;
+            purchase.date = p.date;
+            
+            return purchase;
+        }
+
+        private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)
+        {
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.id = sh.ShoppingCartId;
+            
+
+            List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
+            List<string> hashStrings = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);
+
+            for(int i = 0; i < ShoppingBasketHash.Count; i++)
+            {
+                ShoppingBasket temp = getShopingBasketFromShopingBasketDB(ShoppingBasketHash[i]);
+                shoppingCart.shoppingBaskets.Add(hashStrings[i], temp);
+            }
+
+            return shoppingCart;
+        }
+
+        private ShoppingBasket getShopingBasketFromShopingBasketDB(ShoppingBasketDB sh)
+        {
+            ShoppingBasket shoppingBasket = new ShoppingBasket(sh.StoreName);
+            shoppingBasket.id = sh.id;
+            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
+            
+            return shoppingBasket;
         }
 
         public static DataHandler Instance
@@ -108,8 +170,15 @@ namespace Version1.DataAccessLayer
             {
                 if (Stores.ContainsKey(store.GetName()))
                     return false;
-                Stores.TryAdd(store.GetName(), store);
-                return true;
+                if(Stores.TryAdd(store.GetName(), store))
+                {
+                    database db = database.GetInstance();
+                    //db.InsertNode(store.staff);
+                    db.InsertStore(store);
+                    return true;
+                }
+
+                return false;
             }
         }
 

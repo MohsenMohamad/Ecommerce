@@ -17,3 +17,10 @@
 29/05/2021 19:16:46: fatal error exception in server program start exited infinite waiting period  . 
 29/05/2021 19:17:29: fatal error exception in server program start exited infinite waiting period  . 
 29/05/2021 19:26:06: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:01:29: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:02:59: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:03:27: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:05:08: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:06:20: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:07:06: fatal error exception in server program start exited infinite waiting period  . 
+29/05/2021 22:07:48: fatal error exception in server program start exited infinite waiting period  . 
