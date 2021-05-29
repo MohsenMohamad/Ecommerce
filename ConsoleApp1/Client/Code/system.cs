@@ -15,6 +15,10 @@ namespace Client.Code
         public static string SendApi(string method_name, string Parameters)
         {
             
+            
+            ServicePointManager.ServerCertificateValidationCallback += 
+                (sender, cert, chain, sslPolicyErrors) => true;
+            
             string service = "";
             service = "facade";
 
