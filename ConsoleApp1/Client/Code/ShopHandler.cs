@@ -233,6 +233,29 @@ namespace Client.Code
         }
 
 
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}&amount={2}", storeName, productBarCode, amount);
+            return bool.Parse(System.SendApi("AddProductPolicies", param));
+        }
+        public bool AddCategortPolicies(string storeName, string Category, string time)
+        {
+            string param = string.Format("storeName={0}&Category={1}&time={2}", storeName, Category, time);
+            return bool.Parse(System.SendApi("AddCategortPolicies", param));
+        }
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}", storeName, productBarCode);
+            return bool.Parse(System.SendApi("AddUserPolicies", param));
+        }
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            string param = string.Format("storeName={0}&amount={1}", storeName, amount);
+            return bool.Parse(System.SendApi("AddCartrPolicies", param));
+        }
+
+
+
 
 
     }

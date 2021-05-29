@@ -81,6 +81,33 @@ namespace ServerApi
         {
             return facade.SearchByKeyword(keyword);
         }
+
+
+        [HttpGet]
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            return facade.AddProductPolicies(storeName, productBarCode, amount);
+        }
+
+        [HttpGet]
+        public bool AddCategortPolicies(string storeName, string Category, string time)
+        {
+            return facade.AddCategortPolicies(storeName, Category, time);
+        }
+
+        [HttpGet]
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            return facade.AddUserPolicies(storeName, productBarCode);
+        }
+
+        [HttpGet]
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            return facade.AddCartrPolicies( storeName,  amount);
+        }
+
+
         [HttpGet]
         public string makeNewOwner(string storeName, string apointerid, string apointeeid)
         {

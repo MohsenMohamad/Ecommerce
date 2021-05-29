@@ -223,6 +223,25 @@ namespace Version1.Service_Layer
         }
 
 
+        //todo all Policies
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            throw new NotImplementedException();
+        }
+        public bool AddCategortPolicies(string storeName, string Category, string time)
+        {
+            throw new NotImplementedException();
+        }
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            throw new NotImplementedException();
+        }
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public bool IsLoggedIn(string userName)
         {
             return logicInstance.IsLoggedIn(userName);
@@ -422,6 +441,9 @@ namespace Version1.Service_Layer
 
             return result;
         }
+
+
+
 
 
         public bool AdminInitSystem()

@@ -21,6 +21,11 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
+                table6.Visible = false;
+                table7.Visible = false;
+                table8.Visible = false;
+                table9.Visible = false;
+                table10.Visible = false;
                 Labelerrorbarcode.Visible = false;
                 firegif.Visible = true;
 
@@ -43,6 +48,11 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
+                table6.Visible = false;
+                table7.Visible = false;
+                table8.Visible = false;
+                table9.Visible = false;
+                table10.Visible = false;
 
             }
 
@@ -172,9 +182,52 @@ namespace Client
 
 
             }
+            if (DropDownList1.SelectedItem.Text == "Policies")
+            {
+
+                table1.Visible = false;
+                table2.Visible = false;
+                table3.Visible = false;
+                table4.Visible = false;
+                table5.Visible = false;
+                table6.Visible = true;
+            }
+           
         }
 
-        protected void ButtonAdd_Click(object sender, EventArgs e)
+        protected void DropDownList6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DropDownList6.SelectedItem.Text == "Product")
+            {
+                table7.Visible = true;
+                table8.Visible = false;
+                table9.Visible = false;
+                table10.Visible = false;
+            }
+            if (DropDownList6.SelectedItem.Text == "Category")
+            {
+                table7.Visible = false;
+                table8.Visible = true;
+                table9.Visible = false;
+                table10.Visible = false;
+            }
+            if (DropDownList6.SelectedItem.Text == "User")
+            {
+                table7.Visible = false;
+                table8.Visible = false;
+                table9.Visible = true;
+                table10.Visible = false;
+            }
+            if (DropDownList6.SelectedItem.Text == "Cart")
+            {
+                table7.Visible = false;
+                table8.Visible = false;
+                table9.Visible = false;
+                table10.Visible = true;
+            }
+        }
+
+            protected void ButtonAdd_Click(object sender, EventArgs e)
         {
             ShopHandler a = new ShopHandler();
             /* if (!a.AddNewProductToSystem(TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), TextBoxdescription.Text.ToString()
@@ -278,6 +331,55 @@ namespace Client
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             firegif.Visible = true;
+
+        }
+
+        protected void AddProduct_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.AddProductPolicies(Session["editshop"].ToString(),TextBox3.Text.ToString(),int.Parse(TextBox4.Text.ToString()));
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+
+            table6.Visible = false;
+            table7.Visible = false;
+
+        }
+
+        protected void AddCategory_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.AddCategortPolicies(Session["editshop"].ToString(), TextBox1.Text.ToString(), TextBox2.Text.ToString());
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+
+            table6.Visible = false;
+            table8.Visible = false;
+
+        }
+
+        protected void AddUser_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.AddUserPolicies(Session["editshop"].ToString(), TextBox5.Text.ToString());
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+
+            table6.Visible = false;
+            table9.Visible = false;
+
+
+        }
+
+        protected void AddCart_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.AddCartrPolicies(Session["editshop"].ToString(),int.Parse(TextBox7.Text.ToString()));
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+
+            table6.Visible = false;
+            table10.Visible = false;
 
         }
     }
