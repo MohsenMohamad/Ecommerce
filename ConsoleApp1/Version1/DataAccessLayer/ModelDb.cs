@@ -89,7 +89,8 @@ namespace Version1.DataAccessLayer
         [Required]
         public string storeName { get; set; }
         public ICollection<ProductDB> keys { get; set; }
-        public ICollection<int> values { get; set; }
+        //string json for ICollection<int>
+        public string values { get; set; }
 
     }
 
@@ -861,22 +862,23 @@ namespace Version1.DataAccessLayer
             {
                 store.history.Add(getPurchaseDb(p));
             }
+
+            store.inventory = new inventoryDictionaryDBForStore();
+            List<int> valueList = new List<int>();
+            foreach (KeyValuePair<Product, int> p in s.inventory)
+            {
+                store.inventory.keys.Add(getProductDb(p.Key));
+                valueList.Add(p.Value);
+            }
+            store.inventory.values = oJS.Serialize(valueList);
+            store.inventory.storeName = s.name;
+
             /*
             store.discounts = new List<DiscountDB>();
             foreach (Discount dis in s.discounts)
             {
                 store.discounts.Add(getDiscountDB(dis));
             }
-
-            
-            store.inventory = new inventoryDictionaryDBForStore();
-            foreach (KeyValuePair<Product, int> p in s.inventory)
-            {
-                store.inventory.keys.Add(getProductDb(p.Key));
-                store.inventory.values.Add(p.Value);
-            }
-            store.inventory.storeName = s.name;
-
 
             store.staff = getNodeDb(s.staff);*/
 

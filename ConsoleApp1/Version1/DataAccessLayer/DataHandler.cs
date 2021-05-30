@@ -23,27 +23,27 @@ namespace Version1.DataAccessLayer
 
         private DataHandler()
         {
-            
+
             oJS = new JavaScriptSerializer();
-            Users = new ConcurrentDictionary<string, User>();
             database db = database.GetInstance();
+
+            Users = new ConcurrentDictionary<string, User>();
             //upload users
-            if (db != null && db.getAllUsers() != null)
-            {
-                db.getAllUsers().ToList().ForEach((user) =>
-                {
-                    if (user != null)
-                        Users.TryAdd(user.UserName, getUserFromUserDb(user));
-                        //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
-                        else
-                        habal();
-
-                });
-            }
-
+            uploadUsers(db);
 
             Stores = new ConcurrentDictionary<string, Store>();
             //upload stores
+            uploadStores(db);
+
+
+            Guests = new ConcurrentDictionary<long, Guest>();
+            Reviews = new List<Review>();
+            Categories = new ConcurrentDictionary<string, Category>();
+            InefficientLock = new object();
+        }
+
+        private void uploadStores(database db)
+        {
             if (db != null && db.getAllStores() != null)
             {
                 db.getAllStores().ToList().ForEach((store) =>
@@ -56,17 +56,22 @@ namespace Version1.DataAccessLayer
 
                 });
             }
-            Guests = new ConcurrentDictionary<long, Guest>();
-            
-            /*db.getAllStores().ToList().ForEach((store) => Stores.TryAdd(store.storeName, new Store(
-                store.staff.key,
-                store.storeName)));*/
+        }
 
+        private void uploadUsers(database db)
+        {
+            if (db != null && db.getAllUsers() != null)
+            {
+                db.getAllUsers().ToList().ForEach((user) =>
+                {
+                    if (user != null)
+                        Users.TryAdd(user.UserName, getUserFromUserDb(user));
+                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
+                    else
+                        habal();
 
-            Reviews = new List<Review>();
-            Categories = new ConcurrentDictionary<string, Category>();
-            InefficientLock = new object();
-            
+                });
+            }
         }
 
         private Store getStoreFromStoreDb(StoreDB s)
@@ -95,7 +100,30 @@ namespace Version1.DataAccessLayer
                 });
             }
 
+            //upload inventory hashmap
             store.inventory = new ConcurrentDictionary<Product, int>();
+            if(s.inventory != null)
+            {
+                List<int> values = oJS.Deserialize<List<int>>(s.inventory.values);
+                List<Product> keys = new List<Product>();
+                foreach (ProductDB p in s.inventory.keys.ToList())
+                {
+                    keys.Add(getProductFromProductDB(p));
+                }
+
+                if (keys.Count == values.Count)
+                {
+                    for (int i = 0; i < keys.Count; i++)
+                    {
+                        store.inventory.TryAdd(keys.ElementAt(i), values.ElementAt(i));
+                    }
+                }
+                else
+                {
+                    throw new Exception("keys.Count != values.Count");
+                }
+            }
+            
 
             return store;
         }
@@ -155,7 +183,7 @@ namespace Version1.DataAccessLayer
 
             if(keys.Count == values.Count)
             {
-                for (int i = 0; i < keys.Count; i++)
+                for(int i = 0; i < keys.Count; i++)
                 {
                     purchase.items.Add(new KeyValuePair<Product, int>(keys.ElementAt(i), values.ElementAt(i)));
                 }
