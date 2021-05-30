@@ -180,14 +180,12 @@ namespace Version1.LogicLayer
 
         public bool AddUserNotification(string userName, string notification)
         {
-            return false;
-            // return UserLogic.AddUserNotification(userName, notification);
+            return UserLogic.AddUserNotification(userName, notification);
         }
 
         public List<string> GetUserNotifications(string userName)
         {
-            return null;
-            //return UserLogic.GetUserNotifications(userName);
+            return UserLogic.GetUserNotifications(userName);
         }
 
         public string GetStorePolicy(string storeName)

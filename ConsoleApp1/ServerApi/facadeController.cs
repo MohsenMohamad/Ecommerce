@@ -42,6 +42,18 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public bool IsOwner(string storeName, string ownerName)
+        {
+            return facade.IsOwner(storeName, ownerName);
+        }
+
+        [HttpGet]
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return facade.CloseStore(storeName, ownerName);
+        }
+
+        [HttpGet]
         public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             try
@@ -139,6 +151,7 @@ namespace ServerApi
                 return e.Message;
             }
         }
+
         [HttpGet]
         public string removeOwner(string apointerid, string storeName, string apointeeid)
         {

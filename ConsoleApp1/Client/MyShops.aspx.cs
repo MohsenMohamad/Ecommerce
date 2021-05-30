@@ -25,12 +25,35 @@ namespace Client
             if (e.CommandName == "editshop")
             {
                 Session["editshop"] = e.CommandArgument;
-                Response.Redirect("~/EditShop.aspx");
+                UserHandler uh = new UserHandler();
+                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
+                {
+                    Response.Redirect("~/EditShop.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
+                }
             }
             if (e.CommandName == "StafInfo")
             {
                 Session["editshop"] = e.CommandArgument;
                 Response.Redirect("~/Staff.aspx");
+            }
+            if (e.CommandName == "Close")
+            {
+                Session["editshop"] = e.CommandArgument;
+                ShopHandler sh = new ShopHandler();
+                UserHandler uh = new UserHandler();
+                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
+                {
+                   sh.CloseStore(Session["editshop"].ToString(), Session["username"].ToString());
+                   Response.Redirect("~/MyShops.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
+                }
             }
         }
 

@@ -34,7 +34,12 @@ namespace Version1.LogicLayer
                 throw new Exception(Errors.UserNameNotAvailable);
             
             var user = new User(userName, userPassword);
-            return DataHandler.Instance.AddUser(user);
+            if (DataHandler.Instance.AddUser(user)) {
+                AddUserNotification(userName, "Welcome  "+ userName+" To Market");
+                return true;
+            }
+
+            return false;
         }
 
         // 2.4) Login as a user
@@ -74,21 +79,24 @@ namespace Version1.LogicLayer
         {
             return DataHandler.Instance.Users.Keys.ToList();
         }
-        /*    
-            public static List<string> GetUserNotifications(string userName)
-            {
-                var user = DataHandler.GetUser(userName);
-                return user?.GetNotifications();
+
+        public static List<string> GetUserNotifications(string userName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (DataHandler.Instance.IsGuest(userName)==-1) {
+                return ((User)user)?.GetNotifications();
             }
-    
-            public static bool AddUserNotification(string userName, string notification)
-            {
-                var user = DataHandler.GetUser(userName);
-                if (user == null) return false;
-                user.AddNotification(notification);
-                return true;
-            }
-            */
+            return null;
+        }
+
+        public static bool AddUserNotification(string userName, string notification)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (user == null) return false;
+            ((User)user).GetNotifications().Add(notification);
+            return true;
+        }
+
         public static string GetHash(string inputString)
         {
             byte[] encrypted = Hashing.GetHash("password");

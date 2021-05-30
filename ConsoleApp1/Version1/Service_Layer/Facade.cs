@@ -37,6 +37,7 @@ namespace Version1.Service_Layer
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
             return hashPassword != null && logicInstance.Register(username, hashPassword);
+
         }
 
 
@@ -549,6 +550,8 @@ namespace Version1.Service_Layer
             AddProductToBasket("yara", "MohamedStore", "5", 1);
             AddProductToBasket("shadi", "AdnanStore", "4", 10);
 
+
+            
 
             /*--------------------------------------------------------------------------*/
             return true;

@@ -91,7 +91,6 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Fire Manager" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="Fire Owner" Value="5"></asp:ListItem>
                                                 <asp:ListItem Text="Policies" Value="6"></asp:ListItem>
-
                 </asp:DropDownList>
             </td>
             <td>&nbsp;</td>
