@@ -11,7 +11,7 @@
         public const string NotAManager = "Error : This User Is Not A Manager";
         public const string AlreadyOwner = "Error : Apointee Is Already An Owner";
         public const string AlreadyManager = "Error : Apointee Is Already A Manager";
-
+        public const string IllegalRemoveOwner = "Error : Current Owner Does Not Have The Permission To Fire This Owner";
         
         // Store Errors
 

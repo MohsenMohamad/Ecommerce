@@ -155,7 +155,7 @@ namespace Version1.LogicLayer
 
         public bool RemoveOwner(string apointerid, string storeName, string apointeeid)
         {
-            return StoreLogic.RemoveOwner(storeName, apointeeid);
+            return StoreLogic.RemoveOwner(storeName, apointerid,apointeeid);
         }
 
         public bool RemoveManager(string apointerid, string storeName, string apointeeid)
