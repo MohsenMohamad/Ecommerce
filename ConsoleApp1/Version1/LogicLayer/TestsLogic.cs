@@ -1,4 +1,6 @@
-﻿using Version1.DataAccessLayer;
+﻿using System.Collections.Generic;
+using Version1.DataAccessLayer;
+using Version1.domainLayer.CompositeDP;
 
 namespace Version1.LogicLayer
 {
@@ -18,6 +20,11 @@ namespace Version1.LogicLayer
         public static void DeleteProduct(string productBarcode, string storeName)
         {
             DataHandler.Instance.RemoveProduct(productBarcode, storeName);
+        }
+
+        public static void ResetStorePolicies(string storeName)
+        {
+            DataHandler.Instance.GetStore(storeName).SetPurchasePolicies(new List<Component>());
         }
     }
 }

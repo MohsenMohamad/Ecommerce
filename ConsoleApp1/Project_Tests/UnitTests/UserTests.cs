@@ -25,8 +25,8 @@ namespace Project_Tests.UnitTests
             tea = new Product("tea", "black tea", "222", 40, null);
             const int product1Amount = 0;
             const int product2Amount = 4;
-            AddProductToStore(TestUserName, TestStoreName, bread.Barcode, product1Amount);
-            AddProductToStore(TestUserName, TestStoreName, tea.Barcode, product2Amount);
+            AddProductToStore(TestUserName, TestStoreName, bread.Barcode,bread.Name,bread.Description,bread.Price,"bakes", product1Amount);
+            AddProductToStore(TestUserName, TestStoreName, tea.Barcode,tea.Name,tea.Description,tea.Price,"herbal drink" ,product2Amount);
 
             UserLogout(TestUserName);
 

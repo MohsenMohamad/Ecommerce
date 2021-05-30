@@ -30,8 +30,8 @@ namespace Project_Tests.UnitTests
             storeProducts = new Hashtable();
             storeProducts.Add(product1, product1Amount);
             storeProducts.Add(product2, product2Amount);
-            AddProductToStore(TestOwnerName, StoreName, product1.Barcode, product1Amount);
-            AddProductToStore(TestOwnerName, StoreName, product2.Barcode, product2Amount);
+            AddProductToStore(TestOwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,"salts", product1Amount);
+            AddProductToStore(TestOwnerName, StoreName, product2.Barcode,product2.Name,product2.Description,product2.Price,"herbal drinks", product2Amount);
             UserLogout(TestOwnerName);
 
             GuestLogin();

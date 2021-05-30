@@ -101,6 +101,13 @@ namespace Project_tests
             return real.CheckStoreInventory(storeName, products);
         }
 
+        public bool ValidateBasketPolicies(string userName, string storeName)
+        {
+            if (real == null)
+                return true;
+            return real.ValidateBasketPolicies(userName, storeName);
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)

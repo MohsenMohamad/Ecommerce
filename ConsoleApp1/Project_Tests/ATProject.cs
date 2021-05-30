@@ -180,6 +180,12 @@ namespace Project_tests
             return service.Purchase(userName, creditCard);
         }
         
+        public bool ValidateBasketPolicies(string userName, string storeName)
+        {
+
+            return service.ValidateBasketPolicies(userName, storeName);
+        }
+        
         protected string GetHash(string inputString)
         {
             return service.GetHash(inputString);

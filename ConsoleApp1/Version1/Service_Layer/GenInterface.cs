@@ -18,6 +18,7 @@ namespace Version1.Service_Layer
         bool OpenStore(string managerName, string storeName, string policy);    //
         string GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //
+        bool ValidateBasketPolicies(string userName, string storeName);
 
         bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories1, int amount); //

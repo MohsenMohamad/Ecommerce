@@ -26,6 +26,11 @@ namespace Version1
         {
             TestsLogic.DeleteProduct(productBarcode, storeName);
         }
+
+        public void ResetStorePolicies(string storeName)
+        {
+            TestsLogic.ResetStorePolicies(storeName);
+        }
         
     }
 }

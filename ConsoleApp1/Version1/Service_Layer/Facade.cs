@@ -72,6 +72,22 @@ namespace Version1.Service_Layer
         }
 
 
+        public bool ValidateBasketPolicies(string userName, string storeName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+
+            var basket = user.GetShoppingCart().GetBasket(storeName);
+
+            foreach (var policy in store.GetPurchasePolicies())
+            {
+                if (!policy.Validate(basket))
+                    return false;
+            }
+
+            return true;
+        }
+
         public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
