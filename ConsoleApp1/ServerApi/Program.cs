@@ -23,41 +23,23 @@ namespace ServiceApi
         static void Main(string[] args)
         {
 
-            /*Thread thread3 = new Thread(delegate ()
-            {
-                try
-                {
-                    Facade facade = new Facade();
-                    //facade.Register("habal", "fassfa");
-*//*                    facade.Register("141hahssaasdasdsadasasasdddasdasdasdasdasdasd", "fassfa");
-                    facade.Register("141hahssaasdasdsaasdasddasdasdasdasdasdasdasd", "fassfa");
-                    facade.Register("14hahssaasdasdsadasdasasddasdasdasdasdasd", "fassfa");
-                    facade.Register("ha4141hssaasdasdasasddasdsadasdasdasdasdasdasdasd", "fassfa");
-                    facade.Register("ha41hssaasddasdsadasdasasddasdasdasdasdasd", "fassfa");
-                    facade.Register("ha414141hssadddasdaasdsasddsadasdasdasdasdasdasd", "fassfa");
-                    *//*
-                    Console.WriteLine("succsess");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("failed");
-                }
+            
 
-            });
-            thread3.Start();
-            thread3.Join();
-            System.Threading.Thread.Sleep(5);*/
             Thread thread1 = new Thread(delegate ()
             {
                 try
                 {
-                    
-                    
+
+
                     SystemAdmin sysadmin = new SystemAdmin();
                     //await retrieveDataAsync();
                     var facade = new Facade();
                     
                     facade.Register("admin", "admin");
+                    foreach (string i in facade.GetAllUserNamesInSystem())
+                    {
+                        Console.WriteLine(i);
+                    }
                     
                     // sysadmin.InitSystem();
                     // facade.InitSystem();

@@ -6,12 +6,11 @@ namespace Version1.domainLayer.DataStructures
     {
         
         // todo mohsen
-        public int id;
+        //public int id;
         internal Dictionary<string, ShoppingBasket> shoppingBaskets { get; set; }
 
         public ShoppingCart()
         {
-            
             shoppingBaskets = new Dictionary<string, ShoppingBasket>();
         }
 

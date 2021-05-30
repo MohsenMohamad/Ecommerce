@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
 
+
 namespace Version1.DataAccessLayer
 {
     public class ModelDB : DbContext
@@ -20,10 +21,9 @@ namespace Version1.DataAccessLayer
         public ModelDB()
             : base("ModelDB")
         {
-            bool createdNew = Database.CreateIfNotExists();
+            Database.CreateIfNotExists();
+            Database.SetInitializer<ModelDB>(new DropCreateDatabaseIfModelChanges<ModelDB>());
             Configuration.AutoDetectChangesEnabled = true;
-            Database.SetInitializer<ModelDB>(null);
-            
         }
 
         
@@ -175,6 +175,7 @@ namespace Version1.DataAccessLayer
     //done
     public class ShoppingCartDB
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Required]
         public int ShoppingCartId { get; set; }
@@ -185,7 +186,6 @@ namespace Version1.DataAccessLayer
     public class shoppingBasketsDictionaryDB
     {
         [Key]
-        [Required]
         public int ShoppingCartId { get; set; }
         //here
         public string keys { get; set; }
@@ -196,7 +196,9 @@ namespace Version1.DataAccessLayer
     //done
     public class ShoppingBasketDB
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [Required]
         public long id { get; set; }
         //[Required]
         public string StoreName { get; set; }
@@ -273,7 +275,7 @@ namespace Version1.DataAccessLayer
         public JavaScriptSerializer oJS;
         
         private static database _mySingleton = null;
-
+        private static object syncRoot = new object();
         private database() {
             db = new ModelDB();
             oJS = new JavaScriptSerializer();
@@ -283,12 +285,13 @@ namespace Version1.DataAccessLayer
         {
             if (_mySingleton is null) // The first check
             {
-                
+                lock (syncRoot)
+                {
                     if (_mySingleton is null) // The second (double) check
                     {
                         _mySingleton = new database();
                     }
-                
+                }
             }
 
             return _mySingleton;
@@ -431,7 +434,7 @@ namespace Version1.DataAccessLayer
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                throw;
+                return false;
             }
 
 
@@ -610,7 +613,7 @@ namespace Version1.DataAccessLayer
 
         }
 
-        public bool UpdateShoppingCart(ShoppingCart sh)
+        /*public bool UpdateShoppingCart(ShoppingCart sh)
         {
             var result = db.ShoppingCartsTable.SingleOrDefault(b => b.ShoppingCartId == sh.id);
             ShoppingCartDB shoppingCart = getShoppingCartDB(sh);
@@ -621,7 +624,7 @@ namespace Version1.DataAccessLayer
                 return true;
             }
             return false;
-        }
+        }*/
         /*public bool DeleteShoppingCart(ShoppingCart sh)
         {
             var result = db.ShoppingCartsTable.SingleOrDefault(b => b.ShoppingCartId == sh.id);
@@ -891,7 +894,7 @@ namespace Version1.DataAccessLayer
         private ShoppingCartDB getShoppingCartDB(ShoppingCart pr)
         {
             ShoppingCartDB p = new ShoppingCartDB();
-            p.ShoppingCartId = pr.id;
+            //p.ShoppingCartId = pr.id;
             p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
             //here
             List<string> list = new List<string>();
@@ -904,10 +907,11 @@ namespace Version1.DataAccessLayer
             }
             //here
             p.shoppingBaskets.keys = oJS.Serialize(list);
-                
             
-            
-            p.shoppingBaskets.ShoppingCartId = pr.id;
+
+
+
+            //p.shoppingBaskets.ShoppingCartId = pr.id;
             return p;
         }
 
@@ -942,16 +946,16 @@ namespace Version1.DataAccessLayer
             UserDB user = new UserDB();
             user.Password = u.Password;
             user.UserName = u.UserName;
-            user.notifications = oJS.Serialize(u.GetNotifications());
+            /*user.notifications = oJS.Serialize(u.GetNotifications());
 
             user.history = new List<PurchaseDB>();
             foreach (Purchase p in u.history)
             {
                 PurchaseDB pdb = getPurchaseDb(p);
                 user.history.Add(pdb);
-            }
+            }*/
 
-            user.shoppingCart = getShoppingCartDB(u.shoppingCart);
+            //user.shoppingCart = getShoppingCartDB(u.shoppingCart);
             return user;
         }
 

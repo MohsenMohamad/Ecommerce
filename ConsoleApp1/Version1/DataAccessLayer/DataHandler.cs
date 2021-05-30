@@ -12,10 +12,8 @@ namespace Version1.DataAccessLayer
         public object InefficientLock { get; }
         private static readonly object Padlock = new object();
 
-        
-
         private static DataHandler _instance = null;
-        internal ConcurrentDictionary<string, User> Users { get; }
+        public ConcurrentDictionary<string, User> Users { get; }
         private ConcurrentDictionary<long, Guest> Guests { get; }
         private ConcurrentDictionary<string, Category> Categories;
         internal ConcurrentDictionary<string, Store> Stores { get; }
@@ -24,24 +22,25 @@ namespace Version1.DataAccessLayer
 
         private DataHandler()
         {
-            database db = database.GetInstance();
+            
             oJS = new JavaScriptSerializer();
             Users = new ConcurrentDictionary<string, User>();
-
-                //upload users
-                if (db != null && db.getAllUsers() != null)
+            database db = database.GetInstance();
+            //upload users
+            if (db != null && db.getAllUsers() != null)
+            {
+                db.getAllUsers().ToList().ForEach((user) =>
                 {
-                    db.getAllUsers().ToList().ForEach((user) =>
-                    {
-                        if (user != null)
-                            Users.TryAdd(user.UserName, getUserFromUserDb(user));
+                    if (user != null)
+                        Users.TryAdd(user.UserName, getUserFromUserDb(user));
+                        //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
                         else
-                            habal();
+                        habal();
 
-                    });
-                }
-            
-            
+                });
+            }
+
+
 
 
             Guests = new ConcurrentDictionary<long, Guest>();
@@ -66,29 +65,25 @@ namespace Version1.DataAccessLayer
         {
             User user = new User(u.UserName, u.Password);
             
-            user.notifications = oJS.Deserialize<List<string>>(u.notifications);
+            /*user.notifications = oJS.Deserialize<List<string>>(u.notifications);
 
             user.history = new List<Purchase>();
-            if(u.history != null)
+            if (u.history != null)
             {
-                u.history.ToList().ForEach((p) => {
+                u.history.ToList().ForEach((p) =>
+                {
                     if (p != null)
                         user.history.Add(getPurchaseFromPurchaseDB(p));
                 });
             }
 
-            user.shoppingCart = new ShoppingCart();
-            if (u.shoppingCart != null){
-                user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
-            }
-            
+            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            */
+
             return user;
         }
 
-        internal int getMaxShoppingCartId()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private Purchase getPurchaseFromPurchaseDB(PurchaseDB p)
         {
@@ -106,16 +101,16 @@ namespace Version1.DataAccessLayer
         private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)
         {
             ShoppingCart shoppingCart = new ShoppingCart();
-            shoppingCart.id = sh.ShoppingCartId;
+            //shoppingCart.id = sh.ShoppingCartId;
 
-            List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
+            /*List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
             List<string> hashStrings = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);
 
             for(int i = 0; i < ShoppingBasketHash.Count; i++)
             {
                 ShoppingBasket temp = getShopingBasketFromShopingBasketDB(ShoppingBasketHash[i]);
                 shoppingCart.shoppingBaskets.Add(hashStrings[i], temp);
-            }
+            }*/
 
             return shoppingCart;
         }
@@ -165,8 +160,9 @@ namespace Version1.DataAccessLayer
                 }
                 else
                 {
-                    db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
+                    //db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
                     return db.InsertUser(user);
+                    //return db.InsertUser(new User(user.UserName,user.Password));
                 }
                 
             }

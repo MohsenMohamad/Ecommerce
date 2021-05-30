@@ -188,8 +188,30 @@ namespace Version1.Service_Layer
                 Console.WriteLine("starting init data base tables please wait\n");
                 Facade facade = new Facade();
                 facade.Register("zzz", "123");
-                database d = database.GetInstance();
-                d.DeleteUser("zzz");
+                database db = database.GetInstance();
+                //upload users
+                if (db != null && db.getAllUsers() != null)
+                {
+                    db.getAllUsers().ToList().ForEach((user) =>
+                    {
+                        if (user != null)
+                            Console.WriteLine(user.UserName);
+
+                    });
+                }
+                
+                db.DeleteUser("zzz");
+                if (db != null && db.getAllUsers() != null)
+                {
+                    db.getAllUsers().ToList().ForEach((user) =>
+                    {
+                        if (user != null)
+                            Console.WriteLine(user.UserName);
+
+                    });
+                }
+
+
                 Console.WriteLine("\nfinish init data base tables you can open server\n");
             }
         }
