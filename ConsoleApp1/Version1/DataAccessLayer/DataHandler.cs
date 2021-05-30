@@ -86,7 +86,6 @@ namespace Version1.DataAccessLayer
                 store.purchasePolicies = s.purchasePolicies.ToList();
             }
 
-            store.history = new List<Purchase>();
             if (s.history != null)
             {
                 s.history.ToList().ForEach((p) =>
@@ -95,6 +94,9 @@ namespace Version1.DataAccessLayer
                         store.history.Add(getPurchaseFromPurchaseDB(p));
                 });
             }
+
+            store.inventory = new ConcurrentDictionary<Product, int>();
+
             return store;
         }
 
@@ -121,8 +123,8 @@ namespace Version1.DataAccessLayer
                 });
             }
 
-            /*user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
-            */
+            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            
 
             return user;
         }
@@ -174,6 +176,28 @@ namespace Version1.DataAccessLayer
         private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)
         {
             ShoppingCart shoppingCart = new ShoppingCart();
+            if(sh!= null)
+            {
+                shoppingCart.shoppingBaskets = new Dictionary<string, ShoppingBasket>();
+                if (sh.shoppingBaskets != null && sh.shoppingBaskets.keys != null)
+                {
+                    List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);
+                    List<ShoppingBasket> values = shopingBasketsFormShopingBasketsDb(sh.shoppingBaskets.values.ToList());
+                    if (keys.Count == values.Count)
+                    {
+                        for (int i = 0; i < keys.Count; i++)
+                        {
+                            shoppingCart.shoppingBaskets.Add(keys.ElementAt(i), values.ElementAt(i));
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("keys.Count != values.Count");
+                    }
+                }
+            }
+ 
+            return shoppingCart;
             //shoppingCart.id = sh.ShoppingCartId;
 
             /*List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
@@ -184,8 +208,16 @@ namespace Version1.DataAccessLayer
                 ShoppingBasket temp = getShopingBasketFromShopingBasketDB(ShoppingBasketHash[i]);
                 shoppingCart.shoppingBaskets.Add(hashStrings[i], temp);
             }*/
+        }
 
-            return shoppingCart;
+        private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
+        {
+            List<ShoppingBasket> shBaskets = new List<ShoppingBasket>();
+            foreach(ShoppingBasketDB sh in shoppingBasketDBs)
+            {
+                shBaskets.Add(getShopingBasketFromShopingBasketDB(sh));
+            }
+            return shBaskets;
         }
 
         private ShoppingBasket getShopingBasketFromShopingBasketDB(ShoppingBasketDB sh)

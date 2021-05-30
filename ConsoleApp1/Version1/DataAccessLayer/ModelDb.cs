@@ -861,14 +861,14 @@ namespace Version1.DataAccessLayer
             {
                 store.history.Add(getPurchaseDb(p));
             }
-            /*store.discounts = new List<DiscountDB>();
+            /*
+            store.discounts = new List<DiscountDB>();
             foreach (Discount dis in s.discounts)
             {
                 store.discounts.Add(getDiscountDB(dis));
             }
 
             
-
             store.inventory = new inventoryDictionaryDBForStore();
             foreach (KeyValuePair<Product, int> p in s.inventory)
             {
@@ -896,24 +896,19 @@ namespace Version1.DataAccessLayer
         private ShoppingCartDB getShoppingCartDB(ShoppingCart pr)
         {
             ShoppingCartDB p = new ShoppingCartDB();
-            //p.ShoppingCartId = pr.id;
+
             p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
-            //here
+
             List<string> list = new List<string>();
             foreach (KeyValuePair<string, ShoppingBasket> pair in pr.shoppingBaskets)
             {
-                //here
-                // p.shoppingBaskets.keys.Add(pair.Key);
+
                 list.Add(pair.Key);
                 p.shoppingBaskets.values.Add(getShoppingBasketDB(pair.Value));
             }
-            //here
+            //todo make sure that this is updated
             p.shoppingBaskets.keys = oJS.Serialize(list);
             
-
-
-
-            //p.shoppingBaskets.ShoppingCartId = pr.id;
             return p;
         }
 
@@ -957,7 +952,7 @@ namespace Version1.DataAccessLayer
                 user.history.Add(pdb);
             }
 
-            //user.shoppingCart = getShoppingCartDB(u.shoppingCart);
+            user.shoppingCart = getShoppingCartDB(u.shoppingCart);
             return user;
         }
 
