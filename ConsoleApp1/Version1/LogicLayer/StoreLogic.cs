@@ -139,15 +139,20 @@ namespace Version1.LogicLayer
             return true;
         }
 
-        public static bool RemoveOwner(string storeName, string username)
+        public static bool RemoveOwner(string storeName, string firingUserName, string firedOwnerName)
         {
-            var owner = DataHandler.Instance.GetUser(username);
-            if (owner == null) throw new Exception(Errors.UserNotFound);
+            var firedOwner = DataHandler.Instance.GetUser(firedOwnerName);
+            if (firedOwner == null) throw new Exception(Errors.UserNotFound);
+            var firingUser = DataHandler.Instance.GetUser(firingUserName);
+            if (firingUser == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
 
-            var result = store.GetStaffTree().DeleteNode(username); // returns false if the owner was not found
-            if (!result) throw new Exception(Errors.NotAnOwner);
+            if (!IsOwner(storeName, firedOwnerName) || !IsOwner(storeName,firingUserName)) throw new Exception(Errors.NotAnOwner);
+
+            if (!store.GetStaffTree().GetNode(firingUserName).IsParent(firedOwnerName)) throw new Exception(Errors.IllegalRemoveOwner);
+            store.GetStaffTree().DeleteNode(firedOwnerName); // returns false if the owner was not found
+            UserLogic.AddUserNotification(firedOwnerName, "You Are No Longer An Owner At " + storeName);
             return true;
         }
 
@@ -306,40 +311,41 @@ namespace Version1.LogicLayer
 
             if (!store.GetOwner().Equals(ownerName)) throw new Exception(Errors.PermissionError);
 
-            
+
             foreach (var guest in DataHandler.Instance.Guests.Values)
             {
                 var closedStoreBasket = guest.GetShoppingCart().GetBasket(storeName);
                 if (closedStoreBasket != null)
                     guest.GetShoppingCart().shoppingBaskets.Remove(storeName);
             }
-            
+
             foreach (var user in DataHandler.Instance.Users.Values)
             {
                 var closedStoreBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (closedStoreBasket != null)
                 {
-                    var basketInfo = CartLogic.GetBasketInfo(user.UserName,storeName);
+                    var basketInfo = CartLogic.GetBasketInfo(user.UserName, storeName);
                     user.GetShoppingCart().shoppingBaskets.Remove(storeName);
-                    user.GetNotifications().Add("We are sorry to inform you that your cart from "+storeName+ " has been deleted \n Basket Info :\n"+basketInfo);
+                    user.GetNotifications().Add("We are sorry to inform you that your cart from " + storeName +
+                                                " has been deleted \n Basket Info :\n" + basketInfo);
                 }
-                
             }
 
             foreach (var manager in store.GetManagers())
             {
                 var managerUser = DataHandler.Instance.GetUser(manager);
-                ((User)managerUser).GetNotifications().Add(storeName+" has been closed , time to search for a new job");
+                ((User) managerUser).GetNotifications()
+                    .Add(storeName + " has been closed , time to search for a new job");
             }
-            
+
             foreach (var owner in store.GetOwners())
             {
                 var ownerUser = DataHandler.Instance.GetUser(owner);
-                ((User)ownerUser).GetNotifications().Add(storeName+" has been closed , time to search for a new job");
+                ((User) ownerUser).GetNotifications()
+                    .Add(storeName + " has been closed , time to search for a new job");
             }
 
-            return DataHandler.Instance.Stores.TryRemove(storeName,out _);
-            
+            return DataHandler.Instance.Stores.TryRemove(storeName, out _);
         }
     }
 }

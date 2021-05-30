@@ -90,5 +90,10 @@ namespace Version1.domainLayer.DataStructures
         {
             return GetEnumerator();
         }
+
+        public bool IsParent(T1 key)
+        {
+            return GetNode(key) != null;
+        }
     }
 }
