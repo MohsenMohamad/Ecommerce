@@ -126,8 +126,12 @@ namespace Version1.DataAccessLayer
                     throw new Exception("keys.Count != values.Count");
                 }
             }
+            if(s.staff != null)
+            {   
+                store.staff = getNode(s.staff);
+            }
+            
 
-            store.staff = oJS.Deserialize<Node<string, int>>(s.staff);
             /*store.discounts = new List<Discount>();
             foreach (DiscountDB dis in s.discounts)
             {
@@ -136,15 +140,13 @@ namespace Version1.DataAccessLayer
 
             return store;
         }
-        /*private Node<string, int> getNodeDb(NodeDB n)
+        private Node<string, int> getNode(NodeDB n)
         {
-            Node<string, int> node = new Node<string, int>();
-            node.Key = n.key;
-            node.Value = n.value;
-            node.Children = new List<Node<>>();
-            n.Children.ForEach((child) => node.Children.Add(getNodeDb(child)));
+            Node<string, int> node = new Node<string, int>(n.key,n.value);
+            node.Children = new List<Node<string, int>>();
+            n.Children.ToList().ForEach((child) => node.Children.Add(getNode(child)));
             return node;
-        }*/
+        }
 
         /*private Discount getDiscountFromDiscountDB(DiscountDB dis)
         {

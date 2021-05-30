@@ -263,7 +263,7 @@ namespace Version1.DataAccessLayer
 
         public inventoryDictionaryDBForStore inventory { get; set; }
         //string json of NodeDB
-        public string staff { get; set; }
+        public NodeDB staff { get; set; }
 
     }
 
@@ -882,10 +882,8 @@ namespace Version1.DataAccessLayer
                 store.discounts.Add(getDiscountDB(dis));
             }*/
 
-
-            //store.staff = getNodeDb(s.staff);
-            store.staff = oJS.Serialize(s.staff);
-
+            store.staff = getNodeDb(s.staff);
+            
             return store;
         }
 
