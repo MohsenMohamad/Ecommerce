@@ -105,6 +105,7 @@ namespace Version1.DataAccessLayer
     }
     public class DiscountDB
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public long discountId { get; set; }
 
@@ -261,8 +262,8 @@ namespace Version1.DataAccessLayer
         public ICollection<PurchaseDB> history { get; set; }
 
         public inventoryDictionaryDBForStore inventory { get; set; }
-
-        public NodeDB staff { get; set; }
+        //string json of NodeDB
+        public string staff { get; set; }
 
     }
 
@@ -500,7 +501,7 @@ namespace Version1.DataAccessLayer
             }
         }
 
-        public bool UpdateDiscount(Discount d)
+        /*public bool UpdateDiscount(Discount d)
         {
             var result = db.DiscountsTable.SingleOrDefault(b => b.discountId == d.id);
             DiscountDB discount = getDiscountDB(d);
@@ -512,7 +513,7 @@ namespace Version1.DataAccessLayer
                 return true;
             }
             return false;
-        }
+        }*/
 
         public DbSet<DiscountDB> getAllDiscounts()
         {
@@ -796,8 +797,9 @@ namespace Version1.DataAccessLayer
         private DiscountDB getDiscountDB(Discount pr)
         {
             DiscountDB ddb = new DiscountDB();
-            ddb.discountId = pr.id;
+            //ddb.discountId = pr.id;
             ddb.items = new itemsHasmapforDiscountDB();
+            // todo fill the discounts waiting for mohsen
 
             return ddb;
         }
@@ -873,15 +875,16 @@ namespace Version1.DataAccessLayer
             store.inventory.values = oJS.Serialize(valueList);
             store.inventory.storeName = s.name;
 
-            /*
-            store.discounts = new List<DiscountDB>();
+
+            /*store.discounts = new List<DiscountDB>();
             foreach (Discount dis in s.discounts)
             {
                 store.discounts.Add(getDiscountDB(dis));
-            }
+            }*/
 
-            store.staff = getNodeDb(s.staff);*/
 
+            //store.staff = getNodeDb(s.staff);
+            store.staff = oJS.Serialize(s.staff);
 
             return store;
         }

@@ -5,8 +5,7 @@ namespace Version1.domainLayer
 {
     public class Discount
     {
-        //todo mohsen
-        public int id;
+        
         public KeyValuePair<Product, double> items { get; set; }
         
         public Discount(Product pr, double dis)

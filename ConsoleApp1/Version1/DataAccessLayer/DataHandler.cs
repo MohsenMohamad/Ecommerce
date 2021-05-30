@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
+using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 
@@ -15,9 +16,10 @@ namespace Version1.DataAccessLayer
 
         private static DataHandler _instance = null;
         public ConcurrentDictionary<string, User> Users { get; }
+        internal ConcurrentDictionary<string, Store> Stores { get; }
         private ConcurrentDictionary<long, Guest> Guests { get; }
         private ConcurrentDictionary<string, Category> Categories;
-        internal ConcurrentDictionary<string, Store> Stores { get; }
+        
         private List<Review> Reviews { get; }
         public JavaScriptSerializer oJS;
 
@@ -35,8 +37,9 @@ namespace Version1.DataAccessLayer
             //upload stores
             uploadStores(db);
 
-
+            //fresh list
             Guests = new ConcurrentDictionary<long, Guest>();
+
             Reviews = new List<Review>();
             Categories = new ConcurrentDictionary<string, Category>();
             InefficientLock = new object();
@@ -123,12 +126,30 @@ namespace Version1.DataAccessLayer
                     throw new Exception("keys.Count != values.Count");
                 }
             }
-            
+
+            store.staff = oJS.Deserialize<Node<string, int>>(s.staff);
+            /*store.discounts = new List<Discount>();
+            foreach (DiscountDB dis in s.discounts)
+            {
+                store.discounts.Add(getDiscountFromDiscountDB(dis));
+            }*/
 
             return store;
         }
+        /*private Node<string, int> getNodeDb(NodeDB n)
+        {
+            Node<string, int> node = new Node<string, int>();
+            node.Key = n.key;
+            node.Value = n.value;
+            node.Children = new List<Node<>>();
+            n.Children.ForEach((child) => node.Children.Add(getNodeDb(child)));
+            return node;
+        }*/
 
-       
+        /*private Discount getDiscountFromDiscountDB(DiscountDB dis)
+        {
+            Discount discount = new Discount(dis.)
+        }*/
 
         private bool habal()
         {
