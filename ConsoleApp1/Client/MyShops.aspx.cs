@@ -27,6 +27,11 @@ namespace Client
                 Session["editshop"] = e.CommandArgument;
                 Response.Redirect("~/EditShop.aspx");
             }
+            if (e.CommandName == "StafInfo")
+            {
+                Session["editshop"] = e.CommandArgument;
+                Response.Redirect("~/Staff.aspx");
+            }
         }
 
         protected void Data_shop_SelectedIndexChanged(object sender, EventArgs e)

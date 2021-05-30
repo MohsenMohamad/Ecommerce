@@ -167,6 +167,7 @@
     <Content Include="PurchaseDone.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Shops.aspx" />
+    <Content Include="Staff.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
       <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
     <Compile Include="Code\Notifications.cs" />
+    <Compile Include="Code\Permissions.cs" />
     <Compile Include="Code\ShopHandler.cs" />
     <Compile Include="Code\System.cs" />
     <Compile Include="Code\UserHandler.cs" />
@@ -251,6 +253,13 @@
     </Compile>
     <Compile Include="Shops.aspx.designer.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Staff.aspx.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff.aspx.designer.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
