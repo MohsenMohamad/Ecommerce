@@ -132,9 +132,6 @@ namespace Version1.DataAccessLayer
 
     }
 
-
-
-
     //to ckeck in the end
     public class itemsHasmapforPurchaseDB
     {
@@ -253,7 +250,8 @@ namespace Version1.DataAccessLayer
         //to do make sure of that
         public ICollection<IPurchasePolicy> purchasePolicies { get; set; }
         public string notifications { get; set; }
-
+        public string storeOwner { get; set; }
+        
 
         public string paymentInfo { get; set; }
 
@@ -403,7 +401,7 @@ namespace Version1.DataAccessLayer
                 result.staff = store.staff;
                 result.storeName = store.storeName;
                 result.discounts = store.discounts;
-
+                result.storeOwner = s.staff.Key;
                 db.SaveChanges();
                 return true;
             }
@@ -850,23 +848,26 @@ namespace Version1.DataAccessLayer
             StoreDB store = new StoreDB();
 
             store.storeName = s.name;
-            store.purchasePolicies = s.purchasePolicies;
-            store.paymentInfo = oJS.Serialize(s.paymentInfo);
+            store.storeOwner = s.staff.Key;
 
+            
+            store.paymentInfo = oJS.Serialize(s.paymentInfo);
             store.notifications = oJS.Serialize(s.GetNotifications());
 
-
-            store.discounts = new List<DiscountDB>();
-            foreach (Discount dis in s.discounts)
-            {
-                store.discounts.Add(getDiscountDB(dis));
-            }
+            store.purchasePolicies = s.purchasePolicies;
 
             store.history = new List<PurchaseDB>();
             foreach (Purchase p in s.history)
             {
                 store.history.Add(getPurchaseDb(p));
             }
+            /*store.discounts = new List<DiscountDB>();
+            foreach (Discount dis in s.discounts)
+            {
+                store.discounts.Add(getDiscountDB(dis));
+            }
+
+            
 
             store.inventory = new inventoryDictionaryDBForStore();
             foreach (KeyValuePair<Product, int> p in s.inventory)
@@ -877,7 +878,7 @@ namespace Version1.DataAccessLayer
             store.inventory.storeName = s.name;
 
 
-            store.staff = getNodeDb(s.staff);
+            store.staff = getNodeDb(s.staff);*/
 
 
             return store;

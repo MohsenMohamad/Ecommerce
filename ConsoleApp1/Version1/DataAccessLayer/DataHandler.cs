@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.StorePolicies;
 
 namespace Version1.DataAccessLayer
 {
@@ -41,10 +42,22 @@ namespace Version1.DataAccessLayer
             }
 
 
-
-
-            Guests = new ConcurrentDictionary<long, Guest>();
             Stores = new ConcurrentDictionary<string, Store>();
+            //upload stores
+            if (db != null && db.getAllStores() != null)
+            {
+                db.getAllStores().ToList().ForEach((store) =>
+                {
+                    if (store != null)
+                        Stores.TryAdd(store.storeName, getStoreFromStoreDb(store));
+                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
+                    else
+                        habal();
+
+                });
+            }
+            Guests = new ConcurrentDictionary<long, Guest>();
+            
             /*db.getAllStores().ToList().ForEach((store) => Stores.TryAdd(store.storeName, new Store(
                 store.staff.key,
                 store.storeName)));*/
@@ -55,6 +68,37 @@ namespace Version1.DataAccessLayer
             InefficientLock = new object();
             
         }
+
+        private Store getStoreFromStoreDb(StoreDB s)
+        {
+            Store store = new Store(s.storeOwner, s.storeName);
+
+            if(s.paymentInfo != null)
+            {
+                store.paymentInfo = oJS.Deserialize<List<string>>(s.paymentInfo);
+            }
+            if (s.notifications != null)
+            {
+                store.notifications = oJS.Deserialize<List<string>>(s.notifications);
+            }
+            if (s.purchasePolicies != null)
+            {
+                store.purchasePolicies = s.purchasePolicies.ToList();
+            }
+
+            store.history = new List<Purchase>();
+            if (s.history != null)
+            {
+                s.history.ToList().ForEach((p) =>
+                {
+                    if (p != null)
+                        store.history.Add(getPurchaseFromPurchaseDB(p));
+                });
+            }
+            return store;
+        }
+
+       
 
         private bool habal()
         {

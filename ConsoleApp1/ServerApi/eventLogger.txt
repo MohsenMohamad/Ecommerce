@@ -455,3 +455,58 @@
 30/05/2021 14:48:02: rhas LoggedIn   .
 30/05/2021 14:48:03: rhas LoggedOut   .
 30/05/2021 14:48:03: Guest has connected with pid : 2  .
+30/05/2021 15:00:23: Guest has connected with pid : 1  .
+30/05/2021 15:00:31: ahas Register succesfully   .
+30/05/2021 15:00:33: ahas LoggedIn   .
+30/05/2021 15:00:44: a has opened shop : aSHop  .
+30/05/2021 15:00:48: Guest has connected with pid : 2  .
+30/05/2021 15:01:04: shas Register succesfully   .
+30/05/2021 15:01:06: shas LoggedIn   .
+30/05/2021 15:01:11: s has opened shop : s  .
+30/05/2021 15:01:13: Guest has connected with pid : 3  .
+30/05/2021 15:01:30: qhas Register succesfully   .
+30/05/2021 15:01:33: qhas LoggedIn   .
+30/05/2021 15:01:33: qhas LoggedOut   .
+30/05/2021 15:01:33: Guest has connected with pid : 4  .
+30/05/2021 15:01:35: qhas LoggedIn   .
+30/05/2021 15:01:37: qhas LoggedOut   .
+30/05/2021 15:01:37: Guest has connected with pid : 5  .
+30/05/2021 15:05:50: Guest has connected with pid : 1  .
+30/05/2021 15:05:51: Guest has connected with pid : 2  .
+30/05/2021 15:05:51: Guest has connected with pid : 3  .
+30/05/2021 15:05:58: ahas Register succesfully   .
+30/05/2021 15:06:06: Guest has connected with pid : 4  .
+30/05/2021 15:06:34: ahas LoggedIn   .
+30/05/2021 15:12:03: Guest has connected with pid : 1  .
+30/05/2021 15:12:09: shas Register succesfully   .
+30/05/2021 15:12:11: shas LoggedIn   .
+30/05/2021 15:12:13: shas LoggedOut   .
+30/05/2021 15:12:13: Guest has connected with pid : 2  .
+30/05/2021 15:12:18: adminhas LoggedIn   .
+30/05/2021 15:12:23: Guest has connected with pid : 3  .
+30/05/2021 15:12:25: shas LoggedIn   .
+30/05/2021 15:12:30: s has opened shop : s  .
+30/05/2021 15:12:33: Guest has connected with pid : 4  .
+30/05/2021 15:13:31: Guest has connected with pid : 1  .
+30/05/2021 15:13:36: shas LoggedIn   .
+30/05/2021 15:18:59: Guest has connected with pid : 1  .
+30/05/2021 15:19:13: ahas LoggedIn   .
+30/05/2021 15:19:20: a has opened shop : a  .
+30/05/2021 15:19:29: Guest has connected with pid : 2  .
+30/05/2021 15:19:34: shas LoggedIn   .
+30/05/2021 15:34:58: Guest has connected with pid : 1  .
+30/05/2021 15:35:56: Guest has connected with pid : 1  .
+30/05/2021 15:36:03: ahas LoggedIn   .
+30/05/2021 15:36:07: Guest has connected with pid : 2  .
+30/05/2021 15:36:12: asashas Register succesfully   .
+30/05/2021 15:36:15: asashas LoggedIn   .
+30/05/2021 15:36:20: asas has opened shop : asas  .
+30/05/2021 15:36:24: Guest has connected with pid : 3  .
+30/05/2021 15:36:32: shas LoggedIn   .
+30/05/2021 15:36:38: Guest has connected with pid : 4  .
+30/05/2021 15:54:31: Guest has connected with pid : 1  .
+30/05/2021 15:54:35: ahas LoggedIn   .
+30/05/2021 15:54:39: Guest has connected with pid : 2  .
+30/05/2021 15:54:45: shas LoggedIn   .
+30/05/2021 15:54:55: s has opened shop : asa  .
+30/05/2021 15:54:58: Guest has connected with pid : 3  .

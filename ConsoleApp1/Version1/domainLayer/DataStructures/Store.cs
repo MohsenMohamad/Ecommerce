@@ -9,14 +9,14 @@ namespace Version1.domainLayer.DataStructures
     {
         public string name { get; set; }
         public List<IPurchasePolicy> purchasePolicies { get; set; }
-        public Node<string, int> staff;
-        public List<string> notifications;
+        public Node<string, int> staff { get; set; }
+        public List<string> notifications { get; set; }
         public List<string> paymentInfo{ get; set; }
-        public List<Discount> discounts { get; }
-        public List<Purchase> history { get; }
-        public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
-        
-        
+        public List<Discount> discounts { get; set; }
+        public List<Purchase> history { get; set; }
+        public ConcurrentDictionary<Product, int> inventory { get; set; }// key : product , value : amount
+
+
         public Store(string owner,string name)
         {
             staff = new Node<string,int>(owner,-1);
