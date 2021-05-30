@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.Discounts;
 
 namespace Version1.domainLayer.DataStructures
 {
