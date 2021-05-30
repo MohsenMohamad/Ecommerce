@@ -65,7 +65,7 @@ namespace Version1.DataAccessLayer
         {
             User user = new User(u.UserName, u.Password);
             
-            /*user.notifications = oJS.Deserialize<List<string>>(u.notifications);
+            user.notifications = oJS.Deserialize<List<string>>(u.notifications);
 
             user.history = new List<Purchase>();
             if (u.history != null)
@@ -77,7 +77,7 @@ namespace Version1.DataAccessLayer
                 });
             }
 
-            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            /*user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
             */
 
             return user;
@@ -94,8 +94,37 @@ namespace Version1.DataAccessLayer
             purchase.store = p.storeName;
             purchase.user = p.UserName;
             purchase.date = p.date;
+
+            List<int> values = oJS.Deserialize<List<int>>(p.items.values);
+            List<Product> keys = new List<Product>();
+
+            foreach(ProductDB productdb in p.items.keys)
+            {
+                keys.Add(getProductFromProductDB(productdb));
+            }
+            //here I have got all the keys and the values.
+
+
+            purchase.items = new List<KeyValuePair<Product, int>>();
+
+            if(keys.Count == values.Count)
+            {
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    purchase.items.Add(new KeyValuePair<Product, int>(keys.ElementAt(i), values.ElementAt(i)));
+                }
+            }
+            else
+            {
+                throw new Exception("keys.Count != values.Count");
+            }
             
             return purchase;
+        }
+
+        private Product getProductFromProductDB(ProductDB productdb)
+        {
+            return new Product(productdb.barcode, productdb.productName, productdb.description, productdb.price, oJS.Deserialize<List<string>>(productdb.categories));
         }
 
         private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)

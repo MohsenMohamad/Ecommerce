@@ -5,11 +5,11 @@ namespace Version1.domainLayer.DataStructures
 {
     public class Purchase
     {
-        public long purchaseId;
-        public string store;
-        public string user;
-        public List<KeyValuePair<Product, int>> items { get; }
-        public PurchaseType purchaseType;
+        public long purchaseId { get; set; }
+        public string store { get; set; }
+        public string user { get; set; }
+        public List<KeyValuePair<Product, int>> items { get; set; }
+        public PurchaseType purchaseType { get; set; }
         public DateTime date { get; set; }
 
         public Purchase()

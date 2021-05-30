@@ -142,7 +142,7 @@ namespace Version1.DataAccessLayer
         [Required]
         public int purchaseId { get; set; }
         public ICollection<ProductDB> keys { get; set; }
-        public ICollection<int> values { get; set; }
+        public string values { get; set; }
     }
     //done
     public class CategoryDB
@@ -819,20 +819,21 @@ namespace Version1.DataAccessLayer
             p.UserName = pr.user;
             p.purchaseType = oJS.Serialize(pr.purchaseType);
 
-            p.items = new itemsHasmapforPurchaseDB();//new List<KeyValuePair<ProductDB, int>>();
+            p.items = new itemsHasmapforPurchaseDB();
 
+            //orm does not save list<int> to save in json string
+            List<int> listOfItemsValues = new List<int>();
             foreach (KeyValuePair<Product, int> pair in pr.items)
             {
-                ProductDB pdb = new ProductDB();
-                pdb.barcode = pair.Key.barcode;
-                pdb.productName = pair.Key.name;
-                pdb.price = pair.Key.price;
-                pdb.description = pair.Key.description;
-                pdb.categories = oJS.Serialize(pair.Key.categories);
+                ProductDB pdb = getProductDb(pair.Key);
+
                 p.items.keys.Add(pdb);
-                p.items.values.Add(pair.Value);
+                listOfItemsValues.Add(pair.Value);
             }
-            p.purchaseId = pr.purchaseId;
+            //orm does not save list<int> to save in json string
+            p.items.values = oJS.Serialize(listOfItemsValues);
+
+
             return p;
         }
 
@@ -946,14 +947,14 @@ namespace Version1.DataAccessLayer
             UserDB user = new UserDB();
             user.Password = u.Password;
             user.UserName = u.UserName;
-            /*user.notifications = oJS.Serialize(u.GetNotifications());
+            user.notifications = oJS.Serialize(u.GetNotifications());
 
             user.history = new List<PurchaseDB>();
             foreach (Purchase p in u.history)
             {
                 PurchaseDB pdb = getPurchaseDb(p);
                 user.history.Add(pdb);
-            }*/
+            }
 
             //user.shoppingCart = getShoppingCartDB(u.shoppingCart);
             return user;
