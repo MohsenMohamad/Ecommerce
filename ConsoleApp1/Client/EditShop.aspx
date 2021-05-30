@@ -414,10 +414,18 @@ margin-bottom: 16px;
                     </tr>
                     <tr>
                         <td class="auto-style25">
-                            <asp:Label ID="Label8" runat="server" Text="Time :"></asp:Label>
+                            <asp:Label ID="Label8" runat="server" Text=" hour :"></asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="TextBox2" runat="server" Height="16px"></asp:TextBox>   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style25">
+                            <asp:Label ID="Label12" runat="server" Text="minute :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox8" runat="server" Height="16px"></asp:TextBox>   
                         </td>
                     </tr>
                     <tr>

@@ -238,9 +238,9 @@ namespace Client.Code
             string param = string.Format("storeName={0}&productBarCode={1}&amount={2}", storeName, productBarCode, amount);
             return bool.Parse(System.SendApi("AddProductPolicies", param));
         }
-        public bool AddCategortPolicies(string storeName, string Category, string time)
+        public bool AddCategortPolicies(string storeName, string Category, int hour, int minute)
         {
-            string param = string.Format("storeName={0}&Category={1}&time={2}", storeName, Category, time);
+            string param = string.Format("storeName={0}&Category={1}&hour={2}&minute={3}", storeName, Category, hour , minute);
             return bool.Parse(System.SendApi("AddCategortPolicies", param));
         }
         public bool AddUserPolicies(string storeName, string productBarCode)

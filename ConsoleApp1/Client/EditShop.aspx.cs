@@ -349,7 +349,7 @@ namespace Client
         protected void AddCategory_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddCategortPolicies(Session["editshop"].ToString(), TextBox1.Text.ToString(), TextBox2.Text.ToString());
+            sh.AddCategortPolicies(Session["editshop"].ToString(), TextBox1.Text.ToString(),int.Parse(TextBox2.Text.ToString()),int.Parse(TextBox8.Text.ToString()));
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
 

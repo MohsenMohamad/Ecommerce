@@ -15,7 +15,7 @@ namespace Version1.domainLayer.StorePolicies
         
         public override bool Validate(ShoppingBasket shoppingBasket)
         {
-            return shoppingBasket.Products.Count > amount;
+            return shoppingBasket.Products.Count <= amount;
         }
 
         public void SetAmount(int newAmount)
