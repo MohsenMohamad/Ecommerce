@@ -44,7 +44,7 @@ namespace Version1.LogicLayer
         public static bool IsManger(string storeName, string mangerName)
         {
             if (!DataHandler.Instance.Stores.ContainsKey(storeName) ||
-                !DataHandler.Instance.Stores[storeName].GetManagers().Keys.Contains(mangerName))
+                !DataHandler.Instance.Stores[storeName].GetManagers().Contains(mangerName))
                 return false;
             return true;
         }
@@ -52,7 +52,7 @@ namespace Version1.LogicLayer
         public static bool IsOwner(string storeName, string ownerName)
         {
             if (!DataHandler.Instance.Stores.ContainsKey(storeName) ||
-                !DataHandler.Instance.Stores[storeName].GetOwners().Keys.Contains(ownerName))
+                !DataHandler.Instance.Stores[storeName].GetOwners().Contains(ownerName))
                 return false;
             return true;
         }
@@ -96,13 +96,13 @@ namespace Version1.LogicLayer
         public static List<string> GetStoreOwners(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store?.GetOwners().Keys.ToList();
+            return store?.GetOwners().ToList();
         }
 
         public static List<string> GetStoreManagers(string storeName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store?.GetManagers().Keys.ToList();
+            return store?.GetManagers();
         }
 
 
@@ -118,8 +118,8 @@ namespace Version1.LogicLayer
             if (!IsOwner(storeName, apointerid)) throw new Exception(Errors.PermissionError);
             if (IsOwner(storeName, apointeeid)) throw new Exception(Errors.AlreadyOwner);
 
-            store.GetOwners().Add(apointeeid, new List<string>());
-            store.GetOwners()[apointerid].Add(apointeeid);
+            store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, -1);
+
             return true;
         }
 
@@ -135,7 +135,7 @@ namespace Version1.LogicLayer
             if (!IsOwner(storeName, apointerid)) throw new Exception(Errors.PermissionError);
             if (IsManger(storeName, apointeeid)) throw new Exception(Errors.AlreadyManager);
 
-            store.GetManagers().Add(apointeeid, permissions);
+            store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, permissions);
             return true;
         }
 
@@ -146,7 +146,7 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
 
-            var result = store.GetOwners().Remove(username); // returns false if the owner was not found
+            var result = store.GetStaffTree().DeleteNode(username); // returns false if the owner was not found
             if (!result) throw new Exception(Errors.NotAnOwner);
             return true;
         }
@@ -157,9 +157,9 @@ namespace Version1.LogicLayer
             if (manager == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
-            
-            var result = store.GetManagers().Remove(username); // returns false if the manager was not found
-            if(!result)  throw new Exception(Errors.NotAManager);
+
+            var result = store.GetStaffTree().DeleteNode(username); // returns false if the manager was not found
+            if (!result) throw new Exception(Errors.NotAManager);
 
             return true;
         }
@@ -234,10 +234,8 @@ namespace Version1.LogicLayer
 
             return store?.GetInventory().Keys.Select(p => p.Barcode).ToList();
         }
-        
-        
-        
-        
+
+
         public static bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -245,17 +243,17 @@ namespace Version1.LogicLayer
 
             var product = DataHandler.Instance.GetProduct(productBarCode, storeName);
             if (product == null) throw new Exception(Errors.ProductNotFound);
-            
+
             if (amount < 0) return false;
-            
-            
+
+
             var policy = new MaxAmountPolicy(productBarCode, amount);
-            
+
             store.GetPurchasePolicies().Add(policy);
 
             return true;
-
         }
+
         public static bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -270,6 +268,7 @@ namespace Version1.LogicLayer
 
             return true;
         }
+
         public static bool AddUserPolicy(string storeName, string productBarCode)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -277,24 +276,24 @@ namespace Version1.LogicLayer
 
             var product = DataHandler.Instance.GetProduct(productBarCode, storeName);
             if (product == null) throw new Exception(Errors.ProductNotFound);
-            
+
             var policy = new CustomerTypeRestriction();
-            
+
             store.GetPurchasePolicies().Add(policy);
 
             return true;
         }
-        
+
         public static bool AddCartPolicy(string storeName, int amount)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
-            
-            
+
+
             if (amount < 0) return false;
-            
+
             var policy = new MaxProductsInBasketPolicy(amount);
-            
+
             store.GetPurchasePolicies().Add(policy);
 
             return true;
