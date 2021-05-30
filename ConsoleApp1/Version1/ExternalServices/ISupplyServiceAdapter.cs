@@ -3,7 +3,7 @@
     public interface ISupplyServiceAdapter
     {
         bool Handshake();
-        bool Supply();
-        bool CancelSupply();
+        int Supply(string nameF,string addressF,string cityF,string countryF,int zipF);
+        int CancelSupply(int transactionId);
     }
 }

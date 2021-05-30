@@ -38,6 +38,16 @@ namespace Version1.ExternalServices
             throw new System.NotImplementedException();
         }
 
+        public int Pay(string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int CancelPay(int transactionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool Pay()
         {
             throw new System.NotImplementedException();

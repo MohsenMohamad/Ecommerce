@@ -3,7 +3,7 @@
     public interface IFinanceServiceAdapter
     {
         bool Handshake();
-        bool Pay();
-        bool CancelPay();
+        int Pay(string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId);
+        int CancelPay(int transactionId);
     }
 }

@@ -33,6 +33,16 @@ namespace Version1.ExternalServices
             throw new System.NotImplementedException();
         }
 
+        public int Supply(string nameF, string addressF, string cityF, string countryF, int zipF)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int CancelSupply(int transactionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool Supply()
         {
             throw new System.NotImplementedException();
