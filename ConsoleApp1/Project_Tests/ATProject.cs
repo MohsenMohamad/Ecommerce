@@ -3,9 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1;
 using Version1.domainLayer;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 using Version1.domainLayer.UserRoles;
+using Version1.Service_Layer;
 
 
 namespace Project_tests
@@ -188,7 +190,7 @@ namespace Project_tests
             return service.GetHashString(inputString);
         }
 
-        protected bool UpdatePurchasePolicy(string storeName, IPurchasePolicy policy)
+        protected bool UpdatePurchasePolicy(string storeName, Component policy)
         {
             return service.UpdatePurchasePolicy(storeName, policy);
         }

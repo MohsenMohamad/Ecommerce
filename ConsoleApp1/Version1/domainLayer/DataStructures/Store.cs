@@ -1,18 +1,16 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer.StorePolicies;
+using Version1.domainLayer.CompositeDP;
 
 namespace Version1.domainLayer.DataStructures
 {
     public class Store
     {
         private string name { get; set; }
-        private string originalOwner { get; }
-        private List<IPurchasePolicy> purchasePolicies { get; set; }
+        private List<Component> purchasePolicies { get; set; }
+        public Node<string, int> staff;
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
-        private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
-        private Dictionary<string,List<string>> owners { get; } // key : owner name , value : appointed owners
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
@@ -20,13 +18,11 @@ namespace Version1.domainLayer.DataStructures
         
         public Store(string owner,string name)
         {
-            purchasePolicies = new List<IPurchasePolicy>();
-            managers = new Dictionary<string, int>();
+            staff = new Node<string,int>(owner,-1);
+            purchasePolicies = new List<Component>();
             inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
             history = new List<Purchase>();
-            owners = new Dictionary<string, List<string>> {{owner, new List<string>()}};
-            originalOwner = owner;
             paymentInfo = new List<string>();
             this.name = name;
             notifications = new List<string>();
@@ -36,15 +32,15 @@ namespace Version1.domainLayer.DataStructures
         {
             string output = "";
             output += "Store name: " + name;
-            output += "/nStore Owner: " + originalOwner;
+            output += "/nStore Owner: " + GetOwner();
             output += "/nmanagers:/n ";
-            foreach (var manager in managers.Keys)
+            foreach (var manager in GetManagers())
             {
                 output += "/n " + manager;
             }
             output += "/n--------------------------------------/n";
             output += "/nco owners:/n ";
-            foreach (var owner in owners.Keys)
+            foreach (var owner in GetOwners())
             {
                 output += "/n " + owner;
             }
@@ -61,14 +57,14 @@ namespace Version1.domainLayer.DataStructures
             return name;
         }
         
-        public List<IPurchasePolicy> GetPurchasePolicies()
+        public List<Component> GetPurchasePolicies()
         {
             return purchasePolicies;
         }
 
         public string GetOwner()
         {
-            return originalOwner;
+            return staff.Key;
         }
 
         public List<Purchase> GetHistory()
@@ -76,14 +72,14 @@ namespace Version1.domainLayer.DataStructures
             return history;
         }
 
-        public Dictionary<string,int> GetManagers()
+        public List<string> GetManagers()
         {
-            return managers;
+            return staff.GetNotNull();
         }
         
-        public Dictionary<string,List<string>> GetOwners()
+        public List<string> GetOwners()
         {
-            return owners;
+            return staff.GetByValue(-1); // -1 = no specified permission = owner
         }
 
         public List<string> GetNotifications()
@@ -100,6 +96,11 @@ namespace Version1.domainLayer.DataStructures
         {
             return inventory;
         }
+        
+        public Node<string, int> GetStaffTree()
+        {
+            return staff;
+        }
 
         public List<string> GetPaymentsInfo()
         {
@@ -108,7 +109,7 @@ namespace Version1.domainLayer.DataStructures
         
 //----------------------------------- Setters -----------------------------------//
         
-        public void SetPurchasePolicies(List<IPurchasePolicy> newPolicies)
+        public void SetPurchasePolicies(List<Component> newPolicies)
         {
             purchasePolicies = newPolicies;
         }

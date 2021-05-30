@@ -38,11 +38,18 @@ namespace Client.Code
             string param = string.Format("username={0}", userName);
             return bool.Parse(System.SendApi("Logout", param));
         }
-    /*    public string AddNewOwner(string mangerName, string storename, string newOwner)
+
+        public bool IsOwner(string storeName, string ownerName)
         {
-            string param = string.Format("mangerName={0}&storename={1}&newOwner={2}", mangerName, storename, newOwner);
-            return (System.SendApi("AddNewOwner", param));
-        }*/
+            string param = string.Format("storeName={0}&ownerName={1}", storeName, ownerName);
+            return bool.Parse(System.SendApi("IsOwner", param));
+        }
+
+        /*    public string AddNewOwner(string mangerName, string storename, string newOwner)
+            {
+                string param = string.Format("mangerName={0}&storename={1}&newOwner={2}", mangerName, storename, newOwner);
+                return (System.SendApi("AddNewOwner", param));
+            }*/
         public string MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {
             string param = string.Format("storeName={0}&apointerid={1}&apointeeid={2}&permissions={3}", storeName, apointerid, apointeeid, permissions);

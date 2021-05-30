@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 using Version1.LogicLayer;
@@ -36,6 +37,7 @@ namespace Version1.Service_Layer
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
             return hashPassword != null && logicInstance.Register(username, hashPassword);
+
         }
 
 
@@ -223,6 +225,30 @@ namespace Version1.Service_Layer
         }
 
 
+        public bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
+        {
+            return logicInstance.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+        public bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
+        {
+            return logicInstance.AddCategoryPolicy(storeName, productCategory, hour, minute);
+        }
+        public bool AddUserPolicy(string storeName, string productBarCode)
+        {
+            return logicInstance.AddUserPolicy(storeName, productBarCode);
+        }
+        
+        public bool AddCartPolicy(string storeName, int amount)
+        {
+            return logicInstance.AddCartPolicy(storeName, amount);
+        }
+
+        public string[][] GetAllWorkersInStore(string storeName)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public bool IsLoggedIn(string userName)
         {
             return logicInstance.IsLoggedIn(userName);
@@ -299,7 +325,7 @@ namespace Version1.Service_Layer
             return notifications?.ToArray();
         }
 
-        public bool UpdatePurchasePolicy(string shopName, IPurchasePolicy policy)
+        public bool UpdatePurchasePolicy(string shopName, Component policy)
         {
             return logicInstance.UpdateStorePolicy(shopName, policy);
         }
@@ -343,6 +369,8 @@ namespace Version1.Service_Layer
                     {
                         categories = categories + category + "#";
                     }
+
+                    categories =  categories.Substring(0, categories.Length - 1);
 
                     productData[4] = categories;
 
@@ -424,6 +452,9 @@ namespace Version1.Service_Layer
         }
 
 
+
+
+
         public bool AdminInitSystem()
         {
             /* ----------------------------  users -------------------------------*/
@@ -460,7 +491,7 @@ namespace Version1.Service_Layer
                 new[] {health.Name, beauty.Name}.ToList());
             var product5 = new Product("5", "sandals", "comfortable sandals", 349.99,
                 new[] {fashion.Name, health.Name, sports.Name}.ToList());
-            var product6 = new Product("6", "brush", "just a normal brush , what did you expect ...", 33,
+            var product6 = new Product("6", "brush", "just a normal brush  what did you expect ...", 33,
                 new[] {arts.Name}.ToList());
 
             /* ----------------------------  discounts -------------------------------*/
@@ -492,11 +523,11 @@ namespace Version1.Service_Layer
             MakeNewManger("MohamedStore", "mohamedm", "yara", 4);
             //         MohamedStore.AddDiscount(dis1);
             AddProductToStore("mohamedm", "MohamedStore", product3.Barcode, product3.Name, product3.Description,
-                product3.Price, product3.Categories.ToString(), 8);
+                product3.Price, product3.Categories[0].ToString(), 8);
             AddProductToStore("mohamedm", "MohamedStore", product1.Barcode, product1.Name, product1.Description,
-                product1.Price, product1.Categories.ToString(), 11);
+                product1.Price, product1.Categories[0].ToString(), 11);
             AddProductToStore("mohamedm", "MohamedStore", product6.Barcode, product6.Name, product6.Description,
-                product6.Price, product6.Categories.ToString(), 20);
+                product6.Price, product6.Categories[0].ToString(), 20);
 
 
             OpenStore("adnan", "AdnanStore", "AdnanPolicy");
@@ -504,11 +535,11 @@ namespace Version1.Service_Layer
             MakeNewOwner("AdnanStore", "adnan", "yara");
             //     AdnanStore.AddDiscount(dis2);
             AddProductToStore("adnan", "AdnanStore", product2.Barcode, product2.Name, product2.Description,
-                product2.Price, product2.Categories.ToString(), 18);
+                product2.Price, product2.Categories[0].ToString()+"#"+ product2.Categories[1].ToString(), 18);
             AddProductToStore("adnan", "AdnanStore", product4.Barcode, product4.Name, product4.Description,
-                product4.Price, product4.Categories.ToString(), 20);
+                product4.Price, product4.Categories[0].ToString() + "#" + product4.Categories[1].ToString(), 20);
             AddProductToStore("adnan", "AdnanStore", product5.Barcode, product5.Name, product5.Description,
-                product5.Price, product5.Categories.ToString(), 7);
+                product5.Price, product5.Categories[0].ToString() + "#" + product5.Categories[1].ToString() + "#" + product5.Categories[2].ToString(), 7);
 
 
             /*--------------------------------------------------------------------------*/
@@ -519,6 +550,8 @@ namespace Version1.Service_Layer
             AddProductToBasket("yara", "MohamedStore", "5", 1);
             AddProductToBasket("shadi", "AdnanStore", "4", 10);
 
+
+            
 
             /*--------------------------------------------------------------------------*/
             return true;
@@ -536,9 +569,9 @@ namespace Version1.Service_Layer
             return logicInstance.GetStoreInventory(storeName);
         }
 
-        public bool CloseShop(string shopName, string ownerName)
+        public bool CloseStore(string storeName, string ownerName)
         {
-            throw new NotImplementedException();
+            return logicInstance.CloseStore(storeName, ownerName);
         }
 
         public bool HasPermission(string shopName, string userName, int permission)

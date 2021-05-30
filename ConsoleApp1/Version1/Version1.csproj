@@ -52,8 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
+    <Compile Include="domainLayer\CompositeDP\Component.cs" />
+    <Compile Include="domainLayer\CompositeDP\Composite.cs" />
+    <Compile Include="domainLayer\CompositeDP\ConditioningPolicy.cs" />
+    <Compile Include="domainLayer\CompositeDP\Leif.cs" />
+    <Compile Include="domainLayer\CompositeDP\OrComposite.cs" />
     <Compile Include="domainLayer\DataStructures\Category.cs" />
     <Compile Include="domainLayer\DataStructures\Guest.cs" />
+    <Compile Include="domainLayer\DataStructures\Node.cs" />
     <Compile Include="domainLayer\DataStructures\Person.cs" />
     <Compile Include="domainLayer\DataStructures\Product.cs" />
     <Compile Include="domainLayer\DataStructures\Purchase.cs" />
@@ -65,8 +72,11 @@
     <Compile Include="domainLayer\Errors.cs" />
     <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="domainLayer\Permissions.cs" />
+    <Compile Include="domainLayer\StorePolicies\CustomerTypeRestriction.cs" />
     <Compile Include="domainLayer\StorePolicies\IPurchasePolicy.cs" />
     <Compile Include="domainLayer\StorePolicies\MaxAmountPolicy.cs" />
+    <Compile Include="domainLayer\StorePolicies\MaxProductsInBasketPolicy.cs" />
+    <Compile Include="domainLayer\StorePolicies\TimeRestrictedCategories.cs" />
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
     <Compile Include="ExternalServices\ExternalSupplyService.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />

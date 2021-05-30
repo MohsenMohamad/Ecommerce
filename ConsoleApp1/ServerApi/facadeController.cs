@@ -42,6 +42,18 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public bool IsOwner(string storeName, string ownerName)
+        {
+            return facade.IsOwner(storeName, ownerName);
+        }
+
+        [HttpGet]
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return facade.CloseStore(storeName, ownerName);
+        }
+
+        [HttpGet]
         public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             try
@@ -81,6 +93,33 @@ namespace ServerApi
         {
             return facade.SearchByKeyword(keyword);
         }
+
+
+        [HttpGet]
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            return facade.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+
+        [HttpGet]
+        public bool AddCategortPolicies(string storeName, string category, int hour, int minute)
+        {
+            return facade.AddCategoryPolicy(storeName, category, hour, minute);
+        }
+
+        [HttpGet]
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            return facade.AddUserPolicy(storeName, productBarCode);
+        }
+
+        [HttpGet]
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            return facade.AddCartPolicy( storeName,  amount);
+        }
+
+
         [HttpGet]
         public string makeNewOwner(string storeName, string apointerid, string apointeeid)
         {
@@ -112,6 +151,7 @@ namespace ServerApi
                 return e.Message;
             }
         }
+
         [HttpGet]
         public string removeOwner(string apointerid, string storeName, string apointeeid)
         {

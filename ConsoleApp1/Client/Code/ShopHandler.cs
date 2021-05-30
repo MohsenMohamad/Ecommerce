@@ -89,6 +89,12 @@ namespace Client.Code
             return d1;
         }
 
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            string param = string.Format("storeName={0}&ownerName={1}", storeName, ownerName);
+            return bool.Parse(System.SendApi("CloseStore", param));
+        }
+
         public DataSet GetUserStores(string userName)
         {
             string param = string.Format("userName={0}", userName);
@@ -114,7 +120,6 @@ namespace Client.Code
         {
             string param = string.Format("ownername={0}&itemBarCode={1}&item_name={2}&amount={3}&price={4}&shopName={5}&descreption={6}&catagorie={7}", ownername, itemBarCode, item_name, amount, price, shopName, descreption, catagorie);
             return (System.SendApi("AddItemToStore", param));
-
         }
 
         public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
@@ -231,6 +236,29 @@ namespace Client.Code
             string param = "";
             return bool.Parse(System.SendApi("InitSystem", param));
         }
+
+
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}&amount={2}", storeName, productBarCode, amount);
+            return bool.Parse(System.SendApi("AddProductPolicies", param));
+        }
+        public bool AddCategortPolicies(string storeName, string Category, int hour, int minute)
+        {
+            string param = string.Format("storeName={0}&Category={1}&hour={2}&minute={3}", storeName, Category, hour , minute);
+            return bool.Parse(System.SendApi("AddCategortPolicies", param));
+        }
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}", storeName, productBarCode);
+            return bool.Parse(System.SendApi("AddUserPolicies", param));
+        }
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            string param = string.Format("storeName={0}&amount={1}", storeName, amount);
+            return bool.Parse(System.SendApi("AddCartrPolicies", param));
+        }
+
 
 
 
