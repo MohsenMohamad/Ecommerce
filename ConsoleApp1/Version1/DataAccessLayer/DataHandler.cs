@@ -11,6 +11,9 @@ namespace Version1.DataAccessLayer
     {
         public object InefficientLock { get; }
         private static readonly object Padlock = new object();
+
+        
+
         private static DataHandler _instance = null;
         internal ConcurrentDictionary<string, User> Users { get; }
         private ConcurrentDictionary<long, Guest> Guests { get; }
@@ -24,8 +27,7 @@ namespace Version1.DataAccessLayer
             database db = database.GetInstance();
             oJS = new JavaScriptSerializer();
             Users = new ConcurrentDictionary<string, User>();
-            try
-            {
+
                 //upload users
                 if (db != null && db.getAllUsers() != null)
                 {
@@ -38,12 +40,8 @@ namespace Version1.DataAccessLayer
 
                     });
                 }
-            }
-            catch (Exception xxx)
-            {
-                int i = 0;
-                i++;
-            }
+            
+            
 
 
             Guests = new ConcurrentDictionary<long, Guest>();
@@ -71,14 +69,26 @@ namespace Version1.DataAccessLayer
             user.notifications = oJS.Deserialize<List<string>>(u.notifications);
 
             user.history = new List<Purchase>();
-            u.history.ToList().ForEach((p) => user.history.Add(getPurchaseFromPurchaseDB(p)));
+            if(u.history != null)
+            {
+                u.history.ToList().ForEach((p) => {
+                    if (p != null)
+                        user.history.Add(getPurchaseFromPurchaseDB(p));
+                });
+            }
 
-
-            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            user.shoppingCart = new ShoppingCart();
+            if (u.shoppingCart != null){
+                user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            }
+            
             return user;
         }
 
-        
+        internal int getMaxShoppingCartId()
+        {
+            throw new NotImplementedException();
+        }
 
         private Purchase getPurchaseFromPurchaseDB(PurchaseDB p)
         {
@@ -97,7 +107,6 @@ namespace Version1.DataAccessLayer
         {
             ShoppingCart shoppingCart = new ShoppingCart();
             shoppingCart.id = sh.ShoppingCartId;
-            
 
             List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
             List<string> hashStrings = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);

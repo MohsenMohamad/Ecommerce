@@ -56,26 +56,27 @@ namespace Version1.DataAccessLayer
         public virtual DbSet<shoppingBasketsDictionaryDB> shoppingBasketsDictionariesDB { get; set; }
         public virtual DbSet<itemsHasmapforPurchaseDB> itemsFromPurchaseDBDictionariesDB { get; set; }
         public virtual DbSet<itemsHasmapforDiscountDB> itemsFromDiscountsDBDictionariesDB { get; set; }
-        public virtual DbSet<stringmapint> basketProducts { get; set; }
+        //public virtual DbSet<stringmapint> basketProducts { get; set; }
 
     }
 
-    public class stringmapint
+    /*public class stringmapint
     {
         [Key]
         [Required]
         public long id { get; set; }
-        [Required]
-        public string[] keys { get; set; }
-        [Required]
-        public int[] values { get; set; }
-        public stringmapint(long id, string[] keys, int[] values)
+        
+        public string keys { get; set; }
+        
+        public string values { get; set; }
+
+        public stringmapint(long id, string keys, string values)
         {
             this.id = id;
             this.keys = keys;
             this.values = values;
         }
-    }
+    }*/
 
 
 
@@ -473,6 +474,7 @@ namespace Version1.DataAccessLayer
 
                 db.UsersTable.Remove(result);
                 db.SaveChanges();
+                Console.WriteLine("delete user");
                 return true;
             }
             return false;
@@ -902,6 +904,9 @@ namespace Version1.DataAccessLayer
             }
             //here
             p.shoppingBaskets.keys = oJS.Serialize(list);
+                
+            
+            
             p.shoppingBaskets.ShoppingCartId = pr.id;
             return p;
         }

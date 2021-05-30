@@ -126,10 +126,8 @@ namespace Version1.Service_Layer
                  s.notifications.Add("asdasf");*/
 
                 //database d = database.GetInstance();
-                Facade facade = new Facade();
-                facade.Register("zzz", "123");
-                facade.Login("zzz", "123");
-                facade.OpenStore("zzz", "store1", "");
+
+                //facade.OpenStore("zzz", "store1", "");
 
                 /*
                                 //d.InsertDiscount(new Discount(p,50));
@@ -187,8 +185,12 @@ namespace Version1.Service_Layer
                                     Console.WriteLine("user " + u.UserName + " notifications is " + u.notifications);
                                 }
                                 */
-
-                Console.WriteLine("finish operation");
+                Console.WriteLine("starting init data base tables please wait\n");
+                Facade facade = new Facade();
+                facade.Register("zzz", "123");
+                database d = database.GetInstance();
+                d.DeleteUser("zzz");
+                Console.WriteLine("\nfinish init data base tables you can open server\n");
             }
         }
 
