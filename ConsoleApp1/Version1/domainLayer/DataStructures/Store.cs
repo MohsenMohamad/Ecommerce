@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.StorePolicies;
 
 namespace Version1.domainLayer.DataStructures
@@ -8,7 +9,7 @@ namespace Version1.domainLayer.DataStructures
     {
         private string name { get; set; }
         private string originalOwner { get; }
-        private List<IPurchasePolicy> purchasePolicies { get; set; }
+        private List<Component> purchasePolicies { get; set; }
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
         private Dictionary<string,int> managers { get; } // key : manager name , value : permissions
@@ -20,7 +21,7 @@ namespace Version1.domainLayer.DataStructures
         
         public Store(string owner,string name)
         {
-            purchasePolicies = new List<IPurchasePolicy>();
+            purchasePolicies = new List<Component>();
             managers = new Dictionary<string, int>();
             inventory = new ConcurrentDictionary<Product, int>();
             discounts = new List<Discount>();
@@ -61,7 +62,7 @@ namespace Version1.domainLayer.DataStructures
             return name;
         }
         
-        public List<IPurchasePolicy> GetPurchasePolicies()
+        public List<Component> GetPurchasePolicies()
         {
             return purchasePolicies;
         }
@@ -108,7 +109,7 @@ namespace Version1.domainLayer.DataStructures
         
 //----------------------------------- Setters -----------------------------------//
         
-        public void SetPurchasePolicies(List<IPurchasePolicy> newPolicies)
+        public void SetPurchasePolicies(List<Component> newPolicies)
         {
             purchasePolicies = newPolicies;
         }

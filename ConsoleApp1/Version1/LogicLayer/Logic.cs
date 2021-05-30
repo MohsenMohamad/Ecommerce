@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 
@@ -194,7 +195,7 @@ namespace Version1.LogicLayer
             return StoreLogic.GetStorePolicy(storeName);
         }
 
-        public bool UpdateStorePolicy(string storeName, IPurchasePolicy newPolicy)
+        public bool UpdateStorePolicy(string storeName, Component newPolicy)
         {
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
@@ -254,6 +255,24 @@ namespace Version1.LogicLayer
         public string GetHashString(string inputString)
         {
             return UserLogic.GetHashString(inputString);
+        }
+        
+        public bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
+        {
+            return StoreLogic.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+        public bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
+        {
+            return StoreLogic.AddCategoryPolicy(storeName, productCategory, hour, minute);
+        }
+        public bool AddUserPolicy(string storeName, string productBarCode)
+        {
+            return StoreLogic.AddUserPolicy(storeName, productBarCode);
+        }
+        
+        public bool AddCartPolicy(string storeName, int amount)
+        {
+            return StoreLogic.AddCartPolicy(storeName, amount);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 using Version1.LogicLayer;
@@ -223,25 +224,25 @@ namespace Version1.Service_Layer
         }
 
 
-        //todo all Policies
-        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        public bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddMaxProductPolicy(storeName, productBarCode, amount);
         }
-        public bool AddCategortPolicies(string storeName, string Category, string time)
+        public bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddCategoryPolicy(storeName, productCategory, hour, minute);
         }
-        public bool AddUserPolicies(string storeName, string productBarCode)
+        public bool AddUserPolicy(string storeName, string productBarCode)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddUserPolicy(storeName, productBarCode);
         }
-        public bool AddCartrPolicies(string storeName, int amount)
+        
+        public bool AddCartPolicy(string storeName, int amount)
         {
-            throw new NotImplementedException();
+            return logicInstance.AddCartPolicy(storeName, amount);
         }
 
-        public string[][] GetAllWorkerinStore(string storename)
+        public string[][] GetAllWorkersInStore(string storeName)
         {
             throw new NotImplementedException();
         }
@@ -323,7 +324,7 @@ namespace Version1.Service_Layer
             return notifications?.ToArray();
         }
 
-        public bool UpdatePurchasePolicy(string shopName, IPurchasePolicy policy)
+        public bool UpdatePurchasePolicy(string shopName, Component policy)
         {
             return logicInstance.UpdateStorePolicy(shopName, policy);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 
@@ -217,7 +218,7 @@ namespace Version1.LogicLayer
             return history;
         }
 
-        public static bool UpdateStorePolicy(string storeName, IPurchasePolicy newPolicy)
+        public static bool UpdateStorePolicy(string storeName, Component newPolicy)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) return false;
@@ -232,6 +233,71 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
 
             return store?.GetInventory().Keys.Select(p => p.Barcode).ToList();
+        }
+        
+        
+        
+        
+        public static bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var product = DataHandler.Instance.GetProduct(productBarCode, storeName);
+            if (product == null) throw new Exception(Errors.ProductNotFound);
+            
+            if (amount < 0) return false;
+            
+            
+            var policy = new MaxAmountPolicy(productBarCode, amount);
+            
+            store.GetPurchasePolicies().Add(policy);
+
+            return true;
+
+        }
+        public static bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var category = productCategory; // get category
+
+            var policy = new TimeRestrictedCategories(hour, minute);
+            policy.AddRestrictedCategory(category);
+
+            store.GetPurchasePolicies().Add(policy);
+
+            return true;
+        }
+        public static bool AddUserPolicy(string storeName, string productBarCode)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var product = DataHandler.Instance.GetProduct(productBarCode, storeName);
+            if (product == null) throw new Exception(Errors.ProductNotFound);
+            
+            var policy = new CustomerTypeRestriction();
+            
+            store.GetPurchasePolicies().Add(policy);
+
+            return true;
+        }
+        
+        public static bool AddCartPolicy(string storeName, int amount)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+            
+            
+            if (amount < 0) return false;
+            
+            var policy = new MaxProductsInBasketPolicy(amount);
+            
+            store.GetPurchasePolicies().Add(policy);
+
+            return true;
         }
     }
 }

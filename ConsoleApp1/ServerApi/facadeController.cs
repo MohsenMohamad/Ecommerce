@@ -86,25 +86,25 @@ namespace ServerApi
         [HttpGet]
         public bool AddProductPolicies(string storeName, string productBarCode, int amount)
         {
-            return facade.AddProductPolicies(storeName, productBarCode, amount);
+            return facade.AddMaxProductPolicy(storeName, productBarCode, amount);
         }
 
         [HttpGet]
-        public bool AddCategortPolicies(string storeName, string Category, string time)
+        public bool AddCategortPolicies(string storeName, string category, int hour, int minute)
         {
-            return facade.AddCategortPolicies(storeName, Category, time);
+            return facade.AddCategoryPolicy(storeName, category, hour, minute);
         }
 
         [HttpGet]
         public bool AddUserPolicies(string storeName, string productBarCode)
         {
-            return facade.AddUserPolicies(storeName, productBarCode);
+            return facade.AddUserPolicy(storeName, productBarCode);
         }
 
         [HttpGet]
         public bool AddCartrPolicies(string storeName, int amount)
         {
-            return facade.AddCartrPolicies( storeName,  amount);
+            return facade.AddCartPolicy( storeName,  amount);
         }
 
 

@@ -4,14 +4,12 @@ using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.StorePolicies
 {
-    public class CustomerAgeRestriction : Component
+    public class CustomerTypeRestriction : Component
     {
-        private readonly int minimumAge;
         private readonly List<string> ageRestrictedProducts;
 
-        public CustomerAgeRestriction(int minimumAge)
+        public CustomerTypeRestriction()
         {
-            this.minimumAge = minimumAge;
             ageRestrictedProducts = new List<string>();
         }
         
@@ -19,7 +17,7 @@ namespace Version1.domainLayer.StorePolicies
         {
             foreach (var productSet in shoppingBasket.Products)
             {
-                if(ageRestrictedProducts.Contains(productSet.Key) && false) // && user age < min
+                if(ageRestrictedProducts.Contains(productSet.Key)) // && is a user
                     return false;
             }
 
