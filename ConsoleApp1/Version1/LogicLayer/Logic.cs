@@ -274,5 +274,10 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.AddCartPolicy(storeName, amount);
         }
+
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return StoreLogic.CloseStore(storeName, ownerName);
+        }
     }
 }

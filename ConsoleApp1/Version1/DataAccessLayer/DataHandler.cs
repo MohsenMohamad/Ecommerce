@@ -11,7 +11,7 @@ namespace Version1.DataAccessLayer
         private static readonly object Padlock = new object();
         private static DataHandler _instance = null;
         internal ConcurrentDictionary<string, User> Users { get; }
-        private ConcurrentDictionary<long, Guest> Guests { get; }
+        internal ConcurrentDictionary<long, Guest> Guests { get; }
         private ConcurrentDictionary<string, Category> Categories;
         internal ConcurrentDictionary<string, Store> Stores { get; }
         private List<Review> Reviews { get; }

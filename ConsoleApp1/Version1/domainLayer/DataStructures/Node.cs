@@ -44,7 +44,7 @@ namespace Version1.domainLayer.DataStructures
 
             foreach (var child in Children)
             {
-                var childResult = GetNode(key);
+                var childResult = child.GetNode(key);
                 if (childResult != null) return childResult;
             }
 

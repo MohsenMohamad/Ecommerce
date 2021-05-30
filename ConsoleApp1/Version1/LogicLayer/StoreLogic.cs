@@ -298,5 +298,48 @@ namespace Version1.LogicLayer
 
             return true;
         }
+
+        public static bool CloseStore(string storeName, string ownerName)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            if (!store.GetOwner().Equals(ownerName)) throw new Exception(Errors.PermissionError);
+
+            
+            foreach (var guest in DataHandler.Instance.Guests.Values)
+            {
+                var closedStoreBasket = guest.GetShoppingCart().GetBasket(storeName);
+                if (closedStoreBasket != null)
+                    guest.GetShoppingCart().shoppingBaskets.Remove(storeName);
+            }
+            
+            foreach (var user in DataHandler.Instance.Users.Values)
+            {
+                var closedStoreBasket = user.GetShoppingCart().GetBasket(storeName);
+                if (closedStoreBasket != null)
+                {
+                    var basketInfo = CartLogic.GetBasketInfo(user.UserName,storeName);
+                    user.GetShoppingCart().shoppingBaskets.Remove(storeName);
+                    user.GetNotifications().Add("We are sorry to inform you that your cart from "+storeName+ " has been deleted \n Basket Info :\n"+basketInfo);
+                }
+                
+            }
+
+            foreach (var manager in store.GetManagers())
+            {
+                var managerUser = DataHandler.Instance.GetUser(manager);
+                ((User)managerUser).GetNotifications().Add(storeName+" has been closed , time to search for a new job");
+            }
+            
+            foreach (var owner in store.GetOwners())
+            {
+                var ownerUser = DataHandler.Instance.GetUser(owner);
+                ((User)ownerUser).GetNotifications().Add(storeName+" has been closed , time to search for a new job");
+            }
+
+            return DataHandler.Instance.Stores.TryRemove(storeName,out _);
+            
+        }
     }
 }

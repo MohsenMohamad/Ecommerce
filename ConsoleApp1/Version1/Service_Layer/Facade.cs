@@ -566,9 +566,9 @@ namespace Version1.Service_Layer
             return logicInstance.GetStoreInventory(storeName);
         }
 
-        public bool CloseShop(string shopName, string ownerName)
+        public bool CloseStore(string storeName, string ownerName)
         {
-            throw new NotImplementedException();
+            return logicInstance.CloseStore(storeName, ownerName);
         }
 
         public bool HasPermission(string shopName, string userName, int permission)
