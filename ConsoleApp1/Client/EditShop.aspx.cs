@@ -63,6 +63,8 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
+                table6.Visible = false;
+
 
             }
             if (DropDownList1.SelectedItem.Text == "Add New Manager")
@@ -72,6 +74,7 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = false;
+                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetAllUserNamesInSystem();
@@ -109,6 +112,8 @@ namespace Client
                 table3.Visible = true;
                 table4.Visible = false;
                 table5.Visible = false;
+                table6.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetAllUserNamesInSystem();
@@ -147,6 +152,7 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = true;
                 table5.Visible = false;
+                table6.Visible = false;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreManagers(Session["editshop"].ToString());
@@ -167,6 +173,8 @@ namespace Client
                 table3.Visible = false;
                 table4.Visible = false;
                 table5.Visible = true;
+                table6.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreOwners(Session["editshop"].ToString());
