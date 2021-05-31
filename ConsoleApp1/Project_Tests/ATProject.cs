@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Version1;
 using Version1.domainLayer;
 using Version1.domainLayer.CompositeDP;
@@ -199,6 +200,16 @@ namespace Project_tests
         protected bool UpdatePurchasePolicy(string storeName, Component policy)
         {
             return service.UpdatePurchasePolicy(storeName, policy);
+        }
+
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return new Facade().CloseStore(storeName, ownerName);
+        }
+
+        public List<string> GetUserNotifications(string userName)
+        {
+            return new Facade().GetAllUserNotifications(userName).ToList();
         }
 
     }
