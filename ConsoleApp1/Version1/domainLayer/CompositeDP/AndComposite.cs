@@ -10,7 +10,7 @@ namespace Version1.domainLayer.CompositeDP
             foreach (var policy in _children)
             {
                 result &= policy.Validate(shoppingBasket);
-                if (result) return false;
+                if (!result) return false;
             }
 
             return true;

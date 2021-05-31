@@ -23,6 +23,8 @@ namespace Project_tests.StorePoliciesTests
         public void SetUp()
         {
 
+            AdminInitiateSystem();
+            
             Register(UserName, Password);
 
             AddProductToStore(OwnerName, StoreName,product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(),10);
@@ -59,13 +61,30 @@ namespace Project_tests.StorePoliciesTests
         [Test]
         public void Or()
         {
-            var orPolicy = new AndComposite();
+            var orPolicy = new OrComposite();
             var basketPolicy = new MaxProductsInBasketPolicy(1);
             var productPolicy = new MaxAmountPolicy(product1.Barcode,1);
             orPolicy.Add(productPolicy);
             orPolicy.Add(basketPolicy);
             
             UpdatePurchasePolicy(StoreName, orPolicy);
+
+            AddProductToCart(UserName, StoreName, product1.Barcode,2);
+            
+            Assert.True(ValidateBasketPolicies(UserName,StoreName));
+        }
+
+        [Test]
+        public void Conditioning()
+        {
+            var condition = new MaxProductsInBasketPolicy(1);
+            var restricted = new MaxAmountPolicy(product1.Barcode,1);
+            var conditioningPolicy = new ConditioningPolicy();
+            
+            conditioningPolicy.AddCondition(condition);
+            conditioningPolicy.AddRestrictedPolicy(restricted);
+            
+            UpdatePurchasePolicy(StoreName, conditioningPolicy);
 
             AddProductToCart(UserName, StoreName, product1.Barcode,2);
             

@@ -573,11 +573,6 @@ namespace Version1.Service_Layer
             return true;
         }
 
-        public bool SetStorePolicy(string userName, string storeName, IPurchasePolicy policy)
-        {
-            throw new NotImplementedException();
-        }
-
         //do not use
 
         public ConcurrentDictionary<string, int> GetStoreInventory(string ownerName, string storeName)

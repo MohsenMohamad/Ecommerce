@@ -103,13 +103,18 @@ namespace Version1.LogicLayer
                         store.GetInventory()[product] -= amount;
                     }
 
-                    // store.AddPurchase(new Purchase());
+                    var owner = DataHandler.Instance.GetUser(store.GetOwner());
+                    
+                    ((User)owner).GetNotifications().Add("A purchase has been made at"+store.GetName());
+                    
                 }
 
                 if (DataHandler.Instance.IsGuest(userName) < 0)
                 {
                     ((User) user).history.Add(new Purchase());
                 }
+                
+                
 
                 return true;
             }
