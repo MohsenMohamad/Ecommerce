@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Project_tests;
 using Version1;
+using Version1.Service_Layer;
 
 
 namespace Project_Tests.AcceptanceTests

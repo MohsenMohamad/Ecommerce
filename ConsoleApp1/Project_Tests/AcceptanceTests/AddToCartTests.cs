@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Project_tests;
 using Version1;
 using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace Project_Tests.AcceptanceTests
 {
@@ -94,6 +95,15 @@ namespace Project_Tests.AcceptanceTests
 
             real.DeleteUser(UserName);
             RemoveProductFromStore(OwnerName, StoreName, product1.Barcode);
+        }
+
+        [OneTimeTearDown]
+
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+
+            real.ResetMemory();
         }
     }
 }

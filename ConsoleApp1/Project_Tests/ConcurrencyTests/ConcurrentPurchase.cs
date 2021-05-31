@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Version1;
 using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace Project_tests.ConcurrencyTests
 {
@@ -110,6 +111,13 @@ namespace Project_tests.ConcurrencyTests
             real.DeleteUser("User3");
             RemoveProductFromStore("adnan", "AdnanStore", "1");
             
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+            real.ResetMemory();
         }
         
     }

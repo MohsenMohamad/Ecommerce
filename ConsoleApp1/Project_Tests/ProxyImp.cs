@@ -13,7 +13,7 @@ namespace Project_tests
     {
         private GenInterface real;
 
-        public void SetReal(Facade realInstance)
+        public void SetReal(GenInterface realInstance)
         {
             real = realInstance;
         }

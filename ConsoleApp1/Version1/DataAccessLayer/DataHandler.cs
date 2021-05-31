@@ -178,5 +178,10 @@ namespace Version1.DataAccessLayer
             if (!result) return -1;
             return id;
         }
+
+        public void Reset()
+        {
+            _instance = null;
+        }
     }
 }

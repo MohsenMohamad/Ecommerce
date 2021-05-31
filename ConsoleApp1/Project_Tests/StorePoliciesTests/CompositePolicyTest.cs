@@ -4,6 +4,7 @@ using Version1;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
+using Version1.Service_Layer;
 
 namespace Project_tests.StorePoliciesTests
 {
