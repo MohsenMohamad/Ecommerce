@@ -26,7 +26,7 @@ namespace Version1.DataAccessLayer
             Configuration.AutoDetectChangesEnabled = true;
         }
 
-        
+
 
 
 
@@ -60,7 +60,7 @@ namespace Version1.DataAccessLayer
 
     }
 
- 
+
 
     public class inventoryDictionaryDBForStore
     {
@@ -240,7 +240,7 @@ namespace Version1.DataAccessLayer
         public ICollection<IPurchasePolicy> purchasePolicies { get; set; }
         public string notifications { get; set; }
         public string storeOwner { get; set; }
-        
+
 
         public string paymentInfo { get; set; }
 
@@ -260,10 +260,11 @@ namespace Version1.DataAccessLayer
         public ModelDB db;
 
         public JavaScriptSerializer oJS;
-        
+
         private static database _mySingleton = null;
         private static object syncRoot = new object();
-        private database() {
+        private database()
+        {
             db = new ModelDB();
             oJS = new JavaScriptSerializer();
         }
@@ -285,36 +286,133 @@ namespace Version1.DataAccessLayer
         }
 
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////// Users ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /*
-        public bool InsertPurchase(Purchase p)
+
+        public bool InsertUser(User u)
         {
-            PurchaseDB purchase = getPurchaseDb(p);
+            UserDB user = getUserDB(u);
 
             try
             {
-                db.PurchasesTable.Add(purchase);
+                db.UsersTable.Add(user);
                 db.SaveChanges();
-                Console.WriteLine("insert purchase");
+                Console.WriteLine("insert user");
+                return true;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                return false;
+            }
+
+
+        }
+        public DbSet<UserDB> getAllUsers()
+        {
+            return db.UsersTable;
+        }
+
+        public bool UpdateUser(User u)
+        {
+            var result = db.UsersTable.SingleOrDefault(b => b.UserName == u.UserName);
+            UserDB user = getUserDB(u);
+            if (result != null)
+            {
+                result.history = user.history;
+                result.notifications = user.notifications;
+                result.shoppingCart = user.shoppingCart;
+                result.Password = user.Password;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteUser(string userName)
+        {
+            var result = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
+
+            if (result != null)
+            {
+                /*if(result.history != null)
+                {
+                    foreach (PurchaseDB p in result.history.ToList())
+                    {
+                        DeletePurchase(p.purchaseId);
+                    }
+                }*/
+
+
+                db.UsersTable.Remove(result);
+                db.SaveChanges();
+                Console.WriteLine("delete user");
+                return true;
+            }
+            return false;
+        }
+
+
+        private UserDB getUserDB(User u)
+        {
+            UserDB user = new UserDB();
+            user.Password = u.Password;
+            user.UserName = u.UserName;
+            user.notifications = oJS.Serialize(u.GetNotifications());
+
+            user.history = new List<PurchaseDB>();
+            foreach (Purchase p in u.history)
+            {
+                PurchaseDB pdb = getPurchaseDb(p);
+                user.history.Add(pdb);
+            }
+
+            user.shoppingCart = getShoppingCartDB(u.shoppingCart);
+            return user;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////// Discounts ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        public bool InsertDiscount(Discount d)
+        {
+            DiscountDB discount = getDiscountDB(d);
+
+
+            try
+            {
+                db.DiscountsTable.Add(discount);
+                db.SaveChanges();
+                Console.WriteLine("insert Discount");
                 return true;
             }
             catch
             {
                 return false;
             }
-
         }
-        public bool UpdatePurchase(Purchase p)
+
+        /*public bool UpdateDiscount(Discount d)
         {
-            var result = db.PurchasesTable.SingleOrDefault(b => b.purchaseId == p.purchaseId);
-            PurchaseDB purchase = getPurchaseDb(p);
+            var result = db.DiscountsTable.SingleOrDefault(b => b.discountId == d.id);
+            DiscountDB discount = getDiscountDB(d);
             if (result != null)
             {
-                result.UserName = purchase.UserName;
-                result.StoreName = purchase.StoreName;
-                result.purchaseType = purchase.purchaseType;
-                result.items = purchase.items;
-                result.date = purchase.date;
+                result.items = result.items;
 
                 db.SaveChanges();
                 return true;
@@ -322,20 +420,27 @@ namespace Version1.DataAccessLayer
             return false;
         }*/
 
-        public bool DeletePurchase(long pid)
+        public DbSet<DiscountDB> getAllDiscounts()
         {
-            var result = db.PurchasesTable.SingleOrDefault(b => b.purchaseId == pid);
+            return db.DiscountsTable;
+        }
 
-            if (result != null)
-            {
-                db.PurchasesTable.Remove(result);
-                db.SaveChanges();
-                return true;
-            }
-            return false;
+        private DiscountDB getDiscountDB(Discount pr)
+        {
+            DiscountDB ddb = new DiscountDB();
+            //ddb.discountId = pr.id;
+            ddb.items = new itemsHasmapforDiscountDB();
+            // todo fill the discounts waiting for mohsen
+
+            return ddb;
         }
 
 
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////// Stores ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         public bool InsertStore(Store s)
@@ -419,9 +524,9 @@ namespace Version1.DataAccessLayer
                 {
                     Console.WriteLine("ex");
                 }
-                
+
                 var result2 = db.ProductsTable;
-                foreach(ProductDB pa in result2)
+                foreach (ProductDB pa in result2)
                 {
                     Console.WriteLine("barcode updated " + pa.barcode);
                 }
@@ -431,148 +536,52 @@ namespace Version1.DataAccessLayer
         }
 
 
-        public bool InsertUser(User u)
+        private StoreDB getStoreDB(Store s)
         {
-            UserDB user = getUserDB(u);
+            StoreDB store = new StoreDB();
 
-            try
+            store.storeName = s.name;
+            store.storeOwner = s.staff.Key;
+
+
+            store.paymentInfo = oJS.Serialize(s.paymentInfo);
+            store.notifications = oJS.Serialize(s.GetNotifications());
+
+            store.purchasePolicies = s.purchasePolicies;
+
+            store.history = new List<PurchaseDB>();
+            foreach (Purchase p in s.history)
             {
-                db.UsersTable.Add(user);
-                db.SaveChanges();
-                Console.WriteLine("insert user");
-                return true;
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                return false;
+                store.history.Add(getPurchaseDb(p));
             }
 
+            store.inventory = new inventoryDictionaryDBForStore();
+            List<int> valueList = new List<int>();
 
-        }
-        public DbSet<UserDB> getAllUsers()
-        {
-            return db.UsersTable;
-        }
-
-        public bool UpdateUser(User u)
-        {
-            var result = db.UsersTable.SingleOrDefault(b => b.UserName == u.UserName);
-            UserDB user = getUserDB(u);
-            if (result != null)
+            store.inventory = new inventoryDictionaryDBForStore();
+            foreach (KeyValuePair<Product, int> p in s.inventory)
             {
-                result.history = user.history;
-                result.notifications = user.notifications;
-                result.shoppingCart = user.shoppingCart;
-                result.Password = user.Password;
-                db.SaveChanges();
-                return true;
+                store.inventory.keys.Add(getProductDb(p.Key));
+                valueList.Add(p.Value);
             }
-            return false;
+            store.inventory.values = oJS.Serialize(valueList);
+            store.inventory.storeName = s.name;
+
+            store.staff = getNodeDb(s.staff);
+            /*store.discounts = new List<DiscountDB>();
+            foreach (Discount dis in s.discounts)
+            {
+                store.discounts.Add(getDiscountDB(dis));
+            }*/
+            return store;
         }
 
-        public bool DeleteUser(string userName)
-        {
-            var result = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
 
-            if (result != null)
-            {
-                /*if(result.history != null)
-                {
-                    foreach (PurchaseDB p in result.history.ToList())
-                    {
-                        DeletePurchase(p.purchaseId);
-                    }
-                }*/
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////// Purchases ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-                db.UsersTable.Remove(result);
-                db.SaveChanges();
-                Console.WriteLine("delete user");
-                return true;
-            }
-            return false;
-        }
-
-        public bool InsertDiscount(Discount d)
-        {
-            DiscountDB discount = getDiscountDB(d);
-
-
-            try
-            {
-                db.DiscountsTable.Add(discount);
-                db.SaveChanges();
-                Console.WriteLine("insert Discount");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /*public bool UpdateDiscount(Discount d)
-        {
-            var result = db.DiscountsTable.SingleOrDefault(b => b.discountId == d.id);
-            DiscountDB discount = getDiscountDB(d);
-            if (result != null)
-            {
-                result.items = result.items;
-
-                db.SaveChanges();
-                return true;
-            }
-            return false;
-        }*/
-
-        public DbSet<DiscountDB> getAllDiscounts()
-        {
-            return db.DiscountsTable;
-        }
-
-        public bool InsertReview(Review r)
-        {
-            ReviewDB review = getReviewtDB(r);
-
-            try
-            {
-                db.ReviewsTable.Add(review);
-                db.SaveChanges();
-                Console.WriteLine("insert Review");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        /*public bool UpdateReview(Review r)
-        {
-            var result = db.ReviewsTable.SingleOrDefault(b => b.Reviews == d.id);
-            DiscountDB discount = getDiscountDB(d);
-            if (result != null)
-            {
-                result.items = result.items;
-
-                db.SaveChanges();
-                return true;
-            }
-            return false;
-        }*/
-        public DbSet<ReviewDB> getAllReviews()
-        {
-            return db.ReviewsTable;
-        }
 
         public bool InsertPurchase(Purchase p)
         {
@@ -613,6 +622,102 @@ namespace Version1.DataAccessLayer
         {
             return db.PurchasesTable;
         }
+
+
+        /*
+        public bool InsertPurchase(Purchase p)
+        {
+            PurchaseDB purchase = getPurchaseDb(p);
+
+            try
+            {
+                db.PurchasesTable.Add(purchase);
+                db.SaveChanges();
+                Console.WriteLine("insert purchase");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool UpdatePurchase(Purchase p)
+        {
+            var result = db.PurchasesTable.SingleOrDefault(b => b.purchaseId == p.purchaseId);
+            PurchaseDB purchase = getPurchaseDb(p);
+            if (result != null)
+            {
+                result.UserName = purchase.UserName;
+                result.StoreName = purchase.StoreName;
+                result.purchaseType = purchase.purchaseType;
+                result.items = purchase.items;
+                result.date = purchase.date;
+
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }*/
+
+        public bool DeletePurchase(long pid)
+        {
+            var result = db.PurchasesTable.SingleOrDefault(b => b.purchaseId == pid);
+
+            if (result != null)
+            {
+                db.PurchasesTable.Remove(result);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
+
+        private PurchaseDB getPurchaseDb(Purchase pr)
+        {
+            PurchaseDB p = new PurchaseDB();
+            if (pr.date != null)
+            {
+                p.date = pr.date;
+            }
+            else
+            {
+                p.date = DateTime.Now;
+            }
+            p.purchaseId = pr.purchaseId;
+            p.storeName = pr.store;
+            p.UserName = pr.user;
+            p.purchaseType = oJS.Serialize(pr.purchaseType);
+
+            p.items = new itemsHasmapforPurchaseDB();
+
+            //orm does not save list<int> to save in json string
+            List<int> listOfItemsValues = new List<int>();
+            foreach (KeyValuePair<Product, int> pair in pr.items)
+            {
+                ProductDB pdb = getProductDb(pair.Key);
+
+                p.items.keys.Add(pdb);
+                listOfItemsValues.Add(pair.Value);
+            }
+            //orm does not save list<int> to save in json string
+            p.items.values = oJS.Serialize(listOfItemsValues);
+
+
+            return p;
+        }
+
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////// ShoppingCarts ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
         public bool InsertShoppingCart(ShoppingCart sh)
         {
@@ -663,6 +768,31 @@ namespace Version1.DataAccessLayer
             return db.ShoppingCartsTable;
         }
 
+
+        private ShoppingCartDB getShoppingCartDB(ShoppingCart pr)
+        {
+            ShoppingCartDB p = new ShoppingCartDB();
+
+            p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
+
+            List<string> list = new List<string>();
+            foreach (KeyValuePair<string, ShoppingBasket> pair in pr.shoppingBaskets)
+            {
+
+                list.Add(pair.Key);
+                p.shoppingBaskets.values.Add(getShoppingBasketDB(pair.Value));
+            }
+            //todo make sure that this is updated
+            p.shoppingBaskets.keys = oJS.Serialize(list);
+
+            return p;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////  ShoppingBaskets ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         public bool InsertShoppingBasket(ShoppingBasket pr)
         {
             ShoppingBasketDB p = getShoppingBasketDB(pr);
@@ -701,6 +831,23 @@ namespace Version1.DataAccessLayer
         {
             return db.ShoppingBasketsTable;
         }
+
+
+        private ShoppingBasketDB getShoppingBasketDB(ShoppingBasket pr)
+        {
+            ShoppingBasketDB p = new ShoppingBasketDB();
+            p.id = pr.id;
+            p.StoreName = pr.StoreName;
+
+            string jsonString = oJS.Serialize(pr.Products);
+            p.Products = jsonString;
+
+            return p;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////   Products ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public bool InsertProduct(Product p)
         {
@@ -741,6 +888,65 @@ namespace Version1.DataAccessLayer
             return db.ProductsTable;
         }
 
+
+        private ProductDB getProductDb(Product pr)
+        {
+            ProductDB p = new ProductDB();
+
+            p.barcode = pr.Barcode;
+            p.price = pr.price;
+            p.productName = pr.Name;
+            p.description = pr.Description;
+            p.categories = oJS.Serialize(pr.categories);
+            return p;
+        }
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////  Reviews   ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public bool InsertReview(Review r)
+        {
+            ReviewDB review = getReviewtDB(r);
+
+            try
+            {
+                db.ReviewsTable.Add(review);
+                db.SaveChanges();
+                Console.WriteLine("insert Review");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /*public bool UpdateReview(Review r)
+        {
+            var result = db.ReviewsTable.SingleOrDefault(b => b.Reviews == d.id);
+            DiscountDB discount = getDiscountDB(d);
+            if (result != null)
+            {
+                result.items = result.items;
+
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }*/
+        public DbSet<ReviewDB> getAllReviews()
+        {
+            return db.ReviewsTable;
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////  Categories   ////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public bool InsertCategory(Category c)
         {
             CategoryDB catagory = getCatagoryDb(c);
@@ -776,6 +982,19 @@ namespace Version1.DataAccessLayer
         {
             return db.CategoriesTable;
         }
+
+        private CategoryDB getCatagoryDb(Category c)
+        {
+            CategoryDB catagory = new CategoryDB();
+            catagory.categorieName = c.name;
+            return catagory;
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////  nodes     ////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
 
         public bool InsertNode(Node<string, int> n)
         {
@@ -814,49 +1033,6 @@ namespace Version1.DataAccessLayer
             return db.nodesTable;
         }
 
-        private DiscountDB getDiscountDB(Discount pr)
-        {
-            DiscountDB ddb = new DiscountDB();
-            //ddb.discountId = pr.id;
-            ddb.items = new itemsHasmapforDiscountDB();
-            // todo fill the discounts waiting for mohsen
-
-            return ddb;
-        }
-
-        private PurchaseDB getPurchaseDb(Purchase pr)
-        {
-            PurchaseDB p = new PurchaseDB();
-            if(pr.date != null)
-            {
-                p.date = pr.date;
-            }
-            else
-            {
-                p.date = DateTime.Now;
-            }
-            p.purchaseId = pr.purchaseId;
-            p.storeName = pr.store;
-            p.UserName = pr.user;
-            p.purchaseType = oJS.Serialize(pr.purchaseType);
-
-            p.items = new itemsHasmapforPurchaseDB();
-
-            //orm does not save list<int> to save in json string
-            List<int> listOfItemsValues = new List<int>();
-            foreach (KeyValuePair<Product, int> pair in pr.items)
-            {
-                ProductDB pdb = getProductDb(pair.Key);
-
-                p.items.keys.Add(pdb);
-                listOfItemsValues.Add(pair.Value);
-            }
-            //orm does not save list<int> to save in json string
-            p.items.values = oJS.Serialize(listOfItemsValues);
-
-
-            return p;
-        }
 
         private ReviewDB getReviewtDB(Review r)
         {
@@ -864,46 +1040,6 @@ namespace Version1.DataAccessLayer
             review.Username = r.Username;
             review.Reviews = r.Reviews;
             return review;
-        }
-
-        private StoreDB getStoreDB(Store s)
-        {
-            StoreDB store = new StoreDB();
-
-            store.storeName = s.name;
-            store.storeOwner = s.staff.Key;
-
-            
-            store.paymentInfo = oJS.Serialize(s.paymentInfo);
-            store.notifications = oJS.Serialize(s.GetNotifications());
-
-            store.purchasePolicies = s.purchasePolicies;
-
-            store.history = new List<PurchaseDB>();
-            foreach (Purchase p in s.history)
-            {
-                store.history.Add(getPurchaseDb(p));
-            }
-
-            store.inventory = new inventoryDictionaryDBForStore();
-            List<int> valueList = new List<int>();
-            
-            store.inventory = new inventoryDictionaryDBForStore();
-            foreach (KeyValuePair<Product, int> p in s.inventory)
-            {
-                store.inventory.keys.Add(getProductDb(p.Key));
-                valueList.Add(p.Value);
-            }
-            store.inventory.values = oJS.Serialize(valueList);
-            store.inventory.storeName = s.name;
-
-            store.staff = getNodeDb(s.staff);
-            /*store.discounts = new List<DiscountDB>();
-            foreach (Discount dis in s.discounts)
-            {
-                store.discounts.Add(getDiscountDB(dis));
-            }*/
-            return store;
         }
 
         private NodeDB getNodeDb(Node<string, int> n)
@@ -915,82 +1051,12 @@ namespace Version1.DataAccessLayer
             n.Children.ForEach((child) => node.Children.Add(getNodeDb(child)));
             return node;
         }
-        private ShoppingCartDB getShoppingCartDB(ShoppingCart pr)
-        {
-            ShoppingCartDB p = new ShoppingCartDB();
 
-            p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
-
-            List<string> list = new List<string>();
-            foreach (KeyValuePair<string, ShoppingBasket> pair in pr.shoppingBaskets)
-            {
-
-                list.Add(pair.Key);
-                p.shoppingBaskets.values.Add(getShoppingBasketDB(pair.Value));
-            }
-            //todo make sure that this is updated
-            p.shoppingBaskets.keys = oJS.Serialize(list);
-            
-            return p;
-        }
-
-
-
-        private ProductDB getProductDb(Product pr)
-        {
-            ProductDB p = new ProductDB();
-
-            p.barcode = pr.Barcode;
-            p.price = pr.price;
-            p.productName = pr.Name;
-            p.description = pr.Description;
-            p.categories = oJS.Serialize(pr.categories);
-            return p;
-        }
-
-
-        private ShoppingBasketDB getShoppingBasketDB(ShoppingBasket pr)
-        {
-            ShoppingBasketDB p = new ShoppingBasketDB();
-            p.id = pr.id;
-            p.StoreName = pr.StoreName;
-
-            string jsonString = oJS.Serialize(pr.Products);
-            p.Products = jsonString;
-
-            return p;
-        }
-        private UserDB getUserDB(User u)
-        {
-            UserDB user = new UserDB();
-            user.Password = u.Password;
-            user.UserName = u.UserName;
-            user.notifications = oJS.Serialize(u.GetNotifications());
-
-            user.history = new List<PurchaseDB>();
-            foreach (Purchase p in u.history)
-            {
-                PurchaseDB pdb = getPurchaseDb(p);
-                user.history.Add(pdb);
-            }
-
-            user.shoppingCart = getShoppingCartDB(u.shoppingCart);
-            return user;
-        }
-
-
-
-        private CategoryDB getCatagoryDb(Category c)
-        {
-            CategoryDB catagory = new CategoryDB();
-            catagory.categorieName = c.name;
-            return catagory;
-        }
 
 
     }
 
-    }
+}
 
 
 
