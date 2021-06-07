@@ -75,6 +75,8 @@ namespace Client.Code
 
         }
 
+
+
         public DataSet GetAllNotifications(string userName)
         {
             string param = string.Format("userName={0}", userName);
@@ -82,6 +84,30 @@ namespace Client.Code
             DataTable t1 = new DataTable("Notifications");
             t1.Columns.Add("id");
             t1.Columns.Add("msg");
+            if (arr != null)
+            {
+                for (int i = 0; i < arr.Count && arr[i] != null; i++)
+                {
+                    try
+                    {
+                        t1.Rows.Add(i, arr[i]);
+                    }
+                    catch
+                    { }
+                }
+            }
+            DataSet set = new DataSet("Notification");
+            set.Tables.Add(t1);
+            return set;
+        }
+
+        public DataSet GetAllUserNotificationsoffer(string userName)
+        {
+            string param = string.Format("userName={0}", userName);
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetAllUserNotificationsoffer", param).ToString());
+            DataTable t1 = new DataTable("Notifications");
+            t1.Columns.Add("id");
+            t1.Columns.Add("Offer");
             if (arr != null)
             {
                 for (int i = 0; i < arr.Count && arr[i] != null; i++)

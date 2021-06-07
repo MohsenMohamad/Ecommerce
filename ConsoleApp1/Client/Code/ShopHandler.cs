@@ -34,6 +34,22 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
+        public void acceptoffer(string barcode, string price, string username, string storename)
+        {
+
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}", barcode, price, username, storename);
+            System.SendApi("acceptoffer", param);
+
+        }
+
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode)
+        {
+            string param = string.Format("username={0}&storename={1}&price={2}&barcode={3}", username, storename, price, barcode);
+            System.SendApi("Recieve_purchase_offer", param);
+
+        }
+
         public string OpenShop(string userName, string shopName, string policy)
         {
             string param = string.Format("userName={0}&shopName={1}&policy={2}", userName, shopName, policy);

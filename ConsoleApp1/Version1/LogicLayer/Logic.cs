@@ -188,6 +188,11 @@ namespace Version1.LogicLayer
             return UserLogic.GetUserNotifications(userName);
         }
 
+        public List<string> GetUserNotificationsoffer(string userName)
+        {
+            return UserLogic.GetUserNotificationsoffer(userName);
+        }
+
         public string GetStorePolicy(string storeName)
         {
             return StoreLogic.GetStorePolicy(storeName);

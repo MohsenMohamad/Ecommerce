@@ -72,6 +72,7 @@
     <Compile Include="domainLayer\Errors.cs" />
     <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="domainLayer\Permissions.cs" />
+    <Compile Include="domainLayer\PurchaseOffer.cs" />
     <Compile Include="domainLayer\StorePolicies\CustomerTypeRestriction.cs" />
     <Compile Include="domainLayer\StorePolicies\IPurchasePolicy.cs" />
     <Compile Include="domainLayer\StorePolicies\MaxAmountPolicy.cs" />

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
@@ -21,6 +22,16 @@ namespace Version1.Service_Layer
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
             return hashPassword != null && logicInstance.UserLogin(username, hashPassword);
+        }
+
+        public void Recieve_purchase_offer(string username,string storename,string price,string barcode)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storename);
+            var user = DataHandler.Instance.GetUser(username);
+            var store = DataHandler.Instance.GetStore(storename);
+            var offer = new PurchaseOffer(product, (User)user, store,double.Parse( price));
+            offer.makeOffer();
+
         }
 
         public long GuestLogin()
@@ -330,6 +341,15 @@ namespace Version1.Service_Layer
             return ProductsTo2DStringArray(products);
         }
 
+        public void acceptoffer(string barcode, string price, string username, string storename)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storename);
+            var user = DataHandler.Instance.GetUser(username);
+            var store = DataHandler.Instance.GetStore(storename);
+            var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price));
+            offer.acceptOffer();
+        }
+
         public bool SendNotifications(string userName, string msg)
         {
             return logicInstance.AddUserNotification(userName, msg);
@@ -338,6 +358,12 @@ namespace Version1.Service_Layer
         public string[] GetAllUserNotifications(string userName)
         {
             var notifications = logicInstance.GetUserNotifications(userName);
+            return notifications?.ToArray();
+        }
+
+        public string[] GetAllUserNotificationsoffer(string userName)
+        {
+            var notifications = logicInstance.GetUserNotificationsoffer(userName);
             return notifications?.ToArray();
         }
 

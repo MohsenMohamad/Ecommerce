@@ -42,6 +42,13 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode)
+        {
+            facade.Recieve_purchase_offer(username, storename, price, barcode);
+
+        }
+
+        [HttpGet]
         public bool IsOwner(string storeName, string ownerName)
         {
             return facade.IsOwner(storeName, ownerName);
@@ -316,6 +323,22 @@ namespace ServerApi
         public string[] GetAllNotifications(string userName)
         {
             return facade.GetAllUserNotifications(userName);
+        }
+
+        [HttpGet]
+        public string[] GetAllUserNotificationsoffer(string userName)
+        {
+            return facade.GetAllUserNotificationsoffer(userName);
+
+        }
+
+
+        [HttpGet]
+        public void acceptoffer(string barcode, string price, string username, string storename)
+        {
+
+           facade.acceptoffer(barcode, price, username, storename);
+        
         }
 
         [HttpGet]
