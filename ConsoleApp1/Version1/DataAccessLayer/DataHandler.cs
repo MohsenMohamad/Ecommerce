@@ -45,22 +45,6 @@ namespace Version1.DataAccessLayer
             InefficientLock = new object();
         }
 
-        private void uploadStores(database db)
-        {
-            if (db != null && db.getAllStores() != null)
-            {
-                db.getAllStores().ToList().ForEach((store) =>
-                {
-                    if (store != null)
-                        Stores.TryAdd(store.storeName, getStoreFromStoreDb(store));
-                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
-                    else
-                        habal();
-
-                });
-            }
-        }
-
         private void uploadUsers(database db)
         {
             if (db != null && db.getAllUsers() != null)
@@ -70,12 +54,25 @@ namespace Version1.DataAccessLayer
                     if (user != null)
                         Users.TryAdd(user.UserName, getUserFromUserDb(user));
                     //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
-                    else
-                        habal();
 
                 });
             }
         }
+
+        private void uploadStores(database db)
+        {
+            if (db != null && db.getAllStores() != null)
+            {
+                db.getAllStores().ToList().ForEach((store) =>
+                {
+                    if (store != null)
+                        Stores.TryAdd(store.storeName, getStoreFromStoreDb(store));
+                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
+                });
+            }
+        }
+
+       
 
         private Store getStoreFromStoreDb(StoreDB s)
         {
@@ -153,11 +150,7 @@ namespace Version1.DataAccessLayer
             Discount discount = new Discount(dis.)
         }*/
 
-        private bool habal()
-        {
-            return true;
-        }
-
+  
         private User getUserFromUserDb(UserDB u)
         {
             User user = new User(u.UserName, u.Password);

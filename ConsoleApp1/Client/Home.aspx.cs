@@ -15,7 +15,7 @@ namespace Client
         protected void Page_Load(object sender, EventArgs e)
         {
             int counter = 0;
-            while (counter < 10)
+            while (counter < 30)
             {
                 try
                 {

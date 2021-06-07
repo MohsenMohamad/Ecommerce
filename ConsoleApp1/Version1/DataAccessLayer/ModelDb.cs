@@ -12,7 +12,7 @@ using Version1.domainLayer.StorePolicies;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
-
+using System.Data.Entity.Migrations;
 
 namespace Version1.DataAccessLayer
 {
@@ -60,28 +60,7 @@ namespace Version1.DataAccessLayer
 
     }
 
-    /*public class stringmapint
-    {
-        [Key]
-        [Required]
-        public long id { get; set; }
-        
-        public string keys { get; set; }
-        
-        public string values { get; set; }
-
-        public stringmapint(long id, string keys, string values)
-        {
-            this.id = id;
-            this.keys = keys;
-            this.values = values;
-        }
-    }*/
-
-
-
-
-
+ 
 
     public class inventoryDictionaryDBForStore
     {
@@ -91,6 +70,10 @@ namespace Version1.DataAccessLayer
         public ICollection<ProductDB> keys { get; set; }
         //string json for ICollection<int>
         public string values { get; set; }
+        public inventoryDictionaryDBForStore()
+        {
+            this.keys = new List<ProductDB>();
+        }
 
     }
 
@@ -153,6 +136,10 @@ namespace Version1.DataAccessLayer
     //done
     public class ProductDB
     {
+        public ProductDB()
+        {
+        }
+
         [Key]
         [Required]
         public string barcode { get; set; }
@@ -393,18 +380,51 @@ namespace Version1.DataAccessLayer
         {
             var result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
             StoreDB store = getStoreDB(s);
+            /*//change inventory
+            db.Entry(result).CurrentValues.SetValues(store);
+            //save changes
+            db.SaveChanges();
+            Console.WriteLine("added element" + result.keys.ToList().ElementAt(0));*/
+
             if (result != null)
             {
-                result.inventory = store.inventory;
-                result.paymentInfo = store.paymentInfo;
+                /*result = store;
+                db.StoresTable.Attach(result);
+                db.StoresTable.ChangeObjectState(result, EntityState.Modified);*/
+                //db.StoresTable.AddOrUpdate(store);
+                /*result.inventory = store.inventory;
+                result.inventory.(entity).CurrentValues.SetValues(item);
+
+                db.SaveChanges();*/
+                //result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
+                //db.Entry(result.inventory).State = EntityState.Modified;
+                //db.Entry(result).CurrentValues.SetValues(store);
+                //Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
+                //result.inventory = store.inventory;
+                /*result.paymentInfo = store.paymentInfo;
                 result.history = store.history;
                 result.notifications = store.notifications;
                 result.purchasePolicies = store.purchasePolicies;
                 result.staff = store.staff;
                 result.storeName = store.storeName;
                 result.discounts = store.discounts;
-                result.storeOwner = s.staff.Key;
+                result.storeOwner = s.staff.Key;*/
                 db.SaveChanges();
+                try
+                {
+                    result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
+                    Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
+                }
+                catch
+                {
+                    Console.WriteLine("ex");
+                }
+                
+                var result2 = db.ProductsTable;
+                foreach(ProductDB pa in result2)
+                {
+                    Console.WriteLine("barcode updated " + pa.barcode);
+                }
                 return true;
             }
             return false;
@@ -867,6 +887,8 @@ namespace Version1.DataAccessLayer
 
             store.inventory = new inventoryDictionaryDBForStore();
             List<int> valueList = new List<int>();
+            
+            store.inventory = new inventoryDictionaryDBForStore();
             foreach (KeyValuePair<Product, int> p in s.inventory)
             {
                 store.inventory.keys.Add(getProductDb(p.Key));
@@ -875,15 +897,12 @@ namespace Version1.DataAccessLayer
             store.inventory.values = oJS.Serialize(valueList);
             store.inventory.storeName = s.name;
 
-
+            store.staff = getNodeDb(s.staff);
             /*store.discounts = new List<DiscountDB>();
             foreach (Discount dis in s.discounts)
             {
                 store.discounts.Add(getDiscountDB(dis));
             }*/
-
-            store.staff = getNodeDb(s.staff);
-            
             return store;
         }
 

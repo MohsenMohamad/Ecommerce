@@ -531,3 +531,134 @@
 30/05/2021 17:05:52: shas LoggedIn   .
 30/05/2021 17:05:59: s has opened shop : s  .
 30/05/2021 17:06:05: Guest has connected with pid : 3  .
+30/05/2021 18:04:08: Guest has connected with pid : 1  .
+30/05/2021 18:04:18: asdhas LoggedIn   .
+30/05/2021 18:04:49: product with barcode 94949 has been added to the shop asd  .
+30/05/2021 18:08:29: Guest has connected with pid : 1  .
+30/05/2021 18:08:35: ahas Register succesfully   .
+30/05/2021 18:08:36: ahas LoggedIn   .
+30/05/2021 18:08:44: a has opened shop : asbhsop  .
+30/05/2021 18:08:59: product with barcode asd has been added to the shop asbhsop  .
+30/05/2021 18:11:09: Guest has connected with pid : 1  .
+30/05/2021 18:11:13: asdhas LoggedIn   .
+30/05/2021 18:11:26: product with barcode dd has been added to the shop asd  .
+30/05/2021 18:14:39: Guest has connected with pid : 1  .
+30/05/2021 18:14:43: qhas Register succesfully   .
+30/05/2021 18:14:45: qhas LoggedIn   .
+30/05/2021 18:14:48: q has opened shop : q  .
+30/05/2021 18:15:00: product with barcode qwe has been added to the shop q  .
+30/05/2021 18:18:33: Guest has connected with pid : 1  .
+30/05/2021 18:18:36: qhas LoggedIn   .
+30/05/2021 18:18:46: product with barcode ew has been added to the shop q  .
+30/05/2021 18:19:03: Guest has connected with pid : 2  .
+30/05/2021 18:19:21: Guest has connected with pid : 1  .
+30/05/2021 18:19:23: qhas LoggedIn   .
+30/05/2021 18:20:00: product with barcode test has been added to the shop q  .
+30/05/2021 18:20:11: Guest has connected with pid : 2  .
+30/05/2021 18:20:17: adminhas LoggedIn   .
+30/05/2021 18:20:31: Guest has connected with pid : 3  .
+30/05/2021 18:20:43: Guest has connected with pid : 1  .
+30/05/2021 18:20:48: qhas LoggedIn   .
+30/05/2021 18:20:53: Guest has connected with pid : 2  .
+30/05/2021 18:20:58: adminhas LoggedIn   .
+30/05/2021 18:23:24: Guest has connected with pid : 1  .
+30/05/2021 18:23:29: qhas LoggedIn   .
+30/05/2021 18:23:48: product with barcode asdTEst has been added to the shop q  .
+30/05/2021 18:24:10: Guest has connected with pid : 1  .
+30/05/2021 18:24:15: qhas LoggedIn   .
+30/05/2021 18:24:19: Guest has connected with pid : 2  .
+30/05/2021 18:25:45: Guest has connected with pid : 1  .
+30/05/2021 18:25:51: adminhas LoggedIn   .
+30/05/2021 18:26:10: Guest has connected with pid : 2  .
+30/05/2021 18:27:52: Guest has connected with pid : 1  .
+30/05/2021 18:28:00: ahas LoggedIn   .
+30/05/2021 18:28:11: product with barcode 22 has been added to the shop asbhsop  .
+30/05/2021 18:28:16: Guest has connected with pid : 2  .
+30/05/2021 18:28:30: Guest has connected with pid : 1  .
+30/05/2021 18:32:57: Guest has connected with pid : 1  .
+30/05/2021 18:36:59: Guest has connected with pid : 1  .
+30/05/2021 18:37:18: ahas LoggedIn   .
+30/05/2021 18:37:29: product with barcode 123 has been added to the shop asbhsop  .
+30/05/2021 18:42:15: Guest has connected with pid : 1  .
+30/05/2021 18:42:19: qhas LoggedIn   .
+30/05/2021 18:42:31: product with barcode 12 has been added to the shop q  .
+30/05/2021 18:44:59: Guest has connected with pid : 1  .
+30/05/2021 18:45:03: qhas LoggedIn   .
+30/05/2021 18:45:14: product with barcode 345 has been added to the shop q  .
+30/05/2021 18:46:38: Guest has connected with pid : 1  .
+30/05/2021 18:46:42: qhas LoggedIn   .
+30/05/2021 18:54:51: Guest has connected with pid : 1  .
+30/05/2021 18:54:53: qhas LoggedIn   .
+30/05/2021 18:55:05: product with barcode 567 has been added to the shop q  .
+30/05/2021 18:56:23: Guest has connected with pid : 1  .
+30/05/2021 18:56:26: qhas LoggedIn   .
+30/05/2021 19:00:23: Guest has connected with pid : 1  .
+30/05/2021 19:00:34: asdhas LoggedIn   .
+30/05/2021 19:00:38: asd has opened shop : asd  .
+30/05/2021 19:00:54: product with barcode asd has been added to the shop asd  .
+30/05/2021 19:03:28: Guest has connected with pid : 1  .
+30/05/2021 19:03:48: zhas Register succesfully   .
+30/05/2021 19:03:49: zhas LoggedIn   .
+30/05/2021 19:03:54: z has opened shop : z  .
+30/05/2021 19:04:07: product with barcode 111 has been added to the shop z  .
+30/05/2021 19:37:24: Guest has connected with pid : 1  .
+30/05/2021 19:37:34: qhas LoggedIn   .
+30/05/2021 19:37:46: product with barcode as has been added to the shop q  .
+30/05/2021 19:39:14: Guest has connected with pid : 1  .
+30/05/2021 19:39:18: qhas LoggedIn   .
+30/05/2021 19:39:31: product with barcode q has been added to the shop q  .
+30/05/2021 19:41:29: Guest has connected with pid : 1  .
+30/05/2021 19:41:38: qhas LoggedIn   .
+30/05/2021 19:41:52: product with barcode 52 has been added to the shop q  .
+30/05/2021 19:47:24: Guest has connected with pid : 1  .
+30/05/2021 19:47:27: qhas LoggedIn   .
+30/05/2021 19:47:42: product with barcode 345345 has been added to the shop q  .
+30/05/2021 19:48:32: Guest has connected with pid : 1  .
+30/05/2021 19:48:35: qhas LoggedIn   .
+30/05/2021 19:48:46: product with barcode 5678 has been added to the shop q  .
+30/05/2021 19:49:42: Guest has connected with pid : 1  .
+30/05/2021 19:49:53: ossamahas Register succesfully   .
+30/05/2021 19:49:58: ossamahas LoggedIn   .
+30/05/2021 19:50:06: ossama has opened shop : ossama  .
+30/05/2021 19:50:20: product with barcode 595 has been added to the shop ossama  .
+30/05/2021 20:46:11: Guest has connected with pid : 1  .
+30/05/2021 20:46:18: שדגhas Register succesfully   .
+30/05/2021 20:46:20: שדגhas LoggedIn   .
+30/05/2021 23:01:08: Guest has connected with pid : 1  .
+30/05/2021 23:01:22: zhas LoggedIn   .
+30/05/2021 23:04:29: Guest has connected with pid : 1  .
+30/05/2021 23:04:35: asdhas Register succesfully   .
+30/05/2021 23:04:37: asdhas LoggedIn   .
+30/05/2021 23:04:44: asd has opened shop : asd  .
+30/05/2021 23:04:48: Guest has connected with pid : 2  .
+30/05/2021 23:05:26: Guest has connected with pid : 1  .
+30/05/2021 23:05:26: Guest has connected with pid : 2  .
+30/05/2021 23:05:30: asdhas LoggedIn   .
+30/05/2021 23:05:54: Guest has connected with pid : 3  .
+31/05/2021 10:29:14: Guest has connected with pid : 1  .
+31/05/2021 10:29:55: aaahas Register succesfully   .
+31/05/2021 10:30:00: aaahas LoggedIn   .
+31/05/2021 10:30:02: aaahas LoggedOut   .
+31/05/2021 10:30:02: Guest has connected with pid : 2  .
+31/05/2021 10:30:06: shas Register succesfully   .
+31/05/2021 10:30:08: shas LoggedIn   .
+31/05/2021 10:30:15: s has opened shop : s  .
+31/05/2021 10:30:19: Guest has connected with pid : 3  .
+31/05/2021 10:30:42: Guest has connected with pid : 1  .
+31/05/2021 10:30:48: aaahas LoggedIn   .
+31/05/2021 10:30:55: aaa has opened shop : aaa  .
+31/05/2021 10:31:03: Guest has connected with pid : 2  .
+31/05/2021 10:31:34: Guest has connected with pid : 1  .
+31/05/2021 10:31:38: aaahas LoggedIn   .
+31/05/2021 11:03:10: Guest has connected with pid : 1  .
+31/05/2021 11:04:42: Guest has connected with pid : 1  .
+31/05/2021 11:07:43: Guest has connected with pid : 1  .
+31/05/2021 11:08:15: Guest has connected with pid : 1  .
+31/05/2021 11:19:24: Guest has connected with pid : 1  .
+31/05/2021 11:19:36: userTesthas Register succesfully   .
+31/05/2021 11:19:44: userTesthas LoggedIn   .
+31/05/2021 11:19:59: userTest has opened shop : storeTest  .
+31/05/2021 11:20:08: Guest has connected with pid : 2  .
+31/05/2021 11:20:35: Guest has connected with pid : 1  .
+31/05/2021 11:20:42: userTesthas LoggedIn   .
+31/05/2021 11:22:01: Guest has connected with pid : 1  .

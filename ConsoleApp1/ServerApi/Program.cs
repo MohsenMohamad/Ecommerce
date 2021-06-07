@@ -29,8 +29,6 @@ namespace ServiceApi
             {
                 try
                 {
-
-
                     SystemAdmin sysadmin = new SystemAdmin();
                     //await retrieveDataAsync();
                     var facade = new Facade();
@@ -40,9 +38,13 @@ namespace ServiceApi
                     {
                         Console.WriteLine(i);
                     }
+                    foreach (string[] i in facade.GetStoresProducts())
+                    {
+
+                        Console.WriteLine(i[0]);
+                    }
                     
-                    // sysadmin.InitSystem();
-                    // facade.InitSystem();
+
                     //Thread.Sleep(15000);
                     string domainAddress = "https://localhost:44300/";
                     using (WebApp.Start(url: domainAddress))

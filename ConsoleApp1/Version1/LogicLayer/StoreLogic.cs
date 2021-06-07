@@ -32,8 +32,14 @@ namespace Version1.LogicLayer
 
             var product = new Product(barcode,productName, description, price, categories);
         
-            return store.GetInventory().TryAdd(product, amount);
+            if( store.GetInventory().TryAdd(product, amount))
+            {
+                database db = database.GetInstance();
 
+                return db.UpdateStore(store);
+            }
+
+            return false;
         }
 
         public static bool IsManger(string storeName, string mangerName)

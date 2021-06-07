@@ -185,7 +185,7 @@ namespace Version1.Service_Layer
                                     Console.WriteLine("user " + u.UserName + " notifications is " + u.notifications);
                                 }
                                 */
-                Console.WriteLine("starting init data base tables please wait\n");
+                Console.WriteLine("starting init data base tables please wait it might take a severral secends...\n");
                 Facade facade = new Facade();
                 facade.Register("zzz", "123");
                 database db = database.GetInstance();
