@@ -6,8 +6,8 @@ namespace Version1.domainLayer.DataStructures
     {
         private string name,description;
         private string barcode;
-        private List<string> categories;
-        private double price;
+        public List<string> categories{ get; set; }
+        public  double price { get; set; }
         
         public Product(string barcode,string name,string desc,double price, List<string> categories)
         {
