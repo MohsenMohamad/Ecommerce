@@ -12,13 +12,16 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserHandler a = new UserHandler();
+            if (!IsPostBack)
+            {
+                UserHandler a = new UserHandler();
 
-            Data_cart.DataSource = a.GetAllUserNotificationsoffer(Session["username"].ToString());
-            Data_cart.DataBind();
+                Data_offer.DataSource = a.GetAllUserNotificationsoffer(Session["username"].ToString());
+                Data_offer.DataBind();
+            }
 
         }
-        protected void Data_shop_Command(object source, DataListCommandEventArgs e)
+        protected void offer_Command(object source, DataListCommandEventArgs e)
         {
             Session["msgoffer"] = e.CommandArgument;
             if (e.CommandName == "Accept")
@@ -30,6 +33,8 @@ namespace Client
 
                 ShopHandler sh = new ShopHandler();
                 sh.acceptoffer(msg[1],msg[3],msg[5],msg[7]);
+                Response.Redirect("~/Home.aspx");
+
 
 
             }
@@ -43,8 +48,7 @@ namespace Client
 
             }
         }
-
-        protected void Data_cart_SelectedIndexChanged(object sender, EventArgs e)
+        protected void offer_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

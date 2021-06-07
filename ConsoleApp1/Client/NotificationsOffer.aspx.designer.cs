@@ -15,12 +15,12 @@ namespace Client
     {
 
         /// <summary>
-        /// Data_cart control.
+        /// Data_offer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList Data_cart;
+        protected global::System.Web.UI.WebControls.DataList Data_offer;
     }
 }

@@ -35,11 +35,11 @@ namespace Version1.domainLayer
 
         public void acceptOffer()
         {
-            UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + "was accepted");
+            UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
             var owners = store.GetOwners();
             for (int i = 0; i < owners.Count; i++)
             {
-                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ".the offered price is:" + price + ".from:" + user.UserName + ".from store:" + store.GetName());
+                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
             }
             /*add product to cart
              * 
