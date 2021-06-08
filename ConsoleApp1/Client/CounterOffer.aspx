@@ -1,17 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="Purchase_Offer.aspx.cs" Inherits="Client.Purchase_Offer" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="CounterOffer.aspx.cs" Inherits="Client.CounterOffer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style19 {
-            margin-left: 0;
-            width: 166px;
-        }
-        .auto-style20 {
-            width: 217px;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    
     <table class="auto-style5">
         <tr>
             <td class="auto-style19">
@@ -22,40 +14,10 @@
         </tr>
         <tr>
             <td class="auto-style19">
-                            <asp:Label ID="LabelproductName" runat="server" Text="productName : "></asp:Label>
-                        </td>
-            <td class="auto-style20">
-                            <asp:Label ID="LabelproductName0" runat="server"></asp:Label>
-                        </td>
-            <td class="auto-style13">&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style19">
-                            <asp:Label ID="Labeldescription" runat="server" Text="description : "></asp:Label>
-                        </td>
-            <td class="auto-style20">
-                            <asp:Label ID="Labeldescription0" runat="server"></asp:Label>
-                        </td>
-            <td class="auto-style13">&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style19">
                             <asp:Label ID="Labelbarcode" runat="server" Text="barcode : "></asp:Label>
                         </td>
             <td class="auto-style20">
                             <asp:Label ID="Labelbarcode0" runat="server"></asp:Label>
-                        </td>
-            <td class="auto-style13">&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style19">
-                            <asp:Label ID="Labelcategories" runat="server" Text="categories : "></asp:Label>
-                        </td>
-            <td class="auto-style20">
-                            <asp:Label ID="Labelcategories0" runat="server"></asp:Label>
                         </td>
             <td class="auto-style13">&nbsp;</td>
             <td>&nbsp;</td>
@@ -77,6 +39,30 @@
             <td class="auto-style20">
                             <asp:Label ID="Labelprice0" runat="server"></asp:Label>
                         </td>
+            <td class="auto-style13">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style19">
+                            &nbsp;</td>
+            <td class="auto-style20">
+                            &nbsp;</td>
+            <td class="auto-style13">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style19">
+                            &nbsp;</td>
+            <td class="auto-style20">
+                            &nbsp;</td>
+            <td class="auto-style13">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style19">
+                            &nbsp;</td>
+            <td class="auto-style20">
+                            &nbsp;</td>
             <td class="auto-style13">&nbsp;</td>
             <td>
                 &nbsp;</td>
@@ -115,10 +101,11 @@
                 <asp:ImageButton ID="ImageButton2" runat="server" CssClass="auto-style16" Height="30px" ImageUrl="img/plus.PNG" OnClick="ImageButton2_Click" Width="30px" />
             </td>
             <td class="auto-style13">
-                <asp:Button ID="Button3" runat="server" Height="42px" OnClick="Button3_Click" Text="Make Suggestion" Width="176px" />
+                <asp:Button ID="Button3" runat="server" Height="42px" OnClick="Button3_Click" Text="Counter Offer" Width="176px" />
             </td>
             <td>
             </td>
         </tr>
     </table>
+
 </asp:Content>

@@ -24,14 +24,64 @@ namespace Version1.Service_Layer
             return hashPassword != null && logicInstance.UserLogin(username, hashPassword);
         }
 
-        public void Recieve_purchase_offer(string username,string storename,string price,string barcode)
+        public void Recieve_purchase_offer(string username,string storename,string price,string barcode,int amount)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storename);
             var user = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storename);
-            var offer = new PurchaseOffer(product, (User)user, store,double.Parse( price));
+            var offer = new PurchaseOffer(product, (User)user, store,double.Parse( price),amount);
             offer.makeOffer();
 
+        }
+
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+           if(!IsOwner(storename, username)){
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.acceptOffer();
+                AddProductToBasket(username, storename, barcode, amount);
+            }
+            else
+            {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(by_username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.acceptOffer();
+                AddProductToBasket(by_username, storename, barcode, amount);
+            }
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+            if (!IsOwner(storename, username))
+            {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.rejectOffer();
+            }
+            else {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(by_username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.rejectOffer();
+            }
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storename);
+            var user = DataHandler.Instance.GetUser(username);
+            var store = DataHandler.Instance.GetStore(storename);
+            var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+            offer.counteroffer(owner, oldprice);
         }
 
         public long GuestLogin()
@@ -318,10 +368,13 @@ namespace Version1.Service_Layer
              return ProductsTo2DStringArray(basketsProducts);*/
         }
 
+       
+
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
             return logicInstance.RemoveProductFromCart(userName, storeName, productBarcode, amount);
         }
+
 
 
         // low
@@ -339,15 +392,6 @@ namespace Version1.Service_Layer
             var products = new Dictionary<string, List<string>> {{storeName, basketProducts}};
 
             return ProductsTo2DStringArray(products);
-        }
-
-        public void acceptoffer(string barcode, string price, string username, string storename)
-        {
-            var product = DataHandler.Instance.GetProduct(barcode, storename);
-            var user = DataHandler.Instance.GetUser(username);
-            var store = DataHandler.Instance.GetStore(storename);
-            var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price));
-            offer.acceptOffer();
         }
 
         public bool SendNotifications(string userName, string msg)

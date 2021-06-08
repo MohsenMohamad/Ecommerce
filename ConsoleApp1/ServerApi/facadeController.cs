@@ -42,9 +42,9 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public void Recieve_purchase_offer(string username, string storename, string price, string barcode)
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode,int amount)
         {
-            facade.Recieve_purchase_offer(username, storename, price, barcode);
+            facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
 
         }
 
@@ -334,11 +334,26 @@ namespace ServerApi
 
 
         [HttpGet]
-        public void acceptoffer(string barcode, string price, string username, string storename)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
         {
 
-           facade.acceptoffer(barcode, price, username, storename);
+           facade.acceptoffer(barcode, price, username, storename, amount,by_username);
         
+        }
+
+        [HttpGet]
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+
+        }
+
+
+        [HttpGet]
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            facade.CounterOffer(barcode, price, username, storename, amount,owner,oldprice);
+
         }
 
         [HttpGet]

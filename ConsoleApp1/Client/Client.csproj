@@ -150,6 +150,7 @@
   <ItemGroup>
     <Content Include="Cart.aspx" />
     <Content Include="clientWebSocket.html" />
+    <Content Include="CounterOffer.aspx" />
     <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\done.gif" />
@@ -185,6 +186,13 @@
     <Compile Include="Code\ShopHandler.cs" />
     <Compile Include="Code\System.cs" />
     <Compile Include="Code\UserHandler.cs" />
+    <Compile Include="CounterOffer.aspx.cs">
+      <DependentUpon>CounterOffer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CounterOffer.aspx.designer.cs">
+      <DependentUpon>CounterOffer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EditShop.aspx.cs">
       <DependentUpon>EditShop.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

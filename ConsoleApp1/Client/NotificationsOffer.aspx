@@ -21,8 +21,7 @@
                                                         <td style="text-align: right;">
                                                             <asp:Button ID="AcceptButton" CommandArgument='<%#Eval("Offer")%>' CommandName="Accept" runat="server" Text="Accept" />
                                                             <asp:Button ID="RejectButton" CommandArgument='<%#Eval("Offer")%>' CommandName="Reject" runat="server" Text="Reject" />
-                                                            <asp:Button ID="CounterButton" CommandArgument='<%#Eval("Offer")%>' CommandName="Counter_Offe" runat="server" Text="Counter Offer" />
-
+                                                            <asp:Button ID="CounterButton" CommandArgument='<%#Eval("Offer")%>' CommandName="Counter_Offer" runat="server" Text="Counter Offer" />
                                                         </td>
                                                     </tr>
                                                 </table>

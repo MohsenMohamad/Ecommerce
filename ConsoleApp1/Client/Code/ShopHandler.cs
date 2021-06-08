@@ -34,20 +34,32 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
-        public void acceptoffer(string barcode, string price, string username, string storename)
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&owner={5}&oldprice={6}", barcode, price, username, storename, amount, owner, oldprice);
+            System.SendApi("CounterOffer", param);
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
 
-            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}", barcode, price, username, storename);
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
             System.SendApi("acceptoffer", param);
 
         }
 
 
-        public void Recieve_purchase_offer(string username, string storename, string price, string barcode)
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode,int amount)
         {
-            string param = string.Format("username={0}&storename={1}&price={2}&barcode={3}", username, storename, price, barcode);
+            string param = string.Format("username={0}&storename={1}&price={2}&barcode={3}&amount={4}", username, storename, price, barcode, amount);
             System.SendApi("Recieve_purchase_offer", param);
 
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount,by_username);
+            System.SendApi("rejectoffer", param);
         }
 
         public string OpenShop(string userName, string shopName, string policy)

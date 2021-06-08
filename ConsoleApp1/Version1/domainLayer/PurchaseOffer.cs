@@ -14,12 +14,15 @@ namespace Version1.domainLayer
         private Store store;
         private User user;
         private double price;
-        public PurchaseOffer(Product pr,User us,Store st, double price)
+        private int amount;
+        
+        public PurchaseOffer(Product pr,User us,Store st, double price,int amount)
         {
             this.store = st;
             this.product = pr;
             this.price = price;
             this.user = us;
+            this.amount = amount;
             
         }
 
@@ -28,8 +31,8 @@ namespace Version1.domainLayer
             var owners = store.GetOwners();
             for (int i = 0; i < owners.Count; i++)
             {
-                UserLogic.AddUserNotification(owners[i], "offer for:" + product.Barcode + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
-                UserLogic.AddUserNotificationoffer(owners[i], "offer for:" + product.Barcode +  ". the offered price is:" + price + ". from:" + user.UserName+". from store:"+store.GetName());
+                UserLogic.AddUserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.AddUserNotificationoffer(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
             }
         }
 
@@ -39,12 +42,36 @@ namespace Version1.domainLayer
             var owners = store.GetOwners();
             for (int i = 0; i < owners.Count; i++)
             {
-                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.AddUserNotification(owners[i], "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
+                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
             }
-            /*add product to cart
-             * 
-             * 
-             * */
+
+        }
+
+        public void rejectOffer()
+        {
+            UserLogic.AddUserNotification(user.UserName, "the offer for: " + product.Barcode + " with the price: " + price + " was rejected");
+            var owners = store.GetOwners();
+            for (int i = 0; i < owners.Count; i++)
+            {
+                UserLogic.AddUserNotification(owners[i], "the offer for: " + product.Barcode + " with the price: " + price + " was rejected");
+                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
+
+            }
+        }
+
+        public void counteroffer(string owner, string oldprice)
+        {
+            UserLogic.AddUserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owner + ". from store:" + store.GetName());
+            UserLogic.AddUserNotificationoffer(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owner + ". from store:" + store.GetName());
+            var owners = store.GetOwners();
+            for (int i = 0; i < owners.Count; i++)
+            {
+                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + user.UserName + ". from store:" + store.GetName());
+            }
+            UserLogic.removeuserNotification(owner, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:"+ user.UserName + ". from store:" + store.GetName());
         }
     }
 }
