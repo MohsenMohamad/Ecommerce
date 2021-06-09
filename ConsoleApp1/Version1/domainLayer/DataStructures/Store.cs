@@ -28,6 +28,8 @@ namespace Version1.domainLayer.DataStructures
             inventory = new ConcurrentDictionary<Product, int>();
             this.name = name;
             notifications = new List<string>();
+
+            discountPolicy = new DTO_Policies(); 
         }
 
         public override string ToString()
