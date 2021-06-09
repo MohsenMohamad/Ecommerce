@@ -181,3 +181,7 @@ span.psw {
 .header{
     display:table-cell;
 }
+.vl {
+    border-left: 6px solid green;
+    height: 500px;
+}

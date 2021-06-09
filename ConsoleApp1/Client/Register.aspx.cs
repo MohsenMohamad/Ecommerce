@@ -12,8 +12,7 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LabelUsername.Visible = false;
-            LabelPasword.Visible = false;
+          
         }
 
         protected void btn_Register_Click(object sender, EventArgs e)
@@ -25,7 +24,7 @@ namespace Client
                 if (msg.Equals("\"True\""))
                 {
                     Response.Redirect("~/Home.aspx");
-                    LabelUsername.Visible = true;
+                    //LabelUsername.Visible = true;
                 }else
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
@@ -36,13 +35,14 @@ namespace Client
 
                 if (txt_Username.Text.Trim().Length == 0)
                 {
-                    if (txt_password.Text.Trim().Length == 0) LabelPasword.Visible = true;
-                    LabelUsername.Visible = true;
+                    if (txt_password.Text.Trim().Length == 0)
+                        Response.Redirect("~/Register.aspx");
+
                 }
                 if (txt_password.Text.Trim().Length == 0)
                 {
-                    if (txt_Username.Text.Trim().Length == 0) LabelUsername.Visible = true;
-                    LabelPasword.Visible = true;
+                    if (txt_Username.Text.Trim().Length == 0)
+                        Response.Redirect("~/Register.aspx");
                 }
             }
 

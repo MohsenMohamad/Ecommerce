@@ -37,9 +37,10 @@ namespace Client
                     if (txtusername.Text.ToString().Equals("admin"))
                     {
                         Session["admin"] = "admin";
-                        Response.Redirect("~/Home.aspx");
+                        
 
                     }
+                    Response.Redirect("~/Home.aspx");
                 }
                 else
                 {
