@@ -334,10 +334,10 @@ namespace ServerApi
 
 
         [HttpGet]
-        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username,string oldprice)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
         {
             
-           facade.acceptoffer(barcode, price, username, storename, amount,by_username,oldprice);
+           facade.acceptoffer(barcode, price, username, storename, amount,by_username);
         
         }
 

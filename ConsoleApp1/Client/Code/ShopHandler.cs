@@ -40,10 +40,10 @@ namespace Client.Code
             System.SendApi("CounterOffer", param);
         }
 
-        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username,string oldprice)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
 
-            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}&oldprice={6}", barcode, price, username, storename, amount, by_username,oldprice);
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
             System.SendApi("acceptoffer", param);
 
         }

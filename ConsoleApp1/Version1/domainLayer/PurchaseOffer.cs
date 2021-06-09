@@ -40,7 +40,7 @@ namespace Version1.domainLayer
             }
         }
 
-        public bool acceptOffer(string oldprice)
+        public bool acceptOffer()
         {
             var owners = store.GetOwners();
             
@@ -51,8 +51,8 @@ namespace Version1.domainLayer
                     UserLogic.AddUserNotification(owners[i], "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
                     UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
                     UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
-                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + owners[i] + ". from store:" + store.GetName());
-            }
+/*                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + owners[i] + ". from store:" + store.GetName());
+*/            }
             
             return true;
         }
@@ -66,7 +66,7 @@ namespace Version1.domainLayer
                 number_of_owners+=1;
             }
             if (number_of_owners == owners.Count)
-                return acceptOffer("");
+                return acceptOffer();
             return false;
 
         }
