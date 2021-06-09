@@ -25,6 +25,7 @@ namespace Version1.domainLayer.DataStructures
             purchasePolicies = new List<Component>();
             history = new List<Purchase>();
             paymentInfo = new List<string>();
+            inventory = new ConcurrentDictionary<Product, int>();
             this.name = name;
             notifications = new List<string>();
         }
@@ -115,11 +116,11 @@ namespace Version1.domainLayer.DataStructures
         public int addPublicDiscount(string storeName, int percentage)
         {
             discountPolicy = new DTO_Policies();
-
+/*
             foreach (var x in inventory) {
                 x.Key.discountPolicy.percentage = x.Key.discountPolicy.percentage - this.discountPolicy.percentage + percentage;
                 x.Key.discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-            }
+            }*/
 
             discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
             discountPolicy.percentage = percentage;

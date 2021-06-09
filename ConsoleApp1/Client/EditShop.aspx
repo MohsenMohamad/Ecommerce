@@ -79,6 +79,9 @@ margin-bottom: 16px;
         .auto-style28 {
             width: 122px;
         }
+        .auto-style29 {
+            height: 69px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -523,7 +526,7 @@ margin-bottom: 16px;
                             <asp:Label ID="Label13" runat="server" Text="Item :"></asp:Label>
                         </td>
                         <td>
-                            <asp:DropDownList ID="DropDownList7" runat="server">
+                            <asp:DropDownList ID="DropDownList7" runat="server" OnSelectedIndexChanged="DropDownList7_SelectedIndexChanged">
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -551,7 +554,7 @@ margin-bottom: 16px;
                         <td class="auto-style28">
                             &nbsp;</td>
                         <td>
-                <asp:Button ID="Button5" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px"  />
+                <asp:Button ID="Button5" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button5_Click"  />
                         </td>
                     </tr>
                 </table>
@@ -568,19 +571,17 @@ margin-bottom: 16px;
                     </tr>
                <tr>
                         <td class="auto-style28">
-                            <asp:Label ID="Label19" runat="server" Text="Amount :"></asp:Label>
+                            <asp:Label ID="Label19" runat="server" Text="Conditional Discount :"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="TextBox15" runat="server" Height="16px"></asp:TextBox>
-                        </td>
+                       <textarea runat="server" id="txt1" class="txt" name="S2" style="width: 273px; height: 110px;" cols="10" rows="1"></textarea></td>
+
                     </tr>
            <tr>
                         <td class="auto-style28">
-                            <asp:Label ID="Label20" runat="server" Text="Amount :"></asp:Label>
-                        </td>
+                            &nbsp;</td>
                         <td>
-                            <asp:TextBox ID="TextBox16" runat="server" Height="16px"></asp:TextBox>
-                        </td>
+                            &nbsp;</td>
                     </tr>
            <tr>
                         <td class="auto-style28">
@@ -592,7 +593,7 @@ margin-bottom: 16px;
                         <td class="auto-style28">
                             &nbsp;</td>
                         <td>
-                <asp:Button ID="Button6" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px"  />
+                <asp:Button ID="Button6" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button6_Click"  />
                         </td>
                     </tr>
                 </table>

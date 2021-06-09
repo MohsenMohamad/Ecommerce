@@ -20,6 +20,13 @@ namespace ServerApi
             var a = facade.GetStoresProducts();
             return a;
         }
+
+        [HttpGet]
+        public string[][] GetStoreProducts(string storeName)
+        {
+            return facade.GetStoreProducts(storeName);
+        }
+
         [HttpGet]
         public string[][] getAllStores()
         {
@@ -99,6 +106,7 @@ namespace ServerApi
         {
             return facade.addPublicDiscountToItem(storeName, barcode, percentage);
         }
+
         
         [HttpGet]
         public int addConditionalDiscount(string shopName, int percentage, string condition)

@@ -35,6 +35,30 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
+        public DataSet GetStoreProducts(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoreProducts", param).ToString());
+            DataTable t1 = new DataTable("products");
+            t1.Columns.Add("productName");
+            t1.Columns.Add("barcode");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i][0], jarray[i][2]);
+            }
+            DataSet d1 = new DataSet("products");
+            d1.Tables.Add(t1);
+            return d1;
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            string param = string.Format("storeName={0}&barcode={1}&percentage={2}", storeName, barcode, percentage);
+            return int.Parse(System.SendApi("addPublicDiscountToItem", param));
+        }
+
+
         public int addStoreDiscount(string storeName, int percentage)
         {
             string param = string.Format("storeName={0}&percentage={1}", storeName, percentage);
@@ -264,6 +288,12 @@ namespace Client.Code
         {
             string param = string.Format("storeName={0}&amount={1}", storeName, amount);
             return bool.Parse(System.SendApi("AddCartrPolicies", param));
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            string param = string.Format("shopName={0}&percentage={1}&condition={2}", shopName, percentage, condition);
+            return int.Parse(System.SendApi("addConditionalDiscount", param));
         }
 
 

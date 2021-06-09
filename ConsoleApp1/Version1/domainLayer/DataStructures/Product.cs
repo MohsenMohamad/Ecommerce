@@ -14,6 +14,7 @@ namespace Version1.domainLayer.DataStructures
         public  double price { get; set; }
         public DTO_Policies discountPolicy { get; set; }
 
+
         public Product(string barcode,string name,string desc,double price, List<string> categories)
         {
             description = desc;
