@@ -153,6 +153,7 @@
     <Content Include="CounterOffer.aspx" />
     <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="img\background.jpg" />
     <Content Include="img\done.gif" />
     <Content Include="img\fast-shop.jpg" />
     <Content Include="img\homepagevideo.mp4" />

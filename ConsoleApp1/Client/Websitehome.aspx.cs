@@ -47,11 +47,14 @@ namespace Client
 
         protected void HomeButton_Click(object sender, EventArgs e)
         {
+            ButtonLogOut.Visible = true;
             Response.Redirect("~/Home.aspx");
+           
         }
 
         protected void Allshops_Click(object sender, EventArgs e)
         {
+           
             Response.Redirect("~/Shops.aspx");
         }
 
