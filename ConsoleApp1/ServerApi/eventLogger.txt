@@ -614,3 +614,14 @@
 10/06/2021 0:04:06: yarahas Register succesfully   .
 10/06/2021 0:04:06: Guest has connected with pid : 1  .
 10/06/2021 0:04:55: adminhas LoggedIn   .
+10/06/2021 0:15:34: yarahas Register succesfully   .
+10/06/2021 0:15:34: Guest has connected with pid : 1  .
+10/06/2021 0:15:39: 1 has opened shop : yarashop  .
+10/06/2021 0:16:06: 1 has opened shop : adnan shop  .
+10/06/2021 0:16:09: 1 has opened shop : mohamad shop  .
+10/06/2021 0:16:13: 1 has opened shop : mohamed2 shop  .
+10/06/2021 0:21:04: yarahas Register succesfully   .
+10/06/2021 0:21:04: Guest has connected with pid : 1  .
+10/06/2021 0:21:08: 1 has opened shop : mohamad shop  .
+10/06/2021 0:23:06: adminhas LoggedIn   .
+10/06/2021 0:23:11: admin has opened shop : yarashop  .

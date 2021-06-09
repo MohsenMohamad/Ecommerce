@@ -211,3 +211,12 @@ h1{
     font-size:80px;
     text-align:center;
 }
+.btnedit :hover{
+    background-color:lightseagreen;
+}
+.StaffInfoBtn :hover  {
+    background-color: yellow;
+}
+.ButtonClose :hover {
+    background-color: indianred;
+}
