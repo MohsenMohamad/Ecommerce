@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Version1.domainLayer.DataStructures;
 using Version1.LogicLayer;
+using Version1.Service_Layer;
 
 namespace Version1.domainLayer
 {
-    class PurchaseOffer
+   public class PurchaseOffer
     {
         private Product product;
         private Store store;
         private User user;
         private double price;
         private int amount;
+        public int number_of_owners { get; set; }
+        private List<string> accepted; 
         
         public PurchaseOffer(Product pr,User us,Store st, double price,int amount)
         {
@@ -23,7 +26,8 @@ namespace Version1.domainLayer
             this.price = price;
             this.user = us;
             this.amount = amount;
-            
+            this.number_of_owners = 0;
+            accepted = new List<string>();
         }
 
         public void makeOffer()
@@ -36,16 +40,33 @@ namespace Version1.domainLayer
             }
         }
 
-        public void acceptOffer()
+        public bool acceptOffer()
         {
-            UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
             var owners = store.GetOwners();
-            for (int i = 0; i < owners.Count; i++)
+            
+                UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
+
+                for (int i = 0; i < owners.Count; i++)
+                {
+                    UserLogic.AddUserNotification(owners[i], "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
+                    UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                    UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
+                }
+            
+            return true;
+        }
+        public bool acceptOffernotfinal(string by)
+        {
+            var owners = store.GetOwners();
+            if (!accepted.Contains(by))
             {
-                UserLogic.AddUserNotification(owners[i], "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
-                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
-                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
+                UserLogic.removeuserNotification(by, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                accepted.Add(by);
+                number_of_owners+=1;
             }
+            if (number_of_owners == owners.Count)
+                return acceptOffer();
+            return false;
 
         }
 
@@ -72,6 +93,10 @@ namespace Version1.domainLayer
                 UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + user.UserName + ". from store:" + store.GetName());
             }
             UserLogic.removeuserNotification(owner, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:"+ user.UserName + ". from store:" + store.GetName());
+        }
+        public bool checkequals(Product pr, User us, Store st, double price, int amount)
+        {
+            return this.product.Barcode.CompareTo(pr.Barcode) == 0 && this.user.UserName.CompareTo(us.UserName) == 0 && this.store.GetName().CompareTo(st.GetName()) == 0 && this.price == price && this.amount == amount;
         }
     }
 }

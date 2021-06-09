@@ -37,22 +37,33 @@ namespace Version1.Service_Layer
 
         public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
         {
-           if(!IsOwner(storename, username)){
+           if(!IsOwner(storename, by_username)){
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
                 var user = DataHandler.Instance.GetUser(username);
                 var store = DataHandler.Instance.GetStore(storename);
-                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
-                offer.acceptOffer();
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                if (offer == null)
+                {
+                    offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                    DataHandler.Instance.Offers.Add(offer);
+                }
+                if(offer.acceptOffer())
                 AddProductToBasket(username, storename, barcode, amount);
             }
             else
             {
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
-                var user = DataHandler.Instance.GetUser(by_username);
+                var user = DataHandler.Instance.GetUser(username);
                 var store = DataHandler.Instance.GetStore(storename);
-                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
-                offer.acceptOffer();
-                AddProductToBasket(by_username, storename, barcode, amount);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                if (offer == null)
+                {
+                    offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                    DataHandler.Instance.Offers.Add(offer);
+                }
+                if(offer.acceptOffernotfinal(by_username))
+                    AddProductToBasket(username, storename, barcode, amount);
+
             }
         }
 
