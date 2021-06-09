@@ -185,3 +185,10 @@ span.psw {
     border-left: 6px solid green;
     height: 500px;
 }
+.ButtonLogOut {
+    border-radius: 12px;
+}
+.ButtonLogOut:hover {
+    border-color: yellow;
+   
+}

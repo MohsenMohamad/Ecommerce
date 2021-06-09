@@ -23,7 +23,7 @@ namespace Client
                 string msg =  new UserHandler().Register(txt_Username.Text, txt_password.Text);
                 if (msg.Equals("\"True\""))
                 {
-                    Response.Redirect("~/Home.aspx");
+                    Response.Redirect("~/Websitehome.aspx");
                     //LabelUsername.Visible = true;
                 }else
                 {

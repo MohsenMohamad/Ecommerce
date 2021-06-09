@@ -27,7 +27,7 @@
           <asp:Label ID="Labeladdress" runat="server" Text="Hi! " ></asp:Label>
         &nbsp;<a runat="server" href="../sign-in.aspx" id="signInId">Sign in&nbsp; </a>
             <asp:Label runat="server" Text="or "></asp:Label>
-            &nbsp;<a runat="server" href="Register.aspx" id="signUpId">register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a runat="server" href="Register.aspx" id="signUpId">register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                
             <a runat="server" href="#" id="helpandcontact">Help&Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <asp:ImageButton ID="ImageButtoncart" src="img/shopping_cart_black_72x72.png" runat="server" CssClass="auto-style11" Height="31px" OnClick="ImageButtoncart_Click" Width="26px" />
@@ -55,158 +55,32 @@
             <asp:TextBox ID="barSearch" runat="server" Height="24px" Width="600px" placeholder="Search for anything "></asp:TextBox>
             <asp:Button runat="server" ID="btnSearchBar"  CssClass="btn btn-primary" Text="Search" Height="34px" Width="100px" OnClick="Button1_Click" /> 
        
-            &nbsp;
-            
-                    
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
-       
-                </div> 
+            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> 
         
+        <div style="position:center; justify-content:center; width:100%">
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <video style="width:100%" height="500" autoplay >
+                        <source src="img/homepagevideo.mp4" type="video/mp4">
+                       </video>
 
+        </div>
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width:400px; height:300px; position:center; margin:auto" >
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img  src="img/shopping.jpg" alt="First slide">
-    </div>
-    <div class="carousel-item">
-      <img  src="img/done.jpg" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img  src="img/shopping.jpg" alt="Third slide">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only" style="color:palevioletred">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only" style="color:palevioletred">Next</span>
-  </a>
-</div>
+      
+    </form>
+    <p>
+&nbsp;
+    </p>
+    <br />
+    <br />
+     <footer style="position:center; text-align:center">
+            <p>Created by Yara Ahmad. © 2021</p>
+        </footer>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           
-
-        
-       <br /> Welcome to Market&nbsp; <table class="auto-style5">
-            <tr>
-                <td>
-                    <asp:Label ID="Labelname" runat="server" ></asp:Label>
-                    <table class="auto-style5">
-                        <tr>
-                            <td class="auto-style8">
-                    <asp:Button ID="HomeButton" runat="server" CssClass="auto-style7" Text="Home" Width="120px" OnClick="HomeButton_Click" />
-                            </td>
-                            <td class="auto-style6">
-                                <asp:Button ID="Allshops" CssClass="auto-style7" runat="server" Width="120px" Text="Shops" OnClick="Allshops_Click1" />
-                            </td>
-                            <td class="auto-style6">
-                                <asp:Button ID="OpenShop" CssClass="auto-style7" Width="120px" runat="server" Text="Open Shop" OnClick="OpenShop_Click1" />
-                            </td>
-                            <td class="auto-style6">
-                                <asp:Button ID="MyShops" CssClass="auto-style7" Width="120px" runat="server" Text="MyShops" OnClick="MyShops_Click" />
-                            </td>
-                            <td class="auto-style18">
-                                <asp:Button ID="Notifications" CssClass="auto-style7" Width="120px" runat="server" Text="Notifications" OnClick="Notifications_Click" />
-                            </td>
-                            <td>
-                                <asp:Button ID="InitSystem" CssClass="auto-style7" Width="120px" runat="server" Text="InitSystem" OnClick="InitSystem_Click"/>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td class="auto-style12">
-                                &nbsp;</td>
-                            <td class="auto-style9">
-        <asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="120px" OnClick="ButtonLogOut_Click" />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <div>
-         <table runat="server" id="Login_table" class="auto-style3">
-                                        <tr>
-                                            <td class="auto-style4">
-                     <asp:Label ID="LabelUsername" runat="server" CssClass="red1" Text="what's Your UserName ?"></asp:Label>
-                                            </td>
-                                            <td class="auto-style4">
-                 <asp:Label ID="LabelPasword" runat="server" CssClass="red1" Text="what's Your Password ?"></asp:Label>
-                                            </td>
-                                            <td class="auto-style17">
-                                                &nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="auto-style4">
-                                                <asp:TextBox ID="txtusername" CssClass="txt" placeholder="Enter Username" runat="server" Style="text-align: center" Width="150px" ></asp:TextBox></td>
-                                            <td class="auto-style4">
-                                                <asp:TextBox ID="txtpassword" TextMode="Password" CssClass="txt" placeholder="Enter Password" Style="text-align: center" runat="server" Width="150px"></asp:TextBox></td>
-                                            <td class="auto-style17">
-                                                <asp:Button ID="btnlogin" runat="server" Text="Login" CssClass="loginstayl" Height="41px" Width="143px" OnClick="btnlogin_Click"  /></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" style="text-align: left; text-decoration: underline;" class="auto-style10"><a href="../Register.aspx" style="text-decoration: underline; color: #2093ad"><span>click here to register</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" style="text-align: left; text-decoration: underline;" class="auto-style10">
-                                            </td>
-                                        </tr>
-                                    </table>
-            <td>
-                <table class="auto-style16">
-                 <tr>
-                     <td class="auto-style15">
-                         <asp:Label ID="Label2" runat="server" Text="Search :"></asp:Label>
-                     </td>
-                     <td class="auto-style13">
-                         <asp:TextBox ID="TextBox2" runat="server" CssClass="auto-style14" Width="733px"></asp:TextBox>
-                     </td>
-                     <td>
-                         <asp:Button ID="Button2" runat="server" Text="Search" OnClick="Button1_Click" />
-                     </td>
-                     <td>&nbsp;</td>
-                 </tr>
-                 <tr>
-                     <td class="auto-style15">&nbsp;</td>
-                     <td class="auto-style13">&nbsp;</td>
-                     <td>&nbsp;</td>
-                     <td>&nbsp;</td>
-                 </tr>
-             </table>
-            </td>
          <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-        </div>
+
+
+        
     </form>
 </body>
 </html>

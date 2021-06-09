@@ -155,6 +155,7 @@
     <Content Include="Home.aspx" />
     <Content Include="img\done.gif" />
     <Content Include="img\fast-shop.jpg" />
+    <Content Include="img\homepagevideo.mp4" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />
     <Content Include="img\add_to_cart.PNG" />
@@ -163,6 +164,7 @@
     <Content Include="img\shopping.jpg" />
     <Content Include="img\shopping_cart_black_72x72.png" />
     <Content Include="img\tenor.gif" />
+    <Content Include="img\homevideo.mp4" />
     <Content Include="MyShops.aspx" />
     <Content Include="Notifications.aspx" />
     <Content Include="NotificationsOffer.aspx" />
@@ -176,6 +178,7 @@
     <Content Include="Staff.aspx" />
     <Content Include="styles.css" />
     <Content Include="Web.config" />
+    <Content Include="Websitehome.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cart.aspx.cs">
@@ -295,6 +298,13 @@
     </Compile>
     <Compile Include="Staff.aspx.designer.cs">
       <DependentUpon>Staff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Websitehome.aspx.cs">
+      <DependentUpon>Websitehome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Websitehome.aspx.designer.cs">
+      <DependentUpon>Websitehome.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
