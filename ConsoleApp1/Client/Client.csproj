@@ -156,6 +156,7 @@
     <Content Include="img\done.gif" />
     <Content Include="img\fast-shop.jpg" />
     <Content Include="img\homepagevideo.mp4" />
+    <Content Include="img\openshop.jfif" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />
     <Content Include="img\add_to_cart.PNG" />
@@ -309,6 +310,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="m1.Master" />
+    <Content Include="fonts\Olive.otf" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

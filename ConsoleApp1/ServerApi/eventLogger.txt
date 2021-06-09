@@ -572,3 +572,19 @@
 09/06/2021 21:50:44: Guest has connected with pid : 1  .
 09/06/2021 21:50:52: adminhas LoggedIn   .
 09/06/2021 22:07:29: adminhas LoggedIn   .
+09/06/2021 22:30:49: adminhas LoggedIn   .
+09/06/2021 22:32:38: yarahas Register succesfully   .
+09/06/2021 22:32:38: Guest has connected with pid : 1  .
+09/06/2021 22:36:04: adminhas LoggedIn   .
+09/06/2021 22:37:21: yarahas Register succesfully   .
+09/06/2021 22:37:22: Guest has connected with pid : 1  .
+09/06/2021 22:37:32: 1 has opened shop :   .
+09/06/2021 22:44:10: yarahas Register succesfully   .
+09/06/2021 22:44:11: Guest has connected with pid : 1  .
+09/06/2021 22:50:16: adminhas LoggedIn   .
+09/06/2021 23:06:11: yarahas Register succesfully   .
+09/06/2021 23:06:11: Guest has connected with pid : 1  .
+09/06/2021 23:08:13: adminhas LoggedIn   .
+09/06/2021 23:09:51: adminhas LoggedIn   .
+09/06/2021 23:10:08: admin has opened shop : yarashop  .
+09/06/2021 23:10:59: yarahas Register succesfully   .
