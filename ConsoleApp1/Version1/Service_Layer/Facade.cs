@@ -35,7 +35,7 @@ namespace Version1.Service_Layer
         }
 
 
-        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username, string oldprice)
         {
            if(!IsOwner(storename, by_username)){
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
@@ -47,7 +47,7 @@ namespace Version1.Service_Layer
                     offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                     DataHandler.Instance.Offers.Add(offer);
                 }
-                if(offer.acceptOffer())
+                if(offer.acceptOffer(oldprice))
                 AddProductToBasket(username, storename, barcode, amount);
             }
             else
@@ -74,14 +74,14 @@ namespace Version1.Service_Layer
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
                 var user = DataHandler.Instance.GetUser(username);
                 var store = DataHandler.Instance.GetStore(storename);
-                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                 offer.rejectOffer();
             }
             else {
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
                 var user = DataHandler.Instance.GetUser(by_username);
                 var store = DataHandler.Instance.GetStore(storename);
-                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                 offer.rejectOffer();
             }
         }
@@ -91,8 +91,25 @@ namespace Version1.Service_Layer
             var product = DataHandler.Instance.GetProduct(barcode, storename);
             var user = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storename);
-            var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
-            offer.counteroffer(owner, oldprice);
+
+
+
+            if (IsOwner(storename, owner))
+            {
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+
+                offer.counteroffer(owner, oldprice);
+            }
+
+            else
+            {
+                string tmp = username;
+                username = owner;
+                owner = tmp;
+                user = DataHandler.Instance.GetUser(username);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.counterofferifnotowner(owner, oldprice);
+            }
         }
 
         public long GuestLogin()

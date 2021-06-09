@@ -40,18 +40,19 @@ namespace Version1.domainLayer
             }
         }
 
-        public bool acceptOffer()
+        public bool acceptOffer(string oldprice)
         {
             var owners = store.GetOwners();
             
-                UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
+            UserLogic.AddUserNotification(user.UserName, "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
 
                 for (int i = 0; i < owners.Count; i++)
                 {
                     UserLogic.AddUserNotification(owners[i], "offer for: " + product.Barcode + " with the price: " + price + " was accepted");
                     UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
                     UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owners[i] + ". from store:" + store.GetName());
-                }
+                UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + owners[i] + ". from store:" + store.GetName());
+            }
             
             return true;
         }
@@ -65,7 +66,7 @@ namespace Version1.domainLayer
                 number_of_owners+=1;
             }
             if (number_of_owners == owners.Count)
-                return acceptOffer();
+                return acceptOffer("");
             return false;
 
         }
@@ -82,18 +83,33 @@ namespace Version1.domainLayer
 
             }
         }
-
+        //called if owner is an owner
         public void counteroffer(string owner, string oldprice)
         {
+            
             UserLogic.AddUserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owner + ". from store:" + store.GetName());
             UserLogic.AddUserNotificationoffer(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + owner + ". from store:" + store.GetName());
             var owners = store.GetOwners();
             for (int i = 0; i < owners.Count; i++)
             {
                 UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + user.UserName + ". from store:" + store.GetName());
+                
             }
             UserLogic.removeuserNotification(owner, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:"+ user.UserName + ". from store:" + store.GetName());
         }
+
+        public void counterofferifnotowner(string owner, string oldprice)
+        {
+            UserLogic.removeuserNotification(user.UserName, "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + owner + ". from store:" + store.GetName()); var owners = store.GetOwners();
+            for (int i = 0; i < owners.Count; i++)
+            {
+                UserLogic.removeuserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + oldprice + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.AddUserNotification(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+                UserLogic.AddUserNotificationoffer(owners[i], "offer for:" + product.Barcode + ". the Amount:" + amount + ". the offered price is:" + price + ". from:" + user.UserName + ". from store:" + store.GetName());
+            }
+           
+        }
+
         public bool checkequals(Product pr, User us, Store st, double price, int amount)
         {
             return this.product.Barcode.CompareTo(pr.Barcode) == 0 && this.user.UserName.CompareTo(us.UserName) == 0 && this.store.GetName().CompareTo(st.GetName()) == 0 && this.price == price && this.amount == amount;

@@ -32,7 +32,7 @@ namespace Client
                 string[] msg= Session["msgoffer"].ToString().Split(splitting);
 
                 ShopHandler sh = new ShopHandler();
-                sh.acceptoffer(msg[1],msg[5],msg[7],msg[9], int.Parse(msg[3]), Session["username"].ToString());
+                sh.acceptoffer(msg[1],msg[5],msg[7],msg[9], int.Parse(msg[3]), Session["username"].ToString(),msg[11]);
                 Response.Redirect("~/Home.aspx");
 
 
