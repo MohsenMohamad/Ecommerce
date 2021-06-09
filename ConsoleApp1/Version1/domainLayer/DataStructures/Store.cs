@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DiscountPolicies;
@@ -145,5 +146,6 @@ namespace Version1.domainLayer.DataStructures
             
             return res;
         }
+        
     }
 }

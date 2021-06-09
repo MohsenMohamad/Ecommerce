@@ -294,7 +294,7 @@ namespace Version1.LogicLayer
             return s.addConditionalDiscount(percentage, condition);
         }
         
-//todo implement
+        //todo implement
         public int addConditionalDiscount_toItem(int item_in_shop_id, int percentage, string condition)
         {
             ItemInShop iis = new ItemInShop(item_in_shop_id);
@@ -303,6 +303,11 @@ namespace Version1.LogicLayer
         public int addConditionalDiscount(string storeName, int percentage, string condition)
         {
             return StoreLogic.addConditionalDiscount(storeName, percentage,condition);
+        }
+
+        public double GetTotalCart(string userName)
+        {
+            return StoreLogic.GetTotalCart(userName);
         }
     }
 }

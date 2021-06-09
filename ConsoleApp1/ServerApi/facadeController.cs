@@ -113,6 +113,12 @@ namespace ServerApi
         {
             return facade.addConditionalDiscount(shopName, percentage, condition);
         }
+        
+        [HttpGet]
+        public double GetTotalCart(string userName)
+        {
+            return facade.GetTotalCart(userName);
+        }
 
         [HttpGet]
         public string[][] search(string keyword)

@@ -5,6 +5,7 @@ using Version1.DataAccessLayer;
 using Version1.domainLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.DiscountPolicies;
 using Version1.domainLayer.StorePolicies;
 
 namespace Version1.LogicLayer
@@ -363,6 +364,50 @@ namespace Version1.LogicLayer
         {
             var store = DataHandler.Instance.GetStore(storeName);
             return store.addConditionalDiscount(storeName, percentage,condition);
+        }
+        
+        public static double GetTotalCart(string userName)
+        {
+            double a = 0;
+            
+            if (DataHandler.Instance.Users.Contains<>(userName))
+            {
+                User user = DataHandler.Instance.Users[userName];
+                ShoppingCart shcart = user.shoppingCart;
+                
+                foreach (KeyValuePair<string, ShoppingBasket> entry in shcart.shoppingBaskets)
+                {
+                    string storeName = entry.Key;
+                    Store store = DataHandler.Instance.Stores[storeName];
+                    DTO_Policies shop_policy = store.discountPolicy;
+                    DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
+                    
+                    foreach (KeyValuePair<string, int> pro in entry.Value.Products)
+                    {
+                        Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
+                        //adding the shop discount
+                        if (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
+                        {
+                            a += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                        }
+                        //adding the product discount
+                        else
+                        {
+                            DTO_Policies item_policy = product.discountPolicy;
+                            discountPolicy = DiscountPolicy.GetPolicy(item_policy);
+                         
+                            a += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                        }
+                    }
+                }
+                return a;
+            }
+            else
+            {
+                return -1;
+            }
+            
+            
         }
     }
 }

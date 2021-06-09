@@ -690,5 +690,10 @@ namespace Version1.Service_Layer
         {
             return logicInstance.addConditionalDiscount(shopName, percentage, condition);
         }
+
+        public double GetTotalCart(string userName)
+        {
+            return logicInstance.GetTotalCart(userName);
+        }
     }
 }

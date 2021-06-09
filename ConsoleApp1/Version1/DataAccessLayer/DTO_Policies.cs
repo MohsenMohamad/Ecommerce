@@ -1,4 +1,6 @@
 ﻿using System;
+using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.DiscountPolicies;
 
 namespace Version1.DataAccessLayer
 {
@@ -79,5 +81,6 @@ namespace Version1.DataAccessLayer
             return 1;
         }
 
+        
     }
 }
