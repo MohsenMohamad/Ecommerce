@@ -154,11 +154,13 @@
     <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\done.gif" />
+    <Content Include="img\fast-shop.jpg" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />
     <Content Include="img\add_to_cart.PNG" />
     <Content Include="img\select-button-png-md.png" />
     <Content Include="img\select-button-png-th.png" />
+    <Content Include="img\shopping.jpg" />
     <Content Include="img\shopping_cart_black_72x72.png" />
     <Content Include="img\tenor.gif" />
     <Content Include="MyShops.aspx" />
@@ -170,7 +172,9 @@
     <Content Include="Purchase_Offer.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Shops.aspx" />
+    <Content Include="sign-in.aspx" />
     <Content Include="Staff.aspx" />
+    <Content Include="styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +281,13 @@
     </Compile>
     <Compile Include="Shops.aspx.designer.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="sign-in.aspx.cs">
+      <DependentUpon>sign-in.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sign-in.aspx.designer.cs">
+      <DependentUpon>sign-in.aspx</DependentUpon>
     </Compile>
     <Compile Include="Staff.aspx.cs">
       <DependentUpon>Staff.aspx</DependentUpon>

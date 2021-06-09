@@ -1,4 +1,10 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="m1.master.cs" Inherits="Client.m1" %>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
+
 
 <!DOCTYPE html>
 
@@ -8,155 +14,110 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-    <style>
-
-        body {
-             background-color: skyblue; 
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        form {
-            border: 3px solid #f1f1f1;
-        }
-        input[type=text], input[type=password] {
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-        button:hover {
-            opacity: 0.8;
-        }
-        .cnbtn {
-            background-color: #ec3f3f;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 49%;
-        }
-        .homestyle{
-            color:wheat;
-            background-color: #000000;
-             margin : 0px 1165px;
-
-        }
-        .lgnbtn {
-            border-style: none;
-             border-color: inherit;
-             border-width: medium;
-             background-color: #4CAF50;
-             color: white;
-             padding: 14px 20px;
-             margin: 8px 0;
-             cursor: pointer;
-            }
-        .red2 {
-        background-color : red;
-        }
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-        img.avatar {
-            width: 40%;
-            border-radius: 50%;
-        }
-        .loginstayl{
-            background-color: #3F69B2;
-        }
-        .container {
-            padding: 16px;
-        }
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-            .cnbtn {
-                width: 100%;
-            }
-        }
-        .frmalg {
-            margin: auto;
-            width: 40%;
-        }
-      #Login_table {
-          width: 258px;
-          height: 43px;
-      }
-         .auto-style2 {
-            background-color : red;
-            margin : 0px 5px 0px 1px;
-        }
-        .auto-style3 {
-            width: 399px;
-            height: 73px;
-        }
-        .auto-style4 {
-            height: 58px;
-        }
-         .red1 {
-            color:red;
-         }
-        .auto-style5 {
-            width: 100%;
-        }
-        .auto-style6 {
-            width: 100px;
-        }
-        .auto-style7 {
-            color: wheat;
-            background-color: #000000;
-            margin: 0px 7px 0px 6px;
-        }
-        .auto-style8 {
-            width: 113px;
-        }
-        .auto-style9 {
-            width: 135px;
-        }
-        .auto-style10 {
-            direction: ltr;
-        }
-        .auto-style11 {
-            margin-left: 1px;
-        }
-        .auto-style12 {
-            width: 48px;
-        }
-        .auto-style13 {
-            width: 812px;
-        }
-        .auto-style14 {
-            margin-left: 0;
-        }
-        .auto-style15 {
-            width: 137px;
-        }
-        .auto-style16 {
-            width: 150%;
-        }
-        .auto-style17 {
-            height: 58px;
-            width: 207px;
-        }
-        .auto-style18 {
-            width: 149px;
-        }
-        </style>
 <body style="height: 107px">
     <form id="form1" runat="server">
-        Welcome to Market<table class="auto-style5">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+        <div id="divheader" runat="server">
+        
+          <asp:Label ID="Labeladdress" runat="server" Text="Hi! " ></asp:Label>
+        <a runat="server" href="../sign-in.aspx" id="signInId">Sign in </a>
+            <asp:Label runat="server" Text="or "></asp:Label>
+            <a runat="server" href="#" id="signUpId">register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+            <a runat="server" href="#" id="helpandcontact">Help&Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:ImageButton ID="ImageButtoncart" src="img/shopping_cart_black_72x72.png" runat="server" CssClass="auto-style11" Height="31px" OnClick="ImageButtoncart_Click" Width="26px" />
+        </div>
+         
+        <br />
+        
+        <div id="header" runat="server">
+        <img src="img/shopping.jpg" id="fast-shop" style="height: 140px; width: 220px"/>&nbsp;
+            
+             <asp:DropDownList id="cataegoryid"
+                    runat="server" 
+            class="dropdown-show" aria-labelledby="dropdownMenuLink" Width="150px" BackColor="#7F7F7F" ForeColor="#FFFFFF
+" Font-Names="Andalus" CssClass="ddl">
+                  <asp:ListItem Selected="True" Value="White" class="dropdown-item"> shop by category </asp:ListItem>
+                  <asp:ListItem Value="Silver" class="dropdown-item"> Silver </asp:ListItem>
+                  <asp:ListItem Value="DarkGray" class="dropdown-item"> Dark Gray </asp:ListItem>
+                  <asp:ListItem Value="Khaki" class="dropdown-item"> Khaki </asp:ListItem>
+                  <asp:ListItem Value="DarkKhaki" class="dropdown-item"> Dark Khaki </asp:ListItem>
+               </asp:DropDownList>
+            
+       
+            &nbsp;&nbsp; &nbsp;
+            
+            <asp:TextBox ID="barSearch" runat="server" Height="24px" Width="600px" placeholder="Search for anything "></asp:TextBox>
+            <asp:Button runat="server" ID="btnSearchBar"  CssClass="btn btn-primary" Text="Search" Height="34px" Width="100px" OnClick="Button1_Click" /> 
+       
+            &nbsp;
+            
+                    
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+       
+                </div> 
+        
+
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width:400px; height:300px; position:center; margin:auto" >
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img  src="img/shopping.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img  src="img/done.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img  src="img/shopping.jpg" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only" style="color:palevioletred">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only" style="color:palevioletred">Next</span>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+
+        
+       <br /> Welcome to Market&nbsp; <table class="auto-style5">
             <tr>
                 <td>
-                    <asp:Label ID="Labelname" runat="server"></asp:Label>
+                    <asp:Label ID="Labelname" runat="server" ></asp:Label>
                     <table class="auto-style5">
                         <tr>
                             <td class="auto-style8">
@@ -179,8 +140,7 @@
                             </td>
                             <td>&nbsp;</td>
                             <td class="auto-style12">
-                                <asp:ImageButton ID="ImageButtoncart" src="img/shopping_cart_black_72x72.png" runat="server" CssClass="auto-style11" Height="46px" OnClick="ImageButtoncart_Click" />
-                            </td>
+                                &nbsp;</td>
                             <td class="auto-style9">
         <asp:Button ID="ButtonLogOut" Visible="false" runat="server" CssClass="auto-style2" Text="LogOut" Width="120px" OnClick="ButtonLogOut_Click" />
                             </td>

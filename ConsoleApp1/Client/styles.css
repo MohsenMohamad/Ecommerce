@@ -1,0 +1,183 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cnbtn {
+    background-color: #ec3f3f;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 49%;
+}
+
+.homestyle {
+    color: wheat;
+    background-color: #000000;
+    margin: 0px 1165px;
+}
+
+.lgnbtn {
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.red2 {
+    background-color: red;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.loginstayl {
+    background-color: #3F69B2;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+
+    .cnbtn {
+        width: 100%;
+    }
+}
+
+.frmalg {
+    margin: auto;
+    width: 40%;
+}
+
+#Login_table {
+    width: 258px;
+    height: 43px;
+}
+
+.auto-style2 {
+    background-color: red;
+    margin: 0px 5px 0px 1px;
+}
+
+.auto-style3 {
+    width: 399px;
+    height: 73px;
+}
+
+.auto-style4 {
+    height: 58px;
+}
+
+.red1 {
+    color: red;
+}
+
+.auto-style5 {
+    width: 100%;
+}
+
+.auto-style6 {
+    width: 100px;
+}
+
+.auto-style7 {
+    color: wheat;
+    background-color: #000000;
+    margin: 0px 7px 0px 6px;
+}
+
+.auto-style8 {
+    width: 113px;
+}
+
+.auto-style9 {
+    width: 135px;
+}
+
+.auto-style10 {
+    direction: ltr;
+}
+
+.auto-style11 {
+    margin-left: 1px;
+}
+
+.auto-style12 {
+    width: 48px;
+}
+
+.auto-style13 {
+    width: 812px;
+}
+
+.auto-style14 {
+    margin-left: 0;
+}
+
+.auto-style15 {
+    width: 137px;
+}
+
+.auto-style16 {
+    width: 150%;
+}
+
+.auto-style17 {
+    height: 58px;
+    width: 207px;
+}
+
+.auto-style18 {
+    width: 149px;
+}
+.divheader {
+    display:table-cell;
+    border-collapse:separate;
+    border-spacing:40px;
+}
+.fast-shop{
+    width:200px;
+    height:150px;
+}
+.header{
+    display:table-cell;
+}

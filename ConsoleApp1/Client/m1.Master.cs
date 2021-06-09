@@ -12,7 +12,7 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            divheader.Visible = true;
             LabelPasword.Visible = false;
             LabelUsername.Visible = false;
             Labelname.Visible = true;
