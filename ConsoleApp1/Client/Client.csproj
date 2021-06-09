@@ -153,10 +153,13 @@
     <Content Include="CounterOffer.aspx" />
     <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="img\additem.jfif" />
     <Content Include="img\background.jpg" />
     <Content Include="img\done.gif" />
+    <Content Include="img\edit12.jpg" />
     <Content Include="img\fast-shop.jpg" />
     <Content Include="img\homepagevideo.mp4" />
+    <Content Include="img\manager.jpg" />
     <Content Include="img\openshop.jfif" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />

@@ -15,7 +15,7 @@ namespace Client
         {
             if (!Page.IsPostBack)
             {
-                Label1.Text = "Select what you want to edit"+ Session["editshop"].ToString();
+               
                 table1.Visible = false;
                 table2.Visible = false;
                 table3.Visible = false;
@@ -28,6 +28,7 @@ namespace Client
                 table10.Visible = false;
                 Labelerrorbarcode.Visible = false;
                 firegif.Visible = true;
+               
 
             }
             else { }
@@ -64,6 +65,7 @@ namespace Client
                 table4.Visible = false;
                 table5.Visible = false;
                 table6.Visible = false;
+                
 
 
             }
