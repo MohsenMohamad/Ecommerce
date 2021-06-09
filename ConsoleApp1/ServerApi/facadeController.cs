@@ -89,6 +89,12 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public int addStoreDiscount(string storeName, int percentage)
+        {
+            return facade.addStoreDiscount(storeName, percentage);
+        }
+
+        [HttpGet]
         public string[][] search(string keyword)
         {
             return facade.SearchByKeyword(keyword);

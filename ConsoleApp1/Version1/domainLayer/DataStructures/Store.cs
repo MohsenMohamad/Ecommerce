@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
 
 namespace Version1.domainLayer.DataStructures
@@ -14,8 +15,9 @@ namespace Version1.domainLayer.DataStructures
         private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
-        
-        
+        public DTO_Policies discountPolicy { get; set; }
+
+
         public Store(string owner,string name)
         {
             staff = new Node<string,int>(owner,-1);
@@ -113,6 +115,21 @@ namespace Version1.domainLayer.DataStructures
         {
             purchasePolicies = newPolicies;
         }
-        
+
+
+        public int addPublicDiscount(string storeName, int percentage)
+        {
+            discountPolicy = new DTO_Policies();
+
+            foreach (var x in inventory) {
+                x.Key.discountPolicy.percentage = percentage;
+                x.Key.discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            }
+
+            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            discountPolicy.percentage = percentage;
+
+            return 1;
+        }
     }
 }

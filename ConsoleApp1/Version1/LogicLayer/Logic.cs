@@ -277,5 +277,28 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.CloseStore(storeName, ownerName);
         }
+        public int addPublicDiscount(string storeName, int percentage)
+        {
+            return StoreLogic.addPublicDiscount(storeName, percentage);
+        }
+
+        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage, bool bound, string from, string to)
+        {
+            return StoreLogic.addPublicDiscount_toItem(storeName, barcode, percentage, bound, from, to);
+        }
+
+        //todo implement
+        /*public int addConditionalDiscount(int shopid, int percentage, string condition)
+        {
+            Shop s = new Shop(shopid);
+            return s.addConditionalDiscount(percentage, condition);
+        }
+        
+//todo implement
+        public int addConditionalDiscount_toItem(int item_in_shop_id, int percentage, string condition)
+        {
+            ItemInShop iis = new ItemInShop(item_in_shop_id);
+            return iis.addConditionalDiscount_toItem(percentage, condition);
+        }*/
     }
 }

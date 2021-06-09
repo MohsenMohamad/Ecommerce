@@ -133,7 +133,7 @@ namespace Version1.DataAccessLayer
 //------------------------------------------ Product ------------------------------------------//
 
 
-        internal Product GetProduct(string barcode, string storeName)
+        public Product GetProduct(string barcode, string storeName)
         {
             var store = GetStore(storeName);
             if (store == null) return null;

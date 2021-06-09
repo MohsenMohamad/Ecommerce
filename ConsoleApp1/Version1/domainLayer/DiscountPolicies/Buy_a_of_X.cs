@@ -35,14 +35,14 @@ namespace Version1.domainLayer.DiscountPolicies
         {
             int counter = 0;
             // <storeName,ShoppingBasket>
-            foreach (KeyValuePair<string, ShoppingBasket>  entry in cart.shoppingBaskets)
+            foreach (KeyValuePair<string, ShoppingBasket> entry in cart.shoppingBaskets)
             {
-                foreach (KeyValuePair<string, int>  product in entry.Value.Products)
+                foreach (KeyValuePair<string, int> product in entry.Value.Products)
                 {
                     if (product.Key == barcode)
                         counter += product.Value;
                 }
-                
+
             }
 
             if (counter >= a)
@@ -54,7 +54,7 @@ namespace Version1.domainLayer.DiscountPolicies
 
         public override string get_description()
         {
-            return string.Format("buy {0} of the item [{1}]",a,barcode);
+            return string.Format("buy {0} of the item [{1}]", a, barcode);
         }
     }
 }

@@ -347,5 +347,16 @@ namespace Version1.LogicLayer
 
             return DataHandler.Instance.Stores.TryRemove(storeName, out _);
         }
+        //todo shady
+        public static int addPublicDiscount(string storeName, int percentage)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            return store.addPublicDiscount(storeName, percentage);
+        }
+        public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage, bool bound, string from, string to)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storeName);
+            return product.addPublicDiscount_toItem(percentage, bound, from, to);
+        }
     }
 }

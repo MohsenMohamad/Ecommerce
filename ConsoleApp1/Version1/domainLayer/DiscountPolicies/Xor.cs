@@ -28,9 +28,10 @@ namespace Version1.domainLayer.DiscountPolicies
             SetRightOperand(right);
         }
         public override string ToString()
-        {if (leftOperand == null || rightOperand == null)
+        {
+            if (leftOperand == null || rightOperand == null)
                 throw new Exception("");
-            return string.Format("({0}    ^   {1})",leftOperand.ToString(),rightOperand.ToString());
+            return string.Format("({0}    ^   {1})", leftOperand.ToString(), rightOperand.ToString());
         }
         public override string get_description()
         {

@@ -26,6 +26,9 @@ namespace Client
                 table8.Visible = false;
                 table9.Visible = false;
                 table10.Visible = false;
+                table11.Visible = false;
+                table12.Visible = false;
+                table13.Visible = false;
                 Labelerrorbarcode.Visible = false;
                 firegif.Visible = true;
 
@@ -53,6 +56,9 @@ namespace Client
                 table8.Visible = false;
                 table9.Visible = false;
                 table10.Visible = false;
+                table11.Visible = false;
+                table12.Visible = false;
+                table13.Visible = false;
 
             }
 
@@ -64,6 +70,7 @@ namespace Client
                 table4.Visible = false;
                 table5.Visible = false;
                 table6.Visible = false;
+
 
 
             }
@@ -200,7 +207,20 @@ namespace Client
                 table5.Visible = false;
                 table6.Visible = true;
             }
-           
+            if (DropDownList1.SelectedItem.Text == "Shop Discount")
+            {
+
+                table1.Visible = false;
+                table2.Visible = false;
+                table3.Visible = false;
+                table4.Visible = false;
+                table5.Visible = false;
+                table6.Visible = false;
+                table11.Visible = true;
+                table12.Visible = false;
+                table13.Visible = false;
+            }
+
         }
 
         protected void DropDownList6_SelectedIndexChanged(object sender, EventArgs e)
@@ -388,6 +408,15 @@ namespace Client
 
             table6.Visible = false;
             table10.Visible = false;
+
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.addStoreDiscount(Session["editshop"].ToString(), int.Parse(TextBox6.Text.ToString()));
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            table11.Visible = false;
 
         }
     }

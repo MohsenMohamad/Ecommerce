@@ -16,7 +16,7 @@ namespace Version1.domainLayer.DiscountPolicies
 
         public override string get_description()
         {
-            return string.Format("item from category ({0})",Category);
+            return string.Format("item from category ({0})", Category);
         }
     }
 }

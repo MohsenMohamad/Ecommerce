@@ -7,7 +7,7 @@ namespace Version1.domainLayer.DiscountPolicies
     {
         public override bool evaluate(ShoppingCart cart, User user, Product item, int amount_of_item)
         {
-            return false ;
+            return false;
         }
         public override string get_description()
         {

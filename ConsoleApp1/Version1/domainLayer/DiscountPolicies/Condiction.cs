@@ -6,13 +6,13 @@ using Version1.domainLayer.DataStructures;
 namespace Version1.domainLayer.DiscountPolicies
 {
     public abstract class Condition
-        {
+    {
         public abstract bool evaluate(ShoppingCart cart, User user, Product product, int amount_of_item);
         public abstract string get_description();
         public static Condition Parse(string s)
         {
-            string[] s1 = MySplit_spaceClear(s,new char[] { ',', ' ', ')', '(' });
-            if (MySplit(s,new char[] { ','}).Length == 1)
+            string[] s1 = MySplit_spaceClear(s, new char[] { ',', ' ', ')', '(' });
+            if (MySplit(s, new char[] { ',' }).Length == 1)
             {
                 return getBaseCondition(s);
             }
@@ -51,29 +51,30 @@ namespace Version1.domainLayer.DiscountPolicies
         private static string getrightOperand(string[] s1)
         {
             string res;
-            int start = -1, end = s1.Length -1, counter = 0 ;
-            for (int i = 3; i < s1.Length; i++) {
+            int start = -1, end = s1.Length - 1, counter = 0;
+            for (int i = 3; i < s1.Length; i++)
+            {
                 if (s1[i] == "(")
                     counter++;
                 else if (s1[i] == ")")
                     counter--;
                 else if (s1[i] == "," && counter == 0)
                 {
-                    start = i+1;
+                    start = i + 1;
                     break;
                 }
             }
             if (start == -1)
                 throw new Exception("bad Format");
-            string[] _res = new string[end -start];
+            string[] _res = new string[end - start];
             Array.Copy(s1, start, _res, 0, end - start);
-            res = String.Join("",_res);
+            res = String.Join("", _res);
             return res;
         }
 
         private static string getleftOperand(string[] s1)
         {
-            
+
             string res;
             int start = 3, end = -1, counter = 0;
             for (int i = 3; i < s1.Length; i++)
@@ -100,7 +101,7 @@ namespace Version1.domainLayer.DiscountPolicies
         {
             s = s.Trim();
 
-            
+
             char[] s2 = s.ToCharArray().ToList().Where(element => element != ' ').ToArray();
             if (s.ToCharArray()[1] == 'T')
             {
@@ -112,7 +113,7 @@ namespace Version1.domainLayer.DiscountPolicies
             }
             else if (s.ToCharArray()[1] == 'A')
             {
-                return new Buy_a_of_X(s.Substring(3,s.Length-3-2));
+                return new Buy_a_of_X(s.Substring(3, s.Length - 3 - 2));
             }
             else if (s.ToCharArray()[1] == 'B')
             {
@@ -122,7 +123,8 @@ namespace Version1.domainLayer.DiscountPolicies
             {
                 return new Item_Category(s.Substring(3, s.Length - 3 - 2));
             }
-            else {
+            else
+            {
                 throw new Exception("bad Format");
             }
         }
@@ -143,9 +145,9 @@ namespace Version1.domainLayer.DiscountPolicies
                 yield return s.Substring(start);
             }
         }
-        private static string[] MySplit(string s , char[] del)
+        private static string[] MySplit(string s, char[] del)
         {
-            return SplitAndKeep(s,del).ToArray();
+            return SplitAndKeep(s, del).ToArray();
         }
         private static string[] MySplit_spaceClear(string s, char[] del)
         {
@@ -160,5 +162,5 @@ namespace Version1.domainLayer.DiscountPolicies
         }
 
     }
-    
+
 }

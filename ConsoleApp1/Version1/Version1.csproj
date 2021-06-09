@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessLayer\DTO_Policies.cs" />
     <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
     <Compile Include="domainLayer\CompositeDP\Component.cs" />
     <Compile Include="domainLayer\CompositeDP\Composite.cs" />

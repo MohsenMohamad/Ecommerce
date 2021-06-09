@@ -39,6 +39,10 @@
                                     </tr>
                                      <tr>
                                         <td>
+                                            <span style="font-size: 16px;"><%#Eval("discount") %></span></td>
+                                    </tr>
+                                     <tr>
+                                        <td>
                                             <span style="font-size: 16px;">catagory :<%#Eval("catagory") %></span></td>
                                     </tr>
                                     <tr>

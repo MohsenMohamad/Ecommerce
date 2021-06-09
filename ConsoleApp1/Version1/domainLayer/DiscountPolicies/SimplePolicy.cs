@@ -11,7 +11,7 @@ namespace Version1.domainLayer.DiscountPolicies
         DateTime to;
         int percentage;
         bool bound;
-        public SimplePolicy(string from,string to,int percentage,bool bound)
+        public SimplePolicy(string from, string to, int percentage, bool bound)
         {
             if (bound)
             {
@@ -21,7 +21,7 @@ namespace Version1.domainLayer.DiscountPolicies
             this.percentage = percentage;
             this.bound = bound;
         }
-        
+
         public override double getTotal(ShoppingCart cart, User user, Product product, int amount_of_item)
         {
             DateTime now = DateTime.Now;
@@ -31,7 +31,7 @@ namespace Version1.domainLayer.DiscountPolicies
             else
                 a = product.price * amount_of_item;
             return a;
-        
+
         }
     }
 }
