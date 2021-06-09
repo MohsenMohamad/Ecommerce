@@ -676,14 +676,19 @@ namespace Version1.Service_Layer
             throw new NotImplementedException();
         }
 
-        public int addStoreDiscount(string storeName, int percentage)
+        public int addPublicStoreDiscount(string storeName, int percentage)
         {
             return logicInstance.addPublicDiscount(storeName, percentage);
         }
 
-        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage, bool bound, string from, string to)
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
         {
-            return logicInstance.addPublicDiscount_toItem(storeName, barcode, percentage, bound, from, to);
+            return logicInstance.addPublicDiscount_toItem(storeName, barcode, percentage);
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return logicInstance.addConditionalDiscount(shopName, percentage, condition);
         }
     }
 }

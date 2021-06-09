@@ -282,9 +282,9 @@ namespace Version1.LogicLayer
             return StoreLogic.addPublicDiscount(storeName, percentage);
         }
 
-        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage, bool bound, string from, string to)
+        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
-            return StoreLogic.addPublicDiscount_toItem(storeName, barcode, percentage, bound, from, to);
+            return StoreLogic.addPublicDiscount_toItem(storeName, barcode, percentage);
         }
 
         //todo implement
@@ -300,5 +300,9 @@ namespace Version1.LogicLayer
             ItemInShop iis = new ItemInShop(item_in_shop_id);
             return iis.addConditionalDiscount_toItem(percentage, condition);
         }*/
+        public int addConditionalDiscount(string storeName, int percentage, string condition)
+        {
+            return StoreLogic.addConditionalDiscount(storeName, percentage,condition);
+        }
     }
 }

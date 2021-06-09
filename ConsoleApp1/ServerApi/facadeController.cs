@@ -91,7 +91,19 @@ namespace ServerApi
         [HttpGet]
         public int addStoreDiscount(string storeName, int percentage)
         {
-            return facade.addStoreDiscount(storeName, percentage);
+            return facade.addPublicStoreDiscount(storeName, percentage);
+        }
+        
+        [HttpGet]
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return facade.addPublicDiscountToItem(storeName, barcode, percentage);
+        }
+        
+        [HttpGet]
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return facade.addConditionalDiscount(shopName, percentage, condition);
         }
 
         [HttpGet]

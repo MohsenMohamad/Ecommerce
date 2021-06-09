@@ -353,10 +353,16 @@ namespace Version1.LogicLayer
             var store = DataHandler.Instance.GetStore(storeName);
             return store.addPublicDiscount(storeName, percentage);
         }
-        public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage, bool bound, string from, string to)
+        public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storeName);
-            return product.addPublicDiscount_toItem(percentage, bound, from, to);
+            return product.addPublicDiscount_toItem(percentage);
+        }
+
+        public static int addConditionalDiscount(string storeName, int percentage, string condition)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            return store.addConditionalDiscount(storeName, percentage,condition);
         }
     }
 }

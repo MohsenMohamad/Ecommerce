@@ -93,7 +93,6 @@
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
     <Compile Include="ExternalServices\ExternalSupplyService.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
-    <Compile Include="domainLayer\Discount.cs" />
     <Compile Include="domainLayer\UserRoles\StoreManager.cs" />
     <Compile Include="domainLayer\UserRoles\StoreOwner.cs" />
     <Compile Include="domainLayer\UserRoles\SystemAdmin.cs" />
