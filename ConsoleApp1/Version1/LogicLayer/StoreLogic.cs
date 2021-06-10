@@ -370,7 +370,7 @@ namespace Version1.LogicLayer
         {
             double a = 0;
             
-            if (DataHandler.Instance.Users.Contains<>(userName))
+            if (DataHandler.Instance.Users.ContainsKey(userName))
             {
                 User user = DataHandler.Instance.Users[userName];
                 ShoppingCart shcart = user.shoppingCart;
