@@ -142,7 +142,17 @@ namespace Version1.LogicLayer
 
                 var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
-                shoppingBasket.Products[productBarcode] = newAmount;
+                shoppingBasket.priceperproduct[productBarcode] += (newAmount - shoppingBasket.Products[productBarcode])*product.price;
+                if (shoppingBasket.priceperproduct[productBarcode] < 0)
+                {
+                    shoppingBasket.priceperproduct[productBarcode] = 0;
+                    shoppingBasket.Products[productBarcode] = 0;
+                    RemoveProductFromBasket(userName, storeName, productBarcode, shoppingBasket.Products[productBarcode]);
+                }
+                else
+                {
+                    shoppingBasket.Products[productBarcode] = newAmount;
+                }
                 return true;
             }
         }
@@ -167,10 +177,13 @@ namespace Version1.LogicLayer
                 if (!storeBasketProducts.ContainsKey(productBarcode) || storeBasketProducts[productBarcode] < amount)
                     return false;
                 storeBasketProducts[productBarcode] -= amount;
+                cart.shoppingBaskets[storeName].priceperproduct[productBarcode] = 0;
                 if (storeBasketProducts[productBarcode] == 0)
                 {
                     storeBasketProducts.Remove(productBarcode);
+                    cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
                 }
+
                 // remove it if new amount = 0 ?
                 return true;
             }

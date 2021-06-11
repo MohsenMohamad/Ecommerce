@@ -421,7 +421,7 @@ namespace Version1.Service_Layer
                 return null;
             var products = new Dictionary<string, List<string>> {{storeName, basketProducts}};
 
-            return ProductsTo2DStringArray(products);
+            return ProductsTo2DStringArray2(products,userName);
         }
 
         public bool SendNotifications(string userName, string msg)
@@ -488,6 +488,44 @@ namespace Version1.Service_Layer
                     }
 
                     categories =  categories.Substring(0, categories.Length - 1);
+
+                    productData[5] = categories;
+
+
+                    result[index] = productData;
+                    index += 1;
+                }
+            }
+
+            return result;
+        }
+
+        private string[][] ProductsTo2DStringArray2(Dictionary<string, List<string>> products, string userName)
+        {
+            string[][] result = new string[products.Values.SelectMany(p => p).Count()][];
+            int index = 0;
+            var user = DataHandler.Instance.GetUser(userName);
+            foreach (var storeProducts in products)
+            {
+                var storeName = storeProducts.Key;
+                foreach (var productBarcode in storeProducts.Value)
+                {
+                    var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
+                    string[] productData = new string[6];
+                    var shopbasket = user.GetShoppingCart().shoppingBaskets[storeName].priceperproduct;
+                    productData[0] = product.Name;
+                    productData[1] = product.Description;
+                    productData[2] = product.Barcode;
+                    productData[3] = shopbasket[product.Barcode].ToString();
+                    productData[4] = product.discountPolicy.discount_description;
+
+                    var categories = "";
+                    foreach (var category in product.Categories)
+                    {
+                        categories = categories + category + "#";
+                    }
+
+                    categories = categories.Substring(0, categories.Length - 1);
 
                     productData[5] = categories;
 
