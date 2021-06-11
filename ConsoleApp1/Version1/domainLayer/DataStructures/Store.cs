@@ -119,11 +119,11 @@ namespace Version1.domainLayer.DataStructures
         public int addPublicDiscount(string storeName, int percentage)
         {
             discountPolicy = new DTO_Policies();
-/*
+            
             foreach (var x in inventory) {
-                x.Key.discountPolicy.percentage = x.Key.discountPolicy.percentage - this.discountPolicy.percentage + percentage;
-                x.Key.discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-            }*/
+                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
+            }
+            
             discountPolicy.SetPublic(percentage);
             discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
             

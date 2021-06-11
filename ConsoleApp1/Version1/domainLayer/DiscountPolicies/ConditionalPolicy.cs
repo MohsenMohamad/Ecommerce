@@ -18,12 +18,10 @@ namespace Version1.domainLayer.DiscountPolicies
             double res = 0;
             if (condition.evaluate(cart, user, item, amount_of_item))
             {
-
                 res = percentage;
             }
             else
             {
-
                 res = 0;
             }
             return res;

@@ -53,10 +53,10 @@ namespace Client
                 bool b = s.remove_item_from_cart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()));
                 if (b)
                 {
-                    ShopHandler c = new ShopHandler();
-
+                    /*ShopHandler c = new ShopHandler();
                     Data_cart.DataSource = c.GetUserBaskets(Session["username"].ToString());
-                    Data_cart.DataBind();
+                    Data_cart.DataBind();*/
+                    Response.Redirect("~/Cart.aspx");
                 }
                 else
                 {

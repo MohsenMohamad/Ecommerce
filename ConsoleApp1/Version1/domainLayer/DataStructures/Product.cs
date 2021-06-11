@@ -71,8 +71,12 @@ namespace Version1.domainLayer.DataStructures
         }*/
         public int addPublicDiscount_toItem(int percentage)
         {
-            discountPolicy = new DTO_Policies();
-            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            if (discountPolicy == null)
+            {
+                discountPolicy = new DTO_Policies();    
+            }
+            
+            discountPolicy.discount_description += string.Format("discount {0}% off ", percentage);
             discountPolicy.percentage = percentage;
             return 1;
         }
