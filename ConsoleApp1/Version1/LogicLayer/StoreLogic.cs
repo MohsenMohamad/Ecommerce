@@ -385,19 +385,28 @@ namespace Version1.LogicLayer
                     foreach (KeyValuePair<string, int> pro in entry.Value.Products)
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
-                        //adding the shop discount
-                        if (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
-                        {
-                            a += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                        }
-                        //adding the product discount
-                        else
-                        {
-                            DTO_Policies item_policy = product.discountPolicy;
-                            discountPolicy = DiscountPolicy.GetPolicy(item_policy);
+
+                            if( discountPolicy == null)
+                            {
+                                a = product.price * pro.Value;
+                            }
+                            //adding the shop discount
+                            else if (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
+                            {
+                                a += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                            }
+                            //adding the product discount
+                            else
+                            {
+                                DTO_Policies item_policy = product.discountPolicy;
+                                discountPolicy = DiscountPolicy.GetPolicy(item_policy);
                          
-                            a += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                        }
+                                a += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                            } 
+                        
+
+
+
                     }
                 }
                 return a;
