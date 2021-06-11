@@ -55,6 +55,21 @@ namespace Version1.LogicLayer
             return true;
         }
 
+        public static void removeuserNotification(string userName, string notification)
+        {
+            var user =(User)DataHandler.Instance.GetUser(userName);
+            for (int i = 0; i < user.GetNotifications().Count; i++)
+            {
+                if (user.GetNotifications()[i].CompareTo(notification) == 0)
+                    user.GetNotifications().RemoveAt(i);
+            }
+            for (int i = 0; i < user.GetNotificationsoffer().Count; i++)
+            {
+                if (user.GetNotificationsoffer()[i].CompareTo(notification) == 0)
+                    user.GetNotificationsoffer().RemoveAt(i);
+            }
+        }
+
         // 3.1 Logout as a user
 
         public static bool UserLogout(string userName)
@@ -89,11 +104,28 @@ namespace Version1.LogicLayer
             return null;
         }
 
+        public static List<string> GetUserNotificationsoffer(string userName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (DataHandler.Instance.IsGuest(userName) == -1)
+            {
+                return ((User)user)?.GetNotificationsoffer();
+            }
+            return null;
+        }
+
         public static bool AddUserNotification(string userName, string notification)
         {
             var user = DataHandler.Instance.GetUser(userName);
             if (user == null) return false;
             ((User)user).GetNotifications().Add(notification);
+            return true;
+        }
+        public static bool AddUserNotificationoffer(string userName, string notification)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (user == null) return false;
+            ((User)user).GetNotificationsoffer().Add(notification);
             return true;
         }
 

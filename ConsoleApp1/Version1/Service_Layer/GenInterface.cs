@@ -23,7 +23,7 @@ namespace Version1.Service_Layer
         bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories1, int amount); //
         List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
-        bool AddProductToBasket(string userName, string storeName, string productCode,int amount);  //
+        bool AddProductToBasket(string userName, string storeName, string productCode,int amount,double priceofone);  //
         Dictionary<string,int> GetCartByStore(string userName, string storeName);
         bool UpdatePurchasePolicy(string storeName, Component policy);
         

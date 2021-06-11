@@ -35,6 +35,36 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&owner={5}&oldprice={6}", barcode, price, username, storename, amount, owner, oldprice);
+            System.SendApi("CounterOffer", param);
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
+            System.SendApi("acceptoffer", param);
+
+        }
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
+        {
+            string param = string.Format("username={0}&storename={1}&price={2}&barcode={3}&amount={4}", username, storename, price, barcode, amount);
+            System.SendApi("Recieve_purchase_offer", param);
+
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
+            System.SendApi("rejectoffer", param);
+        }
+
+
+
+
         public DataSet GetStoreProducts(string storeName)
         {
             string param = string.Format("storeName={0}", storeName);
@@ -90,9 +120,9 @@ namespace Client.Code
             return d1;
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
-            string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}", userName, storeName, productBarCode,amount);
+            string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}&priceofone={4}", userName, storeName, productBarCode,amount, priceofone);
             return bool.Parse(System.SendApi("AddProductToBasket", param));
         }
 

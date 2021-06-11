@@ -9,7 +9,7 @@ namespace Version1.LogicLayer
 {
     public static class CartLogic
     {
-        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             lock (DataHandler.Instance.InefficientLock)
             {
@@ -28,9 +28,19 @@ namespace Version1.LogicLayer
                 var userStoreBasket = userCart.GetBasket(storeName);
                 if (storeProducts.ContainsKey(product) && storeProducts[product] >= amount)
                 {
+                    double totalprice = amount * priceofone;
                     if (userStoreBasket.Products.ContainsKey(product.Barcode))
+                    {
                         userStoreBasket.Products[product.Barcode] += amount;
-                    else userStoreBasket.Products.Add(product.Barcode, amount);
+
+                        userStoreBasket.priceperproduct[product.Barcode] += totalprice;
+
+                    }
+                    else
+                    {
+                        userStoreBasket.Products.Add(product.Barcode, amount);
+                        userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
+                    }
                     return true;
                 }
 
@@ -254,7 +264,7 @@ namespace Version1.LogicLayer
                     var product = DataHandler.Instance.GetProduct(productPair.Key, storeName);
                     if (product == null) return -1;
 
-                    var productTotalCost = product.Price * productPair.Value;
+                    var productTotalCost = basket.priceperproduct[productPair.Key];
                     total += productTotalCost;
                 }
 

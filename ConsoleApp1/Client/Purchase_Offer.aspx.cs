@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Client
 {
-    public partial class Product : System.Web.UI.Page
+    public partial class Purchase_Offer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,7 +17,15 @@ namespace Client
             Labelbarcode0.Text = Session["barcode"].ToString();
             Labelcategories0.Text = Session["catagory"].ToString();
             Labelprice0.Text = Session["price"].ToString();
-            LabelnameShop0.Text = Session["nameShop"].ToString();
+            LabelnameShop0.Text = Session["nameShop"].ToString(); 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+
+            sh.Recieve_purchase_offer(Session["username"].ToString(), Session["nameShop"].ToString() , TextBoxSuggested.Text, Session["barcode"].ToString(), int.Parse(Label1.Text));
+            Response.Redirect("~/Home.aspx");
 
         }
 
@@ -32,20 +40,8 @@ namespace Client
 
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
-                Label1.Text = (int.Parse(Label1.Text.ToString()) + 1).ToString();
-        }
+            Label1.Text = (int.Parse(Label1.Text.ToString()) + 1).ToString();
 
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
-            ShopHandler sh = new ShopHandler();
-            sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()),double.Parse(Labelprice0.Text.ToString()));
-            Response.Redirect("~/Home.aspx");
-
-        }
-
-        protected void Button3_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Purchase_Offer.aspx");  
         }
     }
 }

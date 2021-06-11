@@ -12,9 +12,18 @@ namespace Version1.Service_Layer
     {
         public static void Main(string[] args)
         {
-                
-                var facade = new Facade();
-            facade.AdminInitSystem();
+
+
+            char[] splitting = new char[2];
+            splitting[0] = '.';
+            splitting[1] = ':';
+            string[] msg = ("offer for:" + "123" +  ".the offered price is:" + "99" + ".from:" + "adnan").Split(splitting);
+
+            Console.WriteLine(msg[1]+"   "+msg[3]+"    "+msg[5]);
+            Console.ReadLine();
+
+            /*     var facade = new Facade();
+             facade.AdminInitSystem();*/
             /*    
             facade.Register("zzz", "123");
            facade.Login("zzz", "123");
