@@ -494,3 +494,7 @@
 5/30/2021 8:02:24 PM: adminhas LoggedOut   .
 5/30/2021 8:02:24 PM: Guest has connected with pid : 2  .
 5/30/2021 8:02:25 PM: adnanhas LoggedIn   .
+11/06/2021 14:48:50: Guest has connected with pid : 2  .
+11/06/2021 14:48:50: Guest has connected with pid : 1  .
+11/06/2021 14:48:57: adnanhas LoggedIn   .
+11/06/2021 14:49:22: adnan has has added product :5form store: AdnanStore to his Basket  .
