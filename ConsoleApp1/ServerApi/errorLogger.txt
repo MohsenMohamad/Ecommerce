@@ -1,1 +1,2 @@
 03/05/2021 15:17:12: fatal error exception in server program start exited infinite waiting period  . 
+11/06/2021 15:43:38: fatal error exception in server program start exited infinite waiting period  . 

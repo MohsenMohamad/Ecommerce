@@ -385,28 +385,26 @@ namespace Version1.LogicLayer
                     foreach (KeyValuePair<string, int> pro in entry.Value.Products)
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
-
-                            if( discountPolicy == null)
-                            {
-                                a = product.price * pro.Value;
-                            }
-                            //adding the shop discount
-                            else if (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
-                            {
-                                a += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                            }
-                            //adding the product discount
-                            else
-                            {
-                                DTO_Policies item_policy = product.discountPolicy;
-                                discountPolicy = DiscountPolicy.GetPolicy(item_policy);
-                         
-                                a += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                            } 
+                        double totalDiscount = 0;
                         
+                        //adding the shop discount
+                        if (discountPolicy != null && store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
+                        {
+                            totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                        }
+                        //adding the product discount
 
+                        DTO_Policies item_policy = product.discountPolicy;
+                        if (item_policy != null)
+                        {
+                            //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
 
+                                //totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                                totalDiscount += item_policy.percentage;
+                            
+                        }
 
+                        a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;;
                     }
                 }
                 return a;
