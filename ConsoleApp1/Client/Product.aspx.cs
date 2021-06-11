@@ -19,6 +19,9 @@ namespace Client
             Labelprice0.Text = Session["price"].ToString();
             LabelnameShop0.Text = Session["nameShop"].ToString();
 
+            if (Session["isLogin"] == null) {
+                Button3.Visible = false;
+            }
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)

@@ -535,7 +535,7 @@ namespace Client
             ShopHandler sh = new ShopHandler();
             sh.addConditionalDiscount(Session["editshop"].ToString(),int.Parse(TextBox14.Text.ToString()), txt1.InnerText);
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            table12.Visible = false;
+            table13.Visible = false;
         }
     }
 }
