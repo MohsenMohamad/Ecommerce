@@ -17,9 +17,12 @@ namespace Client
                 Labelerrorcreditcard.Visible = false;
                 Labelerroraddress.Visible = false;
                 ShopHandler a = new ShopHandler();
+                UserHandler u = new UserHandler();
 
                 Data_cart.DataSource = a.GetUserBaskets(Session["username"].ToString());
                 Data_cart.DataBind();
+
+                Label3.Text = u.GetTotalCart(Session["username"].ToString()).ToString();
 
             }
             else {

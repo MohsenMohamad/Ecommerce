@@ -5,7 +5,8 @@ namespace Version1.domainLayer.DataStructures
     public class ShoppingCart
     {
         // <storeName,ShoppingBasket>
-        internal Dictionary<string, ShoppingBasket> shoppingBaskets { get; set; }
+        
+        public Dictionary<string, ShoppingBasket> shoppingBaskets { get; set; }
 
         public ShoppingCart()
         {

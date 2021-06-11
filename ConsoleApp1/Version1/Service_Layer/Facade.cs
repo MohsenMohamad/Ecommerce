@@ -473,12 +473,13 @@ namespace Version1.Service_Layer
                 foreach (var productBarcode in storeProducts.Value)
                 {
                     var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
-                    string[] productData = new string[5];
+                    string[] productData = new string[6];
 
                     productData[0] = product.Name;
                     productData[1] = product.Description;
                     productData[2] = product.Barcode;
                     productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+                    productData[4] = product.discountPolicy.discount_description;
 
                     var categories = "";
                     foreach (var category in product.Categories)
@@ -488,7 +489,7 @@ namespace Version1.Service_Layer
 
                     categories =  categories.Substring(0, categories.Length - 1);
 
-                    productData[4] = categories;
+                    productData[5] = categories;
 
 
                     result[index] = productData;
@@ -773,6 +774,26 @@ namespace Version1.Service_Layer
         public bool initSystem(string admin)
         {
             throw new NotImplementedException();
+        }
+
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            return logicInstance.addPublicDiscount(storeName, percentage);
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return logicInstance.addPublicDiscount_toItem(storeName, barcode, percentage);
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return logicInstance.addConditionalDiscount(shopName, percentage, condition);
+        }
+
+        public double GetTotalCart(string userName)
+        {
+            return logicInstance.GetTotalCart(userName);
         }
     }
 }

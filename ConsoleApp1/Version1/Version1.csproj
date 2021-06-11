@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessLayer\DTO_Policies.cs" />
     <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
     <Compile Include="domainLayer\CompositeDP\Component.cs" />
     <Compile Include="domainLayer\CompositeDP\Composite.cs" />
@@ -69,6 +70,18 @@
     <Compile Include="domainLayer\DataStructures\ShoppingCart.cs" />
     <Compile Include="domainLayer\DataStructures\Store.cs" />
     <Compile Include="domainLayer\DataStructures\User.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\And.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\Buy_a_of_X.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\Condiction.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\ConditionalPolicy.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\DiscountPolicy.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\False.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\ItemCategory.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\Or.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\SimplePolicy.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\Spend_More_Than_Y.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\True.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\Xor.cs" />
     <Compile Include="domainLayer\Errors.cs" />
     <Compile Include="domainLayer\Hashing.cs" />
     <Compile Include="domainLayer\Permissions.cs" />
@@ -81,7 +94,6 @@
     <Compile Include="ExternalServices\ExternalFinanceService.cs" />
     <Compile Include="ExternalServices\ExternalSupplyService.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
-    <Compile Include="domainLayer\Discount.cs" />
     <Compile Include="domainLayer\UserRoles\StoreManager.cs" />
     <Compile Include="domainLayer\UserRoles\StoreOwner.cs" />
     <Compile Include="domainLayer\UserRoles\SystemAdmin.cs" />

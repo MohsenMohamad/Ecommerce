@@ -21,6 +21,11 @@ namespace Client.Code
             return (System.SendApi("Register", param));
 
         }
+        public double GetTotalCart(string userName)
+        {
+            string param = string.Format("userName={0}", userName);
+            return double.Parse(System.SendApi("GetTotalCart", param));
+        }
         public string Login(string username, string password)
         {
             string param = string.Format("username={0}&password={1}", username, password);
