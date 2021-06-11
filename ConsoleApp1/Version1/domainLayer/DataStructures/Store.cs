@@ -124,10 +124,9 @@ namespace Version1.domainLayer.DataStructures
                 x.Key.discountPolicy.percentage = x.Key.discountPolicy.percentage - this.discountPolicy.percentage + percentage;
                 x.Key.discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
             }*/
-
+            discountPolicy.SetPublic(percentage);
             discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-            discountPolicy.percentage = percentage;
-
+            
             return 1;
         }
 

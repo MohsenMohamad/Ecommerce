@@ -378,7 +378,7 @@ namespace Version1.LogicLayer
                 foreach (KeyValuePair<string, ShoppingBasket> entry in shcart.shoppingBaskets)
                 {
                     string storeName = entry.Key;
-                    Store store = DataHandler.Instance.Stores[storeName];
+                    Store store = DataHandler.Instance.GetStore(storeName);
                     DTO_Policies shop_policy = store.discountPolicy;
                     DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
                     
@@ -388,7 +388,7 @@ namespace Version1.LogicLayer
                         double totalDiscount = 0;
                         
                         //adding the shop discount
-                        if (discountPolicy != null && store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2 )
+                        if (store.discountPolicy != null && (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2) )
                         {
                             totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
                         }

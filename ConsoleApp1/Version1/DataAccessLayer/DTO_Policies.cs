@@ -27,7 +27,7 @@ namespace Version1.DataAccessLayer
         {
             percentage = -1;
         }
-        public int SetPublic(string from, string to, int percentage, bool bound)
+        public int SetPublic( int percentage)
         {
             if (percentage < 0 || percentage > 100)
                 return -14;
@@ -35,10 +35,7 @@ namespace Version1.DataAccessLayer
             clearConditional();
             this.percentage = percentage;
             this.Type = 1;
-
-            DateTime dt = new DateTime();
-
-
+            
             return 1;
         }
 
