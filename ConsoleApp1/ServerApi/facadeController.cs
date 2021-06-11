@@ -192,9 +192,9 @@ namespace ServerApi
             }
         }
         [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
         {
-            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount);
+            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
             Logger.GetInstance().Event(output
                 ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
                 : userName + " could not add product :" + productBarCode + "form store: " + storeName + " to his Basket");

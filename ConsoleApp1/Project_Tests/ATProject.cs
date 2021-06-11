@@ -83,9 +83,9 @@ namespace Project_tests
             return service.SearchFilter(userName, sortOption, filters);
         }
 
-        protected bool AddProductToCart(string userName, string storeName, string productCode,int amount)
+        protected bool AddProductToCart(string userName, string storeName, string productCode,int amount,double priceofone)
         {
-            return service.AddProductToBasket(userName, storeName, productCode,amount);
+            return service.AddProductToBasket(userName, storeName, productCode,amount,priceofone);
         }
 
         protected Dictionary<string,int> GetCartByStore(string userName, string storeName)

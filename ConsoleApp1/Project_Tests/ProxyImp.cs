@@ -124,11 +124,11 @@ namespace Project_tests
             return real.SearchFilter(userName, sortOption, filters);
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             if (real == null)
                 return true;
-            return real.AddProductToBasket(userName, storeName, productCode, amount);
+            return real.AddProductToBasket(userName, storeName, productCode, amount,priceofone);
         }
 
         public Dictionary<string, int> GetCartByStore(string userName, string storeName)

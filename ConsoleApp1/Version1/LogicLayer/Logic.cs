@@ -63,9 +63,9 @@ namespace Version1.LogicLayer
 
         // 2.7) Add a product to a shopping basket
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,double priceofone)
         {
-            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount);
+            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount,priceofone);
         }
 
         // 2.8) Get info and edit shopping cart

@@ -49,7 +49,7 @@ namespace Version1.Service_Layer
                     DataHandler.Instance.Offers.Add(offer);
                 }
                 if(offer.acceptOffer())
-                AddProductToBasket(by_username, storename, barcode, amount);
+                AddProductToBasket(by_username, storename, barcode, amount,double.Parse(price));
             }
             else
             {
@@ -63,7 +63,7 @@ namespace Version1.Service_Layer
                     DataHandler.Instance.Offers.Add(offer);
                 }
                 if(offer.acceptOffernotfinal(by_username))
-                    AddProductToBasket(username, storename, barcode, amount);
+                    AddProductToBasket(username, storename, barcode, amount, double.Parse(price));
 
             }
         }
@@ -321,9 +321,9 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
         {
-            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount);
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
         }
         
         public bool OpenStore(string userName, string shopName, string policy)
@@ -660,11 +660,11 @@ namespace Version1.Service_Layer
 
             /*--------------------------------------------------------------------------*/
 
-            AddProductToBasket("mohameda", "AdnanStore", "5", 3);
-            AddProductToBasket("mohameda", "AdnanStore", "2", 4);
-            AddProductToBasket("adnan", "MohamedStore", "1", 2);
-            AddProductToBasket("yara", "MohamedStore", "5", 1);
-            AddProductToBasket("shadi", "AdnanStore", "4", 10);
+            AddProductToBasket("mohameda", "AdnanStore", "5", 3, 349.99);
+            AddProductToBasket("mohameda", "AdnanStore", "2", 4,450);
+            AddProductToBasket("adnan", "MohamedStore", "1", 2,800);
+            AddProductToBasket("yara", "MohamedStore", "5", 1, 349.99);
+            AddProductToBasket("shadi", "AdnanStore", "4", 10,50);
 
 
             
