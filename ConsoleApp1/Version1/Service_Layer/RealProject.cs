@@ -202,11 +202,11 @@ namespace Version1.Service_Layer
             }
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,double priceofone)
         {
             try
             {
-                return facade.AddProductToBasket(userName, storeName, productCode, amount);
+                return facade.AddProductToBasket(userName, storeName, productCode, amount, priceofone);
             }
             catch (Exception e)
             {

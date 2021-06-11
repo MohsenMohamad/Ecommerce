@@ -20,6 +20,13 @@ namespace ServerApi
             var a = facade.GetStoresProducts();
             return a;
         }
+
+        [HttpGet]
+        public string[][] GetStoreProducts(string storeName)
+        {
+            return facade.GetStoreProducts(storeName);
+        }
+
         [HttpGet]
         public string[][] getAllStores()
         {
@@ -39,6 +46,13 @@ namespace ServerApi
             {
                 return e.Message;
             }
+        }
+
+        [HttpGet]
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode,int amount)
+        {
+            facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
+
         }
 
         [HttpGet]
@@ -86,6 +100,31 @@ namespace ServerApi
             {
                 return e.Message;
             }
+        }
+
+        [HttpGet]
+        public int addStoreDiscount(string storeName, int percentage)
+        {
+            return facade.addPublicStoreDiscount(storeName, percentage);
+        }
+        
+        [HttpGet]
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return facade.addPublicDiscountToItem(storeName, barcode, percentage);
+        }
+
+        
+        [HttpGet]
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return facade.addConditionalDiscount(shopName, percentage, condition);
+        }
+        
+        [HttpGet]
+        public double GetTotalCart(string userName)
+        {
+            return facade.GetTotalCart(userName);
         }
 
         [HttpGet]
@@ -185,9 +224,9 @@ namespace ServerApi
             }
         }
         [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
         {
-            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount);
+            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
             Logger.GetInstance().Event(output
                 ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
                 : userName + " could not add product :" + productBarCode + "form store: " + storeName + " to his Basket");
@@ -316,6 +355,37 @@ namespace ServerApi
         public string[] GetAllNotifications(string userName)
         {
             return facade.GetAllUserNotifications(userName);
+        }
+
+        [HttpGet]
+        public string[] GetAllUserNotificationsoffer(string userName)
+        {
+            return facade.GetAllUserNotificationsoffer(userName);
+
+        }
+
+
+        [HttpGet]
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+            
+           facade.acceptoffer(barcode, price, username, storename, amount,by_username);
+        
+        }
+
+        [HttpGet]
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+
+        }
+
+
+        [HttpGet]
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            facade.CounterOffer(barcode, price, username, storename, amount,owner,oldprice);
+
         }
 
         [HttpGet]

@@ -7,9 +7,10 @@ namespace Version1.domainLayer.DataStructures
         
         internal string StoreName { get; }
         internal Dictionary<string, int> Products { get; }
-        
+        public Dictionary<string, double> priceperproduct { get; }
         public ShoppingBasket(string storeName)
         {
+            priceperproduct = new Dictionary<string, double>();
             Products = new Dictionary<string, int>();
             StoreName = storeName;
         }

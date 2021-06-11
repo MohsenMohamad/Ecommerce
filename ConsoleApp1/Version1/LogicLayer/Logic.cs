@@ -63,9 +63,9 @@ namespace Version1.LogicLayer
 
         // 2.7) Add a product to a shopping basket
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,double priceofone)
         {
-            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount);
+            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount,priceofone);
         }
 
         // 2.8) Get info and edit shopping cart
@@ -188,6 +188,11 @@ namespace Version1.LogicLayer
             return UserLogic.GetUserNotifications(userName);
         }
 
+        public List<string> GetUserNotificationsoffer(string userName)
+        {
+            return UserLogic.GetUserNotificationsoffer(userName);
+        }
+
         public string GetStorePolicy(string storeName)
         {
             return StoreLogic.GetStorePolicy(storeName);
@@ -276,6 +281,38 @@ namespace Version1.LogicLayer
         public bool CloseStore(string storeName, string ownerName)
         {
             return StoreLogic.CloseStore(storeName, ownerName);
+        }
+        public int addPublicDiscount(string storeName, int percentage)
+        {
+            return StoreLogic.addPublicDiscount(storeName, percentage);
+        }
+
+        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
+        {
+            return StoreLogic.addPublicDiscount_toItem(storeName, barcode, percentage);
+        }
+
+        //todo implement
+        /*public int addConditionalDiscount(int shopid, int percentage, string condition)
+        {
+            Shop s = new Shop(shopid);
+            return s.addConditionalDiscount(percentage, condition);
+        }
+        
+        //todo implement
+        public int addConditionalDiscount_toItem(int item_in_shop_id, int percentage, string condition)
+        {
+            ItemInShop iis = new ItemInShop(item_in_shop_id);
+            return iis.addConditionalDiscount_toItem(percentage, condition);
+        }*/
+        public int addConditionalDiscount(string storeName, int percentage, string condition)
+        {
+            return StoreLogic.addConditionalDiscount(storeName, percentage,condition);
+        }
+
+        public double GetTotalCart(string userName)
+        {
+            return StoreLogic.GetTotalCart(userName);
         }
     }
 }

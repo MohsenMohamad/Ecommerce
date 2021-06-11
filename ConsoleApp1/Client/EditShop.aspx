@@ -76,6 +76,12 @@ margin-bottom: 16px;
         .auto-style27 {
             height: 62px;
         }
+        .auto-style28 {
+            width: 122px;
+        }
+        .auto-style29 {
+            height: 69px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -91,6 +97,12 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Fire Manager" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="Fire Owner" Value="5"></asp:ListItem>
                                                 <asp:ListItem Text="Policies" Value="6"></asp:ListItem>
+                                                <asp:ListItem Text="Shop Discount" Value="7"></asp:ListItem>
+                                                <asp:ListItem Text="Item Discount" Value="8"></asp:ListItem>
+                                                <asp:ListItem Text="Conditional Discount" Value="9"></asp:ListItem>
+
+
+
                 </asp:DropDownList>
             </td>
             <td>&nbsp;</td>
@@ -472,6 +484,121 @@ margin-bottom: 16px;
                     </tr>
                 </table>
 
+      <table id="table11" class="auto-style5" runat="server">
+                    <tr>
+                        <td class="auto-style28">
+                            <asp:Label ID="Label10" runat="server" Text="Percentage :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox6" runat="server" Height="16px"></asp:TextBox>
+                        </td>
+                    </tr>
+               <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                <asp:Button ID="Button4" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button4_Click"  />
+                        </td>
+                    </tr>
+                </table>
+
+    <table id="table12" class="auto-style5" runat="server">
+                    <tr>
+                        <td class="auto-style28">
+                            <asp:Label ID="Label13" runat="server" Text="Item :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="DropDownList7" runat="server" OnSelectedIndexChanged="DropDownList7_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+               <tr>
+                        <td class="auto-style28">
+                            <asp:Label ID="Label14" runat="server" Text="Percentage :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox10" runat="server" Height="16px"></asp:TextBox>
+                        </td>
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                <asp:Button ID="Button5" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button5_Click"  />
+                        </td>
+                    </tr>
+                </table>
+    
+
+    <table id="table13" class="auto-style5" runat="server">
+                    <tr>
+                        <td class="auto-style28">
+                            <asp:Label ID="Label18" runat="server" Text="Percentage :"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox14" runat="server" Height="16px"></asp:TextBox>
+                        </td>
+                    </tr>
+               <tr>
+                        <td class="auto-style28">
+                            <asp:Label ID="Label19" runat="server" Text="Conditional Discount :"></asp:Label>
+                        </td>
+                        <td>
+                       <textarea runat="server" id="txt1" class="txt" name="S2" style="width: 273px; height: 110px;" cols="10" rows="1"></textarea></td>
+
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+           <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style28">
+                            &nbsp;</td>
+                        <td>
+                <asp:Button ID="Button6" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button6_Click"  />
+                        </td>
+                    </tr>
+                </table>
+    
+    
     </asp:Content>
 
 

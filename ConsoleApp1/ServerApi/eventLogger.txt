@@ -494,3 +494,173 @@
 5/30/2021 8:02:24 PM: adminhas LoggedOut   .
 5/30/2021 8:02:24 PM: Guest has connected with pid : 2  .
 5/30/2021 8:02:25 PM: adnanhas LoggedIn   .
+11/06/2021 14:48:50: Guest has connected with pid : 2  .
+11/06/2021 14:48:50: Guest has connected with pid : 1  .
+11/06/2021 14:48:57: adnanhas LoggedIn   .
+11/06/2021 14:49:22: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 14:51:01: Guest has connected with pid : 1  .
+11/06/2021 14:51:08: adnanhas LoggedIn   .
+11/06/2021 14:51:19: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 14:53:45: Guest has connected with pid : 1  .
+11/06/2021 14:53:53: adnanhas LoggedIn   .
+11/06/2021 14:54:12: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:12:27: Guest has connected with pid : 1  .
+11/06/2021 15:12:27: Guest has connected with pid : 2  .
+11/06/2021 15:12:33: adnanhas LoggedIn   .
+11/06/2021 15:12:57: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:13:35: Guest has connected with pid : 1  .
+11/06/2021 15:13:40: adnanhas LoggedIn   .
+11/06/2021 15:13:44: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:15:30: Guest has connected with pid : 1  .
+11/06/2021 15:15:35: adnanhas LoggedIn   .
+11/06/2021 15:15:50: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:21:41: Guest has connected with pid : 1  .
+11/06/2021 15:21:49: adnanhas LoggedIn   .
+11/06/2021 15:22:03: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:24:38: Guest has connected with pid : 1  .
+11/06/2021 15:24:42: adnanhas LoggedIn   .
+11/06/2021 15:25:04: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:28:56: Guest has connected with pid : 1  .
+11/06/2021 15:29:00: adnanhas LoggedIn   .
+11/06/2021 15:29:48: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:31:07: Guest has connected with pid : 1  .
+11/06/2021 15:31:12: adnanhas LoggedIn   .
+11/06/2021 15:31:27: ahas Register succesfully   .
+11/06/2021 15:31:34: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:32:09: Guest has connected with pid : 1  .
+11/06/2021 15:32:14: adnanhas LoggedIn   .
+11/06/2021 15:33:08: ahas Register succesfully   .
+11/06/2021 15:33:11: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:34:46: Guest has connected with pid : 1  .
+11/06/2021 15:34:51: adnanhas LoggedIn   .
+11/06/2021 15:35:09: ahas Register succesfully   .
+11/06/2021 15:35:14: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:37:56: Guest has connected with pid : 1  .
+11/06/2021 15:38:00: adnanhas LoggedIn   .
+11/06/2021 15:38:35: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:39:02: adnan could not add product :1form store: Electronics to his cart  .
+11/06/2021 15:39:05: adnan could not add product :1form store: Electronics to his cart  .
+11/06/2021 15:39:21: ahas Register succesfully   .
+11/06/2021 15:39:32: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:39:44: adnan could not add product :1form store: Electronics to his cart  .
+11/06/2021 15:39:47: adnan could not add product :1form store: Electronics to his cart  .
+11/06/2021 15:41:53: Guest has connected with pid : 1  .
+11/06/2021 15:41:58: adnanhas LoggedIn   .
+11/06/2021 15:42:02: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 15:42:35: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:43:43: Guest has connected with pid : 1  .
+11/06/2021 15:43:53: adnanhas LoggedIn   .
+11/06/2021 15:44:13: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:44:36: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 15:45:09: Guest has connected with pid : 1  .
+11/06/2021 15:45:09: Guest has connected with pid : 2  .
+11/06/2021 15:45:18: adnanhas LoggedIn   .
+11/06/2021 15:45:56: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 15:47:29: Guest has connected with pid : 1  .
+11/06/2021 15:47:34: adnanhas LoggedIn   .
+11/06/2021 15:47:50: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 15:47:55: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:18:13: Guest has connected with pid : 1  .
+11/06/2021 16:18:13: Guest has connected with pid : 2  .
+11/06/2021 16:18:19: adnanhas LoggedIn   .
+11/06/2021 16:18:46: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:18:50: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:20:20: Guest has connected with pid : 1  .
+11/06/2021 16:20:25: adnanhas LoggedIn   .
+11/06/2021 16:21:02: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:21:12: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:24:15: Guest has connected with pid : 1  .
+11/06/2021 16:26:38: Guest has connected with pid : 1  .
+11/06/2021 16:26:44: adnanhas LoggedIn   .
+11/06/2021 16:27:23: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:28:58: Guest has connected with pid : 1  .
+11/06/2021 16:29:04: adnanhas LoggedIn   .
+11/06/2021 16:29:19: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:30:02: Guest has connected with pid : 1  .
+11/06/2021 16:30:06: adnanhas LoggedIn   .
+11/06/2021 16:30:18: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:30:25: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:31:19: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:31:24: adnan has has added product :4form store: AdnanStore to his cart  .
+11/06/2021 16:35:03: Guest has connected with pid : 1  .
+11/06/2021 16:35:08: adnanhas LoggedIn   .
+11/06/2021 16:36:35: Guest has connected with pid : 1  .
+11/06/2021 16:36:39: adnanhas LoggedIn   .
+11/06/2021 16:38:23: Guest has connected with pid : 1  .
+11/06/2021 16:38:32: adnanhas LoggedIn   .
+11/06/2021 16:39:44: Guest has connected with pid : 1  .
+11/06/2021 16:39:50: adnanhas LoggedIn   .
+11/06/2021 16:40:24: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:40:29: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:40:38: adnanhas LoggedOut   .
+11/06/2021 16:40:38: Guest has connected with pid : 2  .
+11/06/2021 16:40:47: adnanhas LoggedIn   .
+11/06/2021 16:41:13: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 16:41:42: adnan has has added product :5form store: AdnanStore to his cart  .
+11/06/2021 16:43:06: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:46:12: Guest has connected with pid : 1  .
+11/06/2021 16:46:12: Guest has connected with pid : 2  .
+11/06/2021 16:46:17: adnanhas LoggedIn   .
+11/06/2021 16:46:27: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:46:32: adnan has has added product :4form store: AdnanStore to his cart  .
+11/06/2021 16:46:34: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:46:37: adnanhas LoggedOut   .
+11/06/2021 16:46:37: Guest has connected with pid : 3  .
+11/06/2021 16:53:53: Guest has connected with pid : 1  .
+11/06/2021 16:53:53: Guest has connected with pid : 2  .
+11/06/2021 16:54:02: adnanhas LoggedIn   .
+11/06/2021 16:55:07: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:55:13: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 16:56:26: ahas Register succesfully   .
+11/06/2021 16:56:35: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:56:57: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:58:14: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 16:58:35: adnanhas LoggedOut   .
+11/06/2021 16:58:35: Guest has connected with pid : 3  .
+11/06/2021 16:59:41: mohamedmhas LoggedIn   .
+11/06/2021 17:00:40: mohamedm has has added product :6form store: MohamedStore to his Basket  .
+11/06/2021 17:00:46: mohamedmhas LoggedOut   .
+11/06/2021 17:00:46: Guest has connected with pid : 4  .
+11/06/2021 17:03:39: Guest has connected with pid : 2  .
+11/06/2021 17:03:45: adnanhas LoggedIn   .
+11/06/2021 17:07:40: Guest has connected with pid : 1  .
+11/06/2021 17:07:47: adnanhas LoggedIn   .
+11/06/2021 17:07:50: adnanhas LoggedOut   .
+11/06/2021 17:07:50: Guest has connected with pid : 2  .
+11/06/2021 17:08:03: mohamedmhas LoggedIn   .
+11/06/2021 17:08:39: mohamedm has has added product :3form store: MohamedStore to his Basket  .
+11/06/2021 17:10:33: Guest has connected with pid : 1  .
+11/06/2021 17:10:46: mohamedmhas LoggedIn   .
+11/06/2021 17:16:19: Guest has connected with pid : 1  .
+11/06/2021 17:16:25: adnanhas LoggedIn   .
+11/06/2021 17:17:09: adnan has has added product :2form store: AdnanStore to his Basket  .
+11/06/2021 17:20:56: Guest has connected with pid : 1  .
+11/06/2021 17:21:01: adnanhas LoggedIn   .
+11/06/2021 17:21:23: adnan has has added product :2form store: AdnanStore to his Basket  .
+11/06/2021 17:24:41: Guest has connected with pid : 1  .
+11/06/2021 17:24:45: adnanhas LoggedIn   .
+11/06/2021 17:25:01: ahas Register succesfully   .
+11/06/2021 17:25:08: adnan has has added product :2form store: AdnanStore to his Basket  .
+11/06/2021 17:28:21: Guest has connected with pid : 1  .
+11/06/2021 17:28:27: adnanhas LoggedIn   .
+11/06/2021 17:29:05: adnan has has added product :2form store: AdnanStore to his Basket  .
+11/06/2021 17:29:19: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 17:29:28: adnan could not add product :1form store: MohamedStore to his cart  .
+11/06/2021 17:29:32: adnan could not add product :1form store: MohamedStore to his cart  .
+11/06/2021 17:32:27: Guest has connected with pid : 1  .
+11/06/2021 17:32:27: Guest has connected with pid : 2  .
+11/06/2021 17:32:33: adnanhas LoggedIn   .
+11/06/2021 17:33:10: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 17:34:03: Guest has connected with pid : 1  .
+11/06/2021 17:34:07: adnanhas LoggedIn   .
+11/06/2021 17:34:20: ahas Register succesfully   .
+11/06/2021 17:34:26: adnan has has added product :5form store: AdnanStore to his Basket  .
+11/06/2021 17:34:29: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 17:34:38: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 17:41:24: Guest has connected with pid : 1  .
+11/06/2021 17:41:24: Guest has connected with pid : 2  .
+11/06/2021 17:41:31: adnanhas LoggedIn   .
+11/06/2021 17:42:17: ahas Register succesfully   .
+11/06/2021 17:43:09: adnan has has added product :4form store: AdnanStore to his Basket  .
+11/06/2021 17:43:12: adnan has has added product :1form store: MohamedStore to his cart  .
+11/06/2021 17:43:26: adnan has has added product :5form store: AdnanStore to his Basket  .

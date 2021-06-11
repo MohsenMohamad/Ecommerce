@@ -11,7 +11,7 @@ namespace Client
 {
 
 
-    public partial class Product
+    public partial class Purchase_Offer
     {
 
         /// <summary>
@@ -123,6 +123,24 @@ namespace Client
         protected global::System.Web.UI.WebControls.Label Labelprice0;
 
         /// <summary>
+        /// LabelSuggested control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelSuggested;
+
+        /// <summary>
+        /// TextBoxSuggested control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxSuggested;
+
+        /// <summary>
         /// Labelprice1 control.
         /// </summary>
         /// <remarks>
@@ -166,14 +184,5 @@ namespace Client
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button3;
-
-        /// <summary>
-        /// LinkButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
     }
 }

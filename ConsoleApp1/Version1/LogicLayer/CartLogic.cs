@@ -9,7 +9,7 @@ namespace Version1.LogicLayer
 {
     public static class CartLogic
     {
-        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             lock (DataHandler.Instance.InefficientLock)
             {
@@ -28,9 +28,19 @@ namespace Version1.LogicLayer
                 var userStoreBasket = userCart.GetBasket(storeName);
                 if (storeProducts.ContainsKey(product) && storeProducts[product] >= amount)
                 {
+                    double totalprice = amount * priceofone;
                     if (userStoreBasket.Products.ContainsKey(product.Barcode))
+                    {
                         userStoreBasket.Products[product.Barcode] += amount;
-                    else userStoreBasket.Products.Add(product.Barcode, amount);
+
+                        userStoreBasket.priceperproduct[product.Barcode] += totalprice;
+
+                    }
+                    else
+                    {
+                        userStoreBasket.Products.Add(product.Barcode, amount);
+                        userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
+                    }
                     return true;
                 }
 
@@ -132,7 +142,17 @@ namespace Version1.LogicLayer
 
                 var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
-                shoppingBasket.Products[productBarcode] = newAmount;
+                shoppingBasket.priceperproduct[productBarcode] += (newAmount - shoppingBasket.Products[productBarcode])*product.price;
+                if (shoppingBasket.priceperproduct[productBarcode] < 0)
+                {
+                    shoppingBasket.priceperproduct[productBarcode] = 0;
+                    shoppingBasket.Products[productBarcode] = 0;
+                    RemoveProductFromBasket(userName, storeName, productBarcode, shoppingBasket.Products[productBarcode]);
+                }
+                else
+                {
+                    shoppingBasket.Products[productBarcode] = newAmount;
+                }
                 return true;
             }
         }
@@ -157,10 +177,13 @@ namespace Version1.LogicLayer
                 if (!storeBasketProducts.ContainsKey(productBarcode) || storeBasketProducts[productBarcode] < amount)
                     return false;
                 storeBasketProducts[productBarcode] -= amount;
+                cart.shoppingBaskets[storeName].priceperproduct[productBarcode] = 0;
                 if (storeBasketProducts[productBarcode] == 0)
                 {
                     storeBasketProducts.Remove(productBarcode);
+                    cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
                 }
+
                 // remove it if new amount = 0 ?
                 return true;
             }
@@ -254,7 +277,7 @@ namespace Version1.LogicLayer
                     var product = DataHandler.Instance.GetProduct(productPair.Key, storeName);
                     if (product == null) return -1;
 
-                    var productTotalCost = product.Price * productPair.Value;
+                    var productTotalCost = basket.priceperproduct[productPair.Key];
                     total += productTotalCost;
                 }
 

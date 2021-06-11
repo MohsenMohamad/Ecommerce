@@ -1,6 +1,10 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.DiscountPolicies;
 
 namespace Version1.domainLayer.DataStructures
 {
@@ -11,21 +15,22 @@ namespace Version1.domainLayer.DataStructures
         public Node<string, int> staff;
         private List<string> notifications;
         private List<string> paymentInfo{ get; set; }
-        private List<Discount> discounts { get; }
         private List<Purchase> history { get; }
         private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
-        
-        
+        public DTO_Policies discountPolicy { get; set; }
+
+
         public Store(string owner,string name)
         {
             staff = new Node<string,int>(owner,-1);
             purchasePolicies = new List<Component>();
-            inventory = new ConcurrentDictionary<Product, int>();
-            discounts = new List<Discount>();
             history = new List<Purchase>();
             paymentInfo = new List<string>();
+            inventory = new ConcurrentDictionary<Product, int>();
             this.name = name;
             notifications = new List<string>();
+
+            discountPolicy = new DTO_Policies(); 
         }
 
         public override string ToString()
@@ -87,11 +92,7 @@ namespace Version1.domainLayer.DataStructures
             return notifications;
         }
 
-        public List<Discount> GetDiscounts()
-        {
-            return discounts;
-        }
-        
+
         public ConcurrentDictionary<Product, int> GetInventory()
         {
             return inventory;
@@ -112,6 +113,38 @@ namespace Version1.domainLayer.DataStructures
         public void SetPurchasePolicies(List<Component> newPolicies)
         {
             purchasePolicies = newPolicies;
+        }
+
+
+        public int addPublicDiscount(string storeName, int percentage)
+        {
+            discountPolicy = new DTO_Policies();
+            
+            foreach (var x in inventory) {
+                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
+            }
+            
+            discountPolicy.SetPublic(percentage);
+            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            
+            return 1;
+        }
+
+        public int addConditionalDiscount(string storeName, int percentage, string condition)
+        {
+            int res;
+            try { Condition.Parse(condition); }
+            catch (Exception e) { return -13; }
+            DTO_Policies p = new DTO_Policies();
+            
+            if ((res = p.SetConditional(percentage, condition)) < 0)
+                return res;
+            foreach (var x in inventory) {
+                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,condition);
+            }
+            this.discountPolicy.SetConditional(percentage,condition);
+            
+            return res;
         }
         
     }
