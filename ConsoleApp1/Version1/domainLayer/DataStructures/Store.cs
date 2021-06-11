@@ -136,11 +136,12 @@ namespace Version1.domainLayer.DataStructures
             try { Condition.Parse(condition); }
             catch (Exception e) { return -13; }
             DTO_Policies p = new DTO_Policies();
+            
             if ((res = p.SetConditional(percentage, condition)) < 0)
                 return res;
-            /*db.Add_Discount_Policy(p);*/
-            /*if ((res = db.Add_Discount_Policy(p)) < 0)
-                return res;*/
+            foreach (var x in inventory) {
+                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,condition);
+            }
             this.discountPolicy.SetConditional(percentage,condition);
             
             return res;

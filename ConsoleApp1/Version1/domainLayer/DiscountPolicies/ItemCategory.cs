@@ -11,7 +11,10 @@ namespace Version1.domainLayer.DiscountPolicies
         }
         public override bool evaluate(ShoppingCart cart, User user, Product item, int amount_of_item)
         {
-            return item.Categories.Contains(Category);
+            // maybe foreach
+            string str = item.Categories[0];
+            bool output = str.Contains(Category);
+            return output;
         }
 
         public override string get_description()

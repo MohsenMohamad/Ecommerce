@@ -86,8 +86,6 @@ namespace Client
                 ShopHandler s = new ShopHandler();
                 s.UpdateCart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()) - 1);
                 Response.Redirect("~/Cart.aspx");
-
-
             }
         }
         protected void Data_cart_SelectedIndexChanged(object sender, EventArgs e)
