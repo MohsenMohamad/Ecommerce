@@ -16,11 +16,7 @@ namespace Version1.domainLayer.DiscountPolicies
 
         public override double getTotal(ShoppingCart cart, User user, Product product, int amount_of_item)
         {
-
-            double a = 0;
-            a = ((product.Price * (100 - percentage)) / 100) * amount_of_item;
-            return a;
-
+            return (double)percentage;
         }
     }
 }

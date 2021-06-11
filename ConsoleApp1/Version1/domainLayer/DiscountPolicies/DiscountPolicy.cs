@@ -15,7 +15,7 @@ namespace Version1.domainLayer.DiscountPolicies
                 case 0://no Discount policy
                     return null;
                 case 1://normal simple discount policy
-                    return new SimplePolicy( type.percentage);
+                    return new SimplePolicy(type.percentage);
                 case 2://conditional policy
                     return new ConditionalPolicy(type.conditoin, type.conditoin_percentage);
                 default:

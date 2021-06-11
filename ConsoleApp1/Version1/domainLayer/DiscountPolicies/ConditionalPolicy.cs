@@ -16,15 +16,14 @@ namespace Version1.domainLayer.DiscountPolicies
         public override double getTotal(ShoppingCart cart, User user, Product item, int amount_of_item)
         {
             double res = 0;
-            if (condition.evaluate(cart, user, item, amount_of_item))
+            bool good = condition.evaluate(cart, user, item, amount_of_item);
+            if (good)
             {
-
-                res = ((item.price * (100 - percentage)) / 100) * amount_of_item;
+                res = percentage;
             }
             else
             {
-
-                res = item.price * amount_of_item;
+                res = 0;
             }
             return res;
         }
