@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 
 namespace Version1.LogicLayer
 {

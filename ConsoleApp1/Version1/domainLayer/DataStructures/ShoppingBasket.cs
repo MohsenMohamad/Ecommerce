@@ -7,6 +7,8 @@ namespace Version1.domainLayer.DataStructures
         
         public long id { get; set; }
         public string StoreName { get; set; }
+        public Dictionary<string, int> Products { get; }
+
         public Dictionary<string, double> priceperproduct { get; }
         public ShoppingBasket(string storeName)
         {

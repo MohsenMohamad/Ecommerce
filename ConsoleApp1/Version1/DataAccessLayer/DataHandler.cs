@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -16,8 +17,8 @@ namespace Version1.DataAccessLayer
         private static DataHandler _instance = null;
         public ConcurrentDictionary<string, User> Users { get; }
         internal ConcurrentDictionary<string, Store> Stores { get; }
-        private ConcurrentDictionary<long, Guest> Guests { get; }
-        private ConcurrentDictionary<string, Category> Categories;
+        public ConcurrentDictionary<long, Guest> Guests { get; }
+        public ConcurrentDictionary<string, Category> Categories;
         public List<PurchaseOffer> Offers { get; set; }
         
         private List<Review> Reviews { get; }
@@ -88,8 +89,8 @@ namespace Version1.DataAccessLayer
             }
             if (s.purchasePolicies != null)
             {
-                store.purchasePolicies = s.purchasePolicies.ToList();
-            }
+/*                store.purchasePolicies = s.purchasePolicies.ToList();
+*/            }
 
             if (s.history != null)
             {
@@ -268,8 +269,8 @@ namespace Version1.DataAccessLayer
         {
             ShoppingBasket shoppingBasket = new ShoppingBasket(sh.StoreName);
             shoppingBasket.id = sh.id;
-            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
-            
+/*            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
+*/            
             return shoppingBasket;
         }
 

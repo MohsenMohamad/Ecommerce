@@ -31,10 +31,6 @@ namespace Version1.LogicLayer
             if (store == null) throw new Exception(Errors.StoreNotFound);
             var exists = DataHandler.Instance.GetProduct(barcode, storeName) != null;
             if (exists) throw new Exception(Errors.ProductBarcodeNotAvailable);
-              {
-                  if (!DataHandler.Instance.Categories.ContainsKey(category))
-                      return false;
-              }*/
 
             /*  foreach (var category in categories)
               {

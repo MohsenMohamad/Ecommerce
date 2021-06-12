@@ -21,13 +21,6 @@ namespace Version1.Service_Layer
             o.insertData();
             var facade = new Facade();
             Console.ReadLine();
-            string[] msg = ("offer for:" + "123" +  ".the offered price is:" + "99" + ".from:" + "adnan").Split(splitting);
-
-            Console.WriteLine(msg[1]+"   "+msg[3]+"    "+msg[5]);
-            Console.ReadLine();
-
-            /*     var facade = new Facade();
-             facade.AdminInitSystem();*/
             /*    
             facade.Register("zzz", "123");
            facade.Login("zzz", "123");
@@ -59,12 +52,12 @@ namespace Version1.Service_Layer
             public void insertData()
             {
 
-            facade.AdminInitSystem();
-
-            var product = DataHandler.Instance.GetProduct("2", "AdnanStore");
-            var oldAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
-            var up = facade.UpdateProductAmountInStore("adnan", "AdnanStore", "2", 1000);
-            var newAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
+                /*//Review
+                Review c = new Review("333s433", "33333s333");
+                ReviewContext cc = new ReviewContext();
+                cc.ReviewsTable.Add(c);
+                Console.WriteLine(cc.ReviewsTable.Count());
+                cc.SaveChanges();*/
 
                 //User
                 /*User c = new User("username", "pass");
@@ -149,9 +142,7 @@ namespace Version1.Service_Layer
                                 //d.Insertproduct(p);
                                 //d.InsertStore(s);
                                 //d.getProducts();
-
                                 User c = new User("shady", "pass");
-
                                 //List<Purchase> history = new List<Purchase>();
                                 //Purchase pur = new Purchase();
                                 //pur.purchaseId = 5;
@@ -165,27 +156,22 @@ namespace Version1.Service_Layer
                                 ShoppingCart scc = new ShoppingCart();
                                 scc.id = 5;
                                 c.shoppingCart = scc;
-
                                 //d.InsertUser(c);
                                 //d.InsertShoppingBasketDB(sp);
                                 //d.InsertStore(new Store("shady", "shady"));
                                 DataHandler dh = DataHandler.Instance;
-
                                 dh.AddUser(c);
                                 //temp
                                 Store store = new Store("shady", "shady");
                                 //dh.AddStore(store);
                                 //d.DeleteStore(store);
-
                                 ModelDB eo = new ModelDB();
                                 Console.WriteLine("after add");
                                 foreach (UserDB u in eo.UsersTable)
                                 {
                                     Console.WriteLine("user " + u.UserName + " notifications is " + u.notifications);
                                 }
-
                                 d.DeleteUser(c.UserName);
-
                                 Console.WriteLine("after delete");
                                 foreach (UserDB u in eo.UsersTable)
                                 {
@@ -206,7 +192,7 @@ namespace Version1.Service_Layer
 
                     });
                 }
-                
+
                 db.DeleteUser("zzz");
                 if (db != null && db.getAllUsers() != null)
                 {
@@ -220,6 +206,8 @@ namespace Version1.Service_Layer
 
 
                 Console.WriteLine("\nfinish init data base tables you can open server\n");
+
+                facade.Register("admin", "admin");
             }
         }
 

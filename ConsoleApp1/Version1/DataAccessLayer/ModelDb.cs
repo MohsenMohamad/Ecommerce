@@ -388,56 +388,6 @@ namespace Version1.DataAccessLayer
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        public bool InsertDiscount(Discount d)
-        {
-            DiscountDB discount = getDiscountDB(d);
-
-
-            try
-            {
-                db.DiscountsTable.Add(discount);
-                db.SaveChanges();
-                Console.WriteLine("insert Discount");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /*public bool UpdateDiscount(Discount d)
-        {
-            var result = db.DiscountsTable.SingleOrDefault(b => b.discountId == d.id);
-            DiscountDB discount = getDiscountDB(d);
-            if (result != null)
-            {
-                result.items = result.items;
-
-                db.SaveChanges();
-                return true;
-            }
-            return false;
-        }*/
-
-        public DbSet<DiscountDB> getAllDiscounts()
-        {
-            return db.DiscountsTable;
-        }
-
-        private DiscountDB getDiscountDB(Discount pr)
-        {
-            DiscountDB ddb = new DiscountDB();
-            //ddb.discountId = pr.id;
-            ddb.items = new itemsHasmapforDiscountDB();
-            // todo fill the discounts waiting for mohsen
-
-            return ddb;
-        }
-
-
-
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////// Stores ////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -547,8 +497,8 @@ namespace Version1.DataAccessLayer
             store.paymentInfo = oJS.Serialize(s.paymentInfo);
             store.notifications = oJS.Serialize(s.GetNotifications());
 
-            store.purchasePolicies = s.purchasePolicies;
-
+/*            store.purchasePolicies = s.purchasePolicies;
+*/
             store.history = new List<PurchaseDB>();
             foreach (Purchase p in s.history)
             {
