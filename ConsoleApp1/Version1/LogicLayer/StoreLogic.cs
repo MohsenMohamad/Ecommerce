@@ -386,20 +386,29 @@ namespace Version1.LogicLayer
                 {
                     string storeName = entry.Key;
                     Store store = DataHandler.Instance.GetStore(storeName);
-                    DTO_Policies shop_policy = store.discountPolicy;
-                    DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
+                    //DTO_Policies shop_policy = store.discountPolicy;
+                    
                     
                     foreach (KeyValuePair<string, int> pro in entry.Value.Products)
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
                         double totalDiscount = 0;
                         
-                        //adding the shop discount
-                        if (store.discountPolicy != null && (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2) )
+                        if (store.discountPolicies != null)
                         {
-                            totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                            foreach (DTO_Policies shop_policy in store.discountPolicies)
+                            {
+                                DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);    
+                                //adding all the shop discount
+                                if ((shop_policy.Type == 1 || shop_policy.Type == 2) )
+                                {
+                                    totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                                }
+                                //adding all the product discount
+                            }
                         }
-                        //adding the product discount
+                        
+                        
 
                         DTO_Policies item_policy = product.discountPolicy;
                         if (item_policy != null)
@@ -411,6 +420,7 @@ namespace Version1.LogicLayer
                             
                         }
 
+                        totalDiscount = Math.Min(100, totalDiscount);
                         a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;;
                     }
                 }

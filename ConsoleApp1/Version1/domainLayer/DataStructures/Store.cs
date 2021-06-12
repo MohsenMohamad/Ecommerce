@@ -17,7 +17,7 @@ namespace Version1.domainLayer.DataStructures
         public List<string> paymentInfo { get; set; }
         public List<Purchase> history { get; }
         public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
-        public DTO_Policies discountPolicy { get; set; }
+        public List<DTO_Policies> discountPolicies { get; set; }
 
 
         public Store(string owner, string name)
@@ -30,7 +30,7 @@ namespace Version1.domainLayer.DataStructures
             this.name = name;
             notifications = new List<string>();
 
-            discountPolicy = new DTO_Policies();
+            discountPolicies = new List<DTO_Policies>();
         }
 
         public override string ToString()
@@ -118,7 +118,7 @@ namespace Version1.domainLayer.DataStructures
 
         public int addPublicDiscount(string storeName, int percentage)
         {
-            discountPolicy = new DTO_Policies();
+            DTO_Policies discountPolicy = new DTO_Policies();
 
             foreach (var x in inventory)
             {
@@ -127,7 +127,7 @@ namespace Version1.domainLayer.DataStructures
 
             discountPolicy.SetPublic(percentage);
             discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-
+            this.discountPolicies.Add(discountPolicy);
             return 1;
 
         }
@@ -144,8 +144,9 @@ namespace Version1.domainLayer.DataStructures
             {
                 x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage, condition);
             }
-            this.discountPolicy.SetConditional(percentage, condition);
-
+            DTO_Policies discountPolicy = new DTO_Policies(); 
+            discountPolicy.SetConditional(percentage, condition);
+            this.discountPolicies.Add(discountPolicy);
             return res;
 
         }
