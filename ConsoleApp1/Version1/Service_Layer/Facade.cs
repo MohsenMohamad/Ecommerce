@@ -24,21 +24,22 @@ namespace Version1.Service_Layer
             return hashPassword != null && logicInstance.UserLogin(username, hashPassword);
         }
 
-        public void Recieve_purchase_offer(string username,string storename,string price,string barcode,int amount)
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storename);
             var user = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storename);
-            var offer = new PurchaseOffer(product, (User)user, store,double.Parse( price),amount);
+            var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
             DataHandler.Instance.Offers.Add(offer);
             offer.makeOffer();
 
         }
 
 
-        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
-           if(!IsOwner(storename, by_username)){
+            if (!IsOwner(storename, by_username))
+            {
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
                 var user = DataHandler.Instance.GetUser(by_username);
                 var store = DataHandler.Instance.GetStore(storename);
@@ -48,8 +49,8 @@ namespace Version1.Service_Layer
                     offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                     DataHandler.Instance.Offers.Add(offer);
                 }
-                if(offer.acceptOffer())
-                AddProductToBasket(by_username, storename, barcode, amount,double.Parse(price));
+                if (offer.acceptOffer())
+                    AddProductToBasket(by_username, storename, barcode, amount, double.Parse(price));
             }
             else
             {
@@ -62,13 +63,13 @@ namespace Version1.Service_Layer
                     offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                     DataHandler.Instance.Offers.Add(offer);
                 }
-                if(offer.acceptOffernotfinal(by_username))
+                if (offer.acceptOffernotfinal(by_username))
                     AddProductToBasket(username, storename, barcode, amount, double.Parse(price));
 
             }
         }
 
-        public void rejectoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
             if (!IsOwner(storename, by_username))
             {
@@ -78,7 +79,8 @@ namespace Version1.Service_Layer
                 var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
                 offer.rejectOffer();
             }
-            else {
+            else
+            {
                 var product = DataHandler.Instance.GetProduct(barcode, storename);
                 var user = DataHandler.Instance.GetUser(username);
                 var store = DataHandler.Instance.GetStore(storename);
@@ -194,7 +196,7 @@ namespace Version1.Service_Layer
             var storeProducts = logicInstance.GetStoreProducts(storeName);
             if (storeProducts == null)
                 return null;
-            var products = new Dictionary<string, List<string>> {{storeName, storeProducts}};
+            var products = new Dictionary<string, List<string>> { { storeName, storeProducts } };
 
             return ProductsTo2DStringArray(products);
         }
@@ -282,8 +284,8 @@ namespace Version1.Service_Layer
         {
             return Purchase(buyer, "111");
         }
-        
-        
+
+
         // change this so it calls addProductToStore
         public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName,
             string desc, int amount,
@@ -321,11 +323,11 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
-            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount, priceofone);
         }
-        
+
         public bool OpenStore(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName, shopName, policy);
@@ -344,7 +346,7 @@ namespace Version1.Service_Layer
         {
             return logicInstance.AddUserPolicy(storeName, productBarCode);
         }
-        
+
         public bool AddCartPolicy(string storeName, int amount)
         {
             return logicInstance.AddCartPolicy(storeName, amount);
@@ -398,7 +400,7 @@ namespace Version1.Service_Layer
              return ProductsTo2DStringArray(basketsProducts);*/
         }
 
-       
+
 
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
@@ -419,9 +421,9 @@ namespace Version1.Service_Layer
             var basketProducts = logicInstance.GetBasketProducts(userName, storeName);
             if (basketProducts == null)
                 return null;
-            var products = new Dictionary<string, List<string>> {{storeName, basketProducts}};
+            var products = new Dictionary<string, List<string>> { { storeName, basketProducts } };
 
-            return ProductsTo2DStringArray2(products,userName);
+            return ProductsTo2DStringArray2(products, userName);
         }
 
         public bool SendNotifications(string userName, string msg)
@@ -487,7 +489,7 @@ namespace Version1.Service_Layer
                         categories = categories + category + "#";
                     }
 
-                    categories =  categories.Substring(0, categories.Length - 1);
+                    categories = categories.Substring(0, categories.Length - 1);
 
                     productData[5] = categories;
 
@@ -614,8 +616,8 @@ namespace Version1.Service_Layer
         {
             /* ----------------------------  users -------------------------------*/
 
-            ExternalServices.MockUpFinanceService.CreateConnection();
-            ExternalServices.MockUpSupplyService.CreateConnection();
+            /*            ExternalServices.ExternalFinanceService.CreateConnection();
+                        ExternalServices.ExternalSupplyService.CreateConnection();*/
 
             Register("mohamedm", "1111");
             Register("adnan", "2222");
@@ -637,17 +639,17 @@ namespace Version1.Service_Layer
 
             var product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
                 800,
-                new[] {electronics.Name}.ToList());
+                new[] { electronics.Name }.ToList());
             var product2 = new Product("2", "women shoes",
                 "Nike React Element 55 Women’s Running Shoes Grey Purple Blue Size 11 BQ2728-008.", 450,
-                new[] {fashion.Name, sports.Name}.ToList());
-            var product3 = new Product("3", "shampo keef", "shampo", 25, new[] {beauty.Name}.ToList());
+                new[] { fashion.Name, sports.Name }.ToList());
+            var product3 = new Product("3", "shampo keef", "shampo", 25, new[] { beauty.Name }.ToList());
             var product4 = new Product("4", "hand cream", "hand cream with good smell", 50,
-                new[] {health.Name, beauty.Name}.ToList());
+                new[] { health.Name, beauty.Name }.ToList());
             var product5 = new Product("5", "sandals", "comfortable sandals", 349.99,
-                new[] {fashion.Name, health.Name, sports.Name}.ToList());
+                new[] { fashion.Name, health.Name, sports.Name }.ToList());
             var product6 = new Product("6", "brush", "just a normal brush  what did you expect ...", 33,
-                new[] {arts.Name}.ToList());
+                new[] { arts.Name }.ToList());
 
             /* ----------------------------  discounts -------------------------------*/
 
@@ -690,7 +692,7 @@ namespace Version1.Service_Layer
             MakeNewOwner("AdnanStore", "adnan", "yara");
             //     AdnanStore.AddDiscount(dis2);
             AddProductToStore("adnan", "AdnanStore", product2.Barcode, product2.Name, product2.Description,
-                product2.Price, product2.Categories[0].ToString()+"#"+ product2.Categories[1].ToString(), 18);
+                product2.Price, product2.Categories[0].ToString() + "#" + product2.Categories[1].ToString(), 18);
             AddProductToStore("adnan", "AdnanStore", product4.Barcode, product4.Name, product4.Description,
                 product4.Price, product4.Categories[0].ToString() + "#" + product4.Categories[1].ToString(), 20);
             AddProductToStore("adnan", "AdnanStore", product5.Barcode, product5.Name, product5.Description,
@@ -700,13 +702,13 @@ namespace Version1.Service_Layer
             /*--------------------------------------------------------------------------*/
 
             AddProductToBasket("mohameda", "AdnanStore", "5", 3, 349.99);
-            AddProductToBasket("mohameda", "AdnanStore", "2", 4,450);
-            AddProductToBasket("adnan", "MohamedStore", "1", 2,800);
+            AddProductToBasket("mohameda", "AdnanStore", "2", 4, 450);
+            AddProductToBasket("adnan", "MohamedStore", "1", 2, 800);
             AddProductToBasket("yara", "MohamedStore", "5", 1, 349.99);
-            AddProductToBasket("shadi", "AdnanStore", "4", 10,50);
+            AddProductToBasket("shadi", "AdnanStore", "4", 10, 50);
 
 
-            
+
 
             /*--------------------------------------------------------------------------*/
             return true;
@@ -832,6 +834,10 @@ namespace Version1.Service_Layer
         public double GetTotalCart(string userName)
         {
             return logicInstance.GetTotalCart(userName);
+        }
+        public bool InitByStateFile(string path)
+        {
+            return FileController.ReadStateFile(path);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using Client.Code;
 
 namespace Client
@@ -182,10 +184,33 @@ namespace Client
 
         protected void InitSystem_Click(object sender, EventArgs e)
         {
-            ShopHandler s = new ShopHandler();
-            s.InitSystem();
-            Response.Redirect("~/Home.aspx");
+            /* ShopHandler s = new ShopHandler();
+             s.InitSystem();
+             Response.Redirect("~/Home.aspx");
+          */
+            string selectedPath = "";
 
+            Thread t = new Thread((ThreadStart)(() => {
+                OpenFileDialog saveFileDialog1 = new OpenFileDialog();
+
+                saveFileDialog1.Filter = "JSON Files (*.json)|*.json";
+                saveFileDialog1.FilterIndex = 2;
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    selectedPath = saveFileDialog1.FileName;
+                }
+            }));
+
+            // Run your code from a thread that joins the STA Thread
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            UserHandler us = new UserHandler();
+            us.InitByStateFile(selectedPath);
         }
+        
     }
 }

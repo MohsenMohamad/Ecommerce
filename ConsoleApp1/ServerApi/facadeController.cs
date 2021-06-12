@@ -88,6 +88,12 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public bool InitByStateFile(string path)
+        {
+            return facade.InitByStateFile(path);
+        }
+
+        [HttpGet]
         public string OpenShop(string userName, string shopName, string policy)
         {
             try

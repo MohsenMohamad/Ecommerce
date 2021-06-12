@@ -17,16 +17,17 @@ namespace Version1.Service_Layer
         public static void Test()
         {
             CreateJson();
-            ReadStateFile();
+            ReadStateFile("");
         }
 
-        private static void ReadStateFile()
+        public static bool ReadStateFile(string path)
         {
             // wrap all this in try and different catches
 
             // check if class is facade for security reasons
 
-            var jsonString = File.ReadAllText(DesktopPath + @"\json\file.json");
+            var jsonString = File.ReadAllText(path);
+          // var jsonString = File.ReadAllText(DesktopPath + @"\json\file.json");
             var jsonArray = (JArray) JsonConvert.DeserializeObject(jsonString);
 
             foreach (var token in jsonArray)
@@ -44,6 +45,7 @@ namespace Version1.Service_Layer
                     .ToArray();
                 var result = method.Invoke(inst, parameters); // check if null or false
             }
+            return true;
         }
 
         private static void CreateJson()
