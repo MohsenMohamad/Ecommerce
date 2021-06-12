@@ -507,7 +507,7 @@ namespace Version1.DataAccessLayer
 
         public DbSet<StoreDB> getAllStores()
         {
-            var result = db.StoresTable.SingleOrDefault(b => true);
+            
             return db.StoresTable;
         }
 
