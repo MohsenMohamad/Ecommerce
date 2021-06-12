@@ -13,9 +13,6 @@
         .auto-style16 {
             margin-left: 3px;
         }
-        .auto-style22 {
-            margin-left: 0px;
-        }
         .auto-style23 {
             width: 1px;
         }
@@ -123,7 +120,8 @@
                             </table>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:Button ID="Button3" runat="server" Height="45px" OnClick="Button3_Click" Text="Make Bid" Width="147px" />
+            </td>
         </tr>
         <tr>
             <td class="auto-style14">&nbsp;</td>

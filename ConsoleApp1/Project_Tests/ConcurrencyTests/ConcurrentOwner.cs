@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using Version1;
+using Version1.Service_Layer;
 
 namespace Project_tests.ConcurrencyTests
 {

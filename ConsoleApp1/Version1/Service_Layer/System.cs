@@ -21,6 +21,13 @@ namespace Version1.Service_Layer
             o.insertData();
             var facade = new Facade();
             Console.ReadLine();
+            string[] msg = ("offer for:" + "123" +  ".the offered price is:" + "99" + ".from:" + "adnan").Split(splitting);
+
+            Console.WriteLine(msg[1]+"   "+msg[3]+"    "+msg[5]);
+            Console.ReadLine();
+
+            /*     var facade = new Facade();
+             facade.AdminInitSystem();*/
             /*    
             facade.Register("zzz", "123");
            facade.Login("zzz", "123");
@@ -52,12 +59,12 @@ namespace Version1.Service_Layer
             public void insertData()
             {
 
-                /*//Review
-                Review c = new Review("333s433", "33333s333");
-                ReviewContext cc = new ReviewContext();
-                cc.ReviewsTable.Add(c);
-                Console.WriteLine(cc.ReviewsTable.Count());
-                cc.SaveChanges();*/
+            facade.AdminInitSystem();
+
+            var product = DataHandler.Instance.GetProduct("2", "AdnanStore");
+            var oldAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
+            var up = facade.UpdateProductAmountInStore("adnan", "AdnanStore", "2", 1000);
+            var newAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
 
                 //User
                 /*User c = new User("username", "pass");

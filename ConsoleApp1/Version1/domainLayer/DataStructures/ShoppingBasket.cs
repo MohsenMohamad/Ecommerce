@@ -4,13 +4,13 @@ namespace Version1.domainLayer.DataStructures
 {
     public class ShoppingBasket
     {
-        //todo mohsen
+        
         public long id { get; set; }
         public string StoreName { get; set; }
-        public Dictionary<string, int> Products { get; set; }
-
+        public Dictionary<string, double> priceperproduct { get; }
         public ShoppingBasket(string storeName)
         {
+            priceperproduct = new Dictionary<string, double>();
             Products = new Dictionary<string, int>();
             StoreName = storeName;
         }

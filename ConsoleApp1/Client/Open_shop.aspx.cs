@@ -20,9 +20,11 @@ namespace Client
 
             ShopHandler s = new ShopHandler();
             string username = Session["username"].ToString();
-            bool open = s.OpenShop(username, TextBoxShopname.Text , TextBoxpolicy.Text);
-            if (!open) {
+            string open = s.OpenShop(username, TextBoxShopname.Text , TextBoxpolicy.Text);
+            if (!(open.Equals("\"True\""))) {
                 Labelerror.Visible = true;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + open + "')", true);
+
             }
             Response.Redirect("~/Home.aspx");
         }

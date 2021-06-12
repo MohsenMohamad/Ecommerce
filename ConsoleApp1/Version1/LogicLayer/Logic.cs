@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 
@@ -62,9 +63,9 @@ namespace Version1.LogicLayer
 
         // 2.7) Add a product to a shopping basket
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,double priceofone)
         {
-            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount);
+            return CartLogic.AddProductToBasket(userName, storeName, productCode, amount,priceofone);
         }
 
         // 2.8) Get info and edit shopping cart
@@ -154,7 +155,7 @@ namespace Version1.LogicLayer
 
         public bool RemoveOwner(string apointerid, string storeName, string apointeeid)
         {
-            return StoreLogic.RemoveOwner(storeName, apointeeid);
+            return StoreLogic.RemoveOwner(storeName, apointerid,apointeeid);
         }
 
         public bool RemoveManager(string apointerid, string storeName, string apointeeid)
@@ -179,14 +180,17 @@ namespace Version1.LogicLayer
 
         public bool AddUserNotification(string userName, string notification)
         {
-            return false;
-            // return UserLogic.AddUserNotification(userName, notification);
+            return UserLogic.AddUserNotification(userName, notification);
         }
 
         public List<string> GetUserNotifications(string userName)
         {
-            return null;
-            //return UserLogic.GetUserNotifications(userName);
+            return UserLogic.GetUserNotifications(userName);
+        }
+
+        public List<string> GetUserNotificationsoffer(string userName)
+        {
+            return UserLogic.GetUserNotificationsoffer(userName);
         }
 
         public string GetStorePolicy(string storeName)
@@ -194,7 +198,7 @@ namespace Version1.LogicLayer
             return StoreLogic.GetStorePolicy(storeName);
         }
 
-        public bool UpdateStorePolicy(string storeName, IPurchasePolicy newPolicy)
+        public bool UpdateStorePolicy(string storeName, Component newPolicy)
         {
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
@@ -254,6 +258,61 @@ namespace Version1.LogicLayer
         public string GetHashString(string inputString)
         {
             return UserLogic.GetHashString(inputString);
+        }
+        
+        public bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
+        {
+            return StoreLogic.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+        public bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
+        {
+            return StoreLogic.AddCategoryPolicy(storeName, productCategory, hour, minute);
+        }
+        public bool AddUserPolicy(string storeName, string productBarCode)
+        {
+            return StoreLogic.AddUserPolicy(storeName, productBarCode);
+        }
+        
+        public bool AddCartPolicy(string storeName, int amount)
+        {
+            return StoreLogic.AddCartPolicy(storeName, amount);
+        }
+
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return StoreLogic.CloseStore(storeName, ownerName);
+        }
+        public int addPublicDiscount(string storeName, int percentage)
+        {
+            return StoreLogic.addPublicDiscount(storeName, percentage);
+        }
+
+        public int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
+        {
+            return StoreLogic.addPublicDiscount_toItem(storeName, barcode, percentage);
+        }
+
+        //todo implement
+        /*public int addConditionalDiscount(int shopid, int percentage, string condition)
+        {
+            Shop s = new Shop(shopid);
+            return s.addConditionalDiscount(percentage, condition);
+        }
+        
+        //todo implement
+        public int addConditionalDiscount_toItem(int item_in_shop_id, int percentage, string condition)
+        {
+            ItemInShop iis = new ItemInShop(item_in_shop_id);
+            return iis.addConditionalDiscount_toItem(percentage, condition);
+        }*/
+        public int addConditionalDiscount(string storeName, int percentage, string condition)
+        {
+            return StoreLogic.addConditionalDiscount(storeName, percentage,condition);
+        }
+
+        public double GetTotalCart(string userName)
+        {
+            return StoreLogic.GetTotalCart(userName);
         }
     }
 }

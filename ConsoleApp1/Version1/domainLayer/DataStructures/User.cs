@@ -8,8 +8,9 @@ namespace Version1.domainLayer.DataStructures
         public string Password { get; set; }
         public List<Purchase> history { get; set; }
         public List<string> notifications { get; set; }
-        
-        
+        private List<string> notificationsoffer { get; }
+
+
         public User(string username,string password)
         {
             UserName = username;
@@ -17,6 +18,7 @@ namespace Version1.domainLayer.DataStructures
             shoppingCart = new ShoppingCart();
             history = new List<Purchase>();
             notifications = new List<string>();
+            notificationsoffer = new List<string>();
         }
 
         
@@ -35,5 +37,10 @@ namespace Version1.domainLayer.DataStructures
             return notifications;
         }
         
+        public List<string> GetNotificationsoffer()
+        {
+            return notificationsoffer;
+        }
+
     }
 }

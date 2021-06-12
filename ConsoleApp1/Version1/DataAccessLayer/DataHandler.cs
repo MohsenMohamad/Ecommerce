@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -19,10 +18,10 @@ namespace Version1.DataAccessLayer
         internal ConcurrentDictionary<string, Store> Stores { get; }
         private ConcurrentDictionary<long, Guest> Guests { get; }
         private ConcurrentDictionary<string, Category> Categories;
+        public List<PurchaseOffer> Offers { get; set; }
         
         private List<Review> Reviews { get; }
         public JavaScriptSerializer oJS;
-
         private DataHandler()
         {
 
@@ -42,6 +41,7 @@ namespace Version1.DataAccessLayer
 
             Reviews = new List<Review>();
             Categories = new ConcurrentDictionary<string, Category>();
+            Offers = new List<PurchaseOffer>();
             InefficientLock = new object();
         }
 
@@ -289,7 +289,7 @@ namespace Version1.DataAccessLayer
             }
         }
 
-//------------------------------------------ User ------------------------------------------//
+        //------------------------------------------ User ------------------------------------------//
 
         internal bool AddGuest(Guest guest)
         {
@@ -351,7 +351,7 @@ namespace Version1.DataAccessLayer
             return GetUser(username) != null;
         }
 
-//------------------------------------------ Store ------------------------------------------//
+        //------------------------------------------ Store ------------------------------------------//
 
         internal bool AddStore(Store store)
         {
@@ -400,10 +400,10 @@ namespace Version1.DataAccessLayer
             return output;
         }
 
-//------------------------------------------ Product ------------------------------------------//
+        //------------------------------------------ Product ------------------------------------------//
 
 
-        internal Product GetProduct(string barcode, string storeName)
+        public Product GetProduct(string barcode, string storeName)
         {
             var store = GetStore(storeName);
             if (store == null) return null;
@@ -430,7 +430,7 @@ namespace Version1.DataAccessLayer
             foreach (var store in Stores.Values)
             {
                 var storeProducts = store.GetInventory();
-                products.Add(store.GetName(),storeProducts.Keys.ToList());
+                products.Add(store.GetName(), storeProducts.Keys.ToList());
             }
 
             return products;
@@ -447,6 +447,29 @@ namespace Version1.DataAccessLayer
             var result = long.TryParse(userName, out var id);
             if (!result) return -1;
             return id;
+        }
+
+        public void Reset()
+        {
+            _instance = null;
+        }
+
+
+        //-------------------------------------------------
+        public PurchaseOffer GetPurchaseOffer(Product pr, User us, Store st, double price, int amount)
+        {
+
+            PurchaseOffer curr = null;
+            for (int i = 0; i < Offers.Count; i++)
+            {
+                curr = Offers[i];
+                if (curr != null)
+                {
+                    if (curr.checkequals(pr, us, st, price, amount))
+                        return curr;
+                }
+            }
+            return null;
         }
     }
 }

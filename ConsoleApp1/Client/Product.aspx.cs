@@ -19,6 +19,9 @@ namespace Client
             Labelprice0.Text = Session["price"].ToString();
             LabelnameShop0.Text = Session["nameShop"].ToString();
 
+            if (Session["isLogin"] == null) {
+                Button3.Visible = false;
+            }
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -38,9 +41,14 @@ namespace Client
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()));
+            sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()),double.Parse(Labelprice0.Text.ToString()));
             Response.Redirect("~/Home.aspx");
 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Purchase_Offer.aspx");  
         }
     }
 }

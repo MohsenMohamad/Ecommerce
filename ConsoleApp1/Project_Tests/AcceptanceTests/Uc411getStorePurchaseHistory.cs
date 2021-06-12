@@ -32,7 +32,7 @@ namespace Project_Tests.AcceptanceTests
             UserLogin("user1","user1");
             UserLogin("user2","user2");
             Product product = new Product("shampoo", "des", "15", 655,new List<string>());
-            addProductsToShop(ownerUser.UserName, storeName, product.Barcode, 13);
+            AddProductToStore(ownerUser.UserName, storeName, product.Barcode,product.Name,product.Description,product.Price,"", 13);
 
             Assert.True(buyProduct("user1", storeName, product.Barcode, 2));
             Assert.True(buyProduct("user2", storeName, product.Barcode, 3));

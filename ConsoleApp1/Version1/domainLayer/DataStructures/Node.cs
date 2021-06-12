@@ -4,31 +4,30 @@ using System.Linq;
 
 namespace Version1.domainLayer.DataStructures
 {
-    public class Node<T1,T2> : IEnumerable<Node<T1,T2>>
+    public class Node<T1, T2> : IEnumerable<Node<T1, T2>>
     {
-
         internal T1 Key;
         internal T2 Value;
-        public List<Node<T1,T2>> Children;
-        
-        
-        public Node(T1 key ,T2 value)
+        public List<Node<T1, T2>> Children;
+
+
+        public Node(T1 key, T2 value)
         {
             Key = key;
             Value = value;
-            Children = new List<Node<T1,T2>>();
+            Children = new List<Node<T1, T2>>();
         }
 
         public void AddNode(T1 key, T2 value)
         {
-            Children.Add(new Node<T1,T2>(key,value));
+            Children.Add(new Node<T1, T2>(key, value));
         }
 
         public bool DeleteNode(T1 key)
         {
             if (Key.Equals(key))
                 return true;
-            
+
             foreach (var child in Children.ToList())
             {
                 if (child.DeleteNode(key))
@@ -38,7 +37,7 @@ namespace Version1.domainLayer.DataStructures
             return false;
         }
 
-        public Node<T1,T2> GetNode(T1 key)
+        public Node<T1, T2> GetNode(T1 key)
         {
             if (Key.Equals(key))
                 return this;
@@ -55,34 +54,34 @@ namespace Version1.domainLayer.DataStructures
         public List<T1> GetByValue(T2 value)
         {
             var result = new List<T1>();
-            
-            if(Value.Equals(value))
+
+            if (Value.Equals(value))
                 result.Add(Key);
             foreach (var node in Children)
             {
                 var childrenResults = node.GetByValue(value);
                 result.AddRange(childrenResults);
             }
-            
+
             return result;
         }
-        
+
         public List<T1> GetNotNull()
         {
             var result = new List<T1>();
-            
-            if(!Value.Equals(-1))
+
+            if (!Value.Equals(-1))
                 result.Add(Key);
             foreach (var node in Children)
             {
                 var childrenResults = node.GetNotNull();
                 result.AddRange(childrenResults);
             }
-            
+
             return result;
         }
-        
-        public IEnumerator<Node<T1,T2>> GetEnumerator()
+
+        public IEnumerator<Node<T1, T2>> GetEnumerator()
         {
             return Children.GetEnumerator();
         }
@@ -90,6 +89,11 @@ namespace Version1.domainLayer.DataStructures
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public bool IsParent(T1 key)
+        {
+            return GetNode(key) != null;
         }
     }
 }

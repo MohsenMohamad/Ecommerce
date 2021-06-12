@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer;
-using Version1.domainLayer.DataStructures;
-using Version1.domainLayer.StorePolicies;
-using Version1.domainLayer.UserRoles;
+using Version1.domainLayer.CompositeDP;
 
-namespace Version1
+namespace Version1.Service_Layer
 {
     public interface GenInterface
     {
@@ -21,13 +18,14 @@ namespace Version1
         bool OpenStore(string managerName, string storeName, string policy);    //
         string GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //
+        bool ValidateBasketPolicies(string userName, string storeName);
 
         bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories1, int amount); //
         List<string> SearchFilter(string userName, string sortOption, List<string> filters);    //
-        bool AddProductToBasket(string userName, string storeName, string productCode,int amount);  //
+        bool AddProductToBasket(string userName, string storeName, string productCode,int amount,double priceofone);  //
         Dictionary<string,int> GetCartByStore(string userName, string storeName);
-        bool UpdatePurchasePolicy(string storeName, IPurchasePolicy policy);
+        bool UpdatePurchasePolicy(string storeName, Component policy);
         
         ConcurrentDictionary<string,int> GetStoreInventory(string ownerName, string storeName);
         string[] getUsersStore(string userName, string storeName);

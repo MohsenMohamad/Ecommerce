@@ -37,8 +37,7 @@ namespace Project_Tests.AcceptanceTests
             product = new Product("shampoo",productName,"1",65,new List<string>());
             product2 = new Product("pringles",productName,"1",99,new List<string>());
             amount = 100;
-            Assert.True(addNewProductToTheSystemAndAddItToShop(storeName, product.Barcode, amount, 9.99, product.Name, "",
-                new[] {"fashio","work"}));
+            Assert.True(AddProductToStore("user",storeName, product.Barcode, productName,product.Description,product.Price,"fashion#work",amount));
         }
 
         [Test]
@@ -48,9 +47,9 @@ namespace Project_Tests.AcceptanceTests
             //addProductsToShop("user", storeName, product.Barcode, amount);
             
             //happy
-            Assert.True(getProductsFromShop("user", storeName).ContainsKey(product.Barcode));
+            Assert.True(GetStoreInventory("user", storeName).ContainsKey(product.Barcode));
             //bad
-            Assert.True(addProductsToShop("user", storeName, product.Barcode, 50));
+            Assert.True(AddProductToStore("user", storeName, product.Barcode,product.Name,product.Description,product.Price,product.Categories.ToString(), 50));
         }
         [Test]
         public void TestUpdate()
@@ -58,11 +57,11 @@ namespace Project_Tests.AcceptanceTests
             //happy
             UpdateProductAmountInStore("user", storeName, product.Barcode, amount - 1);
             int newAmount = (amount - 1);
-            Assert.True(getProductsFromShop("user",storeName).ContainsKey(product.Barcode) && getProductsFromShop("user",storeName)[product.Barcode] == newAmount) ;
+            Assert.True(GetStoreInventory("user",storeName).ContainsKey(product.Barcode) && GetStoreInventory("user",storeName)[product.Barcode] == newAmount) ;
             //bad
             newAmount = (amount - 5);
             UpdateProductAmountInStore("user", storeName, product2.Barcode,amount - 5 );
-            foreach (var VARIABLE in getProductsFromShop("user",storeName))
+            foreach (var VARIABLE in GetStoreInventory("user",storeName))
             {
                 Assert.False(VARIABLE.Value == (newAmount));
             }

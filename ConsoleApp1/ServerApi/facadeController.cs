@@ -20,27 +20,65 @@ namespace ServerApi
             var a = facade.GetStoresProducts();
             return a;
         }
+
+        [HttpGet]
+        public string[][] GetStoreProducts(string storeName)
+        {
+            return facade.GetStoreProducts(storeName);
+        }
+
         [HttpGet]
         public string[][] getAllStores()
         {
             return facade.GetAllStores();
         }
         [HttpGet]
-        public bool addItemToStore(string ownername,string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
+        public string addItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
-            Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
-            //todo check if works from mohsen!
-/*            if (facade.AddNewProductToSystem(itemBarCode, item_name, descreption, price, catagories))
-            {*/
-                return facade.AddProductToStore(ownername, shopName, itemBarCode, item_name,descreption,price, catagorie, amount);
-          /*  }*/
-            //the item barcode does not match the ProductName in the inventory. 
+            try
+            {
+                Logger.GetInstance().Event("product with barcode " + itemBarCode + " has been added to the shop " + shopName);
+
+                bool msg = facade.AddProductToStore(ownername, shopName, itemBarCode, item_name, descreption, price, catagorie, amount);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
-        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode,int amount)
         {
-            return facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
+            facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
+
+        }
+
+        [HttpGet]
+        public bool IsOwner(string storeName, string ownerName)
+        {
+            return facade.IsOwner(storeName, ownerName);
+        }
+
+        [HttpGet]
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            return facade.CloseStore(storeName, ownerName);
+        }
+
+        [HttpGet]
+        public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        {
+            try
+            {
+                bool msg = facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -50,10 +88,43 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool OpenShop(string userName, string shopName, string policy)
+        public string OpenShop(string userName, string shopName, string policy)
         {
-            Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
-            return facade.OpenStore(userName, shopName, policy);
+            try
+            {
+                Logger.GetInstance().Event(userName + " has opened shop : " + shopName);
+                bool msg=facade.OpenStore(userName, shopName, policy);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        [HttpGet]
+        public int addStoreDiscount(string storeName, int percentage)
+        {
+            return facade.addPublicStoreDiscount(storeName, percentage);
+        }
+        
+        [HttpGet]
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return facade.addPublicDiscountToItem(storeName, barcode, percentage);
+        }
+
+        
+        [HttpGet]
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return facade.addConditionalDiscount(shopName, percentage, condition);
+        }
+        
+        [HttpGet]
+        public double GetTotalCart(string userName)
+        {
+            return facade.GetTotalCart(userName);
         }
 
         [HttpGet]
@@ -61,46 +132,101 @@ namespace ServerApi
         {
             return facade.SearchByKeyword(keyword);
         }
+
+
         [HttpGet]
-        public bool makeNewOwner(string storeName, string apointerid, string apointeeid)
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
         {
-            bool output = facade.MakeNewOwner(storeName, apointerid, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has make new owner for " + storeName
-                : apointerid + " could not make new owner for " + storeName);
-            return output;
+            return facade.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+
+        [HttpGet]
+        public bool AddCategortPolicies(string storeName, string category, int hour, int minute)
+        {
+            return facade.AddCategoryPolicy(storeName, category, hour, minute);
+        }
+
+        [HttpGet]
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            return facade.AddUserPolicy(storeName, productBarCode);
+        }
+
+        [HttpGet]
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            return facade.AddCartPolicy( storeName,  amount);
+        }
+
+
+        [HttpGet]
+        public string makeNewOwner(string storeName, string apointerid, string apointeeid)
+        {
+            try {
+                bool output = facade.MakeNewOwner(storeName, apointerid, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has make new owner for " + storeName
+                    : apointerid + " could not make new owner for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool makeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        public string makeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
         {   //todo split the permissions and make dataStructures that saves the permissions
-            bool output = facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has make new manger " + apointeeid + " for " + storeName
-                : apointerid + " could not make new manger for " + storeName);
-            return output;
+            try
+            {
+                bool output = facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has make new manger " + apointeeid + " for " + storeName
+                    : apointerid + " could not make new manger for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        [HttpGet]
+        public string removeOwner(string apointerid, string storeName, string apointeeid)
+        {
+            try
+            {
+                bool output = facade.RemoveOwner(apointerid, storeName, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has has removed owner" + apointeeid + "form store: " + storeName
+                    : apointerid + " could not removed owner for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool removeOwner(string apointerid, string storeName, string apointeeid)
+        public string removeManager(string apointerid, string storeName, string apointeeid)
         {
-            bool output = facade.RemoveOwner(apointerid, storeName, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has has removed owner" + apointeeid + "form store: " + storeName
-                : apointerid + " could not removed owner for " + storeName);
-            return output;
+            try
+            {
+                bool output = facade.RemoveManager(apointerid, storeName, apointeeid);
+                Logger.GetInstance().Event(output
+                    ? apointerid + " has has removed manger" + apointeeid + "form store: " + storeName
+                    : apointerid + " could not removed manger for " + storeName);
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
-        public bool removeManager(string apointerid, string storeName, string apointeeid)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
         {
-            bool output = facade.RemoveManager(apointerid, storeName, apointeeid);
-            Logger.GetInstance().Event(output
-                ? apointerid + " has has removed manger" + apointeeid + "form store: " + storeName
-                : apointerid + " could not removed manger for " + storeName);
-            return output;
-        }
-        [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
-        {
-            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount);
+            bool output = facade.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
             Logger.GetInstance().Event(output
                 ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
                 : userName + " could not add product :" + productBarCode + "form store: " + storeName + " to his Basket");
@@ -181,26 +307,39 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool Register(string username, string password)
+        public string Register(string username, string password)
         {
 
-            bool output = facade.Register(username, password);
-            if (output)
+            try
             {
-                Logger.GetInstance().Event(username + "has Register succesfully ");
+                bool output = facade.Register(username, password);
+                if (output)
+                {
+                    Logger.GetInstance().Event(username + "has Register succesfully ");
+                }
+                return output.ToString();
             }
-            return output;
+            catch (Exception e) {
+                return e.Message;
+            }
         }
 
         [HttpGet]
-        public bool Login(string username, string password)
+        public string Login(string username, string password)
         {
-            bool output = facade.Login(username, password);
-            if (output)
+            try
             {
-                Logger.GetInstance().Event(username + "has LoggedIn ");
+                bool output = facade.Login(username, password);
+                if (output)
+                {
+                    Logger.GetInstance().Event(username + "has LoggedIn ");
+                }
+                return output.ToString();
             }
-            return output;
+            catch(Exception e)
+            {
+                return e.Message;
+            }
         }
         [HttpGet]
         public bool Logout(string username)
@@ -216,6 +355,37 @@ namespace ServerApi
         public string[] GetAllNotifications(string userName)
         {
             return facade.GetAllUserNotifications(userName);
+        }
+
+        [HttpGet]
+        public string[] GetAllUserNotificationsoffer(string userName)
+        {
+            return facade.GetAllUserNotificationsoffer(userName);
+
+        }
+
+
+        [HttpGet]
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+            
+           facade.acceptoffer(barcode, price, username, storename, amount,by_username);
+        
+        }
+
+        [HttpGet]
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+
+        }
+
+
+        [HttpGet]
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            facade.CounterOffer(barcode, price, username, storename, amount,owner,oldprice);
+
         }
 
         [HttpGet]

@@ -157,6 +157,7 @@
   <ItemGroup>
     <Content Include="Cart.aspx" />
     <Content Include="clientWebSocket.html" />
+    <Content Include="CounterOffer.aspx" />
     <Content Include="EditShop.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\done.gif" />
@@ -169,11 +170,14 @@
     <Content Include="img\tenor.gif" />
     <Content Include="MyShops.aspx" />
     <Content Include="Notifications.aspx" />
+    <Content Include="NotificationsOffer.aspx" />
     <Content Include="Open_shop.aspx" />
     <Content Include="Product.aspx" />
     <Content Include="PurchaseDone.aspx" />
+    <Content Include="Purchase_Offer.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Shops.aspx" />
+    <Content Include="Staff.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +189,17 @@
       <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
     <Compile Include="Code\Notifications.cs" />
+    <Compile Include="Code\Permissions.cs" />
     <Compile Include="Code\ShopHandler.cs" />
     <Compile Include="Code\System.cs" />
     <Compile Include="Code\UserHandler.cs" />
+    <Compile Include="CounterOffer.aspx.cs">
+      <DependentUpon>CounterOffer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CounterOffer.aspx.designer.cs">
+      <DependentUpon>CounterOffer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EditShop.aspx.cs">
       <DependentUpon>EditShop.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -223,6 +235,13 @@
     <Compile Include="Notifications.aspx.designer.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NotificationsOffer.aspx.cs">
+      <DependentUpon>NotificationsOffer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NotificationsOffer.aspx.designer.cs">
+      <DependentUpon>NotificationsOffer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Open_shop.aspx.cs">
       <DependentUpon>Open_shop.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,6 +264,13 @@
     <Compile Include="PurchaseDone.aspx.designer.cs">
       <DependentUpon>PurchaseDone.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Purchase_Offer.aspx.cs">
+      <DependentUpon>Purchase_Offer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Purchase_Offer.aspx.designer.cs">
+      <DependentUpon>Purchase_Offer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -258,6 +284,13 @@
     </Compile>
     <Compile Include="Shops.aspx.designer.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Staff.aspx.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff.aspx.designer.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="Notifications.aspx.cs" Inherits="Client.Notifications" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style19 {
+            margin-left: 1050px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <asp:DataList ID="Data_cart" runat="server" Width="100%" OnSelectedIndexChanged="Data_cart_SelectedIndexChanged">
                                             <ItemTemplate>
                                                 <table align="center" style="width: 100%; border-bottom: 1px solid #CCC">
@@ -24,4 +30,9 @@
                                                 </table>
                                             </ItemTemplate>
                                         </asp:DataList>
+
+        <tr>
+           <asp:Button ID="OffersButton" runat="server" Text="Offers" CssClass="auto-style19" Width="98px" OnClick="OffersButton_Click" />                                                       
+    </tr>
+
 </asp:Content>

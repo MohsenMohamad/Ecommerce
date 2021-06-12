@@ -19,6 +19,13 @@
                                                         <td style="text-align: right;">
                                                             <asp:Button ID="btnedit" CommandArgument='<%#Eval("storeName")%>' CommandName="editshop" runat="server" Text="editshop" Width="101px" Height="40px" />
                                                         </td>
+                                                        <td style="text-align: right;">
+                                                            <asp:Button ID="StaffInfoBtn" CommandArgument='<%#Eval("storeName")%>' CommandName="StafInfo" runat="server" Text="Staff Info" Width="101px" Height="40px" />
+                                                        </td>
+
+                                                         <td style="text-align: right;">
+                                                            <asp:Button ID="ButtonClose" CommandArgument='<%#Eval("storeName")%>' CommandName="Close" runat="server" Text="Close Store" Width="101px" Height="40px" />
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </ItemTemplate>

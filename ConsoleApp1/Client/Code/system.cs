@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Threading;
 
 namespace Client.Code
 {
@@ -14,13 +13,7 @@ namespace Client.Code
 
         public static string SendApi(string method_name, string Parameters)
         {
-            
-            
-            ServicePointManager.ServerCertificateValidationCallback += 
-                (sender, cert, chain, sslPolicyErrors) => true;
-            
-            string service = "";
-            service = "facade";
+            string service = "facade";
 
             string URI = string.Format("{0}/{1}/{2}?{3}", server_domain, service, method_name, Parameters);
             try
@@ -32,8 +25,6 @@ namespace Client.Code
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URI);
                 request.Method = "GET";
                 String test = String.Empty;
-                //while counter < 10
-                //try
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     Stream dataStream = response.GetResponseStream();

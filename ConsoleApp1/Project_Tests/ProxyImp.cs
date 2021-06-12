@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.StorePolicies;
 using Version1.Service_Layer;
 
@@ -12,7 +13,7 @@ namespace Project_tests
     {
         private GenInterface real;
 
-        public void SetReal(Facade realInstance)
+        public void SetReal(GenInterface realInstance)
         {
             real = realInstance;
         }
@@ -100,6 +101,13 @@ namespace Project_tests
             return real.CheckStoreInventory(storeName, products);
         }
 
+        public bool ValidateBasketPolicies(string userName, string storeName)
+        {
+            if (real == null)
+                return true;
+            return real.ValidateBasketPolicies(userName, storeName);
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
@@ -116,11 +124,11 @@ namespace Project_tests
             return real.SearchFilter(userName, sortOption, filters);
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             if (real == null)
                 return true;
-            return real.AddProductToBasket(userName, storeName, productCode, amount);
+            return real.AddProductToBasket(userName, storeName, productCode, amount,priceofone);
         }
 
         public Dictionary<string, int> GetCartByStore(string userName, string storeName)
@@ -130,7 +138,7 @@ namespace Project_tests
             return real.GetCartByStore(userName, storeName);
         }
 
-        public bool UpdatePurchasePolicy(string storeName, IPurchasePolicy policy)
+        public bool UpdatePurchasePolicy(string storeName, Component policy)
         {
             if (real == null)
                 return true;

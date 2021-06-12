@@ -1,11 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Version1;
+using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace Project_tests.ConcurrencyTests
 {
     public class ConcurrentPurchase : ATProject
     {
+        
+        private const string OwnerName = "adnan";
+        private const string StoreName = "AdnanStore";
+        private static Category electronics = new Category("Electronics");
+        private Product product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            800,
+            new[] {electronics.Name}.ToList());
 
         [OneTimeSetUp]
         public void SetUp()
@@ -27,7 +37,7 @@ namespace Project_tests.ConcurrencyTests
         {
             // both purchases should be completed and the amount in inventory should be correct
             
-            AddProductToStore("adnan", "AdnanStore", "1", 3);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
             
             
             AddProductToCart("User1", "AdnanStore", "1", 1);
@@ -40,7 +50,7 @@ namespace Project_tests.ConcurrencyTests
 
             Task.WaitAll(task1, task2);
 
-            var newInventory = getProductsFromShop("adnan","AdnanStore");
+            var newInventory = GetStoreInventory("adnan","AdnanStore");
             var result3 = newInventory != null && newInventory.ContainsKey("1") && newInventory["1"] == 1;
             Assert.True(result1 & result2 & result3);
             
@@ -52,7 +62,7 @@ namespace Project_tests.ConcurrencyTests
             
             // only one of the purchases should be completed
             
-            AddProductToStore("adnan", "AdnanStore", "1", 1);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 1);
             
             
             AddProductToCart("User1", "AdnanStore", "1", 1);
@@ -75,7 +85,7 @@ namespace Project_tests.ConcurrencyTests
         {
             // adding an amount to a product with 0 current amount and buying at the same time (sometimes fails sometimes works)
             
-            AddProductToStore("adnan", "AdnanStore", "1", 2);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             AddProductToCart("User1", "AdnanStore", "1", 2);
             UpdateProductAmountInStore("adnan", "AdnanStore", "1", 1);
             
@@ -83,7 +93,7 @@ namespace Project_tests.ConcurrencyTests
             var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
             
             var result2 = false;
-            var task2 = Task.Factory.StartNew(() => result2 = AddProductToStore("adnan","AdnanStore","1",1));
+            var task2 = Task.Factory.StartNew(() => result2 = AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 1));
 
             Task.WaitAll(task1, task2);
             
@@ -101,6 +111,13 @@ namespace Project_tests.ConcurrencyTests
             real.DeleteUser("User3");
             RemoveProductFromStore("adnan", "AdnanStore", "1");
             
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+            real.ResetMemory();
         }
         
     }

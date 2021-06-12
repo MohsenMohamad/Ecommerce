@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Threading;
 using System.Web;
 
 namespace Client.Code
@@ -23,11 +22,12 @@ namespace Client.Code
             t1.Columns.Add("descerption");
             t1.Columns.Add("barcode");
             t1.Columns.Add("price");
+            t1.Columns.Add("discount");
             t1.Columns.Add("catagory");
             t1.Columns.Add("nameShop");
 
             for (int i = 0; i < jarray.Count; i++) {
-                t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4],jarray[i][5]);
+                t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4],jarray[i][5], jarray[i][6]);
             }
             DataSet d1 = new DataSet("products");
             d1.Tables.Add(t1);
@@ -35,10 +35,70 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
-        public bool OpenShop(string userName, string shopName, string policy)
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&owner={5}&oldprice={6}", barcode, price, username, storename, amount, owner, oldprice);
+            System.SendApi("CounterOffer", param);
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
+            System.SendApi("acceptoffer", param);
+
+        }
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
+        {
+            string param = string.Format("username={0}&storename={1}&price={2}&barcode={3}&amount={4}", username, storename, price, barcode, amount);
+            System.SendApi("Recieve_purchase_offer", param);
+
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
+            System.SendApi("rejectoffer", param);
+        }
+
+
+
+
+        public DataSet GetStoreProducts(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoreProducts", param).ToString());
+            DataTable t1 = new DataTable("products");
+            t1.Columns.Add("productName");
+            t1.Columns.Add("barcode");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                t1.Rows.Add(jarray[i][0], jarray[i][2]);
+            }
+            DataSet d1 = new DataSet("products");
+            d1.Tables.Add(t1);
+            return d1;
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            string param = string.Format("storeName={0}&barcode={1}&percentage={2}", storeName, barcode, percentage);
+            return int.Parse(System.SendApi("addPublicDiscountToItem", param));
+        }
+
+
+        public int addStoreDiscount(string storeName, int percentage)
+        {
+            string param = string.Format("storeName={0}&percentage={1}", storeName, percentage);
+            return int.Parse(System.SendApi("addStoreDiscount", param));
+        }
+
+        public string OpenShop(string userName, string shopName, string policy)
         {
             string param = string.Format("userName={0}&shopName={1}&policy={2}", userName, shopName, policy);
-            return bool.Parse(System.SendApi("OpenShop", param));
+            return (System.SendApi("OpenShop", param));
         }
 
         public DataSet getAllStores() {
@@ -60,9 +120,9 @@ namespace Client.Code
             return d1;
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
-            string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}", userName, storeName, productBarCode,amount);
+            string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}&priceofone={4}", userName, storeName, productBarCode,amount, priceofone);
             return bool.Parse(System.SendApi("AddProductToBasket", param));
         }
 
@@ -82,12 +142,18 @@ namespace Client.Code
 
             for (int i = 0; i < jarray.Count; i++)
             {
-                t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4], jarray[i][5] , jarray[i][6]);
+                t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4], jarray[i][6] , jarray[i][7]);
             }
 
             DataSet d1 = new DataSet("products");
             d1.Tables.Add(t1);
             return d1;
+        }
+
+        public bool CloseStore(string storeName, string ownerName)
+        {
+            string param = string.Format("storeName={0}&ownerName={1}", storeName, ownerName);
+            return bool.Parse(System.SendApi("CloseStore", param));
         }
 
         public DataSet GetUserStores(string userName)
@@ -111,17 +177,16 @@ namespace Client.Code
 
         }
 
-        public bool AddItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
+        public string AddItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price, string shopName, string descreption, string catagorie)
         {
             string param = string.Format("ownername={0}&itemBarCode={1}&item_name={2}&amount={3}&price={4}&shopName={5}&descreption={6}&catagorie={7}", ownername, itemBarCode, item_name, amount, price, shopName, descreption, catagorie);
-            return bool.Parse(System.SendApi("AddItemToStore", param));
-
+            return (System.SendApi("AddItemToStore", param));
         }
 
-        public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
+        public string UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&amount={3}", userName, storeName, productBarcode, amount);
-            return bool.Parse(System.SendApi("UpdateProductAmountInStore", param));
+            return (System.SendApi("UpdateProductAmountInStore", param));
         }
 
         /* public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
@@ -232,6 +297,35 @@ namespace Client.Code
             string param = "";
             return bool.Parse(System.SendApi("InitSystem", param));
         }
+
+
+        public bool AddProductPolicies(string storeName, string productBarCode, int amount)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}&amount={2}", storeName, productBarCode, amount);
+            return bool.Parse(System.SendApi("AddProductPolicies", param));
+        }
+        public bool AddCategortPolicies(string storeName, string Category, int hour, int minute)
+        {
+            string param = string.Format("storeName={0}&Category={1}&hour={2}&minute={3}", storeName, Category, hour , minute);
+            return bool.Parse(System.SendApi("AddCategortPolicies", param));
+        }
+        public bool AddUserPolicies(string storeName, string productBarCode)
+        {
+            string param = string.Format("storeName={0}&productBarCode={1}", storeName, productBarCode);
+            return bool.Parse(System.SendApi("AddUserPolicies", param));
+        }
+        public bool AddCartrPolicies(string storeName, int amount)
+        {
+            string param = string.Format("storeName={0}&amount={1}", storeName, amount);
+            return bool.Parse(System.SendApi("AddCartrPolicies", param));
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            string param = string.Format("shopName={0}&percentage={1}&condition={2}", shopName, percentage, condition);
+            return int.Parse(System.SendApi("addConditionalDiscount", param));
+        }
+
 
 
 

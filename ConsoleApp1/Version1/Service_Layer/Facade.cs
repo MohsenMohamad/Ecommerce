@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
+using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 using Version1.LogicLayer;
@@ -22,6 +24,96 @@ namespace Version1.Service_Layer
             return hashPassword != null && logicInstance.UserLogin(username, hashPassword);
         }
 
+        public void Recieve_purchase_offer(string username,string storename,string price,string barcode,int amount)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storename);
+            var user = DataHandler.Instance.GetUser(username);
+            var store = DataHandler.Instance.GetStore(storename);
+            var offer = new PurchaseOffer(product, (User)user, store,double.Parse( price),amount);
+            DataHandler.Instance.Offers.Add(offer);
+            offer.makeOffer();
+
+        }
+
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+           if(!IsOwner(storename, by_username)){
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(by_username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                if (offer == null)
+                {
+                    offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                    DataHandler.Instance.Offers.Add(offer);
+                }
+                if(offer.acceptOffer())
+                AddProductToBasket(by_username, storename, barcode, amount,double.Parse(price));
+            }
+            else
+            {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                if (offer == null)
+                {
+                    offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                    DataHandler.Instance.Offers.Add(offer);
+                }
+                if(offer.acceptOffernotfinal(by_username))
+                    AddProductToBasket(username, storename, barcode, amount, double.Parse(price));
+
+            }
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount,string by_username)
+        {
+            if (!IsOwner(storename, by_username))
+            {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(by_username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.rejectOffer();
+            }
+            else {
+                var product = DataHandler.Instance.GetProduct(barcode, storename);
+                var user = DataHandler.Instance.GetUser(username);
+                var store = DataHandler.Instance.GetStore(storename);
+                var offer = DataHandler.Instance.GetPurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                offer.rejectOffer();
+            }
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            var product = DataHandler.Instance.GetProduct(barcode, storename);
+            var user = DataHandler.Instance.GetUser(username);
+            var store = DataHandler.Instance.GetStore(storename);
+
+
+
+            if (IsOwner(storename, owner))
+            {
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                DataHandler.Instance.Offers.Add(offer);
+                offer.counteroffer(owner, oldprice);
+            }
+
+            else
+            {
+                string tmp = username;
+                username = owner;
+                owner = tmp;
+                user = DataHandler.Instance.GetUser(username);
+                var offer = new PurchaseOffer(product, (User)user, store, double.Parse(price), amount);
+                DataHandler.Instance.Offers.Add(offer);
+                offer.counterofferifnotowner(owner, oldprice);
+            }
+        }
+
         public long GuestLogin()
         {
             return logicInstance.GuestLogin();
@@ -36,6 +128,7 @@ namespace Version1.Service_Layer
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
             return hashPassword != null && logicInstance.Register(username, hashPassword);
+
         }
 
 
@@ -69,6 +162,22 @@ namespace Version1.Service_Layer
             return result;
         }
 
+
+        public bool ValidateBasketPolicies(string userName, string storeName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+
+            var basket = user.GetShoppingCart().GetBasket(storeName);
+
+            foreach (var policy in store.GetPurchasePolicies())
+            {
+                if (!policy.Validate(basket))
+                    return false;
+            }
+
+            return true;
+        }
 
         public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
             string description, double price,
@@ -212,14 +321,38 @@ namespace Version1.Service_Layer
         }
 
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount)
+        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,double priceofone)
         {
-            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount);
+            return logicInstance.AddProductToBasket(userName, storeName, productBarCode, amount,priceofone);
         }
         
         public bool OpenStore(string userName, string shopName, string policy)
         {
             return logicInstance.OpenStore(userName, shopName, policy);
+        }
+
+
+        public bool AddMaxProductPolicy(string storeName, string productBarCode, int amount)
+        {
+            return logicInstance.AddMaxProductPolicy(storeName, productBarCode, amount);
+        }
+        public bool AddCategoryPolicy(string storeName, string productCategory, int hour, int minute)
+        {
+            return logicInstance.AddCategoryPolicy(storeName, productCategory, hour, minute);
+        }
+        public bool AddUserPolicy(string storeName, string productBarCode)
+        {
+            return logicInstance.AddUserPolicy(storeName, productBarCode);
+        }
+        
+        public bool AddCartPolicy(string storeName, int amount)
+        {
+            return logicInstance.AddCartPolicy(storeName, amount);
+        }
+
+        public string[][] GetAllWorkersInStore(string storeName)
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -265,10 +398,13 @@ namespace Version1.Service_Layer
              return ProductsTo2DStringArray(basketsProducts);*/
         }
 
+       
+
         public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
             return logicInstance.RemoveProductFromCart(userName, storeName, productBarcode, amount);
         }
+
 
 
         // low
@@ -285,7 +421,7 @@ namespace Version1.Service_Layer
                 return null;
             var products = new Dictionary<string, List<string>> {{storeName, basketProducts}};
 
-            return ProductsTo2DStringArray(products);
+            return ProductsTo2DStringArray2(products,userName);
         }
 
         public bool SendNotifications(string userName, string msg)
@@ -299,7 +435,13 @@ namespace Version1.Service_Layer
             return notifications?.ToArray();
         }
 
-        public bool UpdatePurchasePolicy(string shopName, IPurchasePolicy policy)
+        public string[] GetAllUserNotificationsoffer(string userName)
+        {
+            var notifications = logicInstance.GetUserNotificationsoffer(userName);
+            return notifications?.ToArray();
+        }
+
+        public bool UpdatePurchasePolicy(string shopName, Component policy)
         {
             return logicInstance.UpdateStorePolicy(shopName, policy);
         }
@@ -331,12 +473,13 @@ namespace Version1.Service_Layer
                 foreach (var productBarcode in storeProducts.Value)
                 {
                     var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
-                    string[] productData = new string[5];
+                    string[] productData = new string[6];
 
                     productData[0] = product.Name;
                     productData[1] = product.Description;
                     productData[2] = product.Barcode;
                     productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
+                    productData[4] = product.discountPolicy.discount_description;
 
                     var categories = "";
                     foreach (var category in product.Categories)
@@ -344,7 +487,47 @@ namespace Version1.Service_Layer
                         categories = categories + category + "#";
                     }
 
-                    productData[4] = categories;
+                    categories =  categories.Substring(0, categories.Length - 1);
+
+                    productData[5] = categories;
+
+
+                    result[index] = productData;
+                    index += 1;
+                }
+            }
+
+            return result;
+        }
+
+        private string[][] ProductsTo2DStringArray2(Dictionary<string, List<string>> products, string userName)
+        {
+            string[][] result = new string[products.Values.SelectMany(p => p).Count()][];
+            int index = 0;
+            var user = DataHandler.Instance.GetUser(userName);
+            foreach (var storeProducts in products)
+            {
+                var storeName = storeProducts.Key;
+                foreach (var productBarcode in storeProducts.Value)
+                {
+                    var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
+                    string[] productData = new string[6];
+                    var shopbasket = user.GetShoppingCart().shoppingBaskets[storeName].priceperproduct;
+                    productData[0] = product.Name;
+                    productData[1] = product.Description;
+                    productData[2] = product.Barcode;
+                    productData[3] = shopbasket[product.Barcode].ToString();
+                    productData[4] = product.discountPolicy.discount_description;
+
+                    var categories = "";
+                    foreach (var category in product.Categories)
+                    {
+                        categories = categories + category + "#";
+                    }
+
+                    categories = categories.Substring(0, categories.Length - 1);
+
+                    productData[5] = categories;
 
 
                     result[index] = productData;
@@ -424,12 +607,15 @@ namespace Version1.Service_Layer
         }
 
 
+
+
+
         public bool AdminInitSystem()
         {
             /* ----------------------------  users -------------------------------*/
 
-            ExternalServices.ExternalFinanceService.CreateConnection();
-            ExternalServices.ExternalSupplyService.CreateConnection();
+/*            ExternalServices.ExternalFinanceService.CreateConnection();
+            ExternalServices.ExternalSupplyService.CreateConnection();*/
 
             Register("mohamedm", "1111");
             Register("adnan", "2222");
@@ -460,7 +646,7 @@ namespace Version1.Service_Layer
                 new[] {health.Name, beauty.Name}.ToList());
             var product5 = new Product("5", "sandals", "comfortable sandals", 349.99,
                 new[] {fashion.Name, health.Name, sports.Name}.ToList());
-            var product6 = new Product("6", "brush", "just a normal brush , what did you expect ...", 33,
+            var product6 = new Product("6", "brush", "just a normal brush  what did you expect ...", 33,
                 new[] {arts.Name}.ToList());
 
             /* ----------------------------  discounts -------------------------------*/
@@ -492,11 +678,11 @@ namespace Version1.Service_Layer
             MakeNewManger("MohamedStore", "mohamedm", "yara", 4);
             //         MohamedStore.AddDiscount(dis1);
             AddProductToStore("mohamedm", "MohamedStore", product3.Barcode, product3.Name, product3.Description,
-                product3.Price, product3.Categories.ToString(), 8);
+                product3.Price, product3.Categories[0].ToString(), 8);
             AddProductToStore("mohamedm", "MohamedStore", product1.Barcode, product1.Name, product1.Description,
-                product1.Price, product1.Categories.ToString(), 11);
+                product1.Price, product1.Categories[0].ToString(), 11);
             AddProductToStore("mohamedm", "MohamedStore", product6.Barcode, product6.Name, product6.Description,
-                product6.Price, product6.Categories.ToString(), 20);
+                product6.Price, product6.Categories[0].ToString(), 20);
 
 
             OpenStore("adnan", "AdnanStore", "AdnanPolicy");
@@ -504,29 +690,26 @@ namespace Version1.Service_Layer
             MakeNewOwner("AdnanStore", "adnan", "yara");
             //     AdnanStore.AddDiscount(dis2);
             AddProductToStore("adnan", "AdnanStore", product2.Barcode, product2.Name, product2.Description,
-                product2.Price, product2.Categories.ToString(), 18);
+                product2.Price, product2.Categories[0].ToString()+"#"+ product2.Categories[1].ToString(), 18);
             AddProductToStore("adnan", "AdnanStore", product4.Barcode, product4.Name, product4.Description,
-                product4.Price, product4.Categories.ToString(), 20);
+                product4.Price, product4.Categories[0].ToString() + "#" + product4.Categories[1].ToString(), 20);
             AddProductToStore("adnan", "AdnanStore", product5.Barcode, product5.Name, product5.Description,
-                product5.Price, product5.Categories.ToString(), 7);
+                product5.Price, product5.Categories[0].ToString() + "#" + product5.Categories[1].ToString() + "#" + product5.Categories[2].ToString(), 7);
 
 
             /*--------------------------------------------------------------------------*/
 
-            AddProductToBasket("mohameda", "AdnanStore", "5", 3);
-            AddProductToBasket("mohameda", "AdnanStore", "2", 4);
-            AddProductToBasket("adnan", "MohamedStore", "1", 2);
-            AddProductToBasket("yara", "MohamedStore", "5", 1);
-            AddProductToBasket("shadi", "AdnanStore", "4", 10);
+            AddProductToBasket("mohameda", "AdnanStore", "5", 3, 349.99);
+            AddProductToBasket("mohameda", "AdnanStore", "2", 4,450);
+            AddProductToBasket("adnan", "MohamedStore", "1", 2,800);
+            AddProductToBasket("yara", "MohamedStore", "5", 1, 349.99);
+            AddProductToBasket("shadi", "AdnanStore", "4", 10,50);
 
+
+            
 
             /*--------------------------------------------------------------------------*/
             return true;
-        }
-
-        public bool SetStorePolicy(string userName, string storeName, IPurchasePolicy policy)
-        {
-            throw new NotImplementedException();
         }
 
         //do not use
@@ -536,9 +719,9 @@ namespace Version1.Service_Layer
             return logicInstance.GetStoreInventory(storeName);
         }
 
-        public bool CloseShop(string shopName, string ownerName)
+        public bool CloseStore(string storeName, string ownerName)
         {
-            throw new NotImplementedException();
+            return logicInstance.CloseStore(storeName, ownerName);
         }
 
         public bool HasPermission(string shopName, string userName, int permission)
@@ -629,6 +812,26 @@ namespace Version1.Service_Layer
         public bool initSystem(string admin)
         {
             throw new NotImplementedException();
+        }
+
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            return logicInstance.addPublicDiscount(storeName, percentage);
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return logicInstance.addPublicDiscount_toItem(storeName, barcode, percentage);
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return logicInstance.addConditionalDiscount(shopName, percentage, condition);
+        }
+
+        public double GetTotalCart(string userName)
+        {
+            return logicInstance.GetTotalCart(userName);
         }
     }
 }

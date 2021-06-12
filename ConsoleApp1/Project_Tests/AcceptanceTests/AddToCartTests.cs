@@ -1,16 +1,22 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Project_tests;
 using Version1;
+using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace Project_Tests.AcceptanceTests
 {
     public class AddToCartTests : ATProject
     {
-        private const string TestUserName = "User1";
-        private const string TestUserPassword = "123";
-        private const string TestStoreName = "AdnanStore";
-        private const string TestStoreOwner = "adnan";
-        private const string TestProductBarcode = "1";
+        private const string UserName = "User1";
+        private const string Password = "123";
+        private const string OwnerName = "adnan";
+        private const string StoreName = "AdnanStore";
+        private static Category electronics = new Category("Electronics");
+        private Product product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            800,
+            new[] {electronics.Name}.ToList());
 
 
         [OneTimeSetUp]
@@ -22,7 +28,7 @@ namespace Project_Tests.AcceptanceTests
         [SetUp]
         public void SetUp()
         {
-            Register(TestUserName, TestUserPassword);
+            Register(UserName, Password);
         }
 
         [Test]
@@ -30,11 +36,11 @@ namespace Project_Tests.AcceptanceTests
         {
             // the product is added to the cart and the amount should not change in the store
 
-            AddProductToStore(TestStoreOwner, TestStoreName, TestProductBarcode, 2);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 1));
-            Assert.True(getProductsFromShop(TestStoreOwner, TestStoreName)[TestProductBarcode] == 2);
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
+            Assert.True(GetStoreInventory(OwnerName, StoreName)[product1.Barcode] == 2);
             GuestLogout(id);
         }
 
@@ -44,10 +50,10 @@ namespace Project_Tests.AcceptanceTests
             // the product has 0 amount in the store but we should still be able to add it
 
 
-            AddProductToStore(TestStoreOwner, TestStoreName, TestProductBarcode, 0);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 0);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 0));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 0));
             GuestLogout(id);
         }
 
@@ -56,12 +62,12 @@ namespace Project_Tests.AcceptanceTests
         {
             // by adding the same product from the same store twice the amount should be added .
 
-            AddProductToStore(TestStoreOwner, TestStoreName, TestProductBarcode, 3);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 1));
-            Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 1));
-            Assert.True(GetCartByStore(id.ToString(), TestStoreName)[TestProductBarcode] == 2);
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
+            Assert.True(GetCartByStore(id.ToString(), StoreName)[product1.Barcode] == 2);
             GuestLogout(id);
         }
 
@@ -70,15 +76,15 @@ namespace Project_Tests.AcceptanceTests
         {
             // as a guest , add to cart , then logout , then login as guest again , check if the product still exists
 
-            AddProductToStore(TestStoreOwner, TestStoreName, TestProductBarcode, 3);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), TestStoreName, TestProductBarcode, 2));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 2));
             GuestLogout(id);
 
             id = GuestLogin();
-            var cart = GetCartByStore(id.ToString(), TestStoreName);
-            Assert.True(cart == null || !cart.ContainsKey(TestProductBarcode));
+            var cart = GetCartByStore(id.ToString(), StoreName);
+            Assert.True(cart == null || !cart.ContainsKey(product1.Barcode));
             GuestLogout(id);
         }
 
@@ -87,8 +93,17 @@ namespace Project_Tests.AcceptanceTests
         {
             var real = new RealProject();
 
-            real.DeleteUser(TestUserName);
-            RemoveProductFromStore(TestStoreOwner, TestStoreName, TestProductBarcode);
+            real.DeleteUser(UserName);
+            RemoveProductFromStore(OwnerName, StoreName, product1.Barcode);
+        }
+
+        [OneTimeTearDown]
+
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+
+            real.ResetMemory();
         }
     }
 }

@@ -28,8 +28,9 @@ namespace Client
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
                 Notifications.Visible = true;
-                if (Session["admin"] != null) {
-                    InitSystem.Visible=true;
+                if (Session["admin"] != null)
+                {
+                    InitSystem.Visible = true;
                 }
                 else { InitSystem.Visible = false; }
             }
@@ -41,7 +42,8 @@ namespace Client
                 Labelname.Visible = true;
 
             }
-            else {
+            else
+            {
                 Labelname.Text = "Hello " + Session["username"].ToString();
                 Labelname.Visible = true;
             }
@@ -62,31 +64,41 @@ namespace Client
                     LabelPasword.Visible = true;
                 }
             }
-                else
+            else
+            {
+                //  Console.WriteLine("unKnown error !");
+                string msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
+                if (msg.Equals("\"True\""))
                 {
-                    //  Console.WriteLine("unKnown error !");
-                    bool msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
-                    if (msg)
-                    {
-                        ButtonLogOut.Visible = true;
-                        Login_table.Visible = false;
-                        Session["isLogin"] = "true";
-                        Session["username"] = txtusername.Text;
-                        Labelname.Visible = true;
-                        Labelname.Text = "Hello " + txtusername.Text;
-                        Session["userid"] = msg;
-                        OpenShop.Visible = true;
-                        Notifications.Visible = true;
-                        MyShops.Visible = true;
-                        Session["admin"] = null;
+                    ButtonLogOut.Visible = true;
+                    Login_table.Visible = false;
+                    Session["isLogin"] = "true";
+                    Session["username"] = txtusername.Text;
+                    Labelname.Visible = true;
+                    Labelname.Text = "Hello " + txtusername.Text;
+                    Session["userid"] = msg;
+                    OpenShop.Visible = true;
+                    Notifications.Visible = true;
+                    MyShops.Visible = true;
+                    Session["admin"] = null;
 
                     Session["basket"] = null;
-                    if (txtusername.Text.ToString().Equals("admin")) {
+                    if (txtusername.Text.ToString().Equals("admin"))
+                    {
                         Session["admin"] = "admin";
                         InitSystem.Visible = true;
-                        }
                     }
                 }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    /*string message = ex.Message;
+                    string script = "alert(\""+ message + "\");";
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                          "ServerControlScript", script, true);*/
+                }
+            }
+        }
 
             //todo make sure of that
 
@@ -110,11 +122,10 @@ namespace Client
                     LabelPasword.Visible = true;
                 }
             }*/
-        }
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
-            new UserHandler().Logout(txtusername.Text);
+            new UserHandler().Logout(Session["username"].ToString());
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Home.aspx");
