@@ -156,7 +156,7 @@ namespace ServiceApi
             thread2.Start();
             thread1.Join();
             thread2.Join();
-            Console.ReadLine();
+            //Console.ReadLine();
 
 
 

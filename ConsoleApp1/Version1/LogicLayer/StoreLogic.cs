@@ -43,7 +43,7 @@ namespace Version1.LogicLayer
             {
                 database db = database.GetInstance();
 
-                return db.UpdateStore(store);
+                return db.InsertProductToStore(storeName,product, amount);
             }
 
             return false;

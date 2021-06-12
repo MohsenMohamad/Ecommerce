@@ -180,18 +180,48 @@ namespace Version1.Service_Layer
                                 */
                 Console.WriteLine("starting init data base tables please wait it might take a severral secends...\n");
                 Facade facade = new Facade();
-                facade.Register("zzz", "123");
                 database db = database.GetInstance();
-                //upload users
-                if (db != null && db.getAllUsers() != null)
+                try
                 {
-                    db.getAllUsers().ToList().ForEach((user) =>
+                    facade.Register("zzz", "123");
+                    
+                    //upload users
+                    if (db != null && db.getAllUsers() != null)
                     {
-                        if (user != null)
-                            Console.WriteLine(user.UserName);
+                        db.getAllUsers().ToList().ForEach((user) =>
+                        {
+                            if (user != null)
+                                Console.WriteLine(user.UserName);
 
-                    });
+                        });
+                    }
+                    
                 }
+                catch
+                {
+                    Console.WriteLine("user already regesterd");
+                }
+
+
+                /*try
+                {
+                    facade.OpenStore("zzz", "testStore", "");
+                }
+                catch
+                {
+                    Console.WriteLine("store already exist");
+                }
+                try
+                {
+                    facade.AddProductToStore("zzz", "testStore", "222", "proTest", "aaa", 55, "bbbb", 3);
+                }
+                catch
+                {
+                    Console.WriteLine("product already added");
+                }
+
+                facade.GetStoreProducts("testStore");*/
+
 
                 db.DeleteUser("zzz");
                 if (db != null && db.getAllUsers() != null)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.DiscountPolicies;
 using Version1.domainLayer.StorePolicies;
 
 namespace Version1.DataAccessLayer
@@ -90,7 +91,7 @@ namespace Version1.DataAccessLayer
             if (s.purchasePolicies != null)
             {
 /*                store.purchasePolicies = s.purchasePolicies.ToList();
-*/            }
+*/          }
 
             if (s.history != null)
             {
@@ -103,26 +104,18 @@ namespace Version1.DataAccessLayer
 
             //upload inventory hashmap
             store.inventory = new ConcurrentDictionary<Product, int>();
-            if(s.inventory != null)
+
+
+            if (s.products != null)
             {
-                List<int> values = oJS.Deserialize<List<int>>(s.inventory.values);
-                List<Product> keys = new List<Product>();
-                foreach (ProductDB p in s.inventory.keys.ToList())
+                
+                foreach (ProductDBANDAMOUNT productAndAmount in s.products)
                 {
-                    keys.Add(getProductFromProductDB(p));
+                    Product temp = getProductFromProductDB(productAndAmount.product);
+                    int amount = productAndAmount.amount;
+                    store.inventory[temp] = amount;
                 }
 
-                if (keys.Count == values.Count)
-                {
-                    for (int i = 0; i < keys.Count; i++)
-                    {
-                        store.inventory.TryAdd(keys.ElementAt(i), values.ElementAt(i));
-                    }
-                }
-                else
-                {
-                    throw new Exception("keys.Count != values.Count");
-                }
             }
             if(s.staff != null)
             {   
@@ -157,7 +150,7 @@ namespace Version1.DataAccessLayer
             User user = new User(u.UserName, u.Password);
             
             user.notifications = oJS.Deserialize<List<string>>(u.notifications);
-
+            user.notificationsoffer = oJS.Deserialize<List<string>>(u.notificationsoffer);
             user.history = new List<Purchase>();
             if (u.history != null)
             {
@@ -215,7 +208,24 @@ namespace Version1.DataAccessLayer
 
         private Product getProductFromProductDB(ProductDB productdb)
         {
-            return new Product(productdb.barcode, productdb.productName, productdb.description, productdb.price, oJS.Deserialize<List<string>>(productdb.categories));
+            Product product =  new Product(productdb.barcode, productdb.productName, productdb.description, productdb.price, oJS.Deserialize<List<string>>(productdb.categories));
+            product.discountPolicy = getDiscountPolicyFromDiscountPolicyDB(productdb.discountPolicy);
+            return product;
+        }
+
+        private DTO_Policies getDiscountPolicyFromDiscountPolicyDB(DTO_PoliciesDB dp)
+        {
+            DTO_Policies discountPolicy = new DTO_Policies();
+            if(dp != null)
+            {
+                discountPolicy.Type = dp.Type;
+                discountPolicy.percentage = dp.percentage;
+                discountPolicy.discount_description = dp.discount_description;
+                discountPolicy.conditoin_percentage = dp.conditoin_percentage;
+                discountPolicy.conditoin = dp.conditoin;
+            }
+
+            return discountPolicy;
         }
 
         private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)
@@ -258,6 +268,7 @@ namespace Version1.DataAccessLayer
         private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
         {
             List<ShoppingBasket> shBaskets = new List<ShoppingBasket>();
+
             foreach(ShoppingBasketDB sh in shoppingBasketDBs)
             {
                 shBaskets.Add(getShopingBasketFromShopingBasketDB(sh));
@@ -269,8 +280,8 @@ namespace Version1.DataAccessLayer
         {
             ShoppingBasket shoppingBasket = new ShoppingBasket(sh.StoreName);
             shoppingBasket.id = sh.id;
-/*            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
-*/            
+            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
+            shoppingBasket.priceperproduct = oJS.Deserialize<Dictionary<string, double>>(sh.priceperproduct);
             return shoppingBasket;
         }
 

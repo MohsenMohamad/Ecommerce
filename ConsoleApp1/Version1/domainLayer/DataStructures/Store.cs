@@ -16,7 +16,9 @@ namespace Version1.domainLayer.DataStructures
         public List<string> notifications { get; set; }
         public List<string> paymentInfo { get; set; }
         public List<Purchase> history { get; }
+
         public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
+
         public List<DTO_Policies> discountPolicies { get; set; }
 
 

@@ -8,7 +8,7 @@ namespace Version1.domainLayer.DataStructures
         public string Password { get; set; }
         public List<Purchase> history { get; set; }
         public List<string> notifications { get; set; }
-        private List<string> notificationsoffer { get; }
+        public List<string> notificationsoffer { get; set; }
 
 
         public User(string username,string password)

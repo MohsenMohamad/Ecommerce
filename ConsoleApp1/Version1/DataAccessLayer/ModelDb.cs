@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
 using System.Data.Entity.Migrations;
+using Version1.domainLayer.DiscountPolicies;
 
 namespace Version1.DataAccessLayer
 {
@@ -41,26 +42,28 @@ namespace Version1.DataAccessLayer
         //https://stackoverflow.com/questions/11709266/what-exactly-does-attach-do-in-entity-framework
 
         public virtual DbSet<UserDB> UsersTable { get; set; }
-        public virtual DbSet<DiscountDB> DiscountsTable { get; set; }
-        public virtual DbSet<StoreDB> StoresTable { get; set; }
         public virtual DbSet<PurchaseDB> PurchasesTable { get; set; }
         public virtual DbSet<ShoppingCartDB> ShoppingCartsTable { get; set; }
         public virtual DbSet<ShoppingBasketDB> ShoppingBasketsTable { get; set; }
-        public virtual DbSet<ProductDB> ProductsTable { get; set; }
         public virtual DbSet<ReviewDB> ReviewsTable { get; set; }
         public virtual DbSet<CategoryDB> CategoriesTable { get; set; }
         public virtual DbSet<NodeDB> nodesTable { get; set; }
+        public virtual DbSet<DTO_PoliciesDB> DiscountsTable { get; set; }
+        public virtual DbSet<ProductDB> ProductsTable { get; set; }
 
+        public virtual DbSet<StoreDB> StoresTable { get; set; }
+        public virtual DbSet<ProductDBANDAMOUNT> ProductDBANDAMOUNTTable { get; set; }
 
         //helping dictionaries objects
         public virtual DbSet<shoppingBasketsDictionaryDB> shoppingBasketsDictionariesDB { get; set; }
+
         public virtual DbSet<itemsHasmapforPurchaseDB> itemsFromPurchaseDBDictionariesDB { get; set; }
-        public virtual DbSet<itemsHasmapforDiscountDB> itemsFromDiscountsDBDictionariesDB { get; set; }
+
         //public virtual DbSet<stringmapint> basketProducts { get; set; }
 
     }
 
-
+/*
 
     public class inventoryDictionaryDBForStore
     {
@@ -70,10 +73,22 @@ namespace Version1.DataAccessLayer
         public ICollection<ProductDB> keys { get; set; }
         //string json for ICollection<int>
         public string values { get; set; }
+        public 
         public inventoryDictionaryDBForStore()
         {
             this.keys = new List<ProductDB>();
         }
+
+    }*/
+    public class inventoryDictionaryDBForStore
+    {
+        [Key]
+        [Required]
+   
+        public string storeName { get; set; }
+        public List<ProductDB> keys { get; set; }
+        //string json for ICollection<int>
+        public string values { get; set; }
 
     }
 
@@ -83,27 +98,23 @@ namespace Version1.DataAccessLayer
     {
         [Key, Column(Order = 0)]
         public string Username { get; set; }
-        //[Key, Column(Order = 1)]
+        [Key, Column(Order = 1)]
         public string Reviews { get; set; }
     }
-    public class DiscountDB
+
+
+    public class DTO_PoliciesDB
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public long discountId { get; set; }
+        public int Type { get; set; }
+        public int percentage { get; set; }
+        public string conditoin { get; set; }
+        public int conditoin_percentage { get; set; }
+        public string discount_description { get; set; }
+    }
 
-        [Required]
-        public itemsHasmapforDiscountDB items { get; set; }
-    }
-    //will change waiting for mohsen
-    public class itemsHasmapforDiscountDB
-    {
-        [Key]
-        [Required]
-        public int discountId { get; set; }
-        public ProductDB key { get; set; }
-        public ICollection<double> values { get; set; }
-    }
 
     public class NodeDB
     {
@@ -136,9 +147,6 @@ namespace Version1.DataAccessLayer
     //done
     public class ProductDB
     {
-        public ProductDB()
-        {
-        }
 
         [Key]
         [Required]
@@ -154,6 +162,9 @@ namespace Version1.DataAccessLayer
 
         //[Required]
         public string categories { get; set; }
+
+        public DTO_PoliciesDB discountPolicy { get; set; }
+
 
     }
 
@@ -188,8 +199,12 @@ namespace Version1.DataAccessLayer
         public long id { get; set; }
         //[Required]
         public string StoreName { get; set; }
-        //[Required]
+        //json string describe Dictionary<string, int>
         public string Products { get; set; }
+        //json string describe Dictionary<string, double>
+        public string priceperproduct { get; set; }
+        
+
     }
     //done
     public class UserDB
@@ -203,8 +218,10 @@ namespace Version1.DataAccessLayer
 
         public ICollection<PurchaseDB> history { get; set; }
 
-
+        //List<String> as json string
         public string notifications { get; set; }
+        //List<String> as json string
+        public string notificationsoffer { get; set; }
 
         public ShoppingCartDB shoppingCart { get; set; }
     }
@@ -230,28 +247,40 @@ namespace Version1.DataAccessLayer
         //todo  List<KeyValuePair<ProductDB, int>> 
         public itemsHasmapforPurchaseDB items { get; set; }
     }
+    public class ProductDBANDAMOUNT
+    {
+        [Key, Column(Order = 0)]
+        public string storeName { get; set; }
+        [Key, Column(Order = 1)]
+        public string barcode { get; set; }
+        public ProductDB product { get; set; }
+        public int amount { get; set; }
+    }
+    
     public class StoreDB
     {
         [Key]
         [Required]
         public string storeName { get; set; }
-
-        //to do make sure of that
-        public ICollection<IPurchasePolicy> purchasePolicies { get; set; }
-        public string notifications { get; set; }
         public string storeOwner { get; set; }
 
-
+        // string json as List<string>
+        public string notifications { get; set; }
+        
+        // string json as List<string>
         public string paymentInfo { get; set; }
 
-        public ICollection<DiscountDB> discounts { get; set; }
+        public ICollection<DTO_PoliciesDB> discountPolicies { get; set; }
 
         public ICollection<PurchaseDB> history { get; set; }
 
-        public inventoryDictionaryDBForStore inventory { get; set; }
-        //string json of NodeDB
-        public NodeDB staff { get; set; }
+        public ICollection<ProductDBANDAMOUNT> products { get; set; }
 
+        public NodeDB staff { get; set; }
+        //todo change
+        public ICollection<IPurchasePolicy> purchasePolicies { get; set; }
+
+        
     }
 
 
@@ -267,7 +296,16 @@ namespace Version1.DataAccessLayer
         {
             db = new ModelDB();
             oJS = new JavaScriptSerializer();
+            db.ProductDBANDAMOUNTTable.Include(b => b.product).ToList();
+            db.StoresTable.Include(b => b.products).ToList();
+            db.StoresTable.Include(b => b.staff).ToList();
+            db.StoresTable.Include(b => b.history).ToList();
+            db.StoresTable.Include(b => b.discountPolicies).ToList();
+            
+            //db.StoresTable.Include(b => b.purchasePolicies).ToList();
+
         }
+        
 
         public static database GetInstance()
         {
@@ -316,9 +354,37 @@ namespace Version1.DataAccessLayer
                 }
                 return false;
             }
-
-
         }
+
+        public bool InsertDTO_PoliciesDB(DTO_Policies dp)
+        {
+            DTO_PoliciesDB discountPolicy = getDTO_PoliciesDB(dp);
+
+            try
+            {
+                db.DiscountsTable.Add(discountPolicy);
+                db.SaveChanges();
+                Console.WriteLine("insert Discount");
+                return true;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                return false;
+            }
+        }
+
+        
+
         public DbSet<UserDB> getAllUsers()
         {
             return db.UsersTable;
@@ -369,7 +435,9 @@ namespace Version1.DataAccessLayer
             UserDB user = new UserDB();
             user.Password = u.Password;
             user.UserName = u.UserName;
+
             user.notifications = oJS.Serialize(u.GetNotifications());
+            user.notificationsoffer = oJS.Serialize(u.GetNotificationsoffer());
 
             user.history = new List<PurchaseDB>();
             foreach (Purchase p in u.history)
@@ -382,6 +450,17 @@ namespace Version1.DataAccessLayer
             return user;
         }
 
+        private DTO_PoliciesDB getDTO_PoliciesDB(DTO_Policies dp)
+        {
+            DTO_PoliciesDB discountPolicy = new DTO_PoliciesDB();
+            discountPolicy.Type = dp.Type;
+            discountPolicy.percentage = dp.percentage;
+            discountPolicy.discount_description = dp.discount_description;
+            discountPolicy.conditoin_percentage = dp.conditoin_percentage;
+            discountPolicy.conditoin = dp.conditoin;
+
+            return discountPolicy;           
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////// Discounts ////////////////////////////////////////////
@@ -428,6 +507,7 @@ namespace Version1.DataAccessLayer
 
         public DbSet<StoreDB> getAllStores()
         {
+            var result = db.StoresTable.SingleOrDefault(b => true);
             return db.StoresTable;
         }
 
@@ -436,39 +516,21 @@ namespace Version1.DataAccessLayer
             var result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
             StoreDB store = getStoreDB(s);
             /*//change inventory
-            db.Entry(result).CurrentValues.SetValues(store);
+            
             //save changes
             db.SaveChanges();
             Console.WriteLine("added element" + result.keys.ToList().ElementAt(0));*/
 
+            
             if (result != null)
             {
-                /*result = store;
-                db.StoresTable.Attach(result);
-                db.StoresTable.ChangeObjectState(result, EntityState.Modified);*/
-                //db.StoresTable.AddOrUpdate(store);
-                /*result.inventory = store.inventory;
-                result.inventory.(entity).CurrentValues.SetValues(item);
+                db.Entry(result).CurrentValues.SetValues(store);
 
-                db.SaveChanges();*/
-                //result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
-                //db.Entry(result.inventory).State = EntityState.Modified;
-                //db.Entry(result).CurrentValues.SetValues(store);
-                //Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
-                //result.inventory = store.inventory;
-                /*result.paymentInfo = store.paymentInfo;
-                result.history = store.history;
-                result.notifications = store.notifications;
-                result.purchasePolicies = store.purchasePolicies;
-                result.staff = store.staff;
-                result.storeName = store.storeName;
-                result.discounts = store.discounts;
-                result.storeOwner = s.staff.Key;*/
                 db.SaveChanges();
                 try
                 {
                     result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
-                    Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
+                    //Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
                 }
                 catch
                 {
@@ -505,24 +567,33 @@ namespace Version1.DataAccessLayer
                 store.history.Add(getPurchaseDb(p));
             }
 
-            store.inventory = new inventoryDictionaryDBForStore();
+            
             List<int> valueList = new List<int>();
 
-            store.inventory = new inventoryDictionaryDBForStore();
+            store.products = new List<ProductDBANDAMOUNT>();
+
             foreach (KeyValuePair<Product, int> p in s.inventory)
             {
-                store.inventory.keys.Add(getProductDb(p.Key));
-                valueList.Add(p.Value);
-            }
-            store.inventory.values = oJS.Serialize(valueList);
-            store.inventory.storeName = s.name;
+                ProductDBANDAMOUNT tempPro = new ProductDBANDAMOUNT();
+                tempPro.storeName = s.name;
+                tempPro.amount = p.Value;
+                tempPro.barcode = p.Key.barcode;
+                tempPro.product = getProductDb(p.Key);
 
+                store.products.Add(tempPro);
+            }
+
+            //store.discountPolicies = getD
             store.staff = getNodeDb(s.staff);
-            /*store.discounts = new List<DiscountDB>();
-            foreach (Discount dis in s.discounts)
+
+
+            store.discountPolicies = new List<DTO_PoliciesDB>();
+
+            foreach (var dp in s.discountPolicies)
             {
-                store.discounts.Add(getDiscountDB(dis));
-            }*/
+                store.discountPolicies.Add(getDTO_PoliciesDB(dp));
+            }
+
             return store;
         }
 
@@ -765,6 +836,7 @@ namespace Version1.DataAccessLayer
         {
             var result = db.ShoppingBasketsTable.SingleOrDefault(b => b.id == sh.id);
             ShoppingBasketDB shoppingBasket = getShoppingBasketDB(sh);
+
             if (result != null)
             {
                 result.StoreName = shoppingBasket.StoreName;
@@ -789,8 +861,11 @@ namespace Version1.DataAccessLayer
             p.id = pr.id;
             p.StoreName = pr.StoreName;
 
-            string jsonString = oJS.Serialize(pr.Products);
-            p.Products = jsonString;
+            string ProductsString = oJS.Serialize(pr.Products);
+            p.Products = ProductsString;
+
+            string priceperproductString = oJS.Serialize(pr.priceperproduct);
+            p.priceperproduct = priceperproductString;
 
             return p;
         }
@@ -814,6 +889,28 @@ namespace Version1.DataAccessLayer
             {
                 return false;
             }
+        }
+        public bool InsertProductToStore(string storeName,Product p, int amount)
+        {
+            var result = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
+            
+            if (result != null)
+            {
+                if(result.products == null)
+                {
+                    result.products = new List<ProductDBANDAMOUNT>();
+                }
+                ProductDBANDAMOUNT newPro = new ProductDBANDAMOUNT();
+                newPro.product = getProductDb(p);
+                newPro.amount = amount;
+                newPro.barcode = p.barcode;
+                newPro.storeName = storeName;
+                result.products.Add(newPro);
+                db.SaveChanges();
+
+                return true;
+            }
+            return false;
         }
 
         public bool UpdateProduct(Product p)
@@ -848,6 +945,7 @@ namespace Version1.DataAccessLayer
             p.productName = pr.Name;
             p.description = pr.Description;
             p.categories = oJS.Serialize(pr.categories);
+            p.discountPolicy = getDTO_PoliciesDB(pr.discountPolicy);
             return p;
         }
 
@@ -1001,7 +1099,6 @@ namespace Version1.DataAccessLayer
             n.Children.ForEach((child) => node.Children.Add(getNodeDb(child)));
             return node;
         }
-
 
 
     }

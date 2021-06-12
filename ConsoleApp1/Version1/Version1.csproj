@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer\ModelDb.cs" />
-    <Compile Include="DataAccessLayer\DTO_Policies.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\DTO_Policies.cs" />
     <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
     <Compile Include="domainLayer\CompositeDP\Component.cs" />
     <Compile Include="domainLayer\CompositeDP\Composite.cs" />
