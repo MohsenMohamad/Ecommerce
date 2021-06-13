@@ -306,6 +306,8 @@ namespace Version1.DataAccessLayer
             db.StoresTable.Include(b => b.discountPolicies).ToList();
             db.UsersTable.Include(b => b.shoppingCart.shoppingBaskets).ToList();
             db.shoppingBasketsDictionariesDB.Include(b => b.values).ToList();
+            db.ProductsTable.Include(b => b.discountPolicy).ToList();
+            
             //db.StoresTable.Include(b => b.purchasePolicies).ToList();
         }
         
@@ -465,6 +467,18 @@ namespace Version1.DataAccessLayer
             return discountPolicy;           
         }
 
+        internal void UpdateProductDiscountDiscreption(string barcode, string discount_description)
+        {
+            var product = db.ProductsTable.SingleOrDefault(b => b.barcode == barcode);
+            if (product != null)
+            {
+                product.discountPolicy.discount_description = discount_description;
+                db.SaveChanges();
+                
+            }
+            
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////// Discounts ////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -502,6 +516,9 @@ namespace Version1.DataAccessLayer
 
 
         }
+
+        
+
         //todo
         public bool DeleteStore(Store store)
         {
@@ -516,35 +533,39 @@ namespace Version1.DataAccessLayer
 
         public bool UpdateStore(Store s)
         {
-            var result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
+            /*var result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
             StoreDB store = getStoreDB(s);
-            /*//change inventory
-            
-            //save changes
-            db.SaveChanges();
-            Console.WriteLine("added element" + result.keys.ToList().ElementAt(0));*/
-
             
             if (result != null)
             {
-                db.Entry(result).CurrentValues.SetValues(store);
+                foreach(var dp in s.discountPolicies)
+                {
+                    getDTO_PoliciesDB(dp);
+                }
+
+                result.discountPolicies = 
 
                 db.SaveChanges();
-                try
+                
+                return true;
+            }
+            return false;*/
+            return false;
+        }
+        public bool AddDiscountToStore(string storeName, DTO_Policies dp)
+        {
+            var result = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
+            
+            if (result != null)
+            {
+                if (result.discountPolicies == null)
                 {
-                    result = db.StoresTable.SingleOrDefault(b => b.storeName == s.name);
-                    //Console.WriteLine("added element" + result.inventory.keys.ToList().ElementAt(0));
+                    result.discountPolicies = new List<DTO_PoliciesDB>();
                 }
-                catch
-                {
-                    Console.WriteLine("ex");
-                }
+                //adding discount
+                result.discountPolicies.Add(getDTO_PoliciesDB(dp));
+                db.SaveChanges();
 
-                var result2 = db.ProductsTable;
-                foreach (ProductDB pa in result2)
-                {
-                    Console.WriteLine("barcode updated " + pa.barcode);
-                }
                 return true;
             }
             return false;
@@ -926,6 +947,20 @@ namespace Version1.DataAccessLayer
                 result.description = product.description;
                 result.price = product.price;
                 result.productName = product.productName;
+                if(result.discountPolicy == null)
+                {
+                    result.discountPolicy = getDTO_PoliciesDB(p.discountPolicy);
+                }
+                else
+                {
+                    //already exist
+                    result.discountPolicy.conditoin = p.discountPolicy.conditoin;
+                    result.discountPolicy.Type = p.discountPolicy.Type;
+                    result.discountPolicy.percentage = p.discountPolicy.percentage;
+                    result.discountPolicy.conditoin_percentage = p.discountPolicy.conditoin_percentage;
+                    result.discountPolicy.discount_description = p.discountPolicy.discount_description;
+                }
+
 
                 db.SaveChanges();
                 return true;

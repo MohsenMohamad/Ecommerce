@@ -371,11 +371,13 @@ namespace Version1.LogicLayer
             foreach (var x in store.inventory)
             {
                 x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
+                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.discountPolicy.discount_description);
             }
 
             discountPolicy.SetPublic(percentage);
             discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
             store.discountPolicies.Add(discountPolicy);
+            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
             return 1;
         }
 
@@ -389,6 +391,7 @@ namespace Version1.LogicLayer
 
             product.discountPolicy.discount_description += string.Format("discount {0}% off ", percentage);
             product.discountPolicy.percentage = percentage;
+            database.GetInstance().UpdateProduct( product);
             return 1;
             
         }
@@ -411,6 +414,7 @@ namespace Version1.LogicLayer
             DTO_Policies discountPolicy = new DTO_Policies();
             discountPolicy.SetConditional(percentage, condition);
             store.discountPolicies.Add(discountPolicy);
+            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
             return res;
         }
         

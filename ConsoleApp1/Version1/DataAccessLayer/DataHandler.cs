@@ -105,7 +105,6 @@ namespace Version1.DataAccessLayer
             //upload inventory hashmap
             store.inventory = new ConcurrentDictionary<Product, int>();
 
-
             if (s.products != null)
             {
                 
@@ -121,13 +120,15 @@ namespace Version1.DataAccessLayer
             {   
                 store.staff = getNode(s.staff);
             }
-            
 
-            /*store.discounts = new List<Discount>();
-            foreach (DiscountDB dis in s.discounts)
+
+            store.discountPolicies = new List<DTO_Policies>();
+            foreach(var policy in s.discountPolicies)
             {
-                store.discounts.Add(getDiscountFromDiscountDB(dis));
-            }*/
+                DTO_Policies spDB = getDiscountPolicyFromDiscountPolicyDB(policy);
+                store.discountPolicies.Add(spDB);
+            }
+            
 
             return store;
         }
@@ -254,16 +255,7 @@ namespace Version1.DataAccessLayer
             }
  
             return shoppingCart;
-            //shoppingCart.id = sh.ShoppingCartId;
-
-            /*List<ShoppingBasketDB> ShoppingBasketHash = new List<ShoppingBasketDB>(sh.shoppingBaskets.values);
-            List<string> hashStrings = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);
-
-            for(int i = 0; i < ShoppingBasketHash.Count; i++)
-            {
-                ShoppingBasket temp = getShopingBasketFromShopingBasketDB(ShoppingBasketHash[i]);
-                shoppingCart.shoppingBaskets.Add(hashStrings[i], temp);
-            }*/
+            
         }
 
         private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
@@ -484,5 +476,6 @@ namespace Version1.DataAccessLayer
             }
             return null;
         }
+
     }
 }
