@@ -26,6 +26,7 @@ namespace Version1.LogicLayer
             double price,
             List<string> categories, int amount)
         {
+
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
             var exists = DataHandler.Instance.GetProduct(barcode, storeName) != null;
@@ -38,8 +39,14 @@ namespace Version1.LogicLayer
               }*/
 
             var product = new Product(barcode, productName, description, price, categories);
+            if( store.GetInventory().TryAdd(product, amount))
+            {
+                database db = database.GetInstance();
 
-            return store.GetInventory().TryAdd(product, amount);
+                return db.InsertProductToStore(storeName,product, amount);
+            }
+
+            return false;
         }
 
         public static bool IsManger(string storeName, string mangerName)
@@ -121,6 +128,7 @@ namespace Version1.LogicLayer
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, -1);
 
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -137,6 +145,7 @@ namespace Version1.LogicLayer
             if (IsManger(storeName, apointeeid)) throw new Exception(Errors.AlreadyManager);
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, permissions);
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -154,6 +163,7 @@ namespace Version1.LogicLayer
             if (!store.GetStaffTree().GetNode(firingUserName).IsParent(firedOwnerName)) throw new Exception(Errors.IllegalRemoveOwner);
             store.GetStaffTree().DeleteNode(firedOwnerName); // returns false if the owner was not found
             UserLogic.AddUserNotification(firedOwnerName, "You Are No Longer An Owner At " + storeName);
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -166,7 +176,7 @@ namespace Version1.LogicLayer
 
             var result = store.GetStaffTree().DeleteNode(username); // returns false if the manager was not found
             if (!result) throw new Exception(Errors.NotAManager);
-
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -329,6 +339,7 @@ namespace Version1.LogicLayer
                     user.GetShoppingCart().shoppingBaskets.Remove(storeName);
                     user.GetNotifications().Add("We are sorry to inform you that your cart from " + storeName +
                                                 " has been deleted \n Basket Info :\n" + basketInfo);
+                    database.GetInstance().updateNotification(user.UserName,user.GetNotifications());
                 }
             }
 
@@ -337,6 +348,7 @@ namespace Version1.LogicLayer
                 var managerUser = DataHandler.Instance.GetUser(manager);
                 ((User) managerUser).GetNotifications()
                     .Add(storeName + " has been closed , time to search for a new job");
+                database.GetInstance().updateNotification(((User)managerUser).UserName, ((User)managerUser).GetNotifications());
             }
 
             foreach (var owner in store.GetOwners())
@@ -344,26 +356,73 @@ namespace Version1.LogicLayer
                 var ownerUser = DataHandler.Instance.GetUser(owner);
                 ((User) ownerUser).GetNotifications()
                     .Add(storeName + " has been closed , time to search for a new job");
+                database.GetInstance().updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
 
             return DataHandler.Instance.Stores.TryRemove(storeName, out _);
         }
         
-        public static int addPublicDiscount(string storeName, int percentage)
+        /*public static int addPublicDiscount(string storeName, int percentage)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             return store.addPublicDiscount(storeName, percentage);
+
+        }*/
+
+        public static int addPublicDiscount(string storeName, int percentage)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            DtoPolicy discountPolicy = new DtoPolicy();
+
+            foreach (var x in store.inventory)
+            {
+                x.Key.DiscountPolicy.DiscountDescription += string.Format(" discount {0}% off for all the shop", percentage);
+                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
+            }
+
+            discountPolicy.SetPublic(percentage);
+            discountPolicy.DiscountDescription = string.Format("discount {0}% off ", percentage);
+            store.discountPolicies.Add(discountPolicy);
+            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
+            return 1;
         }
+
         public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storeName);
-            return product.addPublicDiscount_toItem(percentage);
+            if (product.DiscountPolicy == null)
+            {
+                product.DiscountPolicy = new DtoPolicy();
+            }
+
+            product.DiscountPolicy.DiscountDescription += string.Format("discount {0}% off ", percentage);
+            product.DiscountPolicy.Percentage = percentage;
+            database.GetInstance().UpdateProductPolicy(product);
+            return 1;
+            
         }
+
 
         public static int addConditionalDiscount(string storeName, int percentage, string condition)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store.addConditionalDiscount(storeName, percentage,condition);
+            int res;
+            try { Condition.Parse(condition); }
+            catch (Exception e) { return -13; }
+            DtoPolicy p = new DtoPolicy();
+
+            if ((res = p.SetConditional(percentage, condition)) < 0)
+                return res;
+            foreach (var x in store.inventory)
+            {
+                x.Key.DiscountPolicy.DiscountDescription += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,Condition.Parse(condition).get_description());
+                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
+            }
+            DtoPolicy discountPolicy = new DtoPolicy();
+            discountPolicy.SetConditional(percentage, condition);
+            store.discountPolicies.Add(discountPolicy);
+            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
+            return res;
         }
         
         public static double GetTotalCart(string userName)
@@ -379,32 +438,53 @@ namespace Version1.LogicLayer
                 {
                     string storeName = entry.Key;
                     Store store = DataHandler.Instance.GetStore(storeName);
-                    DTO_Policies shop_policy = store.discountPolicy;
-                    DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
+                    //DTO_Policies shop_policy = store.discountPolicy;
                     
                     foreach (KeyValuePair<string, int> pro in entry.Value.Products)
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
-                        double totalDiscount = 0;
-                        
-                        //adding the shop discount
-                        if (store.discountPolicy != null && (store.discountPolicy.Type == 1 || store.discountPolicy.Type == 2) )
+                        //there are no bid for the item
+                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price)
                         {
-                            totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                        }
-                        //adding the product discount
+                            
+                            double totalDiscount = 0;
 
-                        DTO_Policies item_policy = product.discountPolicy;
-                        if (item_policy != null)
-                        {
-                            //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
+                            if (store.discountPolicies != null)
+                            {
+                                foreach (DtoPolicy shop_policy in store.discountPolicies)
+                                {
+                                    DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
+                                    //adding all the shop discount
+                                    if ((shop_policy.TypeOfPolicy == 1 || shop_policy.TypeOfPolicy == 2))
+                                    {
+                                        totalDiscount += discountPolicy.GetTotal(shcart, user, product, pro.Value);
+                                    }
+                                    //adding all the product discount
+                                }
+                            }
+
+
+
+                            DtoPolicy itemPolicy = product.DiscountPolicy;
+                            if (itemPolicy != null)
+                            {
+                                //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
 
                                 //totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                                totalDiscount += item_policy.percentage;
-                            
-                        }
+                                totalDiscount += itemPolicy.Percentage;
 
-                        a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;;
+                            }
+
+                            totalDiscount = Math.Min(100, totalDiscount);
+                            a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;
+                        }
+                        //there are bid for the item
+                        else
+                        {
+                            //here the price after the offer is multiplied with the amount 
+                            a += user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key];
+                        }
+                        
                     }
                 }
                 return a;

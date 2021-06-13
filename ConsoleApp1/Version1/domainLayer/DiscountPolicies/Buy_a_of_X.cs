@@ -6,16 +6,17 @@ using Version1.domainLayer.DataStructures;
 namespace Version1.domainLayer.DiscountPolicies
 {
     //A
-    public class Buy_a_of_X : Condition
+    public class BuyAOfX : Condition
     {
         private int a;
-        private string barcode;//item_in_shop id
-        public Buy_a_of_X(int a, string barcode)
+        private string barcode;
+        
+        public BuyAOfX(int a, string barcode)
         {
             this.a = a;
             this.barcode = barcode;
         }
-        public Buy_a_of_X(string s)
+        public BuyAOfX(string s)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace Version1.domainLayer.DiscountPolicies
 
         public override string get_description()
         {
-            return string.Format("buy {0} of the item [{1}]", a, barcode);
+            return $"buy {a} of the item [{barcode}]";
         }
     }
 }

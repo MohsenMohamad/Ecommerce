@@ -11,6 +11,17 @@ namespace Version1.domainLayer.DiscountPolicies
         {
             return leftOperand.evaluate(cart, user, item, amount_of_item) && rightOperand.evaluate(cart, user, item, amount_of_item);
         }
+        
+
+        public override string ToString()
+        {
+            return $"({leftOperand.ToString()}    &&   {rightOperand.ToString()})";
+        }
+
+        public override string get_description()
+        {
+            return $"({leftOperand.get_description()}    &&   {rightOperand.get_description()})";
+        }
         public void SetLeftOperand(Condition left)
         {
             leftOperand = left;
@@ -23,16 +34,6 @@ namespace Version1.domainLayer.DiscountPolicies
         {
             SetLeftOperand(left);
             SetRightOperand(right);
-        }
-
-        public override string ToString()
-        {
-            return string.Format("({0}    &&   {1})", leftOperand.ToString(), rightOperand.ToString());
-        }
-
-        public override string get_description()
-        {
-            return string.Format("({0}    &&   {1})", leftOperand.get_description(), rightOperand.get_description());
         }
     }
 }

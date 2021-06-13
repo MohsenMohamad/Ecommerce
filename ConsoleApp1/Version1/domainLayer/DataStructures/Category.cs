@@ -2,7 +2,7 @@
 {
     public class Category
     {
-        private string name;
+        public string name;
         public Category(string name)
         {
             this.name = name;
