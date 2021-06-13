@@ -479,7 +479,7 @@ namespace Version1.Service_Layer
                     productData[1] = product.Description;
                     productData[2] = product.Barcode;
                     productData[3] = product.Price.ToString(CultureInfo.CurrentCulture);
-                    productData[4] = product.discountPolicy.discount_description;
+                    productData[4] = product.DiscountPolicy.DiscountDescription;
 
                     var categories = "";
                     foreach (var category in product.Categories)
@@ -517,7 +517,7 @@ namespace Version1.Service_Layer
                     productData[1] = product.Description;
                     productData[2] = product.Barcode;
                     productData[3] = shopbasket[product.Barcode].ToString();
-                    productData[4] = product.discountPolicy.discount_description;
+                    productData[4] = product.DiscountPolicy.DiscountDescription;
 
                     var categories = "";
                     foreach (var category in product.Categories)

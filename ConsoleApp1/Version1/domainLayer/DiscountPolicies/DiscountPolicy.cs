@@ -6,21 +6,18 @@ namespace Version1.domainLayer.DiscountPolicies
 
     public abstract class DiscountPolicy
     {
-        public abstract double getTotal(ShoppingCart cart, User user, Product item, int amount_of_item);
+        public abstract double GetTotal(ShoppingCart cart, User user, Product item, int amount_of_item);
 
-        public static DiscountPolicy GetPolicy(DTO_Policies type)
+        public static DiscountPolicy GetPolicy(DtoPolicy type)
         {
-            switch (type.Type)
-            {
-                case 0://no Discount policy
-                    return null;
-                case 1://normal simple discount policy
-                    return new SimplePolicy(type.percentage);
-                case 2://conditional policy
-                    return new ConditionalPolicy(type.conditoin, type.conditoin_percentage);
-                default:
-                    return null;
-            }
+            if (type.TypeOfPolicy == 0)
+                return null;
+            else if (type.TypeOfPolicy == 1)
+                return new SimplePolicy(type.Percentage);
+            else if (type.TypeOfPolicy == 2)
+                return new ConditionalPolicy(type.Conditoin, type.ConditoinPercentage);
+            else
+                return null;
         }
 
 

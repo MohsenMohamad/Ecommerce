@@ -19,7 +19,7 @@ namespace Version1.domainLayer.DataStructures
 
         public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
 
-        public List<DTO_Policies> discountPolicies { get; set; }
+        public List<DtoPolicy> discountPolicies { get; set; }
 
 
         public Store(string owner, string name)
@@ -32,7 +32,7 @@ namespace Version1.domainLayer.DataStructures
             this.name = name;
             notifications = new List<string>();
 
-            discountPolicies = new List<DTO_Policies>();
+            discountPolicies = new List<DtoPolicy>();
         }
 
         public override string ToString()

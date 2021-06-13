@@ -114,7 +114,6 @@ namespace Version1.DataAccessLayer
                     int amount = productAndAmount.amount;
                     store.inventory[temp] = amount;
                 }
-
             }
             if(s.staff != null)
             {   
@@ -122,10 +121,10 @@ namespace Version1.DataAccessLayer
             }
 
 
-            store.discountPolicies = new List<DTO_Policies>();
+            store.discountPolicies = new List<DtoPolicy>();
             foreach(var policy in s.discountPolicies)
             {
-                DTO_Policies spDB = getDiscountPolicyFromDiscountPolicyDB(policy);
+                DtoPolicy spDB = getDiscountPolicyFromDiscountPolicyDB(policy);
                 store.discountPolicies.Add(spDB);
             }
             
@@ -210,20 +209,20 @@ namespace Version1.DataAccessLayer
         private Product getProductFromProductDB(ProductDB productdb)
         {
             Product product =  new Product(productdb.barcode, productdb.productName, productdb.description, productdb.price, oJS.Deserialize<List<string>>(productdb.categories));
-            product.discountPolicy = getDiscountPolicyFromDiscountPolicyDB(productdb.discountPolicy);
+            product.DiscountPolicy = getDiscountPolicyFromDiscountPolicyDB(productdb.discountPolicy);
             return product;
         }
 
-        private DTO_Policies getDiscountPolicyFromDiscountPolicyDB(DTO_PoliciesDB dp)
+        private DtoPolicy getDiscountPolicyFromDiscountPolicyDB(DTO_PoliciesDB dp)
         {
-            DTO_Policies discountPolicy = new DTO_Policies();
+            DtoPolicy discountPolicy = new DtoPolicy();
             if(dp != null)
             {
-                discountPolicy.Type = dp.Type;
-                discountPolicy.percentage = dp.percentage;
-                discountPolicy.discount_description = dp.discount_description;
-                discountPolicy.conditoin_percentage = dp.conditoin_percentage;
-                discountPolicy.conditoin = dp.conditoin;
+                discountPolicy.TypeOfPolicy = dp.Type;
+                discountPolicy.Percentage = dp.percentage;
+                discountPolicy.DiscountDescription = dp.discount_description;
+                discountPolicy.ConditoinPercentage = dp.conditoin_percentage;
+                discountPolicy.Conditoin = dp.conditoin;
             }
 
             return discountPolicy;

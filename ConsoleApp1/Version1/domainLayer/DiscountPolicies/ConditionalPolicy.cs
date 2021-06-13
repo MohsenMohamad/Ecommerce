@@ -4,8 +4,10 @@ namespace Version1.domainLayer.DiscountPolicies
 {
     public class ConditionalPolicy : DiscountPolicy
     {
-        Condition condition;
-        int percentage;
+        private Condition condition;
+        
+        private int percentage;
+        
         public ConditionalPolicy(string cond, int percentage)
         {
             this.percentage = percentage;
@@ -13,19 +15,12 @@ namespace Version1.domainLayer.DiscountPolicies
 
         }
 
-        public override double getTotal(ShoppingCart cart, User user, Product item, int amount_of_item)
+        public override double GetTotal(ShoppingCart cart, User user, Product item, int amount_of_item)
         {
-            double res = 0;
-            bool good = condition.evaluate(cart, user, item, amount_of_item);
-            if (good)
-            {
-                res = percentage;
-            }
-            else
-            {
-                res = 0;
-            }
-            return res;
+            if (condition.evaluate(cart, user, item, amount_of_item))
+                return percentage;
+            
+            return 0;
         }
     }
 }

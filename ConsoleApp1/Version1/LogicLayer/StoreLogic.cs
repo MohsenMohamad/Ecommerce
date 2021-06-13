@@ -372,16 +372,16 @@ namespace Version1.LogicLayer
         public static int addPublicDiscount(string storeName, int percentage)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            DTO_Policies discountPolicy = new DTO_Policies();
+            DtoPolicy discountPolicy = new DtoPolicy();
 
             foreach (var x in store.inventory)
             {
-                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
-                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.discountPolicy.discount_description);
+                x.Key.DiscountPolicy.DiscountDescription += string.Format(" discount {0}% off for all the shop", percentage);
+                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
             }
 
             discountPolicy.SetPublic(percentage);
-            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            discountPolicy.DiscountDescription = string.Format("discount {0}% off ", percentage);
             store.discountPolicies.Add(discountPolicy);
             database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
             return 1;
@@ -390,14 +390,14 @@ namespace Version1.LogicLayer
         public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storeName);
-            if (product.discountPolicy == null)
+            if (product.DiscountPolicy == null)
             {
-                product.discountPolicy = new DTO_Policies();
+                product.DiscountPolicy = new DtoPolicy();
             }
 
-            product.discountPolicy.discount_description += string.Format("discount {0}% off ", percentage);
-            product.discountPolicy.percentage = percentage;
-            database.GetInstance().UpdateProduct( product);
+            product.DiscountPolicy.DiscountDescription += string.Format("discount {0}% off ", percentage);
+            product.DiscountPolicy.Percentage = percentage;
+            database.GetInstance().UpdateProductPolicy(product);
             return 1;
             
         }
@@ -409,15 +409,16 @@ namespace Version1.LogicLayer
             int res;
             try { Condition.Parse(condition); }
             catch (Exception e) { return -13; }
-            DTO_Policies p = new DTO_Policies();
+            DtoPolicy p = new DtoPolicy();
 
             if ((res = p.SetConditional(percentage, condition)) < 0)
                 return res;
             foreach (var x in store.inventory)
             {
-                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage, condition);
+                x.Key.DiscountPolicy.DiscountDescription += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,Condition.Parse(condition).get_description());
+                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
             }
-            DTO_Policies discountPolicy = new DTO_Policies();
+            DtoPolicy discountPolicy = new DtoPolicy();
             discountPolicy.SetConditional(percentage, condition);
             store.discountPolicies.Add(discountPolicy);
             database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
@@ -450,13 +451,13 @@ namespace Version1.LogicLayer
 
                             if (store.discountPolicies != null)
                             {
-                                foreach (DTO_Policies shop_policy in store.discountPolicies)
+                                foreach (DtoPolicy shop_policy in store.discountPolicies)
                                 {
                                     DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
                                     //adding all the shop discount
-                                    if ((shop_policy.Type == 1 || shop_policy.Type == 2))
+                                    if ((shop_policy.TypeOfPolicy == 1 || shop_policy.TypeOfPolicy == 2))
                                     {
-                                        totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                                        totalDiscount += discountPolicy.GetTotal(shcart, user, product, pro.Value);
                                     }
                                     //adding all the product discount
                                 }
@@ -464,13 +465,13 @@ namespace Version1.LogicLayer
 
 
 
-                            DTO_Policies item_policy = product.discountPolicy;
-                            if (item_policy != null)
+                            DtoPolicy itemPolicy = product.DiscountPolicy;
+                            if (itemPolicy != null)
                             {
                                 //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
 
                                 //totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                                totalDiscount += item_policy.percentage;
+                                totalDiscount += itemPolicy.Percentage;
 
                             }
 

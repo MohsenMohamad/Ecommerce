@@ -363,7 +363,7 @@ namespace Version1.DataAccessLayer
             }
         }
 
-        public bool InsertDTO_PoliciesDB(DTO_Policies dp)
+        public bool InsertDTO_PoliciesDB(DtoPolicy dp)
         {
             DTO_PoliciesDB discountPolicy = getDTO_PoliciesDB(dp);
 
@@ -457,14 +457,14 @@ namespace Version1.DataAccessLayer
             return user;
         }
 
-        private DTO_PoliciesDB getDTO_PoliciesDB(DTO_Policies dp)
+        private DTO_PoliciesDB getDTO_PoliciesDB(DtoPolicy dp)
         {
             DTO_PoliciesDB discountPolicy = new DTO_PoliciesDB();
-            discountPolicy.Type = dp.Type;
-            discountPolicy.percentage = dp.percentage;
-            discountPolicy.discount_description = dp.discount_description;
-            discountPolicy.conditoin_percentage = dp.conditoin_percentage;
-            discountPolicy.conditoin = dp.conditoin;
+            discountPolicy.Type = dp.TypeOfPolicy;
+            discountPolicy.percentage = dp.Percentage;
+            discountPolicy.discount_description = dp.DiscountDescription;
+            discountPolicy.conditoin_percentage = dp.ConditoinPercentage;
+            discountPolicy.conditoin = dp.Conditoin;
 
             return discountPolicy;           
         }
@@ -597,7 +597,7 @@ namespace Version1.DataAccessLayer
             return false;*/
             return false;
         }
-        public bool AddDiscountToStore(string storeName, DTO_Policies dp)
+        public bool AddDiscountToStore(string storeName, DtoPolicy dp)
         {
             var result = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
             
@@ -982,7 +982,7 @@ namespace Version1.DataAccessLayer
             return false;
         }
 
-        public bool UpdateProduct(Product p)
+        public bool UpdateProductPolicy(Product p)
         {
             var result = db.ProductsTable.SingleOrDefault(b => b.barcode == p.barcode);
             ProductDB product = getProductDb(p);
@@ -994,16 +994,16 @@ namespace Version1.DataAccessLayer
                 result.productName = product.productName;
                 if(result.discountPolicy == null)
                 {
-                    result.discountPolicy = getDTO_PoliciesDB(p.discountPolicy);
+                    result.discountPolicy = getDTO_PoliciesDB(p.DiscountPolicy);
                 }
                 else
                 {
                     //already exist
-                    result.discountPolicy.conditoin = p.discountPolicy.conditoin;
-                    result.discountPolicy.Type = p.discountPolicy.Type;
-                    result.discountPolicy.percentage = p.discountPolicy.percentage;
-                    result.discountPolicy.conditoin_percentage = p.discountPolicy.conditoin_percentage;
-                    result.discountPolicy.discount_description = p.discountPolicy.discount_description;
+                    result.discountPolicy.conditoin = p.DiscountPolicy.Conditoin;
+                    result.discountPolicy.Type = p.DiscountPolicy.TypeOfPolicy;
+                    result.discountPolicy.percentage = p.DiscountPolicy.Percentage;
+                    result.discountPolicy.conditoin_percentage = p.DiscountPolicy.ConditoinPercentage;
+                    result.discountPolicy.discount_description = p.DiscountPolicy.DiscountDescription;
                 }
 
 
@@ -1028,7 +1028,7 @@ namespace Version1.DataAccessLayer
             p.productName = pr.Name;
             p.description = pr.Description;
             p.categories = oJS.Serialize(pr.categories);
-            p.discountPolicy = getDTO_PoliciesDB(pr.discountPolicy);
+            p.discountPolicy = getDTO_PoliciesDB(pr.DiscountPolicy);
             return p;
         }
 

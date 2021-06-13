@@ -12,7 +12,7 @@ namespace Version1.domainLayer.DataStructures
         public string barcode;
         public List<string> categories{ get; set; }
         public  double price { get; set; }
-        public DTO_Policies discountPolicy { get; set; }
+        public DtoPolicy DiscountPolicy { get; set; }
 
 
         public Product(string barcode,string name,string desc,double price, List<string> categories)
@@ -22,7 +22,7 @@ namespace Version1.domainLayer.DataStructures
             this.name = name;
             this.categories = categories;
             this.price = price;
-            this.discountPolicy = new DTO_Policies();
+            this.DiscountPolicy = new DtoPolicy();
 
         }
         //getters
