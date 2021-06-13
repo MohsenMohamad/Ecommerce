@@ -236,7 +236,8 @@ namespace Version1.DataAccessLayer
                 shoppingCart.shoppingBaskets = new Dictionary<string, ShoppingBasket>();
                 if (sh.shoppingBaskets != null && sh.shoppingBaskets.keys != null)
                 {
-                    List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys);
+                    List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys); ;
+                    
                     List<ShoppingBasket> values = shopingBasketsFormShopingBasketsDb(sh.shoppingBaskets.values.ToList());
                     if (keys.Count == values.Count)
                     {

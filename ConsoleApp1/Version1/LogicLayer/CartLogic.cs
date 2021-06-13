@@ -41,7 +41,8 @@ namespace Version1.LogicLayer
                         userStoreBasket.Products.Add(product.Barcode, amount);
                         userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
                     }
-                    return true;
+
+                    return database.GetInstance().AddProductToBasket(userName, storeName, productCode, amount, priceofone); ;
                 }
 
                 return false;

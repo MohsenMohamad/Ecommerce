@@ -356,21 +356,62 @@ namespace Version1.LogicLayer
             return DataHandler.Instance.Stores.TryRemove(storeName, out _);
         }
         
-        public static int addPublicDiscount(string storeName, int percentage)
+        /*public static int addPublicDiscount(string storeName, int percentage)
         {
             var store = DataHandler.Instance.GetStore(storeName);
             return store.addPublicDiscount(storeName, percentage);
+
+        }*/
+
+        public static int addPublicDiscount(string storeName, int percentage)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            DTO_Policies discountPolicy = new DTO_Policies();
+
+            foreach (var x in store.inventory)
+            {
+                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
+            }
+
+            discountPolicy.SetPublic(percentage);
+            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
+            store.discountPolicies.Add(discountPolicy);
+            return 1;
         }
+
         public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storeName);
-            return product.addPublicDiscount_toItem(percentage);
+            if (product.discountPolicy == null)
+            {
+                product.discountPolicy = new DTO_Policies();
+            }
+
+            product.discountPolicy.discount_description += string.Format("discount {0}% off ", percentage);
+            product.discountPolicy.percentage = percentage;
+            return 1;
+            
         }
+
 
         public static int addConditionalDiscount(string storeName, int percentage, string condition)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store.addConditionalDiscount(storeName, percentage,condition);
+            int res;
+            try { Condition.Parse(condition); }
+            catch (Exception e) { return -13; }
+            DTO_Policies p = new DTO_Policies();
+
+            if ((res = p.SetConditional(percentage, condition)) < 0)
+                return res;
+            foreach (var x in store.inventory)
+            {
+                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage, condition);
+            }
+            DTO_Policies discountPolicy = new DTO_Policies();
+            discountPolicy.SetConditional(percentage, condition);
+            store.discountPolicies.Add(discountPolicy);
+            return res;
         }
         
         public static double GetTotalCart(string userName)

@@ -69,16 +69,6 @@ namespace Version1.domainLayer.DataStructures
             *//*db.update_item_in_shop(iis);*//*
             return res;
         }*/
-        public int addPublicDiscount_toItem(int percentage)
-        {
-            if (discountPolicy == null)
-            {
-                discountPolicy = new DTO_Policies();    
-            }
-            
-            discountPolicy.discount_description += string.Format("discount {0}% off ", percentage);
-            discountPolicy.percentage = percentage;
-            return 1;
-        }
+        
     }
 }

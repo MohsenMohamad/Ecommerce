@@ -184,8 +184,9 @@ namespace Version1.DataAccessLayer
     {
         [Key]
         public int ShoppingCartId { get; set; }
-        //here
+        //List<string>
         public string keys { get; set; }
+
         public ICollection<ShoppingBasketDB> values { get; set; }
 
     }
@@ -296,14 +297,16 @@ namespace Version1.DataAccessLayer
         {
             db = new ModelDB();
             oJS = new JavaScriptSerializer();
-            db.ProductDBANDAMOUNTTable.Include(b => b.product).ToList();
-            db.StoresTable.Include(b => b.products).ToList();
+
+            //db.ProductDBANDAMOUNTTable.Include(b => b.product).ToList();
+            // Load all Storess, adn all related productList, and all related prodoucts in each element in the list.
+            db.StoresTable.Include(b => b.products.Select(p=> p.product)).ToList();
             db.StoresTable.Include(b => b.staff).ToList();
             db.StoresTable.Include(b => b.history).ToList();
             db.StoresTable.Include(b => b.discountPolicies).ToList();
-            
+            db.UsersTable.Include(b => b.shoppingCart.shoppingBaskets).ToList();
+            db.shoppingBasketsDictionariesDB.Include(b => b.values).ToList();
             //db.StoresTable.Include(b => b.purchasePolicies).ToList();
-
         }
         
 
@@ -1100,7 +1103,95 @@ namespace Version1.DataAccessLayer
             return node;
         }
 
+        internal bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
+        {
+            var user = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
 
+            if (user != null)
+
+            {
+                if (user.shoppingCart == null)
+                {
+                    user.shoppingCart = new ShoppingCartDB();
+                    
+                }
+                if (user.shoppingCart.shoppingBaskets == null)
+                {
+                    user.shoppingCart.shoppingBaskets = new shoppingBasketsDictionaryDB();
+                }
+                List<string> keys;
+                if ("\"[]\"" != user.shoppingCart.shoppingBaskets.keys)
+                {
+                    keys = oJS.Deserialize<List<string>>(user.shoppingCart.shoppingBaskets.keys);
+                }
+                else
+                {
+                    keys = new List<string>();
+                }
+                
+                int indexOfStore;
+
+                if (!keys.Contains(storeName)){
+                    keys.Add(storeName);
+                    indexOfStore = -1;
+                }
+                else
+                {
+                    indexOfStore = keys.IndexOf(storeName);
+                }
+                    
+                //adding the store name
+                user.shoppingCart.shoppingBaskets.keys = oJS.Serialize(keys);
+                
+                if (user.shoppingCart.shoppingBaskets.values == null)
+                {
+                    user.shoppingCart.shoppingBaskets.values = new List<ShoppingBasketDB>();
+                }
+                ShoppingBasketDB shbasket;
+                if (indexOfStore != -1)
+                {
+                    shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
+
+                    shbasket.StoreName = storeName;
+
+                    //adding the item to the dictionary and return it to string
+                    Dictionary<string, int> products = oJS.Deserialize<Dictionary<string, int>>(shbasket.Products);
+                    products.Add(productCode, amount);
+                    shbasket.Products = oJS.Serialize(products);
+                     
+                }
+                else
+                {
+                    shbasket = new ShoppingBasketDB();
+                    shbasket.StoreName = storeName;
+                    Dictionary<string, int> products = new Dictionary<string, int>();
+                    products.Add(productCode, amount);
+                    shbasket.Products = oJS.Serialize(products);
+                    //add new basket in the users cart
+                    user.shoppingCart.shoppingBaskets.values.Add(shbasket);
+                }
+                //adding the item to the dictionary of prices if does not exist
+                Dictionary<string, double> priceperproduct;
+                if (shbasket.priceperproduct == null)
+                {
+                    priceperproduct = new Dictionary<string, double>();
+                }
+                else
+                {
+                    priceperproduct = oJS.Deserialize<Dictionary<string, double>>(shbasket.priceperproduct);
+                }
+                 
+                if (!priceperproduct.ContainsKey(productCode))
+                {
+                    priceperproduct.Add(productCode, priceofone);
+                }
+                shbasket.priceperproduct = oJS.Serialize(priceperproduct);
+
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 
 }

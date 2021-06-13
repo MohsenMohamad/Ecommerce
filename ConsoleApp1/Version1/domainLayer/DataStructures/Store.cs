@@ -118,40 +118,8 @@ namespace Version1.domainLayer.DataStructures
         }
 
 
-        public int addPublicDiscount(string storeName, int percentage)
-        {
-            DTO_Policies discountPolicy = new DTO_Policies();
-
-            foreach (var x in inventory)
-            {
-                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
-            }
-
-            discountPolicy.SetPublic(percentage);
-            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-            this.discountPolicies.Add(discountPolicy);
-            return 1;
-
-        }
-        public int addConditionalDiscount(string storeName, int percentage, string condition)
-        {
-            int res;
-            try { Condition.Parse(condition); }
-            catch (Exception e) { return -13; }
-            DTO_Policies p = new DTO_Policies();
-
-            if ((res = p.SetConditional(percentage, condition)) < 0)
-                return res;
-            foreach (var x in inventory)
-            {
-                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage, condition);
-            }
-            DTO_Policies discountPolicy = new DTO_Policies(); 
-            discountPolicy.SetConditional(percentage, condition);
-            this.discountPolicies.Add(discountPolicy);
-            return res;
-
-        }
+        
+       
 
 
     }

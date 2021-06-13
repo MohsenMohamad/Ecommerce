@@ -20,7 +20,7 @@ namespace Version1.Service_Layer
             Operation o = new Operation();
             o.insertData();
             var facade = new Facade();
-            Console.ReadLine();
+            
             /*    
             facade.Register("zzz", "123");
            facade.Login("zzz", "123");
@@ -238,6 +238,7 @@ namespace Version1.Service_Layer
                 Console.WriteLine("\nfinish init data base tables you can open server\n");
 
                 facade.Register("admin", "admin");
+                Console.ReadLine();
             }
         }
 
