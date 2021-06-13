@@ -222,33 +222,25 @@ namespace Version1.Service_Layer
         }
 
 
+        public string[][] SearchByProductName(string productName)
+        {
+            var searchResult = logicInstance.SearchByProductName(productName);
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
+        }
+        
         public string[][] SearchByKeyword(string keyword)
         {
             var searchResult = logicInstance.SearchByKeyWord(keyword);
-            var result = ProductsTo2DStringArray(searchResult);
-            var lists1 = result.Select(a => a.ToList()).ToList();
-
-            var finalList = new List<List<string>>();
-            var storeNames = logicInstance.GetStoresNames();
-            foreach (var storeName in storeNames)
-            {
-                var storeInventory = GetStoreProducts(storeName);
-                var lists = storeInventory.Select(a => a.ToList()).ToList();
-                foreach (var product in lists1)
-                {
-                    foreach (var productData in lists)
-                    {
-                        if (productData[2].Equals(product[2]))
-                        {
-                            product.Add(storeName);
-                        }
-                    }
-                }
-
-                finalList.AddRange(lists1);
-            }
-
-            return finalList.Select(a => a.ToArray()).ToArray();
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
+        }
+        
+        public string[][] SearchByCategory(string category)
+        {
+            var searchResult = logicInstance.SearchByCategory(category);
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
         }
 
 
@@ -609,6 +601,33 @@ namespace Version1.Service_Layer
         }
 
 
+        private string[][] SearchResultTo2DArray(Dictionary<string,List<string>> searchResult)
+        {
+            var result = ProductsTo2DStringArray(searchResult);
+            var lists1 = result.Select(a => a.ToList()).ToList();
+
+            var finalList = new List<List<string>>();
+            var storeNames = logicInstance.GetStoresNames();
+            foreach (var storeName in storeNames)
+            {
+                var storeInventory = GetStoreProducts(storeName);
+                var lists = storeInventory.Select(a => a.ToList()).ToList();
+                foreach (var product in lists1)
+                {
+                    foreach (var productData in lists)
+                    {
+                        if (productData[2].Equals(product[2]))
+                        {
+                            product.Add(storeName);
+                        }
+                    }
+                }
+
+                finalList.AddRange(lists1);
+            }
+
+            return finalList.Select(a => a.ToArray()).ToArray();
+        }
 
 
 

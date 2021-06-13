@@ -203,9 +203,19 @@ namespace Version1.LogicLayer
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
 
+        public Dictionary<string,List<string>> SearchByProductName(string productName)
+        {
+            return InventoryLogic.SearchByProductName(productName);
+        }
+        
         public Dictionary<string,List<string>> SearchByKeyWord(string keyWord)
         {
             return InventoryLogic.SearchByKeyWord(keyWord);
+        }
+        
+        public Dictionary<string,List<string>> SearchByCategory(string category)
+        {
+            return InventoryLogic.SearchByCategory(category);
         }
 
         public bool AddProductToStore(string storeName, string barcode, string productName, string description, double price,

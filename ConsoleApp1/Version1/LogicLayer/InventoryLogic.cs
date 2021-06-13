@@ -51,5 +51,50 @@ namespace Version1.LogicLayer
 
             return searchResult;
         }
+
+        public static Dictionary<string, List<string>> SearchByProductName(string productName)
+        {
+            var searchResult = new Dictionary<string, List<string>>();
+            var allProducts = DataHandler.Instance.GetAllProducts();
+            
+            foreach (var products in allProducts)
+            {
+                var storeName = products.Key;
+                foreach (var product in products.Value)
+                {
+                    if (!product.Name.Contains(productName)) continue;
+                    
+                    if(!searchResult.ContainsKey(storeName))
+                        searchResult.Add(storeName,new List<string>());
+                    searchResult[storeName].Add(product.Barcode);
+                }
+                
+            }
+
+            return searchResult;
+        }
+        
+        public static Dictionary<string,List<string>> SearchByCategory(string category)
+        {
+            var searchResult = new Dictionary<string, List<string>>();
+            var allProducts = DataHandler.Instance.GetAllProducts();
+            
+            foreach (var products in allProducts)
+            {
+                var storeName = products.Key;
+                foreach (var product in products.Value)
+                {
+                    if (!product.Categories.Contains(category)) continue;
+                    
+                    if(!searchResult.ContainsKey(storeName))
+                        searchResult.Add(storeName,new List<string>());
+                    searchResult[storeName].Add(product.Barcode);
+                }
+                
+            }
+
+            return searchResult;
+        }
+
     }
 }
