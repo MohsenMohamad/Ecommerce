@@ -160,6 +160,8 @@
     <Content Include="img\fast-shop.jpg" />
     <Content Include="img\homepagevideo.mp4" />
     <Content Include="img\manager.jpg" />
+    <Content Include="img\message.png" />
+    <Content Include="img\notification.png" />
     <Content Include="img\openshop.jfif" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />

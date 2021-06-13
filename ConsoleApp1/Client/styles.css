@@ -226,3 +226,8 @@ h1{
 .table1{
 
 }
+#notifications{
+    background-image:src(img/message.png);
+    display:inline-block;
+    justify-content:center;
+}

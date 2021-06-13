@@ -648,3 +648,17 @@
 13/06/2021 12:19:31: adminhas LoggedIn   .
 13/06/2021 12:19:35: admin has opened shop : mohamad shop  .
 13/06/2021 12:19:49: admin has opened shop : mohamad market  .
+13/06/2021 12:42:47: adminhas LoggedIn   .
+13/06/2021 12:42:52: admin has opened shop : adnan shop  .
+13/06/2021 12:52:23: adminhas LoggedIn   .
+13/06/2021 12:52:29: admin has opened shop : adnan shop  .
+13/06/2021 12:52:35: admin has opened shop : yarashop  .
+13/06/2021 12:57:26: yarahas Register succesfully   .
+13/06/2021 12:57:27: Guest has connected with pid : 1  .
+13/06/2021 12:57:43: adminhas LoggedIn   .
+13/06/2021 12:59:11: adminhas LoggedIn   .
+13/06/2021 12:59:17: admin has opened shop : adnan shop  .
+13/06/2021 13:00:24: product with barcode 123 has been added to the shop adnan shop  .
+13/06/2021 13:01:28: adminhas LoggedIn   .
+13/06/2021 13:02:48: adminhas LoggedIn   .
+13/06/2021 13:04:29: adminhas LoggedIn   .
