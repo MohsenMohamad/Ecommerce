@@ -128,6 +128,7 @@ namespace Version1.LogicLayer
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, -1);
 
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -144,6 +145,7 @@ namespace Version1.LogicLayer
             if (IsManger(storeName, apointeeid)) throw new Exception(Errors.AlreadyManager);
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, permissions);
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -161,6 +163,7 @@ namespace Version1.LogicLayer
             if (!store.GetStaffTree().GetNode(firingUserName).IsParent(firedOwnerName)) throw new Exception(Errors.IllegalRemoveOwner);
             store.GetStaffTree().DeleteNode(firedOwnerName); // returns false if the owner was not found
             UserLogic.AddUserNotification(firedOwnerName, "You Are No Longer An Owner At " + storeName);
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -173,7 +176,7 @@ namespace Version1.LogicLayer
 
             var result = store.GetStaffTree().DeleteNode(username); // returns false if the manager was not found
             if (!result) throw new Exception(Errors.NotAManager);
-
+            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 

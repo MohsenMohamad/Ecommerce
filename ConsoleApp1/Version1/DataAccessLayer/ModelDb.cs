@@ -119,8 +119,10 @@ namespace Version1.DataAccessLayer
     public class NodeDB
     {
         [Key]
-        [Required]
+        [Required]  
         public string key { get; set; }
+
+        public string storeName { get; set; }
 
         public int value { get; set; }
 
@@ -476,7 +478,29 @@ namespace Version1.DataAccessLayer
                 db.SaveChanges();
                 
             }
-            
+        }
+
+        internal void updateStoreStaff(string storeName, Node<string, int> node)
+        {
+            var store = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
+            if (store != null)
+            {
+                
+                List<NodeDB> nodesDB = db.nodesTable.Select(x =>( x.storeName == storeName) ? x : null).ToList();
+                foreach(NodeDB n in nodesDB)
+                {
+                    if(n != null)
+                    {
+                        db.nodesTable.Remove(n);
+                        db.SaveChanges();
+                    }
+
+                }
+                              
+
+                store.staff = getNodeDb(node, storeName);
+                db.SaveChanges();
+            }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -608,7 +632,7 @@ namespace Version1.DataAccessLayer
             }
 
             //store.discountPolicies = getD
-            store.staff = getNodeDb(s.staff);
+            store.staff = getNodeDb(s.staff,s.name);
 
 
             store.discountPolicies = new List<DTO_PoliciesDB>();
@@ -1082,9 +1106,9 @@ namespace Version1.DataAccessLayer
         //////////////////////////////////////////  nodes     ////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public bool InsertNode(Node<string, int> n)
+        public bool InsertNode(Node<string, int> n,string storeName)
         {
-            NodeDB node = getNodeDb(n);
+            NodeDB node = getNodeDb(n, storeName);
             try
             {
                 db.nodesTable.Add(node);
@@ -1098,10 +1122,10 @@ namespace Version1.DataAccessLayer
             }
 
         }
-        public bool UpdateNode(Node<string, int> n)
+        public bool UpdateNode(Node<string, int> n,string storeName)
         {
             var result = db.nodesTable.SingleOrDefault(b => b.key == n.Key);
-            NodeDB node = getNodeDb(n);
+            NodeDB node = getNodeDb(n,storeName);
             if (result != null)
             {
                 result.value = node.value;
@@ -1128,13 +1152,14 @@ namespace Version1.DataAccessLayer
             return review;
         }
 
-        private NodeDB getNodeDb(Node<string, int> n)
+        private NodeDB getNodeDb(Node<string, int> n, string storeName)
         {
             NodeDB node = new NodeDB();
             node.key = n.Key;
+            node.storeName = storeName;
             node.value = n.Value;
             node.Children = new List<NodeDB>();
-            n.Children.ForEach((child) => node.Children.Add(getNodeDb(child)));
+            n.Children.ForEach((child) => node.Children.Add(getNodeDb(child, storeName)));
             return node;
         }
 
@@ -1227,6 +1252,8 @@ namespace Version1.DataAccessLayer
             }
             return false;
         }
+
+
     }
 
 }
