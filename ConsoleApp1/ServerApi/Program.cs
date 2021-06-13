@@ -27,7 +27,7 @@ namespace ServiceApi
                     var facade = new Facade();
                     SystemAdmin sysadmin = new SystemAdmin();
                     facade.Register("admin", "admin");
-                    facade.AdminInitSystem();
+                   // facade.AdminInitSystem();
             
                     string domainAddress = "https://localhost:44300/";
                     using (WebApp.Start(url:domainAddress))

@@ -32,6 +32,12 @@ namespace Client.Code
             return (System.SendApi("Login", param));
         }
 
+        public string InitByStateFile(string path)
+        {
+            string param = string.Format("path={0}", path);
+            return System.SendApi("InitByStateFile", param);
+        }
+
 
         public long GuestLogin()
         {
