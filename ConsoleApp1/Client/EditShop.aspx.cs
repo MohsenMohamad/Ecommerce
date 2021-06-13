@@ -28,12 +28,19 @@ namespace Client
                 table10.Visible = false;
                 Labelerrorbarcode.Visible = false;
                 firegif.Visible = true;
-               
+                HomeButton.Visible = true;
+
+
 
             }
             else { }
 
             }
+        protected void HomeButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Websitehome.aspx");
+
+        }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {

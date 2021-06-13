@@ -33,7 +33,7 @@
       
     </form>
       <footer style="position:center; text-align:center">
-            <p>Created by Yara Ahmad. © 2021</p>
+            <p>Created by 13-A Group. © 2021</p>
         </footer>
 </body>
 </html>

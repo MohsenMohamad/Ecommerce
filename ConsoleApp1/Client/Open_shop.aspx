@@ -37,7 +37,7 @@
         <br /><br /><br /><br /><br /><br /><br /><br />
     <footer style="position:center; text-align:center">
          <img src="img/shopping.jpg" style="height: 90px; width: 150px"/>
-            <p>Created by Yara Ahmad. © 2021</p>
+            <p>Created by 13-A Group. © 2021</p>
         </footer>
     
     </form>

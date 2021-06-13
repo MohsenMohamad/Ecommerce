@@ -634,3 +634,17 @@
 10/06/2021 1:23:02: yarahas Register succesfully   .
 10/06/2021 1:23:02: Guest has connected with pid : 1  .
 10/06/2021 1:23:08: 1 has opened shop : mohamad shop  .
+13/06/2021 11:25:32: adminhas LoggedIn   .
+13/06/2021 11:25:46: admin has opened shop : yarashop  .
+13/06/2021 11:35:43: yarahas Register succesfully   .
+13/06/2021 11:35:45: Guest has connected with pid : 1  .
+13/06/2021 11:36:53: 1 has opened shop : yarashop  .
+13/06/2021 11:38:00: 1 has make new manger admin for yarashop  .
+13/06/2021 11:58:02: adminhas LoggedIn   .
+13/06/2021 11:59:05: admin has opened shop : yarashop  .
+13/06/2021 12:09:11: ahmadhas Register succesfully   .
+13/06/2021 12:09:12: Guest has connected with pid : 1  .
+13/06/2021 12:09:18: 1 has opened shop : yarashop  .
+13/06/2021 12:19:31: adminhas LoggedIn   .
+13/06/2021 12:19:35: admin has opened shop : mohamad shop  .
+13/06/2021 12:19:49: admin has opened shop : mohamad market  .
