@@ -1,8 +1,12 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Script.Serialization;
 using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
+using Version1.domainLayer.DiscountPolicies;
+using Version1.domainLayer.StorePolicies;
 
 namespace Version1.DataAccessLayer
 {
@@ -10,24 +14,267 @@ namespace Version1.DataAccessLayer
     {
         public object InefficientLock { get; }
         private static readonly object Padlock = new object();
+
         private static DataHandler _instance = null;
-        internal ConcurrentDictionary<string, User> Users { get; }
-        internal ConcurrentDictionary<long, Guest> Guests { get; }
-        private ConcurrentDictionary<string, Category> Categories;
-
+        public ConcurrentDictionary<string, User> Users { get; }
         internal ConcurrentDictionary<string, Store> Stores { get; }
-        private List<Review> Reviews { get; }
+        public ConcurrentDictionary<long, Guest> Guests { get; }
+        public ConcurrentDictionary<string, Category> Categories;
         public List<PurchaseOffer> Offers { get; set; }
-
+        
+        private List<Review> Reviews { get; }
+        public JavaScriptSerializer oJS;
         private DataHandler()
         {
+
+            oJS = new JavaScriptSerializer();
+            database db = database.GetInstance();
+
             Users = new ConcurrentDictionary<string, User>();
-            Guests = new ConcurrentDictionary<long, Guest>();
+            //upload users
+            uploadUsers(db);
+
             Stores = new ConcurrentDictionary<string, Store>();
+            //upload stores
+            uploadStores(db);
+
+            //fresh list
+            Guests = new ConcurrentDictionary<long, Guest>();
+
             Reviews = new List<Review>();
             Categories = new ConcurrentDictionary<string, Category>();
             Offers = new List<PurchaseOffer>();
             InefficientLock = new object();
+        }
+
+        private void uploadUsers(database db)
+        {
+            if (db != null && db.getAllUsers() != null)
+            {
+                db.getAllUsers().ToList().ForEach((user) =>
+                {
+                    if (user != null)
+                        Users.TryAdd(user.UserName, getUserFromUserDb(user));
+                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
+
+                });
+            }
+        }
+
+        private void uploadStores(database db)
+        {
+            if (db != null && db.getAllStores() != null)
+            {
+                db.getAllStores().ToList().ForEach((store) =>
+                {
+                    if (store != null)
+                        Stores.TryAdd(store.storeName, getStoreFromStoreDb(store));
+                    //Users.TryAdd(user.UserName, new User(user.UserName,user.Password));
+                });
+            }
+        }
+
+       
+
+        private Store getStoreFromStoreDb(StoreDB s)
+        {
+            Store store = new Store(s.storeOwner, s.storeName);
+
+            if(s.paymentInfo != null)
+            {
+                store.paymentInfo = oJS.Deserialize<List<string>>(s.paymentInfo);
+            }
+            if (s.notifications != null)
+            {
+                store.notifications = oJS.Deserialize<List<string>>(s.notifications);
+            }
+            if (s.purchasePolicies != null)
+            {
+/*                store.purchasePolicies = s.purchasePolicies.ToList();
+*/          }
+
+            if (s.history != null)
+            {
+                s.history.ToList().ForEach((p) =>
+                {
+                    if (p != null)
+                        store.history.Add(getPurchaseFromPurchaseDB(p));
+                });
+            }
+
+            //upload inventory hashmap
+            store.inventory = new ConcurrentDictionary<Product, int>();
+
+            if (s.products != null)
+            {
+                
+                foreach (ProductDBANDAMOUNT productAndAmount in s.products)
+                {
+                    Product temp = getProductFromProductDB(productAndAmount.product);
+                    int amount = productAndAmount.amount;
+                    store.inventory[temp] = amount;
+                }
+            }
+            if(s.staff != null)
+            {   
+                store.staff = getNode(s.staff);
+            }
+
+
+            store.discountPolicies = new List<DtoPolicy>();
+            foreach(var policy in s.discountPolicies)
+            {
+                DtoPolicy spDB = getDiscountPolicyFromDiscountPolicyDB(policy);
+                store.discountPolicies.Add(spDB);
+            }
+            
+
+            return store;
+        }
+        private Node<string, int> getNode(NodeDB n)
+        {
+            Node<string, int> node = new Node<string, int>(n.key,n.value);
+            node.Children = new List<Node<string, int>>();
+            n.Children.ToList().ForEach((child) => node.Children.Add(getNode(child)));
+            return node;
+        }
+
+        /*private Discount getDiscountFromDiscountDB(DiscountDB dis)
+        {
+            Discount discount = new Discount(dis.)
+        }*/
+
+  
+        private User getUserFromUserDb(UserDB u)
+        {
+            User user = new User(u.UserName, u.Password);
+            
+            user.notifications = oJS.Deserialize<List<string>>(u.notifications);
+            user.notificationsoffer = oJS.Deserialize<List<string>>(u.notificationsoffer);
+            user.history = new List<Purchase>();
+            if (u.history != null)
+            {
+                u.history.ToList().ForEach((p) =>
+                {
+                    if (p != null)
+                        user.history.Add(getPurchaseFromPurchaseDB(p));
+                });
+            }
+
+            user.shoppingCart = getShoppingCartFromshoppingCartDB(u.shoppingCart);
+            
+
+            return user;
+        }
+
+        
+
+        private Purchase getPurchaseFromPurchaseDB(PurchaseDB p)
+        {
+            Purchase purchase = new Purchase();
+
+            purchase.purchaseId = p.purchaseId;
+            purchase.purchaseType = oJS.Deserialize<Purchase.PurchaseType>(p.purchaseType);
+            purchase.store = p.storeName;
+            purchase.user = p.UserName;
+            purchase.date = p.date;
+
+            List<int> values = oJS.Deserialize<List<int>>(p.items.values);
+            List<Product> keys = new List<Product>();
+
+            foreach(ProductDB productdb in p.items.keys)
+            {
+                keys.Add(getProductFromProductDB(productdb));
+            }
+            //here I have got all the keys and the values.
+
+
+            purchase.items = new List<KeyValuePair<Product, int>>();
+
+            if(keys.Count == values.Count)
+            {
+                for(int i = 0; i < keys.Count; i++)
+                {
+                    purchase.items.Add(new KeyValuePair<Product, int>(keys.ElementAt(i), values.ElementAt(i)));
+                }
+            }
+            else
+            {
+                throw new Exception("keys.Count != values.Count");
+            }
+            
+            return purchase;
+        }
+
+        private Product getProductFromProductDB(ProductDB productdb)
+        {
+            Product product =  new Product(productdb.barcode, productdb.productName, productdb.description, productdb.price, oJS.Deserialize<List<string>>(productdb.categories));
+            product.DiscountPolicy = getDiscountPolicyFromDiscountPolicyDB(productdb.discountPolicy);
+            return product;
+        }
+
+        private DtoPolicy getDiscountPolicyFromDiscountPolicyDB(DTO_PoliciesDB dp)
+        {
+            DtoPolicy discountPolicy = new DtoPolicy();
+            if(dp != null)
+            {
+                discountPolicy.TypeOfPolicy = dp.Type;
+                discountPolicy.Percentage = dp.percentage;
+                discountPolicy.DiscountDescription = dp.discount_description;
+                discountPolicy.ConditoinPercentage = dp.conditoin_percentage;
+                discountPolicy.Conditoin = dp.conditoin;
+            }
+
+            return discountPolicy;
+        }
+
+        private ShoppingCart getShoppingCartFromshoppingCartDB(ShoppingCartDB sh)
+        {
+            ShoppingCart shoppingCart = new ShoppingCart();
+            if(sh!= null)
+            {
+                shoppingCart.shoppingBaskets = new Dictionary<string, ShoppingBasket>();
+                if (sh.shoppingBaskets != null && sh.shoppingBaskets.keys != null)
+                {
+                    List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys); ;
+                    
+                    List<ShoppingBasket> values = shopingBasketsFormShopingBasketsDb(sh.shoppingBaskets.values.ToList());
+                    if (keys.Count == values.Count)
+                    {
+                        for (int i = 0; i < keys.Count; i++)
+                        {
+                            shoppingCart.shoppingBaskets.Add(keys.ElementAt(i), values.ElementAt(i));
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("keys.Count != values.Count");
+                    }
+                }
+            }
+ 
+            return shoppingCart;
+            
+        }
+
+        private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
+        {
+            List<ShoppingBasket> shBaskets = new List<ShoppingBasket>();
+
+            foreach(ShoppingBasketDB sh in shoppingBasketDBs)
+            {
+                shBaskets.Add(getShopingBasketFromShopingBasketDB(sh));
+            }
+            return shBaskets;
+        }
+
+        private ShoppingBasket getShopingBasketFromShopingBasketDB(ShoppingBasketDB sh)
+        {
+            ShoppingBasket shoppingBasket = new ShoppingBasket(sh.StoreName);
+            shoppingBasket.id = sh.id;
+            shoppingBasket.Products = oJS.Deserialize<Dictionary<string, int>>(sh.Products);
+            shoppingBasket.priceperproduct = oJS.Deserialize<Dictionary<string, double>>(sh.priceperproduct);
+            return shoppingBasket;
         }
 
         public static DataHandler Instance
@@ -55,7 +302,24 @@ namespace Version1.DataAccessLayer
 
         internal bool AddUser(User user)
         {
-            return Users.TryAdd(user.UserName, user);
+            //return Users.TryAdd(user.UserName, user);
+            if (Users.TryAdd(user.UserName, user))
+            {
+                database db = database.GetInstance();
+                if (db.db.UsersTable.Any(o => o.UserName == user.UserName))
+                {
+                    //alreadyExist
+                     return false;
+                }
+                else
+                {
+                    //db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
+                    return db.InsertUser(user);
+                    //return db.InsertUser(new User(user.UserName,user.Password));
+                }
+                
+            }
+            return true;
         }
 
         internal bool RemoveUser(string userName)
@@ -82,7 +346,7 @@ namespace Version1.DataAccessLayer
         {
             if (!Exists(userName)) return false;
 
-            var user = (User)GetUser(userName);
+            var user = (User) GetUser(userName);
             return user.Password.Equals(password);
         }
 
@@ -99,8 +363,15 @@ namespace Version1.DataAccessLayer
             {
                 if (Stores.ContainsKey(store.GetName()))
                     return false;
-                Stores.TryAdd(store.GetName(), store);
-                return true;
+                if(Stores.TryAdd(store.GetName(), store))
+                {
+                    database db = database.GetInstance();
+                    //db.InsertNode(store.staff);
+                    db.InsertStore(store);
+                    return true;
+                }
+
+                return false;
             }
         }
 
@@ -148,7 +419,7 @@ namespace Version1.DataAccessLayer
 
             return null;
         }
-
+        
         public bool RemoveProduct(string productBarcode, string storeName)
         {
             var store = GetStore(storeName);
@@ -204,5 +475,6 @@ namespace Version1.DataAccessLayer
             }
             return null;
         }
+
     }
 }

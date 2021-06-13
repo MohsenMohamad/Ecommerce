@@ -4,11 +4,11 @@ namespace Version1.domainLayer.DataStructures
 {
     public class User : Person
     {
-        public string UserName { get; }
-        public string Password { get; }
-        public List<Purchase> history { get; }
-        private List<string> notifications { get; }
-        private List<string> notificationsoffer { get; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public List<Purchase> history { get; set; }
+        public List<string> notifications { get; set; }
+        public List<string> notificationsoffer { get; set; }
 
 
         public User(string username,string password)
@@ -36,7 +36,7 @@ namespace Version1.domainLayer.DataStructures
         {
             return notifications;
         }
-
+        
         public List<string> GetNotificationsoffer()
         {
             return notificationsoffer;

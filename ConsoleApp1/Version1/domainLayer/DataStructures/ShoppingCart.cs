@@ -4,7 +4,7 @@ namespace Version1.domainLayer.DataStructures
 {
     public class ShoppingCart
     {
-        // <storeName,ShoppingBasket>
+        
         
         public Dictionary<string, ShoppingBasket> shoppingBaskets { get; set; }
 

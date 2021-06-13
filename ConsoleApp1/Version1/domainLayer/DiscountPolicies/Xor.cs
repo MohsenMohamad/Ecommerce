@@ -31,11 +31,11 @@ namespace Version1.domainLayer.DiscountPolicies
         {
             if (leftOperand == null || rightOperand == null)
                 throw new Exception("");
-            return string.Format("({0}    ^   {1})", leftOperand.ToString(), rightOperand.ToString());
+            return $"({leftOperand.ToString()}    ^   {rightOperand.ToString()})";
         }
         public override string get_description()
         {
-            return string.Format("({0}    ^   {1})", leftOperand.get_description(), rightOperand.get_description());
+            return $"({leftOperand.get_description()}    ^   {rightOperand.get_description()})";
         }
     }
 }

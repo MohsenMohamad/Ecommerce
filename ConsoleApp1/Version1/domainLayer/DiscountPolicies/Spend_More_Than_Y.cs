@@ -52,7 +52,7 @@ namespace Version1.domainLayer.DiscountPolicies
 
         public override string get_description()
         {
-            return string.Format("buy more than {0}", threshold);
+            return string.Format("spend money more than {0}", threshold);
         }
     }
 }

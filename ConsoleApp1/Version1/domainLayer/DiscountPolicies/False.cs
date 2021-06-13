@@ -11,7 +11,7 @@ namespace Version1.domainLayer.DiscountPolicies
         }
         public override string get_description()
         {
-            return "false all the way";
+            return "false";
         }
 
     }
