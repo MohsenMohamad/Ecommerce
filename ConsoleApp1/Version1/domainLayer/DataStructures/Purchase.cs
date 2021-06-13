@@ -19,10 +19,10 @@ namespace Version1.domainLayer.DataStructures
         
         public override string ToString()
         {
-            string output = DateTime.Now + "purchased:/n";
+            string output = DateTime.Now + "purchased:";
             for (int i = 0; i < items.Count; i++)
             {
-                output += items[i].Key.Name + " with the amount of " + items[i].Value;
+                output += items[i].Key.name + " with the amount of " + items[i].Value;
             }
 
             return output;

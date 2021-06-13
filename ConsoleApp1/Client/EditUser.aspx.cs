@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            TextBox3.Text = Session["username"].ToString();
+            Label5.Text = Session["username"].ToString();
         }
 
         protected void TextBox3_TextChanged(object sender, EventArgs e)
@@ -21,7 +22,8 @@ namespace Client
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-
+            UserHandler us = new UserHandler();
+            us.UpdateUserPassword(Session["username"].ToString(), TextBox4.Text.ToString());
         }
     }
 }

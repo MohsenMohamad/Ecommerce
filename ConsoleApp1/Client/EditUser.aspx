@@ -10,10 +10,10 @@
     <table class="auto-style5">
     <tr>
         <td class="auto-style20">
-            <asp:Label ID="Label3" runat="server" Text="new UserName :"></asp:Label>
+            <asp:Label ID="Label3" runat="server" Text="UserName :"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="TextBox3" runat="server" OnTextChanged="TextBox3_TextChanged"></asp:TextBox>
+            <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
         </td>
         <td>&nbsp;</td>
     </tr>

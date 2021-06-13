@@ -38,11 +38,34 @@ namespace Client.Code
             return System.SendApi("InitByStateFile", param);
         }
 
-        public string[][] GetUserPurchaseHistory(string userName)
+        public DataSet GetUserPurchaseHistory(string userName)
         {
             string param = string.Format("userName={0}", userName);
-             System.SendApi("GetUserPurchaseHistory", param);
-            return null;
+           JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetUserPurchaseHistory", param));
+            DataTable t1 = new DataTable("Historys");
+            t1.Columns.Add("id");
+            t1.Columns.Add("History");
+            if (arr != null)
+            {
+                for (int i = 0; i < arr.Count && arr[i] != null; i++)
+                {
+                    try
+                    {
+                        t1.Rows.Add(i, arr[i]);
+                    }
+                    catch
+                    { }
+                }
+            }
+            DataSet set = new DataSet("Historys");
+            set.Tables.Add(t1);
+            return set;
+        }
+
+        public string UpdateUserPassword(string userName, string newPassword)
+        {
+            string param = string.Format("userName={0}&newPassword={1}", userName, newPassword);
+            return System.SendApi("UpdateUserPassword", param);
         }
 
 

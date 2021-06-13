@@ -413,13 +413,26 @@ namespace ServerApi
         [HttpGet]
         public string[] GetUserPurchaseHistory(string userName)
         {
-            return null;
+            return facade.GetUserPurchaseHistory(userName);
         }
 
         [HttpGet]
         public string[] GetStorePurchaseHistory(string StoreName)
         {
-            return null;
+            return facade.GetStorePurchaseHistory(StoreName);
+        }
+
+        [HttpGet]
+        public string UpdateUserPassword(string userName, string newPassword)
+        {
+            try
+            {
+               bool output =  facade.UpdateUserPassword(userName, newPassword);
+                return output.ToString();
+            }
+            catch(Exception e){
+                return e.Message;
+            }
         }
     }
 }
