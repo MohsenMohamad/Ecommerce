@@ -175,8 +175,10 @@ namespace Version1.LogicLayer
                     cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
                 }
 
+
                 // remove it if new amount = 0 ?
-                return true;
+                return database.GetInstance().RemoveProductFromCart(userName, storeName, productBarcode, amount);
+               
             }
         }
 
