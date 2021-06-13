@@ -234,5 +234,10 @@ namespace Client
             }
             
         }
+
+        protected void History_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/History.aspx");
+        }
     }
 }

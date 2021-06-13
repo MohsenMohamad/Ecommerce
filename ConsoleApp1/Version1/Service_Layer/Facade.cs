@@ -839,5 +839,14 @@ namespace Version1.Service_Layer
         {
             return FileController.ReadStateFile(path);
         }
+
+        public string[][] GetUserPurchaseHistory(string userName)
+        {
+            return null;
+        }
+        public string[][] GetStorePurchaseHistory(string StoreName) 
+        {
+            return null;
+        }
     }
 }

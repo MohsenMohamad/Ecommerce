@@ -150,6 +150,9 @@
         .auto-style18 {
             width: 149px;
         }
+        .auto-style19 {
+            width: 148px;
+        }
         </style>
 <body style="height: 107px">
     <form id="form1" runat="server">
@@ -174,10 +177,12 @@
                             <td class="auto-style18">
                                 <asp:Button ID="Notifications" CssClass="auto-style7" Width="120px" runat="server" Text="Notifications" OnClick="Notifications_Click" />
                             </td>
+                            <td class="auto-style19">
+                                <asp:Button ID="History" CssClass="auto-style7" Width="120px" runat="server" Text="History" />
+                            </td>
                             <td>
                                 <asp:Button ID="InitSystem" CssClass="auto-style7" Width="120px" runat="server" Text="InitSystem" OnClick="InitSystem_Click"/>
                             </td>
-                            <td>&nbsp;</td>
                             <td class="auto-style12">
                                 <asp:ImageButton ID="ImageButtoncart" src="img/shopping_cart_black_72x72.png" runat="server" CssClass="auto-style11" Height="46px" OnClick="ImageButtoncart_Click" />
                             </td>

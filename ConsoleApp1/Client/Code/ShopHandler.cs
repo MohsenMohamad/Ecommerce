@@ -120,6 +120,13 @@ namespace Client.Code
             return d1;
         }
 
+        public string[][] GetStorePurchaseHistory(string StoreName)
+        {
+            string param = string.Format("StoreName={0}", StoreName);
+            System.SendApi("GetStorePurchaseHistory", param);
+            return null;
+        }
+
         public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}&priceofone={4}", userName, storeName, productBarCode,amount, priceofone);

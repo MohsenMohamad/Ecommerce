@@ -38,6 +38,13 @@ namespace Client.Code
             return System.SendApi("InitByStateFile", param);
         }
 
+        public string[][] GetUserPurchaseHistory(string userName)
+        {
+            string param = string.Format("userName={0}", userName);
+             System.SendApi("GetUserPurchaseHistory", param);
+            return null;
+        }
+
 
         public long GuestLogin()
         {

@@ -409,5 +409,17 @@ namespace ServerApi
             Logger.GetInstance().Event("Guest has connected with pid : " + output);
             return output;
         }
+
+        [HttpGet]
+        public string[][] GetUserPurchaseHistory(string userName)
+        {
+            return null;
+        }
+
+        [HttpGet]
+        public string[][] GetStorePurchaseHistory(string StoreName)
+        {
+            return null;
+        }
     }
 }
