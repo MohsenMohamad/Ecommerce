@@ -237,7 +237,7 @@ namespace Version1.Service_Layer
 
                 Console.WriteLine("\nfinish init data base tables you can open server\n");
 
-                facade.Register("admin", "admin");
+                
                 Console.ReadLine();
             }
         }

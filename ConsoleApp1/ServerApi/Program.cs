@@ -34,7 +34,7 @@ namespace ServiceApi
                     var facade = new Facade();
                     
 /*                    facade.Register("admin", "admin");
-*/                    foreach (string i in facade.GetAllUserNamesInSystem())
+*/                  /*  foreach (string i in facade.GetAllUserNamesInSystem())
                     {
                         Console.WriteLine(i);
                     }
@@ -42,7 +42,7 @@ namespace ServiceApi
                     {
 
                         Console.WriteLine(i[0]);
-                    }
+                    }*/
                     
 
                     //Thread.Sleep(15000);

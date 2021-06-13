@@ -1167,7 +1167,6 @@ namespace Version1.DataAccessLayer
             var user = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
 
             if (user != null)
-
             {
                 if (user.shoppingCart == null)
                 {
@@ -1206,30 +1205,49 @@ namespace Version1.DataAccessLayer
                 {
                     user.shoppingCart.shoppingBaskets.values = new List<ShoppingBasketDB>();
                 }
+
                 ShoppingBasketDB shbasket;
+                //there are no basket of the shop
                 if (indexOfStore != -1)
                 {
                     shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
-
                     shbasket.StoreName = storeName;
 
                     //adding the item to the dictionary and return it to string
                     Dictionary<string, int> products = oJS.Deserialize<Dictionary<string, int>>(shbasket.Products);
-                    products.Add(productCode, amount);
+                    if (!products.ContainsKey(productCode))
+                    {
+                        products.Add(productCode, amount);
+                    }
+                    else
+                    {
+                        //if exist update the amount
+                        products[productCode] = amount;
+                    }
                     shbasket.Products = oJS.Serialize(products);
-                     
-                }
+
+                }//there are basket of the shop
                 else
                 {
                     shbasket = new ShoppingBasketDB();
                     shbasket.StoreName = storeName;
                     Dictionary<string, int> products = new Dictionary<string, int>();
-                    products.Add(productCode, amount);
+                    if (!products.ContainsKey(productCode))
+                    {
+                        products.Add(productCode, amount);
+                    }
+                    else
+                    {
+                        //if exist update the amount
+                        products[productCode] = amount;
+                    }
+
                     shbasket.Products = oJS.Serialize(products);
                     //add new basket in the users cart
                     user.shoppingCart.shoppingBaskets.values.Add(shbasket);
                 }
-                //adding the item to the dictionary of prices if does not exist
+
+                //adding the item to the dictionary of prices if does not exist or update the price if product does exist
                 Dictionary<string, double> priceperproduct;
                 if (shbasket.priceperproduct == null)
                 {
@@ -1239,10 +1257,16 @@ namespace Version1.DataAccessLayer
                 {
                     priceperproduct = oJS.Deserialize<Dictionary<string, double>>(shbasket.priceperproduct);
                 }
-                 
+
+                //add the price if does not exist
                 if (!priceperproduct.ContainsKey(productCode))
                 {
                     priceperproduct.Add(productCode, priceofone);
+                }
+                //update the price if product exist
+                else
+                {   //update the price of the product
+                    priceperproduct[productCode] = priceofone;
                 }
                 shbasket.priceperproduct = oJS.Serialize(priceperproduct);
 
@@ -1325,10 +1349,15 @@ namespace Version1.DataAccessLayer
                     return false;
                 }
 
-                Dictionary<string, double> Products = oJS.Deserialize<Dictionary<string, double>>(shbasket.Products);
+                Dictionary<string, int> Products = oJS.Deserialize<Dictionary<string, int>>(shbasket.Products);
                 //remove item from products
                 Products.Remove(productBarcode);
                 shbasket.Products = oJS.Serialize(Products);
+
+                Dictionary<string, double> priceperproduct = oJS.Deserialize<Dictionary<string, double>>(shbasket.priceperproduct);
+                //remove item from priceperproduct
+                priceperproduct.Remove(productBarcode);
+                shbasket.priceperproduct = oJS.Serialize(priceperproduct);
 
                 db.SaveChanges();
                 return true;

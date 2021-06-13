@@ -314,7 +314,7 @@ namespace Version1.LogicLayer
 
             return true;
         }
-
+        //here shady
         public static bool CloseStore(string storeName, string ownerName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -337,6 +337,7 @@ namespace Version1.LogicLayer
                 {
                     var basketInfo = CartLogic.GetBasketInfo(user.UserName, storeName);
                     user.GetShoppingCart().shoppingBaskets.Remove(storeName);
+                    //here shady
                     user.GetNotifications().Add("We are sorry to inform you that your cart from " + storeName +
                                                 " has been deleted \n Basket Info :\n" + basketInfo);
                 }
@@ -346,6 +347,7 @@ namespace Version1.LogicLayer
             {
                 var managerUser = DataHandler.Instance.GetUser(manager);
                 ((User) managerUser).GetNotifications()
+                    //here shady
                     .Add(storeName + " has been closed , time to search for a new job");
             }
 
@@ -353,6 +355,7 @@ namespace Version1.LogicLayer
             {
                 var ownerUser = DataHandler.Instance.GetUser(owner);
                 ((User) ownerUser).GetNotifications()
+                    //here shady
                     .Add(storeName + " has been closed , time to search for a new job");
             }
 
@@ -436,40 +439,50 @@ namespace Version1.LogicLayer
                     Store store = DataHandler.Instance.GetStore(storeName);
                     //DTO_Policies shop_policy = store.discountPolicy;
                     
-                    
                     foreach (KeyValuePair<string, int> pro in entry.Value.Products)
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
-                        double totalDiscount = 0;
-                        
-                        if (store.discountPolicies != null)
+                        //there are no bid for the item
+                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price)
                         {
-                            foreach (DTO_Policies shop_policy in store.discountPolicies)
-                            {
-                                DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);    
-                                //adding all the shop discount
-                                if ((shop_policy.Type == 1 || shop_policy.Type == 2) )
-                                {
-                                    totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
-                                }
-                                //adding all the product discount
-                            }
-                        }
-                        
-                        
+                            
+                            double totalDiscount = 0;
 
-                        DTO_Policies item_policy = product.discountPolicy;
-                        if (item_policy != null)
-                        {
-                            //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
+                            if (store.discountPolicies != null)
+                            {
+                                foreach (DTO_Policies shop_policy in store.discountPolicies)
+                                {
+                                    DiscountPolicy discountPolicy = DiscountPolicy.GetPolicy(shop_policy);
+                                    //adding all the shop discount
+                                    if ((shop_policy.Type == 1 || shop_policy.Type == 2))
+                                    {
+                                        totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
+                                    }
+                                    //adding all the product discount
+                                }
+                            }
+
+
+
+                            DTO_Policies item_policy = product.discountPolicy;
+                            if (item_policy != null)
+                            {
+                                //discountPolicy = DiscountPolicy.GetPolicy(item_policy);
 
                                 //totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
                                 totalDiscount += item_policy.percentage;
-                            
-                        }
 
-                        totalDiscount = Math.Min(100, totalDiscount);
-                        a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;;
+                            }
+
+                            totalDiscount = Math.Min(100, totalDiscount);
+                            a += ((product.Price * (100 - totalDiscount)) / 100) * pro.Value;
+                        }
+                        //there are bid for the item
+                        else
+                        {
+                            a += user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] * pro.Value;
+                        }
+                        
                     }
                 }
                 return a;
