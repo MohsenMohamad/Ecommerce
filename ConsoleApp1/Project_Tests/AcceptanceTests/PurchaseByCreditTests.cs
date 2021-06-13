@@ -37,8 +37,8 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
-            var financeLogCount = ExternalFinanceService.log.Count;
-            var supplyLogCount = ExternalSupplyService.log.Count;
+            var financeLogCount = MockUpFinanceService.log.Count;
+            var supplyLogCount = MockUpSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1);
@@ -47,8 +47,8 @@ namespace Project_Tests.AcceptanceTests
             Assert.True(result1 & result2);
     /*        Assert.True(getStorePurchaseHistory(UserName,StoreName)?.Count == 1);
             Assert.False(GetCartByStore(UserName,StoreName).ContainsKey(product1.Barcode));
-            Assert.AreEqual(ExternalFinanceService.log.Count, financeLogCount + 2); // a connection has been established
-            Assert.AreEqual(ExternalSupplyService.log.Count, supplyLogCount + 1);  // a connection has been established
+            Assert.AreEqual(ExternalFinanceService.log.Count, financeLogCount + 1); // a connection has been established
+            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount + 1);  // a connection has been established
             */
         }
 
@@ -57,8 +57,8 @@ namespace Project_Tests.AcceptanceTests
         {
             // The requested amount is not available
             
-            var financeLogCount = ExternalFinanceService.log.Count;
-            var supplyLogCount = ExternalSupplyService.log.Count;
+            var financeLogCount = MockUpFinanceService.log.Count;
+            var supplyLogCount = MockUpSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 2);
@@ -69,8 +69,8 @@ namespace Project_Tests.AcceptanceTests
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 2); // cart still the same
-            Assert.AreEqual(ExternalFinanceService.log.Count, financeLogCount); // only connection is from the setup
-            Assert.AreEqual(ExternalSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
+            Assert.AreEqual(MockUpFinanceService.log.Count, financeLogCount); // only connection is from the setup
+            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
             
         }
 
@@ -79,8 +79,8 @@ namespace Project_Tests.AcceptanceTests
         {
             // The requested amount is above the allowed amount
 
-            var financeLogCount = ExternalFinanceService.log.Count;
-            var supplyLogCount = ExternalSupplyService.log.Count;
+            var financeLogCount = MockUpFinanceService.log.Count;
+            var supplyLogCount = MockUpSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 6);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 5);
@@ -90,8 +90,8 @@ namespace Project_Tests.AcceptanceTests
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 5); // cart still the same
-            Assert.AreEqual(ExternalFinanceService.log.Count, financeLogCount); // only connection is from the setup
-            Assert.AreEqual(ExternalSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
+            Assert.AreEqual(MockUpFinanceService.log.Count, financeLogCount); // only connection is from the setup
+            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
         }
         
         
