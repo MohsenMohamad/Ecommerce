@@ -496,5 +496,21 @@ namespace Version1.LogicLayer
             
             
         }
+        
+        
+        public static List<string> GetStorePurchaseHistory(string storeName)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+
+                var store = DataHandler.Instance.GetStore(storeName);
+                if (store == null) throw new Exception(Errors.StoreNotFound);
+                
+                var historyList = store.history.Select(purchaseData => purchaseData.ToString()).ToList();
+
+                return historyList;
+            }
+        }
+
     }
 }

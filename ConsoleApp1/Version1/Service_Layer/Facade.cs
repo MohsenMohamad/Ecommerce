@@ -840,13 +840,21 @@ namespace Version1.Service_Layer
             return FileController.ReadStateFile(path);
         }
 
-        public string[][] GetUserPurchaseHistory(string userName)
+        public bool UpdateUserPassword(string userName, string newPassword)
         {
-            return null;
+            var encryptedPassword = GetHashString(newPassword + "s1a3dAn3a");
+            return logicInstance.UpdateUserPassword(userName,encryptedPassword);
         }
-        public string[][] GetStorePurchaseHistory(string StoreName) 
+
+        public string[] GetUserPurchaseHistory(string userName)
         {
-            return null;
+            return logicInstance.GetUserPurchaseHistory(userName)?.ToArray();
+        }
+
+        public string[] GetStorePurchaseHistory(string storeName)
+        {
+            return logicInstance.GetStorePurchaseHistory(storeName)?.ToArray();
+
         }
     }
 }

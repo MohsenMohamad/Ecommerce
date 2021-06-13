@@ -411,13 +411,13 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public string[][] GetUserPurchaseHistory(string userName)
+        public string[] GetUserPurchaseHistory(string userName)
         {
             return null;
         }
 
         [HttpGet]
-        public string[][] GetStorePurchaseHistory(string StoreName)
+        public string[] GetStorePurchaseHistory(string StoreName)
         {
             return null;
         }

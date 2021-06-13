@@ -162,6 +162,39 @@ namespace Version1.LogicLayer
                 return null;
             }
         }
+        
+        public static List<string> GetUserPurchaseHistory(string userName)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+
+                var user = DataHandler.Instance.GetUser(userName);
+                if (user == null) throw new Exception(Errors.UserNotFound);
+                if (DataHandler.Instance.IsGuest(userName) >= 0) throw new Exception(Errors.PermissionError);
+
+                
+                var historyList = ((User)user).history.Select(purchaseData => purchaseData.ToString()).ToList();
+
+                return historyList;
+            }
+        }
+
+        public static bool UpdateUserPassword(string userName, string newPassword)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                var user = DataHandler.Instance.GetUser(userName);
+                
+                if (user == null) throw new Exception(Errors.UserNotFound);
+                if (DataHandler.Instance.IsGuest(userName) >= 0) throw new Exception(Errors.PermissionError);
+
+                ((User) user).Password = newPassword;
+                return true;
+
+            }
+        }
+
+
 
     }
 }

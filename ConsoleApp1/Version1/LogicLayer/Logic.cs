@@ -314,5 +314,22 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.GetTotalCart(userName);
         }
+
+        public List<string> GetUserPurchaseHistory(string userName)
+        {
+            return UserLogic.GetUserPurchaseHistory(userName);
+        }
+        
+        public List<string> GetStorePurchaseHistory(string storeName)
+        {
+            return StoreLogic.GetStorePurchaseHistory(storeName);
+        }
+
+        public bool UpdateUserPassword(string userName, string newPassword)
+        {
+            return UserLogic.UpdateUserPassword(userName, newPassword);
+        }
+
+
     }
 }
