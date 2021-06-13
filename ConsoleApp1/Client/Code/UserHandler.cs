@@ -32,10 +32,10 @@ namespace Client.Code
             return (System.SendApi("Login", param));
         }
 
-        public bool InitByStateFile(string path)
+        public string InitByStateFile(string path)
         {
             string param = string.Format("path={0}", path);
-            return bool.Parse(System.SendApi("InitByStateFile", param));
+            return System.SendApi("InitByStateFile", param);
         }
 
 

@@ -88,9 +88,17 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool InitByStateFile(string path)
+        public string InitByStateFile(string path)
         {
-            return facade.InitByStateFile(path);
+            try
+            {
+                var msg= facade.InitByStateFile(path);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]

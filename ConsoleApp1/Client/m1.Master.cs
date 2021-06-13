@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using Client.Code;
+using WebSocketSharp;
 
 namespace Client
 {
@@ -14,7 +15,6 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             LabelPasword.Visible = false;
             LabelUsername.Visible = false;
             Labelname.Visible = true;
@@ -34,7 +34,10 @@ namespace Client
                 {
                     InitSystem.Visible = true;
                 }
-                else { InitSystem.Visible = false; }
+                else
+                {
+                    InitSystem.Visible = false;
+                }
             }
             else if (Session["username"] == null)
             {
@@ -42,7 +45,6 @@ namespace Client
                 Session["username"] = h.GuestLogin().ToString();
                 Labelname.Text = "Hello " + Session["username"].ToString();
                 Labelname.Visible = true;
-
             }
             else
             {
@@ -60,6 +62,7 @@ namespace Client
                     if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
                     LabelUsername.Visible = true;
                 }
+
                 if (txtpassword.Text.Trim().Length == 0)
                 {
                     if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
@@ -93,7 +96,8 @@ namespace Client
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage",
+                        "alert('" + msg + "')", true);
                     /*string message = ex.Message;
                     string script = "alert(\""+ message + "\");";
                     ScriptManager.RegisterStartupScript(this, GetType(),
@@ -102,28 +106,28 @@ namespace Client
             }
         }
 
-            //todo make sure of that
+        //todo make sure of that
 
-            /*if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
+        /*if ((txtusername.Text.Trim().Length != 0) && (txtpassword.Text.Trim().Length != 0))
+        {
+            ButtonLogOut.Visible = true;
+            Login_table.Visible = false;
+            Session["isLogin"] = "true";
+        }
+        else
+        {
+
+            if (txtusername.Text.Trim().Length == 0)
             {
-                ButtonLogOut.Visible = true;
-                Login_table.Visible = false;
-                Session["isLogin"] = "true";
+                if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
+                LabelUsername.Visible = true;
             }
-            else
+            if (txtpassword.Text.Trim().Length == 0)
             {
-
-                if (txtusername.Text.Trim().Length == 0)
-                {
-                    if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
-                    LabelUsername.Visible = true;
-                }
-                if (txtpassword.Text.Trim().Length == 0)
-                {
-                    if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
-                    LabelPasword.Visible = true;
-                }
-            }*/
+                if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
+                LabelPasword.Visible = true;
+            }
+        }*/
 
         protected void ButtonLogOut_Click(object sender, EventArgs e)
         {
@@ -170,7 +174,9 @@ namespace Client
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (TextBox2.Text.Trim().Length == 0) { }
+            if (TextBox2.Text.Trim().Length == 0)
+            {
+            }
             else
             {
                 Response.Redirect("~/Home.aspx?keyword=" + TextBox2.Text.ToString());
@@ -188,29 +194,45 @@ namespace Client
              s.InitSystem();
              Response.Redirect("~/Home.aspx");
           */
-            string selectedPath = "";
+            var selectedPath = "";
 
-            Thread t = new Thread((ThreadStart)(() => {
-                OpenFileDialog saveFileDialog1 = new OpenFileDialog();
+            var t = new Thread(() =>
+            {
+                var saveFileDialog1 = new OpenFileDialog
+                {
+                    Filter = "JSON Files (*.json)|*.json", FilterIndex = 2, RestoreDirectory = true , CheckPathExists = true,
+                    CheckFileExists = true
+                };
 
-                saveFileDialog1.Filter = "JSON Files (*.json)|*.json";
-                saveFileDialog1.FilterIndex = 2;
-                saveFileDialog1.RestoreDirectory = true;
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     selectedPath = saveFileDialog1.FileName;
                 }
-            }));
+            });
 
             // Run your code from a thread that joins the STA Thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             t.Join();
 
-            UserHandler us = new UserHandler();
-            us.InitByStateFile(selectedPath);
+            if(selectedPath.IsNullOrEmpty()) return;
+            
+            var us = new UserHandler();
+
+            var msg = us.InitByStateFile(selectedPath);
+
+            if (msg.Equals("\"True\""))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage",
+                    "alert('" + "State File Loaded Successfully!" + "')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage",
+                    "alert('" + msg + "')", true);
+            }
+            
         }
-        
     }
 }
