@@ -26,7 +26,13 @@ namespace Version1.Service_Layer
         bool AddProductToBasket(string userName, string storeName, string productCode,int amount,double priceofone);  //
         Dictionary<string,int> GetCartByStore(string userName, string storeName);
         bool UpdatePurchasePolicy(string storeName, Component policy);
-        
+
+         void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount);
+        void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username);
+        void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username);
+        void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice);
+
+
         ConcurrentDictionary<string,int> GetStoreInventory(string ownerName, string storeName);
         string[] getUsersStore(string userName, string storeName);
         bool MakeNewOwner(string storeName, string apointerid, string apointeeid);

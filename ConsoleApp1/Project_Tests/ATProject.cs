@@ -211,6 +211,30 @@ namespace Project_tests
         {
             return new Facade().GetAllUserNotifications(userName).ToList();
         }
+        public List<string> GetUserNotificationsoffer(string userName)
+        {
+            return new Facade().GetAllUserNotificationsoffer(userName).ToList();
+        }
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
+        {
+            service.Recieve_purchase_offer(username, storename, price, barcode, amount);
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            service.acceptoffer(barcode, price, username, storename, amount, by_username);
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            service.rejectoffer(barcode, price, username, storename, amount, by_username);
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            service.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
+        }
 
     }
 }

@@ -37,7 +37,7 @@ namespace Project_tests.StorePoliciesTests
             var basketPolicy = new MaxProductsInBasketPolicy(1);
             UpdatePurchasePolicy(StoreName, basketPolicy);
 
-            AddProductToCart(UserName, StoreName, product1.Barcode,2);
+            AddProductToCart(UserName, StoreName, product1.Barcode,2, product1.price);
             Assert.True(ValidateBasketPolicies(UserName,StoreName));
         }
 
@@ -52,7 +52,7 @@ namespace Project_tests.StorePoliciesTests
             
             UpdatePurchasePolicy(StoreName, andPolicy);
 
-            AddProductToCart(UserName, StoreName, product1.Barcode,2);
+            AddProductToCart(UserName, StoreName, product1.Barcode,2, product1.price);
             
             Assert.False(ValidateBasketPolicies(UserName,StoreName));
 
@@ -69,7 +69,7 @@ namespace Project_tests.StorePoliciesTests
             
             UpdatePurchasePolicy(StoreName, orPolicy);
 
-            AddProductToCart(UserName, StoreName, product1.Barcode,2);
+            AddProductToCart(UserName, StoreName, product1.Barcode,2, product1.price);
             
             Assert.True(ValidateBasketPolicies(UserName,StoreName));
         }
@@ -86,7 +86,7 @@ namespace Project_tests.StorePoliciesTests
             
             UpdatePurchasePolicy(StoreName, conditioningPolicy);
 
-            AddProductToCart(UserName, StoreName, product1.Barcode,2);
+            AddProductToCart(UserName, StoreName, product1.Barcode,2, product1.price);
             
             Assert.True(ValidateBasketPolicies(UserName,StoreName));
         }

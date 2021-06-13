@@ -341,5 +341,25 @@ namespace Project_tests
         {
             return real?.GetHashString(inputString);
         }
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
+        {
+            real.Recieve_purchase_offer(username, storename, price, barcode, amount);
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            real.acceptoffer(barcode, price, username, storename, amount, by_username);
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            real.rejectoffer(barcode, price, username, storename, amount, by_username);
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            real.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
+        }
     }
 }

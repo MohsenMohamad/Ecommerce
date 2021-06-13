@@ -39,7 +39,7 @@ namespace Project_Tests.AcceptanceTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1, 800));
             Assert.True(GetStoreInventory(OwnerName, StoreName)[product1.Barcode] == 2);
             GuestLogout(id);
         }
@@ -53,7 +53,7 @@ namespace Project_Tests.AcceptanceTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 0);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 0));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 0, 800));
             GuestLogout(id);
         }
 
@@ -65,8 +65,8 @@ namespace Project_Tests.AcceptanceTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
-            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1, 800));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 1, 800));
             Assert.True(GetCartByStore(id.ToString(), StoreName)[product1.Barcode] == 2);
             GuestLogout(id);
         }
@@ -79,7 +79,7 @@ namespace Project_Tests.AcceptanceTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
 
             var id = GuestLogin();
-            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 2));
+            Assert.True(AddProductToCart(id.ToString(), StoreName, product1.Barcode, 2, 800));
             GuestLogout(id);
 
             id = GuestLogin();
