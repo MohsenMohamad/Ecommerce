@@ -54,21 +54,28 @@ namespace Version1.LogicLayer
             _loggedInUsers.Add(name);
             return true;
         }
-        //here shady
+        
         public static void removeuserNotification(string userName, string notification)
         {
             var user =(User)DataHandler.Instance.GetUser(userName);
             for (int i = 0; i < user.GetNotifications().Count; i++)
             {
                 if (user.GetNotifications()[i].CompareTo(notification) == 0)
+                {
                     user.GetNotifications().RemoveAt(i);
+                }
             }
+
+            database.GetInstance().updateNotification(user.UserName, user.GetNotifications());
+
             for (int i = 0; i < user.GetNotificationsoffer().Count; i++)
             {
                 if (user.GetNotificationsoffer()[i].CompareTo(notification) == 0)
                     user.GetNotificationsoffer().RemoveAt(i);
             }
-            //here shady
+
+            database.GetInstance().updateNotificationsoffer(user.UserName, user.GetNotificationsoffer());
+            
         }
 
         // 3.1 Logout as a user
@@ -114,20 +121,22 @@ namespace Version1.LogicLayer
             }
             return null;
         }
-        //here shady
+        
         public static bool AddUserNotification(string userName, string notification)
         {
             var user = DataHandler.Instance.GetUser(userName);
             if (user == null) return false;
             ((User)user).GetNotifications().Add(notification);
+            database.GetInstance().updateNotification(((User)user).UserName, ((User)user).GetNotifications());
             return true;
         }
-        //here shady
+        
         public static bool AddUserNotificationoffer(string userName, string notification)
         {
             var user = DataHandler.Instance.GetUser(userName);
             if (user == null) return false;
             ((User)user).GetNotificationsoffer().Add(notification);
+            database.GetInstance().updateNotificationsoffer(((User)user).UserName, ((User)user).GetNotificationsoffer());
             return true;
         }
 

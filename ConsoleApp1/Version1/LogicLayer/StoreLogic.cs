@@ -314,7 +314,7 @@ namespace Version1.LogicLayer
 
             return true;
         }
-        //here shady
+
         public static bool CloseStore(string storeName, string ownerName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
@@ -337,9 +337,9 @@ namespace Version1.LogicLayer
                 {
                     var basketInfo = CartLogic.GetBasketInfo(user.UserName, storeName);
                     user.GetShoppingCart().shoppingBaskets.Remove(storeName);
-                    //here shady
                     user.GetNotifications().Add("We are sorry to inform you that your cart from " + storeName +
                                                 " has been deleted \n Basket Info :\n" + basketInfo);
+                    database.GetInstance().updateNotification(user.UserName,user.GetNotifications());
                 }
             }
 
@@ -347,16 +347,16 @@ namespace Version1.LogicLayer
             {
                 var managerUser = DataHandler.Instance.GetUser(manager);
                 ((User) managerUser).GetNotifications()
-                    //here shady
                     .Add(storeName + " has been closed , time to search for a new job");
+                database.GetInstance().updateNotification(((User)managerUser).UserName, ((User)managerUser).GetNotifications());
             }
 
             foreach (var owner in store.GetOwners())
             {
                 var ownerUser = DataHandler.Instance.GetUser(owner);
                 ((User) ownerUser).GetNotifications()
-                    //here shady
                     .Add(storeName + " has been closed , time to search for a new job");
+                database.GetInstance().updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
 
             return DataHandler.Instance.Stores.TryRemove(storeName, out _);
@@ -480,7 +480,8 @@ namespace Version1.LogicLayer
                         //there are bid for the item
                         else
                         {
-                            a += user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] * pro.Value;
+                            //here the price after the offer is multiplied with the amount 
+                            a += user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key];
                         }
                         
                     }

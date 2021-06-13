@@ -75,6 +75,7 @@ namespace Version1.LogicLayer
 
                 if (DataHandler.Instance.IsGuest(userName) < 0)
                 {
+                    //here
                     ((User) user).history.Add(new Purchase());
                 }
                 

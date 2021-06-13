@@ -469,6 +469,28 @@ namespace Version1.DataAccessLayer
             return discountPolicy;           
         }
 
+        internal void updateNotification(string userName, List<string> list)
+        {
+            var result = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
+            
+            if (result != null)
+            {
+                result.notifications = oJS.Serialize(list);
+                db.SaveChanges();
+            }
+            
+        }
+        internal void updateNotificationsoffer(string userName, List<string> list)
+        {
+            var result = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
+
+            if (result != null)
+            {
+                result.notificationsoffer = oJS.Serialize(list);
+                db.SaveChanges();
+            }
+        }
+
         internal void UpdateProductDiscountDiscreption(string barcode, string discount_description)
         {
             var product = db.ProductsTable.SingleOrDefault(b => b.barcode == barcode);
@@ -1364,6 +1386,8 @@ namespace Version1.DataAccessLayer
             }
             return false;
         }
+
+        
     }
 
 }
