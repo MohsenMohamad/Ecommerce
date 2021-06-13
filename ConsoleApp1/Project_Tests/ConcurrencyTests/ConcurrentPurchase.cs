@@ -40,11 +40,11 @@ namespace Project_tests.ConcurrencyTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 3);
             
             
-            AddProductToCart("User1", "AdnanStore", "1", 1);
+            AddProductToCart("User1", "AdnanStore", "1", 1, product1.price);
             var result1 = false;
             var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
 
-            AddProductToCart("User2", "AdnanStore", "1", 1);
+            AddProductToCart("User2", "AdnanStore", "1", 1, product1.price);
             var result2 = false;
             var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2","Credit"));
 
@@ -65,11 +65,11 @@ namespace Project_tests.ConcurrencyTests
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 1);
             
             
-            AddProductToCart("User1", "AdnanStore", "1", 1);
+            AddProductToCart("User1", "AdnanStore", "1", 1, product1.price);
             var result1 = false;
             var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
 
-            AddProductToCart("User2", "AdnanStore", "1", 1);
+            AddProductToCart("User2", "AdnanStore", "1", 1, product1.price);
             var result2 = false;
             var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2","Credit"));
 
@@ -86,7 +86,7 @@ namespace Project_tests.ConcurrencyTests
             // adding an amount to a product with 0 current amount and buying at the same time (sometimes fails sometimes works)
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
-            AddProductToCart("User1", "AdnanStore", "1", 2);
+            AddProductToCart("User1", "AdnanStore", "1", 2, product1.price);
             UpdateProductAmountInStore("adnan", "AdnanStore", "1", 1);
             
             var result1 = false;

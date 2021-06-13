@@ -41,7 +41,7 @@ namespace Project_Tests.AcceptanceTests
             var supplyLogCount = ExternalSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
-            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1);
+            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1, 800);
             var result2 = Purchase(UserName, "Credit");
 
             Assert.True(result1 & result2);
@@ -61,7 +61,7 @@ namespace Project_Tests.AcceptanceTests
             var supplyLogCount = ExternalSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
-            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 2);
+            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 2, 800);
             UpdateProductAmountInStore(UserName, StoreName, product1.Barcode, 1);
             var result2 = Purchase(UserName, "Credit");
             
@@ -83,7 +83,7 @@ namespace Project_Tests.AcceptanceTests
             var supplyLogCount = ExternalSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 6);
-            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 5);
+            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 5, 800);
             var result2 = Purchase(UserName, "Credit");
             
             Assert.True(result1); // added to cart
