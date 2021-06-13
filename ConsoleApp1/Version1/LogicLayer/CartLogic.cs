@@ -9,59 +9,9 @@ namespace Version1.LogicLayer
 {
     public static class CartLogic
     {
-        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
-        {
-            lock (DataHandler.Instance.InefficientLock)
-            {
-                var user = DataHandler.Instance.GetUser(userName);
-                var store = DataHandler.Instance.GetStore(storeName);
-                var product = DataHandler.Instance.GetProduct(productCode, storeName);
+        
 
-                if (user == null || store == null || product == null || amount < 0)
-                    return false;
-
-                var userCart = user.GetShoppingCart();
-                if (!userCart.shoppingBaskets.ContainsKey(storeName))
-                    userCart.shoppingBaskets.Add(storeName,new ShoppingBasket(storeName));
-                
-                var storeProducts = DataHandler.Instance.GetStore(storeName).GetInventory();
-                var userStoreBasket = userCart.GetBasket(storeName);
-                if (storeProducts.ContainsKey(product) && storeProducts[product] >= amount)
-                {
-                    double totalprice = amount * priceofone;
-                    if (userStoreBasket.Products.ContainsKey(product.Barcode))
-                    {
-                        userStoreBasket.Products[product.Barcode] += amount;
-
-                        userStoreBasket.priceperproduct[product.Barcode] += totalprice;
-
-                    }
-                    else
-                    {
-                        userStoreBasket.Products.Add(product.Barcode, amount);
-                        userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
-                    }
-
-                    return database.GetInstance().AddProductToBasket(userName, storeName, productCode, amount, priceofone); ;
-                }
-
-                return false;
-            }
-        }
-
-        public static Dictionary<string, int> GetCartByStore(string userName, string storeName)
-        {
-            lock (DataHandler.Instance.InefficientLock)
-            {
-                var user = DataHandler.Instance.GetUser(userName);
-                var store = DataHandler.Instance.GetStore(storeName);
-                if (user == null || store == null || user.GetShoppingCart().GetBasket(storeName) == null)
-                    return null;
-                var basket = user.GetShoppingCart().GetBasket(storeName);
-                return basket.Products;
-            }
-        }
-
+        
         public static bool Purchase(string userName, string creditCard)
         {
             lock (DataHandler.Instance.InefficientLock)
@@ -131,6 +81,45 @@ namespace Version1.LogicLayer
                 return true;
             }
         }
+        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                var user = DataHandler.Instance.GetUser(userName);
+                var store = DataHandler.Instance.GetStore(storeName);
+                var product = DataHandler.Instance.GetProduct(productCode, storeName);
+
+                if (user == null || store == null || product == null || amount < 0)
+                    return false;
+
+                var userCart = user.GetShoppingCart();
+                if (!userCart.shoppingBaskets.ContainsKey(storeName))
+                    userCart.shoppingBaskets.Add(storeName, new ShoppingBasket(storeName));
+
+                var storeProducts = DataHandler.Instance.GetStore(storeName).GetInventory();
+                var userStoreBasket = userCart.GetBasket(storeName);
+                if (storeProducts.ContainsKey(product) && storeProducts[product] >= amount)
+                {
+                    double totalprice = amount * priceofone;
+                    if (userStoreBasket.Products.ContainsKey(product.Barcode))
+                    {
+                        userStoreBasket.Products[product.Barcode] += amount;
+
+                        userStoreBasket.priceperproduct[product.Barcode] += totalprice;
+
+                    }
+                    else
+                    {
+                        userStoreBasket.Products.Add(product.Barcode, amount);
+                        userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
+                    }
+
+                    return database.GetInstance().AddProductToBasket(userName, storeName, productCode, amount, priceofone);
+                }
+
+                return false;
+            }
+        }
 
         public static bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
@@ -155,7 +144,7 @@ namespace Version1.LogicLayer
                 {
                     shoppingBasket.Products[productBarcode] = newAmount;
                 }
-                return true;
+                return database.GetInstance().UpdateCartProductAmountInBasket(userName, storeName, productBarcode, newAmount);
             }
         }
 
@@ -305,5 +294,18 @@ namespace Version1.LogicLayer
 
             return output;
         }
+        public static Dictionary<string, int> GetCartByStore(string userName, string storeName)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                var user = DataHandler.Instance.GetUser(userName);
+                var store = DataHandler.Instance.GetStore(storeName);
+                if (user == null || store == null || user.GetShoppingCart().GetBasket(storeName) == null)
+                    return null;
+                var basket = user.GetShoppingCart().GetBasket(storeName);
+                return basket.Products;
+            }
+        }
+
     }
 }

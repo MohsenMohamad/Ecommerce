@@ -497,7 +497,6 @@ namespace Version1.DataAccessLayer
 
                 }
                               
-
                 store.staff = getNodeDb(node, storeName);
                 db.SaveChanges();
             }
@@ -1246,6 +1245,48 @@ namespace Version1.DataAccessLayer
                     priceperproduct.Add(productCode, priceofone);
                 }
                 shbasket.priceperproduct = oJS.Serialize(priceperproduct);
+
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        internal bool UpdateCartProductAmountInBasket(string userName, string storeName, string productBarcode, int newAmount)
+        {
+
+            var user = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
+
+            if (user != null)
+
+            {
+                List<string> keys = oJS.Deserialize<List<string>>(user.shoppingCart.shoppingBaskets.keys);
+
+                int indexOfStore;
+
+                if (!keys.Contains(storeName))
+                {
+                    return false;
+                }
+                else
+                {
+                    indexOfStore = keys.IndexOf(storeName);
+                }
+
+
+                ShoppingBasketDB shbasket;
+                if (indexOfStore != -1)
+                {
+                    shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
+                }
+                else
+                {   
+                    return false;
+                }
+
+                Dictionary<string, double> Products = oJS.Deserialize<Dictionary<string, double>>(shbasket.Products);
+                //update item's amount
+                Products[productBarcode] = newAmount;
+                shbasket.Products = oJS.Serialize(Products);
 
                 db.SaveChanges();
                 return true;
