@@ -664,3 +664,55 @@
 11/06/2021 17:43:09: adnan has has added product :4form store: AdnanStore to his Basket  .
 11/06/2021 17:43:12: adnan has has added product :1form store: MohamedStore to his cart  .
 11/06/2021 17:43:26: adnan has has added product :5form store: AdnanStore to his Basket  .
+14/06/2021 19:58:33: Guest has connected with pid : 1  .
+14/06/2021 19:59:25: Guest has connected with pid : 1  .
+14/06/2021 20:04:58: Guest has connected with pid : 1  .
+14/06/2021 20:07:31: yarahas Register succesfully   .
+14/06/2021 20:07:50: yarahas LoggedIn   .
+14/06/2021 20:08:16: yara has opened shop : shop  .
+14/06/2021 20:08:44: yarahas LoggedOut   .
+14/06/2021 20:08:44: Guest has connected with pid : 2  .
+14/06/2021 21:06:34: Guest has connected with pid : 1  .
+14/06/2021 21:07:03: yara1has Register succesfully   .
+14/06/2021 21:07:13: yara1has LoggedIn   .
+14/06/2021 21:07:19: yara1 has opened shop : shop  .
+14/06/2021 21:07:30: yara1 has opened shop : shop12  .
+14/06/2021 21:30:32: Guest has connected with pid : 1  .
+14/06/2021 21:30:52: yara1has LoggedIn   .
+14/06/2021 21:45:27: Guest has connected with pid : 1  .
+14/06/2021 21:45:38: yarahas LoggedIn   .
+14/06/2021 21:46:43: yarahas LoggedOut   .
+14/06/2021 21:46:43: Guest has connected with pid : 2  .
+14/06/2021 22:16:55: Guest has connected with pid : 1  .
+14/06/2021 22:17:04: yarahas LoggedIn   .
+14/06/2021 22:17:39: yara has has added product :22form store: 1 to his Basket  .
+14/06/2021 22:24:28: Guest has connected with pid : 1  .
+14/06/2021 22:24:37: yarahas LoggedIn   .
+14/06/2021 22:24:50: yara has has added product :123456form store: 1 to his Basket  .
+14/06/2021 22:28:03: Guest has connected with pid : 1  .
+14/06/2021 22:28:15: 1 could not add product :22form store: 1 to his Basket  .
+14/06/2021 22:30:52: Guest has connected with pid : 1  .
+14/06/2021 22:31:00: 1 could not add product :123456form store: 1 to his Basket  .
+14/06/2021 22:41:54: Guest has connected with pid : 1  .
+14/06/2021 22:42:17: 1 could not add product :22form store: 1 to his Basket  .
+14/06/2021 22:42:26: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 22:42:29: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 22:42:32: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 23:05:01: Guest has connected with pid : 1  .
+14/06/2021 23:05:10: yarahas LoggedIn   .
+14/06/2021 23:05:28: yara has opened shop : Yara Shop  .
+14/06/2021 23:05:44: yara has make new manger adnan for Yara Shop  .
+14/06/2021 23:05:55: yara has make new owner for Yara Shop  .
+14/06/2021 23:14:43: Guest has connected with pid : 1  .
+14/06/2021 23:14:57: yarahas LoggedIn   .
+14/06/2021 23:15:06: yara has opened shop : shop123  .
+14/06/2021 23:36:15: Guest has connected with pid : 1  .
+14/06/2021 23:36:29: yarahas LoggedIn   .
+14/06/2021 23:36:39: yara has has added product :2form store: ahmad SHOP to his Basket  .
+14/06/2021 23:37:41: yarahas LoggedOut   .
+14/06/2021 23:37:41: Guest has connected with pid : 2  .
+14/06/2021 23:47:01: Guest has connected with pid : 1  .
+14/06/2021 23:47:13: yarahas LoggedIn   .
+14/06/2021 23:47:21: yara has has added product :2form store: ahmad SHOP to his Basket  .
+14/06/2021 23:48:13: yarahas LoggedOut   .
+14/06/2021 23:48:13: Guest has connected with pid : 2  .

@@ -55,6 +55,19 @@ namespace Client
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
                 }
             }
+            if (e.CommandName == "History")
+            {
+                Session["editshop"] = e.CommandArgument;
+                UserHandler uh = new UserHandler();
+                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
+                {
+                    Response.Redirect("~/History.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
+                }
+            }
         }
 
         protected void Data_shop_SelectedIndexChanged(object sender, EventArgs e)

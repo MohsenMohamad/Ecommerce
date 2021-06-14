@@ -400,6 +400,26 @@ namespace ServerApi
 
         }
 
+        [HttpGet]
+        public string[][] SearchByProductName(string productName)
+        {
+            return facade.SearchByProductName(productName);
+        }
+
+        [HttpGet]
+        public string[][] SearchByKeyword(string keyword)
+        {
+            return facade.SearchByKeyword(keyword);
+
+        }
+
+        [HttpGet]
+        public string[][] SearchByCategory(string category)
+        {
+            return facade.SearchByCategory(category);
+
+        }
+
 
         [HttpGet]
         public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)

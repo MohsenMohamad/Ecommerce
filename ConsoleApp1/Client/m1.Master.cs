@@ -15,8 +15,13 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LabelPasword.Visible = false;
-            LabelUsername.Visible = false;
+            int counter = 0;
+            while (counter < 30)
+            {
+                try
+                {
+
+                
             Labelname.Visible = true;
             OpenShop.Visible = false;
             MyShops.Visible = false;
@@ -28,12 +33,13 @@ namespace Client
             if (Session["isLogin"] != null)
             {
                 OpenShop.Visible = true;
-                Login_table.Visible = false;
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
                 Notifications.Visible = true;
                 EditUser.Visible = true;
                 History.Visible = true;
+                divheader.Visible = false;
+                Labelname.Text = "Hello " + Session["username"].ToString();
 
                 if (Session["admin"] != null)
                 {
@@ -49,69 +55,23 @@ namespace Client
                 UserHandler h = new UserHandler();
                 Session["username"] = h.GuestLogin().ToString();
                 Labelname.Text = "Hello " + Session["username"].ToString();
-                Labelname.Visible = true;
             }
-            else
+                    return;
+                }
+                catch
+                {
+                    Thread.Sleep(1000);
+                    counter++;
+                }
+            }
+            if (counter > 30)
             {
-                Labelname.Text = "Hello " + Session["username"].ToString();
-                Labelname.Visible = true;
+                //error message
+                throw new Exception("server not responding");
             }
         }
 
-        protected void btnlogin_Click(object sender, EventArgs e)
-        {
-            if ((txtusername.Text.Trim().Length == 0) || (txtpassword.Text.Trim().Length == 0))
-            {
-                if (txtusername.Text.Trim().Length == 0)
-                {
-                    if (txtpassword.Text.Trim().Length == 0) LabelPasword.Visible = true;
-                    LabelUsername.Visible = true;
-                }
 
-                if (txtpassword.Text.Trim().Length == 0)
-                {
-                    if (txtusername.Text.Trim().Length == 0) LabelUsername.Visible = true;
-                    LabelPasword.Visible = true;
-                }
-            }
-            else
-            {
-                //  Console.WriteLine("unKnown error !");
-                string msg = new UserHandler().Login(txtusername.Text, txtpassword.Text);
-                if (msg.Equals("\"True\""))
-                {
-                    ButtonLogOut.Visible = true;
-                    Login_table.Visible = false;
-                    Session["isLogin"] = "true";
-                    Session["username"] = txtusername.Text;
-                    Labelname.Visible = true;
-                    Labelname.Text = "Hello " + txtusername.Text;
-                    Session["userid"] = msg;
-                    OpenShop.Visible = true;
-                    Notifications.Visible = true;
-                    MyShops.Visible = true;
-                    EditUser.Visible = true;
-                    History.Visible = true;
-                    Session["admin"] = null;
-
-                    Session["basket"] = null;
-                    if (txtusername.Text.ToString().Equals("admin"))
-                    {
-                        Session["admin"] = "admin";
-                        InitSystem.Visible = true;
-                    }
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage",
-                        "alert('" + msg + "')", true);
-                    /*string message = ex.Message;
-                    string script = "alert(\""+ message + "\");";
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                          "ServerControlScript", script, true);*/
-                }
-            }
-        }
 
         //todo make sure of that
 
@@ -179,16 +139,6 @@ namespace Client
             Response.Redirect("~/MyShops.aspx");
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            if (TextBox2.Text.Trim().Length == 0)
-            {
-            }
-            else
-            {
-                Response.Redirect("~/Home.aspx?keyword=" + TextBox2.Text.ToString());
-            }
-        }
 
         protected void Notifications_Click(object sender, EventArgs e)
         {
@@ -244,12 +194,19 @@ namespace Client
 
         protected void History_Click(object sender, EventArgs e)
         {
+            Session["editshop"] = null;
             Response.Redirect("~/History.aspx");
         }
 
         protected void EditUser_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/EditUser.aspx");
+        }
+
+
+        protected void allproduct_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AllProducts.aspx");
         }
     }
 }

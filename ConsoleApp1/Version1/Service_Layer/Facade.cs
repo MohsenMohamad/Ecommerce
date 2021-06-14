@@ -598,32 +598,31 @@ namespace Version1.Service_Layer
         }
 
 
-        private string[][] SearchResultTo2DArray(Dictionary<string,List<string>> searchResult)
+        private string[][] SearchResultTo2DArray(Dictionary<string, List<string>> searchResult)
         {
-            var result = ProductsTo2DStringArray(searchResult);
-            var lists1 = result.Select(a => a.ToList()).ToList();
+            var result = new List<List<string>>();
 
-            var finalList = new List<List<string>>();
-            var storeNames = logicInstance.GetStoresNames();
-            foreach (var storeName in storeNames)
+            foreach (var storeProducts in searchResult)
             {
-                var storeInventory = GetStoreProducts(storeName);
-                var lists = storeInventory.Select(a => a.ToList()).ToList();
-                foreach (var product in lists1)
+                var product = new List<string>();
+                foreach (var barcode in storeProducts.Value)
                 {
-                    foreach (var productData in lists)
-                    {
-                        if (productData[2].Equals(product[2]))
-                        {
-                            product.Add(storeName);
-                        }
-                    }
+                    var pr = DataHandler.Instance.GetProduct(barcode, storeProducts.Key);
+                    product.Add(pr.Name);
+                    product.Add(pr.Description);
+                    product.Add(pr.Barcode);
+                    product.Add(pr.Price.ToString(CultureInfo.CurrentCulture));
+                    var categories = pr.Categories.Aggregate("", (current, category) => current + category + "#");
+
+                    categories = categories.Substring(0, categories.Length - 1);
+                    product.Add(categories);
+                    product.Add(storeProducts.Key);
                 }
 
-                finalList.AddRange(lists1);
+                result.Add(product);
             }
 
-            return finalList.Select(a => a.ToArray()).ToArray();
+            return result.Select(a => a.ToArray()).ToArray();
         }
 
 

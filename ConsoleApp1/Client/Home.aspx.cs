@@ -19,19 +19,7 @@ namespace Client
             {
                 try
                 {
-                    if (Request.QueryString["keyword"] != null)
-                    {
-                        ShopHandler a = new ShopHandler();
-                        DataListproducts.DataSource = a.search(Request.QueryString["keyword"].ToString());
-                        DataListproducts.DataBind();
-                    }
-                    else
-                    {
-                        ShopHandler a = new ShopHandler();
-                        DataListproducts.DataSource = a.getAllProducts();
-                        DataListproducts.DataBind();
-                    }
-
+                   
                     return;
                 }
                 catch
@@ -40,7 +28,7 @@ namespace Client
                     counter++;
                 }
             }
-            if(counter >= 10)
+            if (counter > 30)
             {
                 //error message
                 throw new Exception("server not responding");

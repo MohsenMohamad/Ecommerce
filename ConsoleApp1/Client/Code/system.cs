@@ -37,6 +37,7 @@ namespace Client.Code
             }
             catch (Exception xxx)
             {
+
                 return null;
             }
         }

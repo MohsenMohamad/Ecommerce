@@ -1,19 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="PurchaseDone.aspx.cs" Inherits="Client.PurchaseDone" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style19 {
-            width: 686px;
-            height: 394px;
-        }
-    </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <tr>
-         <td>
-    <table class="auto-style5">
+<br /><br />
+    
+    <table  style="margin-left:400px; text-align:center">
         <tr>
-            <td>thanks you for your order!</td>
+            <td>Thank You For Your Order!</td>
             <td>&nbsp;</td>
         </tr>
         <tr>

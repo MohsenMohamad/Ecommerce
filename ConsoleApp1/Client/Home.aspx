@@ -1,79 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="True" CodeBehind="Home.aspx.cs" Inherits="Client.Home" %>
 
 <asp:Content ID="Content1"  ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-    .auto-style13 {
-        height: 5px;
-    }
-</style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
 
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:DataList ID="DataListproducts" OnItemCommand="DataListproducts_ItemCommand1" runat="server" BackColor="White" BorderStyle="Double" CellPadding="4"  RepeatDirection="Horizontal" RepeatColumns="3" BorderColor="#336666" BorderWidth="3px" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" GridLines="Horizontal" OnSelectedIndexChanged="DataListproducts_SelectedIndexChanged">
-        <FooterStyle BackColor="White" ForeColor="#333333" />
-        <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
-        <SelectedItemStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
-        <ItemStyle BackColor="White" ForeColor="#333333" />
-        <ItemTemplate>
-                       
-                                <table align="left" style="width: 250px; background-color: #f5f5f5; border: 1px solid #CCC;">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
+         <div style="position:center; justify-content:center">
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <video width="700" height="400" autoplay >
+                        <source src="img/homepagevideo.mp4" type="video/mp4">
+                       </video>
 
-                                    <tr>
-                                        <td style="height: 10px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                                    <span style="font-weight: 700; font-size: 14px;"><%#Eval("productName") %> </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 10px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span style="font-weight: 700; font-size: 20px;"><%#Eval("descerption") %> </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span style="font-size: 16px;">barcode :<%#Eval("barcode") %></span></td>
-                                    </tr>
-                                     <tr>
-                                        <td>
-                                            <span style="font-size: 16px;"><%#Eval("discount") %></span></td>
-                                    </tr>
-                                     <tr>
-                                        <td>
-                                            <span style="font-size: 16px;">catagory :<%#Eval("catagory") %></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span style="font-weight: 700; font-size: 20px;"><%#Eval("price") %>₪</span></td>
-                                    </tr>
-                                     <tr>
-                                        <td>
-                                             <span style="font-size: 16px;">nameShop :<%#Eval("nameShop") %></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            
-                                            &nbsp;</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="auto-style13">
-                                            <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop") %>' CommandName="add_to_cart"><img src="img/select-button-png-th.png" style="width: auto; height: auto;" /></asp:LinkButton>
-                                        </td>
-                                        <tr>
-                                            <td style="height: 10px;"></td>
-                                        </tr>
-                                    </tr>
-
-                                    <tr>
-                                    </tr>
-                                </table>
-                        
-                        </ItemTemplate>
-    </asp:DataList>
+        </div>
 </asp:Content>
 
 

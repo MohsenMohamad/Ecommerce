@@ -22,7 +22,7 @@ namespace Client
                 Data_cart.DataSource = a.GetUserBaskets(Session["username"].ToString());
                 Data_cart.DataBind();
 
-                Label3.Text = u.GetTotalCart(Session["username"].ToString()).ToString();
+                //Label3.Text = u.GetTotalCart(Session["username"].ToString()).ToString();
 
             }
             else {
@@ -111,6 +111,8 @@ namespace Client
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            visa.Visible = true;
+            delivery.Visible = true;
             UserHandler s = new UserHandler();
             if (TextBoxCreditcard.Text.Length == 0)
             {
