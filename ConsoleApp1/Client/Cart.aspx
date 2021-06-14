@@ -1,41 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="Client.Cart" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style21 {
-            width: 149px;
-        }
-        .auto-style22 {
-            width: 427px;
-        }
-        .auto-style24 {
-            margin-left: 412px;
-        }
-        .auto-style25 {
-            width: 228px;
-        }
-        .auto-style28 {
-            height: 62px;
-        }
-        .auto-style29 {
-            width: 228px;
-            height: 62px;
-        }
-        .auto-style30 {
-            width: 261px;
-        }
-        .auto-style31 {
-            width: 261px;
-            height: 62px;
-        }
-        </style>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:DataList ID="Data_cart" OnItemCommand="DataListCart_ItemCommand1" runat="server" Width="100%" Height="335px" OnSelectedIndexChanged="Data_cart_SelectedIndexChanged1">
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
+            <div >
+           
+            <h1>Cart</h1><br /><br />
+        </div>
+            
+
+ <asp:DataList ID="Data_cart" OnItemCommand="DataListCart_ItemCommand1" runat="server" Width="100%" Height="335px" OnSelectedIndexChanged="Data_cart_SelectedIndexChanged1">
                                             <ItemTemplate>
-                                                <table align="center" style="width: 100%; border-bottom: 1px solid #CCC">
+                                                <table align="center" style="width: 80%; border-bottom: 1px solid #CCC">
                                                     <tr>
-                                                        <td style="width: 80px;"><span style="font-size: 22px;"><%#Eval("productName")%></span></td>
+                                                        <td style="width: 80px;"><span style="font-size: 22px; font-weight: 700; text-shadow:1px 1px orange"><%#Eval("productName")%></span></td>
                                                         <td style="text-align: center; width: 60px;">
                                                         <td style="width: 10px;"></td>
                                                         <td style="width: 302px">
@@ -60,7 +44,7 @@
                                                             </table>
                                                         </td>
                                                         <td style="text-align: right;">
-                                                            <asp:Button ID="ButtonDelete" runat="server" Text="Delete" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop")+","+Eval("Amount")  %>' CommandName="Delete_command" />
+                                                            <asp:Button ID="ButtonDelete" runat="server" Text="Remove Item" CommandArgument='<%#Eval("productName")+","+ Eval("descerption")+","+Eval("barcode")+","+Eval("catagory")+","+Eval("price")+","+Eval("nameShop")+","+Eval("Amount")  %>' CommandName="Delete_command" />
                                                         </td>
                                                     </tr>
                                                 </table>

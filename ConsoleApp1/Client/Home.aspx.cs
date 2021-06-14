@@ -14,37 +14,7 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int counter = 0;
-            while (counter < 30)
-            {
-                try
-                {
-                    if (Request.QueryString["keyword"] != null)
-                    {
-                        ShopHandler a = new ShopHandler();
-                        DataListproducts.DataSource = a.search(Request.QueryString["keyword"].ToString());
-                        DataListproducts.DataBind();
-                    }
-                    else
-                    {
-                        ShopHandler a = new ShopHandler();
-                        DataListproducts.DataSource = a.getAllProducts();
-                        DataListproducts.DataBind();
-                    }
-
-                    return;
-                }
-                catch
-                {
-                    Thread.Sleep(1000);
-                    counter++;
-                }
-            }
-            if(counter >= 10)
-            {
-                //error message
-                throw new Exception("server not responding");
-            }
+           
 
         }
 

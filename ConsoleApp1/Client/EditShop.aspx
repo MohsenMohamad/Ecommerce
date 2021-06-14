@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m1.Master" AutoEventWireup="true" CodeBehind="EditShop.aspx.cs" Inherits="Client.EditShop" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
+     <style type="text/css">
         .auto-style13 {
             width: 165px;
         }
@@ -66,30 +70,60 @@ margin-bottom: 16px;
         .auto-style23 {
             width: 160px;
         }
-        .auto-style25 {
-            width: 112px;
-        }
-        .auto-style26 {
-            width: 112px;
-            height: 62px;
-        }
         .auto-style27 {
             height: 62px;
         }
-        .auto-style28 {
-            width: 122px;
+        #DropDownList1{
+            position:center;
         }
-        .auto-style29 {
-            height: 69px;
+        #table1{
+            position:center;
+            justify-content:center;
         }
+      @font-face
+{
+    font-family:text;
+    src: url('Olive.otf');
+}
+         .auto-style28 {
+             width: 354%;
+         }
+         .auto-style29 {
+             width: 806px;
+         }
+         .auto-style30 {
+             width: 443px;
+         }
+         .auto-style31 {
+             width: 1141px;
+             height: 168px;
+         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="styles.css" rel="Stylesheet" type="text/css"/>
+         <div >
+            <br />
+          &nbsp;<table class="auto-style31">
+                 <tr>
+                     <td class="auto-style29">&nbsp;</td>
+                     <td class="auto-style30">
+          <img src="img/edit12.jpg" id="fast-shop" class="auto-style23"/></td>
+                 </tr>
+                 <tr>
+                     <td class="auto-style29">&nbsp;</td>
+                 </tr>
+             </table>
+        </div>
     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     <table class="auto-style5">
         <tr>
-            <td class="auto-style15">
-                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack ="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+             <td  style="width: 1086px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack ="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="400px" BackColor="Wheat" >
                       <asp:ListItem Enabled="true" Text="Select" Value="-1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Item" Value="1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
@@ -100,16 +134,14 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Shop Discount" Value="7"></asp:ListItem>
                                                 <asp:ListItem Text="Item Discount" Value="8"></asp:ListItem>
                                                 <asp:ListItem Text="Conditional Discount" Value="9"></asp:ListItem>
-
-
-
                 </asp:DropDownList>
+            </td>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style15">
-                <table id="table1"  runat="server"  class="auto-style5">
+                <table id="table1"  runat="server"  class="auto-style28">
                     <tr>
                         <td class="auto-style13">
                 <asp:Label ID="Label3" runat="server" Text="Add item"></asp:Label>

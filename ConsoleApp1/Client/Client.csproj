@@ -156,6 +156,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AllProducts.aspx" />
     <Content Include="Cart.aspx" />
     <Content Include="clientWebSocket.html" />
     <Content Include="CounterOffer.aspx" />
@@ -163,14 +164,29 @@
     <Content Include="EditUser.aspx" />
     <Content Include="History.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="img\additem.jfif" />
+    <Content Include="img\background.jpg" />
+    <Content Include="img\cart.jpg" />
+    <Content Include="img\delivery.jpg" />
     <Content Include="img\done.gif" />
+    <Content Include="img\edit12.jpg" />
+    <Content Include="img\fast-shop.jpg" />
+    <Content Include="img\homepagevideo.mp4" />
+    <Content Include="img\homevideo.mp4" />
+    <Content Include="img\manager.jpg" />
+    <Content Include="img\message.png" />
+    <Content Include="img\notification.png" />
+    <Content Include="img\openshop.jfif" />
+    <Content Include="img\paycard.jfif" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />
     <Content Include="img\add_to_cart.PNG" />
     <Content Include="img\select-button-png-md.png" />
     <Content Include="img\select-button-png-th.png" />
+    <Content Include="img\shopping.jpg" />
     <Content Include="img\shopping_cart_black_72x72.png" />
     <Content Include="img\tenor.gif" />
+    <Content Include="img\tshirt1.jfif" />
     <Content Include="MyShops.aspx" />
     <Content Include="Notifications.aspx" />
     <Content Include="NotificationsOffer.aspx" />
@@ -179,11 +195,21 @@
     <Content Include="PurchaseDone.aspx" />
     <Content Include="Purchase_Offer.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Register1.aspx" />
     <Content Include="Shops.aspx" />
+    <Content Include="sign-in.aspx" />
     <Content Include="Staff.aspx" />
+    <Content Include="styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllProducts.aspx.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AllProducts.aspx.designer.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -295,12 +321,26 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Register1.aspx.cs">
+      <DependentUpon>Register1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register1.aspx.designer.cs">
+      <DependentUpon>Register1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Shops.aspx.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Shops.aspx.designer.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="sign-in.aspx.cs">
+      <DependentUpon>sign-in.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sign-in.aspx.designer.cs">
+      <DependentUpon>sign-in.aspx</DependentUpon>
     </Compile>
     <Compile Include="Staff.aspx.cs">
       <DependentUpon>Staff.aspx</DependentUpon>
