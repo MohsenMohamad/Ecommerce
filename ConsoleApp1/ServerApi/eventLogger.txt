@@ -679,3 +679,17 @@
 14/06/2021 21:07:30: yara1 has opened shop : shop12  .
 14/06/2021 21:30:32: Guest has connected with pid : 1  .
 14/06/2021 21:30:52: yara1has LoggedIn   .
+14/06/2021 21:45:27: Guest has connected with pid : 1  .
+14/06/2021 21:45:38: yarahas LoggedIn   .
+14/06/2021 21:46:43: yarahas LoggedOut   .
+14/06/2021 21:46:43: Guest has connected with pid : 2  .
+14/06/2021 22:16:55: Guest has connected with pid : 1  .
+14/06/2021 22:17:04: yarahas LoggedIn   .
+14/06/2021 22:17:39: yara has has added product :22form store: 1 to his Basket  .
+14/06/2021 22:24:28: Guest has connected with pid : 1  .
+14/06/2021 22:24:37: yarahas LoggedIn   .
+14/06/2021 22:24:50: yara has has added product :123456form store: 1 to his Basket  .
+14/06/2021 22:28:03: Guest has connected with pid : 1  .
+14/06/2021 22:28:15: 1 could not add product :22form store: 1 to his Basket  .
+14/06/2021 22:30:52: Guest has connected with pid : 1  .
+14/06/2021 22:31:00: 1 could not add product :123456form store: 1 to his Basket  .
