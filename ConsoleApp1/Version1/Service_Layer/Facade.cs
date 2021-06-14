@@ -218,6 +218,7 @@ namespace Version1.Service_Layer
         {
             return logicInstance.GetHashString(inputString);
         }
+        
 
 
         public string[][] SearchByKeyword(string keyword)

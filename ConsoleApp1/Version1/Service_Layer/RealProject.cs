@@ -492,6 +492,31 @@ namespace Version1.Service_Layer
             }
         }
 
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            try
+            {
+                return facade.addPublicStoreDiscount(storeName, percentage);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+        public double GetTotalCart(string UserName)
+        {
+            try
+            {
+                return facade.GetTotalCart(UserName);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+
         public void ResetMemory()
         {
             DataHandler.Instance.Reset();

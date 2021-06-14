@@ -55,6 +55,9 @@ namespace Version1.Service_Layer
 
         string GetHash(string inputString);
         string GetHashString(string inputString);
+        
+        int addPublicStoreDiscount(string storeName, int percentage);
+        double GetTotalCart(string UserName);
     }
     
 }

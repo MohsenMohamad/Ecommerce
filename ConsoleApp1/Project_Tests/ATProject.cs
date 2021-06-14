@@ -235,6 +235,14 @@ namespace Project_tests
         {
             service.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
         }
-
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            return  service.addPublicStoreDiscount(storeName, percentage);
+        }
+        public double GetTotalCart(string UserName)
+        {
+            return service.GetTotalCart(UserName);
+        }
+        
     }
 }
