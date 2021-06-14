@@ -28,10 +28,6 @@ namespace Version1.LogicLayer
                     return false;
                 
                 storeInventory[product] -= amount;
-                //to transact
-                if (!database.GetInstance().TakeFromStoreInventory(basket.StoreName, product.barcode, amount))
-                    return false;
-
             }
 
             return true;

@@ -27,10 +27,6 @@ namespace Version1.DataAccessLayer
             Configuration.AutoDetectChangesEnabled = true;
         }
 
-
-
-
-
         //how to get values https://stackoverflow.com/questions/2946089/entity-framework-4-poco-with-dictionary
         //string text = (from sv in q.SelectableValues where sv.Code == "MyKey" select sv.Text).First();
 
@@ -56,30 +52,10 @@ namespace Version1.DataAccessLayer
 
         //helping dictionaries objects
         public virtual DbSet<shoppingBasketsDictionaryDB> shoppingBasketsDictionariesDB { get; set; }
-
         public virtual DbSet<itemsHasmapforPurchaseDB> itemsFromPurchaseDBDictionariesDB { get; set; }
-
-        //public virtual DbSet<stringmapint> basketProducts { get; set; }
 
     }
 
-/*
-
-    public class inventoryDictionaryDBForStore
-    {
-        [Key]
-        [Required]
-        public string storeName { get; set; }
-        public ICollection<ProductDB> keys { get; set; }
-        //string json for ICollection<int>
-        public string values { get; set; }
-        public 
-        public inventoryDictionaryDBForStore()
-        {
-            this.keys = new List<ProductDB>();
-        }
-
-    }*/
     public class inventoryDictionaryDBForStore
     {
         [Key]
@@ -153,16 +129,16 @@ namespace Version1.DataAccessLayer
         [Key]
         [Required]
         public string barcode { get; set; }
-        //[Required]
+        
         public string productName { get; set; }
 
-        //[Required]
+        
         public double price { get; set; }
 
-        //[Required]
+        
         public string description { get; set; }
 
-        //[Required]
+        
         public string categories { get; set; }
 
         public DTO_PoliciesDB discountPolicy { get; set; }
@@ -200,7 +176,7 @@ namespace Version1.DataAccessLayer
         [Key]
         [Required]
         public long id { get; set; }
-        //[Required]
+        
         public string StoreName { get; set; }
         //json string describe Dictionary<string, int>
         public string Products { get; set; }
@@ -273,6 +249,7 @@ namespace Version1.DataAccessLayer
         public ICollection<ProductDBANDAMOUNT> products { get; set; }
 
         public NodeDB staff { get; set; }
+
         //todo change
         public ICollection<IPurchasePolicy> purchasePolicies { get; set; }
 
@@ -1436,11 +1413,13 @@ namespace Version1.DataAccessLayer
             return false;
         }
 
-        internal bool TakeFromStoreInventory(string storeName, string barcode, int amount)
+        internal bool TakeFromStoreInventory(string StoreName,string productBarcode, int amount)
         {
-            var store = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
-            var product = db.ProductsTable.SingleOrDefault(b => b.barcode == barcode);
-            if (store == null ||  product == null || store.products == null)
+            var store = db.StoresTable.SingleOrDefault(b => b.storeName == StoreName);
+
+            var product = db.ProductsTable.SingleOrDefault(b => b.barcode == productBarcode);
+            
+            if (store == null || product == null || store.products == null)
             {
                 return false;
             }
@@ -1450,7 +1429,7 @@ namespace Version1.DataAccessLayer
                 int i;
                 for (i = 0; !found && i < store.products.Count;)
                 {
-                    if (store.products.ElementAt(i).barcode == barcode)
+                    if (store.products.ElementAt(i).barcode == productBarcode)
                     {
                         found = true;
                     }
@@ -1474,8 +1453,49 @@ namespace Version1.DataAccessLayer
                     return true;
                 }
             }
-  
+            
+            
         }
+
+        internal bool makePurchaseTransaction(ShoppingBasket basket,string userName)
+        {
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    bool isGuest = db.UsersTable.SingleOrDefault(b => b.UserName == userName) == null;
+                    //1
+                    foreach (var productBarcode in basket.Products.Keys.ToList())
+                    {
+                        int amount = basket.Products[productBarcode];
+                        if (!TakeFromStoreInventory(basket.StoreName,productBarcode,amount))
+                        {
+                            throw new Exception();
+                        }    
+                    }
+                    
+                    //2
+                    if (!isGuest)
+                    {
+                        if (!deleteBasket(userName, basket.StoreName))
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback(); //Required according to MSDN article 
+                    return false;
+                }
+            }
+            
+        }
+
+
     }
 
 }

@@ -40,7 +40,7 @@ namespace Client
                     counter++;
                 }
             }
-            if(counter >= 10)
+            if(counter >= 30)
             {
                 //error message
                 throw new Exception("server not responding");

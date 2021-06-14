@@ -30,6 +30,7 @@ namespace Version1.LogicLayer
 
         public static bool Register(string userName, string userPassword)
         {
+            
             if (DataHandler.Instance.Exists(userName))
                 throw new Exception(Errors.UserNameNotAvailable);
             
