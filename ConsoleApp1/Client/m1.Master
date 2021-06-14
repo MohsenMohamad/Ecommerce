@@ -90,8 +90,11 @@
                             <td class="auto-style9">
                                 <asp:Button ID="InitSystem" CssClass="auto-style7" Width="126px" runat="server" Text="InitSystem" OnClick="InitSystem_Click"/>
                             </td>
-                            <td>
-                                &nbsp;</td>
+                            <td style="width: 6px">
+                                <br />
+                                <br />
+                                <br />
+                            </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
