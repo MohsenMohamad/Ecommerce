@@ -22,6 +22,8 @@ namespace Client
             MyShops.Visible = false;
             Notifications.Visible = false;
             InitSystem.Visible = false;
+            EditUser.Visible = false;
+            History.Visible = false;
 
             if (Session["isLogin"] != null)
             {
@@ -30,6 +32,9 @@ namespace Client
                 ButtonLogOut.Visible = true;
                 MyShops.Visible = true;
                 Notifications.Visible = true;
+                EditUser.Visible = true;
+                History.Visible = true;
+
                 if (Session["admin"] != null)
                 {
                     InitSystem.Visible = true;
@@ -85,6 +90,8 @@ namespace Client
                     OpenShop.Visible = true;
                     Notifications.Visible = true;
                     MyShops.Visible = true;
+                    EditUser.Visible = true;
+                    History.Visible = true;
                     Session["admin"] = null;
 
                     Session["basket"] = null;
@@ -233,6 +240,16 @@ namespace Client
                     "alert('" + msg + "')", true);
             }
             
+        }
+
+        protected void History_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/History.aspx");
+        }
+
+        protected void EditUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/EditUser.aspx");
         }
     }
 }

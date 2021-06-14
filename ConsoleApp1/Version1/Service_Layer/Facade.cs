@@ -116,6 +116,11 @@ namespace Version1.Service_Layer
             }
         }
 
+        public bool Purchase(string userName, string creditCard)
+        {
+            throw new NotImplementedException();
+        }
+
         public long GuestLogin()
         {
             return logicInstance.GuestLogin();
@@ -167,18 +172,7 @@ namespace Version1.Service_Layer
 
         public bool ValidateBasketPolicies(string userName, string storeName)
         {
-            var user = DataHandler.Instance.GetUser(userName);
-            var store = DataHandler.Instance.GetStore(storeName);
-
-            var basket = user.GetShoppingCart().GetBasket(storeName);
-
-            foreach (var policy in store.GetPurchasePolicies())
-            {
-                if (!policy.Validate(basket))
-                    return false;
-            }
-
-            return true;
+            return CartLogic.ValidateBasketPolicies(userName, storeName);
         }
 
         public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
@@ -201,9 +195,11 @@ namespace Version1.Service_Layer
             return ProductsTo2DStringArray(products);
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId,string nameF, string address, string city, string country, int zip)
         {
-            return logicInstance.Purchase(userName, creditCard);
+            var paymentInfo = new PaymentInfo(cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId);
+            var supplyAddress = new SupplyAddress(nameF, address, city, country, zip);
+            return logicInstance.Purchase(userName, paymentInfo,supplyAddress);
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
@@ -222,33 +218,25 @@ namespace Version1.Service_Layer
         }
 
 
+        public string[][] SearchByProductName(string productName)
+        {
+            var searchResult = logicInstance.SearchByProductName(productName);
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
+        }
+        
         public string[][] SearchByKeyword(string keyword)
         {
             var searchResult = logicInstance.SearchByKeyWord(keyword);
-            var result = ProductsTo2DStringArray(searchResult);
-            var lists1 = result.Select(a => a.ToList()).ToList();
-
-            var finalList = new List<List<string>>();
-            var storeNames = logicInstance.GetStoresNames();
-            foreach (var storeName in storeNames)
-            {
-                var storeInventory = GetStoreProducts(storeName);
-                var lists = storeInventory.Select(a => a.ToList()).ToList();
-                foreach (var product in lists1)
-                {
-                    foreach (var productData in lists)
-                    {
-                        if (productData[2].Equals(product[2]))
-                        {
-                            product.Add(storeName);
-                        }
-                    }
-                }
-
-                finalList.AddRange(lists1);
-            }
-
-            return finalList.Select(a => a.ToArray()).ToArray();
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
+        }
+        
+        public string[][] SearchByCategory(string category)
+        {
+            var searchResult = logicInstance.SearchByCategory(category);
+            var result = SearchResultTo2DArray(searchResult);
+            return result;
         }
 
 
@@ -282,7 +270,8 @@ namespace Version1.Service_Layer
 
         public bool buyProduct(string buyer, string store, string product, int amount)
         {
-            return Purchase(buyer, "111");
+            return false;
+            //return Purchase(buyer, "111");
         }
 
 
@@ -609,6 +598,33 @@ namespace Version1.Service_Layer
         }
 
 
+        private string[][] SearchResultTo2DArray(Dictionary<string,List<string>> searchResult)
+        {
+            var result = ProductsTo2DStringArray(searchResult);
+            var lists1 = result.Select(a => a.ToList()).ToList();
+
+            var finalList = new List<List<string>>();
+            var storeNames = logicInstance.GetStoresNames();
+            foreach (var storeName in storeNames)
+            {
+                var storeInventory = GetStoreProducts(storeName);
+                var lists = storeInventory.Select(a => a.ToList()).ToList();
+                foreach (var product in lists1)
+                {
+                    foreach (var productData in lists)
+                    {
+                        if (productData[2].Equals(product[2]))
+                        {
+                            product.Add(storeName);
+                        }
+                    }
+                }
+
+                finalList.AddRange(lists1);
+            }
+
+            return finalList.Select(a => a.ToArray()).ToArray();
+        }
 
 
 
@@ -838,6 +854,23 @@ namespace Version1.Service_Layer
         public bool InitByStateFile(string path)
         {
             return FileController.ReadStateFile(path);
+        }
+
+        public bool UpdateUserPassword(string userName, string newPassword)
+        {
+            var encryptedPassword = GetHashString(newPassword + "s1a3dAn3a");
+            return logicInstance.UpdateUserPassword(userName,encryptedPassword);
+        }
+
+        public string[] GetUserPurchaseHistory(string userName)
+        {
+            return logicInstance.GetUserPurchaseHistory(userName)?.ToArray();
+        }
+
+        public string[] GetStorePurchaseHistory(string storeName)
+        {
+            return logicInstance.GetStorePurchaseHistory(storeName)?.ToArray();
+
         }
     }
 }

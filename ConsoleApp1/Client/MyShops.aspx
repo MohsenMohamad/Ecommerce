@@ -26,6 +26,9 @@
                                                          <td style="text-align: right;">
                                                             <asp:Button ID="ButtonClose" CommandArgument='<%#Eval("storeName")%>' CommandName="Close" runat="server" Text="Close Store" Width="101px" Height="40px" />
                                                         </td>
+                                                        <td style="text-align: right;">
+                                                            <asp:Button ID="ButtonHistory" CommandArgument='<%#Eval("storeName")%>' CommandName="History" runat="server" Text="History" Width="101px" Height="40px" />
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </ItemTemplate>

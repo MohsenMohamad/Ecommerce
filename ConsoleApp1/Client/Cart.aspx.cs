@@ -111,7 +111,7 @@ namespace Client
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            ShopHandler s = new ShopHandler();
+            UserHandler s = new UserHandler();
             if (TextBoxCreditcard.Text.Length == 0)
             {
                 Labelerrorcreditcard.Visible = true;
@@ -122,7 +122,7 @@ namespace Client
             }
             else
             {
-                bool buy = s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString());
+                bool buy = s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString(),int.Parse(Text0.Text), int.Parse(Text1.Text), Text2.Text, int.Parse(Text3.Text), int.Parse(Text4.Text), Text5.Text, Text6.Text, Text7.Text, Text8.Text, int.Parse(Text9.Text));
                 if (buy)
                 {
                     Response.Redirect("~/PurchaseDone.aspx");

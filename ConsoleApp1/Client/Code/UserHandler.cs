@@ -38,6 +38,43 @@ namespace Client.Code
             return System.SendApi("InitByStateFile", param);
         }
 
+        public DataSet GetUserPurchaseHistory(string userName)
+        {
+            string param = string.Format("userName={0}", userName);
+           JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetUserPurchaseHistory", param));
+            DataTable t1 = new DataTable("Historys");
+            t1.Columns.Add("id");
+            t1.Columns.Add("History");
+            if (arr != null)
+            {
+                for (int i = 0; i < arr.Count && arr[i] != null; i++)
+                {
+                    try
+                    {
+                        t1.Rows.Add(i, arr[i]);
+                    }
+                    catch
+                    { }
+                }
+            }
+            DataSet set = new DataSet("Historys");
+            set.Tables.Add(t1);
+            return set;
+        }
+
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId, string nameF, string address, string city, string country, int zip)
+        {
+
+            string param = string.Format("userName={0}&cardNumber={1}&expMonth={2}&expYear={3}&cardHolder={4}&cardCcv={5}&holderId={6}&nameF={7}&address={8}&city={9}&country={10}&zip={11}", userName, cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId, nameF, address, city, country, zip);
+            return bool.Parse(System.SendApi("Purchase", param));
+        }
+
+        public string UpdateUserPassword(string userName, string newPassword)
+        {
+            string param = string.Format("userName={0}&newPassword={1}", userName, newPassword);
+            return System.SendApi("UpdateUserPassword", param);
+        }
+
 
         public long GuestLogin()
         {

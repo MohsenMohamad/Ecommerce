@@ -308,11 +308,11 @@ namespace ServerApi
             return facade.UpdateCart(userName, storeName, productBarcode, newAmount);
         }
 
-        [HttpGet]
+ /*       [HttpGet]
         public bool Purchase(string userName, string creditCard)
         {
             return facade.Purchase(userName, creditCard);
-        }
+        }*/
 
         [HttpGet]
         public bool InitSystem()
@@ -388,6 +388,12 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId, string nameF, string address, string city, string country, int zip)
+        {
+          return  facade.Purchase( userName,  cardNumber,  expMonth,  expYear,  cardHolder,  cardCcv,  holderId,  nameF,  address,  city,  country,  zip);
+        }
+
+        [HttpGet]
         public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
             facade.rejectoffer(barcode, price, username, storename, amount, by_username);
@@ -408,6 +414,31 @@ namespace ServerApi
             long output = facade.GuestLogin();
             Logger.GetInstance().Event("Guest has connected with pid : " + output);
             return output;
+        }
+
+        [HttpGet]
+        public string[] GetUserPurchaseHistory(string userName)
+        {
+            return facade.GetUserPurchaseHistory(userName);
+        }
+
+        [HttpGet]
+        public string[] GetStorePurchaseHistory(string StoreName)
+        {
+            return facade.GetStorePurchaseHistory(StoreName);
+        }
+
+        [HttpGet]
+        public string UpdateUserPassword(string userName, string newPassword)
+        {
+            try
+            {
+               bool output =  facade.UpdateUserPassword(userName, newPassword);
+                return output.ToString();
+            }
+            catch(Exception e){
+                return e.Message;
+            }
         }
     }
 }

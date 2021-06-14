@@ -133,9 +133,9 @@ namespace Version1.LogicLayer
             return CartLogic.GetCartByStore(userName, storeName);
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, PaymentInfo paymentInfo, SupplyAddress supplyAddress)
         {
-            return CartLogic.Purchase(userName, creditCard);
+            return CartLogic.Purchase(userName, paymentInfo,supplyAddress);
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
@@ -203,9 +203,19 @@ namespace Version1.LogicLayer
             return StoreLogic.UpdateStorePolicy(storeName, newPolicy);
         }
 
+        public Dictionary<string,List<string>> SearchByProductName(string productName)
+        {
+            return InventoryLogic.SearchByProductName(productName);
+        }
+        
         public Dictionary<string,List<string>> SearchByKeyWord(string keyWord)
         {
             return InventoryLogic.SearchByKeyWord(keyWord);
+        }
+        
+        public Dictionary<string,List<string>> SearchByCategory(string category)
+        {
+            return InventoryLogic.SearchByCategory(category);
         }
 
         public bool AddProductToStore(string storeName, string barcode, string productName, string description, double price,
@@ -314,5 +324,22 @@ namespace Version1.LogicLayer
         {
             return StoreLogic.GetTotalCart(userName);
         }
+
+        public List<string> GetUserPurchaseHistory(string userName)
+        {
+            return UserLogic.GetUserPurchaseHistory(userName);
+        }
+        
+        public List<string> GetStorePurchaseHistory(string storeName)
+        {
+            return StoreLogic.GetStorePurchaseHistory(storeName);
+        }
+
+        public bool UpdateUserPassword(string userName, string newPassword)
+        {
+            return UserLogic.UpdateUserPassword(userName, newPassword);
+        }
+
+
     }
 }
