@@ -41,28 +41,15 @@
                  <tr>
                      <td class="auto-style15">
                                  <img src="https://localhost:44388/img/shopping.jpg" id="fast-shop" style="height: 140px; width: 220px"/>                     </td>
-                     <td class="auto-style21">
-                            <asp:DropDownList id="cataegoryid"
-                    runat="server" 
-            class="dropdown-show" aria-labelledby="dropdownMenuLink" Width="150px" BackColor="#7F7F7F" ForeColor="#FFFFFF
-" Font-Names="Andalus" CssClass="ddl">
-                  <asp:ListItem Selected="True" Value="White" class="dropdown-item"> shop by category </asp:ListItem>
-                  <asp:ListItem Value="Silver" class="dropdown-item"> Silver </asp:ListItem>
-                  <asp:ListItem Value="DarkGray" class="dropdown-item"> Dark Gray </asp:ListItem>
-                  <asp:ListItem Value="Khaki" class="dropdown-item"> Khaki </asp:ListItem>
-                  <asp:ListItem Value="DarkKhaki" class="dropdown-item"> Dark Khaki </asp:ListItem>
-               </asp:DropDownList> 
-                         <asp:TextBox ID="TextBox2" runat="server"  Height="23px" Width="600px" placeholder="Search for anything "></asp:TextBox>
-                         <asp:Button ID="Button2" runat="server" Text="Search"   CssClass="btn btn-primary" Height="34px" Width="100px" OnClick="Button1_Click" />
-                     </td>
+                    
                      <td class="auto-style13">                    
+                         &nbsp;</td>
+                     <td>
          <asp:ImageButton ID="ImageButtoncart" src="img/cart.jpg" runat="server" CssClass="auto-style11" Height="58px" OnClick="ImageButtoncart_Click" Width="59px" />
                             
          <asp:Button ID="ButtonLogOut" Visible="false" runat="server" class="glyphicon glyphicon-log-out" Text="LogOut" Width="120px" BorderStyle="Groove" BackColor="Red"  ForeColor="White" OnClick="ButtonLogOut_Click" />
                             
                      </td>
-                     <td>
-                         &nbsp;</td>
                      <td>&nbsp;</td>
                  </tr>
                  <tr>

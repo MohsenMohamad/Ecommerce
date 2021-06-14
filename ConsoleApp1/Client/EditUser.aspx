@@ -4,24 +4,24 @@
     .auto-style20 {
         width: 155px;
     }
-        .auto-style22 {
-            width: 188px;
-        }
-        .auto-style23 {
-            width: 348px;
-        }
-        .auto-style24 {
-            width: 188px;
-            height: 54px;
-        }
-        .auto-style25 {
-            width: 348px;
-            height: 54px;
-        }
-        .auto-style26 {
-            height: 54px;
-        }
-    </style>
+    .auto-style22 {
+        width: 188px;
+    }
+    .auto-style23 {
+        width: 348px;
+    }
+    .auto-style24 {
+        width: 188px;
+        height: 54px;
+    }
+    .auto-style25 {
+        width: 348px;
+        height: 54px;
+    }
+    .auto-style26 {
+        height: 54px;
+    }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="auto-style5">

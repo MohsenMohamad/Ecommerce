@@ -2,6 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <td class="auto-style21">
+                            <asp:DropDownList id="cataegoryid"
+                    runat="server" 
+            class="dropdown-show" aria-labelledby="dropdownMenuLink" Width="150px" BackColor="#7F7F7F" ForeColor="#FFFFFF
+" Font-Names="Andalus" CssClass="ddl">
+                  <asp:ListItem Text ="Product" Selected="True" Value="Product" class="dropdown-item">Search by Product</asp:ListItem>
+                  <asp:ListItem Text ="category" Value="category" class="dropdown-item">Search by category</asp:ListItem>
+                  <asp:ListItem Text ="KeyWord" Value="KeyWord" class="dropdown-item">Search by KeyWord</asp:ListItem>
+               </asp:DropDownList> 
+                         <asp:TextBox ID="TextBox2" runat="server"  Height="23px" Width="600px" placeholder="Search for anything "></asp:TextBox>
+                         <asp:Button ID="Button2" runat="server" Text="Search"   CssClass="btn btn-primary" Height="34px" Width="100px" OnClick="Button1_Click" />
+                     </td>
         <div>
             <asp:DataList ID="DataListproducts" OnItemCommand="DataListproducts_ItemCommand1" runat="server" BackColor="White" BorderStyle="Double" CellPadding="4"  RepeatDirection="Horizontal" RepeatColumns="3" BorderColor="#336666" BorderWidth="3px" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" GridLines="Horizontal" OnSelectedIndexChanged="DataListproducts_SelectedIndexChanged">
         <FooterStyle BackColor="White" ForeColor="#333333" />
