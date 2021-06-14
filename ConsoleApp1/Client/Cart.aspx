@@ -8,10 +8,24 @@
             width: 427px;
         }
         .auto-style24 {
-            margin-left: 585px;
+            margin-left: 412px;
         }
         .auto-style25 {
             width: 228px;
+        }
+        .auto-style28 {
+            height: 62px;
+        }
+        .auto-style29 {
+            width: 228px;
+            height: 62px;
+        }
+        .auto-style30 {
+            width: 261px;
+        }
+        .auto-style31 {
+            width: 261px;
+            height: 62px;
         }
         </style>
 </asp:Content>
@@ -54,7 +68,7 @@
                                         </asp:DataList>
                                     <table>
                                         <tr>
-                                            <td>
+                                            <td class="auto-style30">
 
                                                 <asp:Label ID="LabelCreditcard" runat="server" Text="enter your credit card number : "></asp:Label>
 
@@ -76,27 +90,207 @@
                                             </td>
                                         </tr>
                                          <tr>
-                                            <td>
+                                            <td class="auto-style31">
 
                                                 <asp:Label ID="Labeladdress" runat="server" Text="enter your address : "></asp:Label>
 
                                             </td>
-                                            <td>
+                                            <td class="auto-style28">
 
                                                 <asp:TextBox ID="TextBoxaddress" runat="server" Height="16px" Width="263px"></asp:TextBox>
 
                                             </td>
-                                             <td class="auto-style25" >
+                                             <td class="auto-style29" >
 
                                                  <asp:Label ID="Labelerroraddress" runat="server" Text="address is null"></asp:Label>
 
                                              </td>
-                                             <td>
+                                             <td class="auto-style28">
 
                                             </td>
                                         </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress0" runat="server" Text="enter your expMonth : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text0" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress1" runat="server" Text="enter your expYear : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text1" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress2" runat="server" Text="enter your cardHolder : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text2" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress3" runat="server" Text="enter your cardCcv : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text3" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress4" runat="server" Text="enter your holderId : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text4" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress5" runat="server" Text="enter your nameF : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text5" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress6" runat="server" Text="enter youraddress : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text6" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress7" runat="server" Text="enter your city : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text7" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress8" runat="server" Text="enter your country : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text8" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="auto-style31">
+
+                                                <asp:Label ID="Labeladdress9" runat="server" Text="enter your zip : "></asp:Label>
+
+                                            </td>
+                                            <td class="auto-style28">
+
+                                                <asp:TextBox ID="Text9" runat="server" Height="16px" Width="263px"></asp:TextBox>
+
+                                            </td>
+                                             <td class="auto-style29" >
+
+                                                 &nbsp;</td>
+                                             <td class="auto-style28">
+
+                                                 &nbsp;</td>
+                                        </tr>
                                         <tr>
-                                            <td>
+                                            <td class="auto-style30">
 
                                             </td>
                                             <td>
@@ -104,12 +298,12 @@
                                             </td>
                                             <td class="auto-style25">
 
+                                                <asp:Button ID="Button3" runat="server" Text="Buy Now" Width="99px" CssClass="auto-style24" OnClick="Button3_Click" Height="36px" />
+
                                             </td>
                                             <td >
 
-                                                <asp:Button ID="Button3" runat="server" Text="Buy Now" Width="79px" CssClass="auto-style24" OnClick="Button3_Click" />
-
-                                            </td>
+                                                &nbsp;</td>
                                         </tr>
                                     </table>
     </asp:Content>

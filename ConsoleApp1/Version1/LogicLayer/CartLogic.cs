@@ -21,7 +21,7 @@ namespace Version1.LogicLayer
                     return false;
                 }
 
-                foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
+                foreach (var basket in user.shoppingCart.shoppingBaskets.Values.ToList())
                 {
                     var storeResult =PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
                     if (!storeResult) return false;

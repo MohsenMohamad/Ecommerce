@@ -292,12 +292,12 @@ namespace Client.Code
         }
 
 
-        public bool Purchase(string userName, string creditCard)
+     /*   public bool Purchase(string userName, string creditCard)
         {
             string param = string.Format("userName={0}&creditCard={1}", userName,creditCard);
             return bool.Parse(System.SendApi("Purchase", param));
 
-        }
+        }*/
 
         public bool InitSystem()
         {

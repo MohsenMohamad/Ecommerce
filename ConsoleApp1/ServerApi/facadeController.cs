@@ -308,11 +308,11 @@ namespace ServerApi
             return facade.UpdateCart(userName, storeName, productBarcode, newAmount);
         }
 
-        [HttpGet]
+ /*       [HttpGet]
         public bool Purchase(string userName, string creditCard)
         {
             return facade.Purchase(userName, creditCard);
-        }
+        }*/
 
         [HttpGet]
         public bool InitSystem()
@@ -385,6 +385,12 @@ namespace ServerApi
             
            facade.acceptoffer(barcode, price, username, storename, amount,by_username);
         
+        }
+
+        [HttpGet]
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId, string nameF, string address, string city, string country, int zip)
+        {
+          return  facade.Purchase( userName,  cardNumber,  expMonth,  expYear,  cardHolder,  cardCcv,  holderId,  nameF,  address,  city,  country,  zip);
         }
 
         [HttpGet]
