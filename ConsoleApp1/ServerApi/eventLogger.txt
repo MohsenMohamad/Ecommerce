@@ -693,3 +693,16 @@
 14/06/2021 22:28:15: 1 could not add product :22form store: 1 to his Basket  .
 14/06/2021 22:30:52: Guest has connected with pid : 1  .
 14/06/2021 22:31:00: 1 could not add product :123456form store: 1 to his Basket  .
+14/06/2021 22:41:54: Guest has connected with pid : 1  .
+14/06/2021 22:42:17: 1 could not add product :22form store: 1 to his Basket  .
+14/06/2021 22:42:26: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 22:42:29: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 22:42:32: 1 could not add product :22form store: 1 to his cart  .
+14/06/2021 23:05:01: Guest has connected with pid : 1  .
+14/06/2021 23:05:10: yarahas LoggedIn   .
+14/06/2021 23:05:28: yara has opened shop : Yara Shop  .
+14/06/2021 23:05:44: yara has make new manger adnan for Yara Shop  .
+14/06/2021 23:05:55: yara has make new owner for Yara Shop  .
+14/06/2021 23:14:43: Guest has connected with pid : 1  .
+14/06/2021 23:14:57: yarahas LoggedIn   .
+14/06/2021 23:15:06: yara has opened shop : shop123  .
