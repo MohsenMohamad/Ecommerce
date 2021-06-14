@@ -15,7 +15,13 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            int counter = 0;
+            while (counter < 30)
+            {
+                try
+                {
 
+                
             Labelname.Visible = true;
             OpenShop.Visible = false;
             MyShops.Visible = false;
@@ -50,7 +56,21 @@ namespace Client
                 Session["username"] = h.GuestLogin().ToString();
                 Labelname.Text = "Hello " + Session["username"].ToString();
             }
+                    return;
+                }
+                catch
+                {
+                    Thread.Sleep(1000);
+                    counter++;
+                }
+            }
+            if (counter > 30)
+            {
+                //error message
+                throw new Exception("server not responding");
+            }
         }
+
 
 
         //todo make sure of that
