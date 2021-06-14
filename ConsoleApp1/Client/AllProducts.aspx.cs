@@ -20,9 +20,22 @@ namespace Client
                 {
                     if (Request.QueryString["keyword"] != null)
                     {
-                        ShopHandler a = new ShopHandler();
-                        DataListproducts.DataSource = a.search(Request.QueryString["keyword"].ToString());
-                        DataListproducts.DataBind();
+                        if (cataegoryid.SelectedItem.Text == "Search by Product")
+                        {
+                            ShopHandler a = new ShopHandler();
+                            DataListproducts.DataSource = a.SearchByProductName(Request.QueryString["keyword"].ToString());
+                            DataListproducts.DataBind();
+                        }
+                        else if (cataegoryid.SelectedItem.Text == "Search by category") {
+                            ShopHandler a = new ShopHandler();
+                            DataListproducts.DataSource = a.SearchByCategory(Request.QueryString["keyword"].ToString());
+                            DataListproducts.DataBind();
+                        }
+                        else if(cataegoryid.SelectedItem.Text == "Search by KeyWord") {
+                            ShopHandler a = new ShopHandler();
+                            DataListproducts.DataSource = a.SearchByKeyword(Request.QueryString["keyword"].ToString());
+                            DataListproducts.DataBind();
+                        }
                     }
                     else
                     {
@@ -67,6 +80,17 @@ namespace Client
         protected void DataListproducts_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (TextBox2.Text.Trim().Length == 0)
+            {
+            }
+            else
+            {
+                Response.Redirect("~/AllProducts.aspx?keyword=" + TextBox2.Text.ToString());
+            }
         }
     }
 }

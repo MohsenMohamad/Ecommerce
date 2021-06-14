@@ -119,16 +119,6 @@ namespace Client
             Response.Redirect("~/MyShops.aspx");
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            if (TextBox2.Text.Trim().Length == 0)
-            {
-            }
-            else
-            {
-                Response.Redirect("~/Home.aspx?keyword=" + TextBox2.Text.ToString());
-            }
-        }
 
         protected void Notifications_Click(object sender, EventArgs e)
         {
