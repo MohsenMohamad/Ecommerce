@@ -48,7 +48,7 @@ namespace Client
         protected void HomeButton_Click(object sender, EventArgs e)
         {
             ButtonLogOut.Visible = true;
-            Response.Redirect("~/Home.aspx");
+            Response.Redirect("~/Websitehome.aspx");
            
         }
 
@@ -88,7 +88,7 @@ namespace Client
             if (barSearch.Text.Trim().Length == 0) { }
             else
             {
-                Response.Redirect("~/Home.aspx?keyword=" + barSearch.Text.ToString());
+                Response.Redirect("~/AllProducts.aspx?keyword=" + barSearch.Text.ToString());
             }
         }
 
@@ -101,9 +101,13 @@ namespace Client
         {
             ShopHandler s = new ShopHandler();
             s.InitSystem();
-            Response.Redirect("~/Home.aspx");
+            Response.Redirect("Home.aspx");
 
         }
 
+        protected void AllProducts_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AllProducts.aspx");
+        }
     }
 }

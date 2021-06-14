@@ -662,3 +662,147 @@
 13/06/2021 13:01:28: adminhas LoggedIn   .
 13/06/2021 13:02:48: adminhas LoggedIn   .
 13/06/2021 13:04:29: adminhas LoggedIn   .
+14/06/2021 7:27:34: adminhas LoggedIn   .
+14/06/2021 7:27:43: admin has opened shop : yarashop  .
+14/06/2021 7:28:23: admin has opened shop : mohamad market  .
+14/06/2021 7:28:56: yarahas Register succesfully   .
+14/06/2021 7:28:57: adminhas LoggedOut   .
+14/06/2021 7:36:52: adminhas LoggedIn   .
+14/06/2021 7:36:56: admin has opened shop : mohamed2 shop  .
+14/06/2021 8:46:48: adminhas LoggedIn   .
+14/06/2021 8:47:12: admin has opened shop : yarashop  .
+14/06/2021 8:47:16: adminhas LoggedOut   .
+14/06/2021 8:56:13: adminhas LoggedIn   .
+14/06/2021 8:56:24: admin has opened shop : yarashop  .
+14/06/2021 8:56:48: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 8:57:39: adminhas LoggedOut   .
+14/06/2021 8:57:59: Guest has connected with pid : 1  .
+14/06/2021 9:13:02: adminhas LoggedIn   .
+14/06/2021 9:13:20: admin has opened shop : yarashop  .
+14/06/2021 9:13:40: product with barcode 111 has been added to the shop yarashop  .
+14/06/2021 9:14:07: adminhas LoggedOut   .
+14/06/2021 9:14:07: Guest has connected with pid : 1  .
+14/06/2021 9:14:12: Guest has connected with pid : 2  .
+14/06/2021 9:14:15: Guest has connected with pid : 3  .
+14/06/2021 9:14:15: Guest has connected with pid : 4  .
+14/06/2021 9:16:20: adminhas LoggedIn   .
+14/06/2021 9:16:22: adminhas LoggedOut   .
+14/06/2021 9:17:10: yarahas Register succesfully   .
+14/06/2021 9:17:10: Guest has connected with pid : 1  .
+14/06/2021 9:31:21: yarahas Register succesfully   .
+14/06/2021 9:31:21: Guest has connected with pid : 1  .
+14/06/2021 9:31:27: 1 has opened shop : adnan shop  .
+14/06/2021 9:31:44: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 9:32:38: Guest has connected with pid : 2  .
+14/06/2021 9:34:06: adminhas LoggedIn   .
+14/06/2021 9:34:11: adminhas LoggedOut   .
+14/06/2021 9:34:22: yarahas Register succesfully   .
+14/06/2021 9:34:22: Guest has connected with pid : 1  .
+14/06/2021 9:35:10: adminhas LoggedIn   .
+14/06/2021 9:35:26: adminhas LoggedOut   .
+14/06/2021 9:35:36: Guest has connected with pid : 1  .
+14/06/2021 10:11:33: adminhas LoggedIn   .
+14/06/2021 10:11:44: admin has opened shop : yarashop  .
+14/06/2021 10:11:57: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 10:12:48: admin has opened shop : adnan shop  .
+14/06/2021 10:12:54: admin has opened shop : mohamad market  .
+14/06/2021 10:13:16: product with barcode 111 has been added to the shop adnan shop  .
+14/06/2021 10:13:23: product with barcode 1112 has been added to the shop adnan shop  .
+14/06/2021 10:20:46: yarahas Register succesfully   .
+14/06/2021 10:20:46: Guest has connected with pid : 1  .
+14/06/2021 10:21:17: ahmadhas Register succesfully   .
+14/06/2021 10:21:31: 1 has opened shop : adnan shop  .
+14/06/2021 10:22:00: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 10:22:12: 1 has make new manger yara for adnan shop  .
+14/06/2021 10:22:31: 1 has opened shop : yarashop  .
+14/06/2021 10:22:59: 1 has make new manger ahmad for yarashop  .
+14/06/2021 10:23:44: 1 has has added product :123form store: adnan shop to his Basket  .
+14/06/2021 11:01:54: adminhas LoggedIn   .
+14/06/2021 11:02:04: admin has opened shop : mohamad shop  .
+14/06/2021 11:02:17: product with barcode 123 has been added to the shop mohamad shop  .
+14/06/2021 11:06:21: adminhas LoggedIn   .
+14/06/2021 11:06:27: admin has opened shop : adnan shop  .
+14/06/2021 11:06:42: product with barcode 1 has been added to the shop adnan shop  .
+14/06/2021 11:06:49: product with barcode 11 has been added to the shop adnan shop  .
+14/06/2021 11:07:11: admin has has added product :1form store: adnan shop to his Basket  .
+14/06/2021 11:09:44: adminhas LoggedIn   .
+14/06/2021 11:09:50: admin has opened shop : mohamad shop  .
+14/06/2021 11:10:03: product with barcode 123 has been added to the shop mohamad shop  .
+14/06/2021 11:12:53: adminhas LoggedIn   .
+14/06/2021 11:12:58: admin has opened shop : adnan shop  .
+14/06/2021 11:13:29: adminhas LoggedIn   .
+14/06/2021 11:13:35: admin has opened shop : yarashop  .
+14/06/2021 11:13:47: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 11:42:22: adminhas LoggedIn   .
+14/06/2021 11:42:28: admin has opened shop : adnan shop  .
+14/06/2021 11:42:41: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 11:42:47: product with barcode 1234 has been added to the shop adnan shop  .
+14/06/2021 11:42:59: admin has has added product :123form store: adnan shop to his Basket  .
+14/06/2021 11:44:04: adminhas LoggedOut   .
+14/06/2021 11:53:52: adminhas LoggedIn   .
+14/06/2021 11:53:58: admin has opened shop : yarashop  .
+14/06/2021 11:54:11: product with barcode 1 has been added to the shop yarashop  .
+14/06/2021 11:54:37: admin has has added product :1form store: yarashop to his Basket  .
+14/06/2021 11:55:05: adminhas LoggedOut   .
+14/06/2021 11:57:48: yarahas Register succesfully   .
+14/06/2021 11:57:48: Guest has connected with pid : 1  .
+14/06/2021 11:57:57: 1 has opened shop : yarashop  .
+14/06/2021 11:58:03: 1 has opened shop : adnan shop  .
+14/06/2021 11:58:15: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 11:58:40: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 11:59:01: 1 has has added product :123form store: yarashop to his Basket  .
+14/06/2021 11:59:13: Guest has connected with pid : 2  .
+14/06/2021 11:59:21: Guest has connected with pid : 3  .
+14/06/2021 11:59:45: Guest has connected with pid : 4  .
+14/06/2021 11:59:52: 4 has has added product :123form store: yarashop to his Basket  .
+14/06/2021 12:02:53: yarahas Register succesfully   .
+14/06/2021 12:02:53: Guest has connected with pid : 1  .
+14/06/2021 12:04:13: adminhas LoggedIn   .
+14/06/2021 12:04:14: adminhas LoggedOut   .
+14/06/2021 12:04:24: yarahas LoggedIn   .
+14/06/2021 12:04:48: yara has opened shop : yarashop  .
+14/06/2021 12:05:01: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 12:05:08: yara has has added product :123form store: yarashop to his Basket  .
+14/06/2021 12:07:12: yarahas Register succesfully   .
+14/06/2021 12:07:12: Guest has connected with pid : 1  .
+14/06/2021 12:07:23: yarahas LoggedIn   .
+14/06/2021 12:08:02: ahmadhas Register succesfully   .
+14/06/2021 12:08:31: yara has opened shop : yarashop  .
+14/06/2021 12:08:45: yara has opened shop : adnan shop  .
+14/06/2021 12:09:05: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 12:09:35: product with barcode 123 has been added to the shop yarashop  .
+14/06/2021 12:09:44: yara has has added product :123form store: yarashop to his Basket  .
+14/06/2021 12:09:59: yara has has added product :123form store: yarashop to his Basket  .
+14/06/2021 12:10:52: yara has has added product :123form store: yarashop to his cart  .
+14/06/2021 12:15:02: yarahas Register succesfully   .
+14/06/2021 12:15:02: Guest has connected with pid : 1  .
+14/06/2021 12:15:17: ahmadhas Register succesfully   .
+14/06/2021 12:15:17: Guest has connected with pid : 2  .
+14/06/2021 12:15:28: yarahas LoggedIn   .
+14/06/2021 12:23:49: adminhas LoggedIn   .
+14/06/2021 12:24:02: adminhas LoggedOut   .
+14/06/2021 12:24:09: yarahas Register succesfully   .
+14/06/2021 12:24:09: Guest has connected with pid : 1  .
+14/06/2021 12:25:08: adminhas LoggedIn   .
+14/06/2021 12:25:11: adminhas LoggedOut   .
+14/06/2021 12:25:21: yarahas LoggedIn   .
+14/06/2021 12:26:19: yara has opened shop : yarashop  .
+14/06/2021 12:26:31: product with barcode 111 has been added to the shop yarashop  .
+14/06/2021 12:26:44: yara has has added product :111form store: yarashop to his Basket  .
+14/06/2021 12:27:44: product with barcode 111 has been added to the shop yarashop  .
+14/06/2021 12:27:51: product with barcode 1113 has been added to the shop yarashop  .
+14/06/2021 12:28:11: product with barcode 01 has been added to the shop yarashop  .
+14/06/2021 12:28:49: Guest has connected with pid : 1  .
+14/06/2021 12:29:09: yarahas Register succesfully   .
+14/06/2021 12:29:09: Guest has connected with pid : 1  .
+14/06/2021 12:29:14: 1 has opened shop : yarashop  .
+14/06/2021 12:29:38: product with barcode 01 has been added to the shop yarashop  .
+14/06/2021 12:29:57: product with barcode 012 has been added to the shop yarashop  .
+14/06/2021 12:30:50: Guest has connected with pid : 1  .
+14/06/2021 12:31:11: yarahas Register succesfully   .
+14/06/2021 12:31:11: Guest has connected with pid : 2  .
+14/06/2021 12:31:18: 2 has opened shop : adnan shop  .
+14/06/2021 12:31:38: 2 has opened shop : yarashop  .
+14/06/2021 12:32:08: product with barcode 123 has been added to the shop adnan shop  .
+14/06/2021 12:32:25: product with barcode 111 has been added to the shop yarashop  .
+14/06/2021 12:35:48: Guest has connected with pid : 3  .

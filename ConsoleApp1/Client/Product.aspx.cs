@@ -5,11 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace Client
 {
     public partial class Product : System.Web.UI.Page
     {
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             LabelproductName0.Text = Session["productName"].ToString();
@@ -18,7 +21,6 @@ namespace Client
             Labelcategories0.Text = Session["catagory"].ToString();
             Labelprice0.Text = Session["price"].ToString();
             LabelnameShop0.Text = Session["nameShop"].ToString();
-
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -39,7 +41,7 @@ namespace Client
         {
             ShopHandler sh = new ShopHandler();
             sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()));
-            Response.Redirect("~/Home.aspx");
+            Response.Redirect("~/AllProducts.aspx");
 
         }
 

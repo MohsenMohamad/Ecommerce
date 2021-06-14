@@ -148,6 +148,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AllProducts.aspx" />
     <Content Include="Cart.aspx" />
     <Content Include="clientWebSocket.html" />
     <Content Include="CounterOffer.aspx" />
@@ -155,6 +156,8 @@
     <Content Include="Home.aspx" />
     <Content Include="img\additem.jfif" />
     <Content Include="img\background.jpg" />
+    <Content Include="img\cart.jpg" />
+    <Content Include="img\delivery.jpg" />
     <Content Include="img\done.gif" />
     <Content Include="img\edit12.jpg" />
     <Content Include="img\fast-shop.jpg" />
@@ -163,6 +166,7 @@
     <Content Include="img\message.png" />
     <Content Include="img\notification.png" />
     <Content Include="img\openshop.jfif" />
+    <Content Include="img\paycard.jfif" />
     <Content Include="img\plus.PNG" />
     <Content Include="img\-.PNG" />
     <Content Include="img\add_to_cart.PNG" />
@@ -172,6 +176,7 @@
     <Content Include="img\shopping_cart_black_72x72.png" />
     <Content Include="img\tenor.gif" />
     <Content Include="img\homevideo.mp4" />
+    <Content Include="img\tshirt1.jfif" />
     <Content Include="MyShops.aspx" />
     <Content Include="Notifications.aspx" />
     <Content Include="NotificationsOffer.aspx" />
@@ -188,6 +193,13 @@
     <Content Include="Websitehome.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllProducts.aspx.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AllProducts.aspx.designer.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
