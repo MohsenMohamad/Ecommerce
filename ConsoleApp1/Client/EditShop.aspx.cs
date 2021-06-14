@@ -15,7 +15,7 @@ namespace Client
         {
             if (!Page.IsPostBack)
             {
-                Label1.Text = "Select what you want to edit" + Session["editshop"].ToString();
+               // Label1.Text = "Select what you want to edit" + Session["editshop"].ToString();
                 table1.Visible = false;
                 table2.Visible = false;
                 table3.Visible = false;
@@ -404,7 +404,7 @@ namespace Client
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void Button_Click1(object sender, EventArgs e)
         {
             UserHandler u = new UserHandler();
             string msg = u.MakeNewOwner(Session["editshop"].ToString(), Session["username"].ToString(), DropDownList3.SelectedItem.Text.ToString(), 1);
