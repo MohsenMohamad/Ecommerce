@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.DataStructures;
@@ -9,10 +10,7 @@ namespace Version1.LogicLayer
 {
     public static class CartLogic
     {
-        
-
-        
-        public static bool Purchase(string userName, string creditCard)
+        public static bool Purchase(string userName, PaymentInfo paymentInfo, SupplyAddress supplyAddress)
         {
             lock (DataHandler.Instance.InefficientLock)
             {
@@ -25,67 +23,16 @@ namespace Version1.LogicLayer
 
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
                 {
-                    var store = DataHandler.Instance.GetStore(basket.StoreName);
-                    foreach (var productAndAmount in basket.Products)
-                    {
-                        var product = DataHandler.Instance.GetProduct(productAndAmount.Key,basket.StoreName);
-                        var amount = productAndAmount.Value;
-                        if (product == null || !store.GetInventory().ContainsKey(product) ||
-                            store.GetInventory()[product] < amount)
-                            return false;
-                    }
-                }
-
-                var supply = MockUpSupplyService.CreateConnection();
-                var finance = MockUpFinanceService.CreateConnection();
-
-                if (supply == null || finance == null) return false;
-
-                var cost = GetCartPrice(userName);
-
-                if (cost < 0 || !supply.MakeOrder() || !finance.AcceptPurchase(cost, creditCard))
-                    return false;
-
-                foreach (var basket in user.shoppingCart.shoppingBaskets.Values)
-                {
-                    var store = DataHandler.Instance.GetStore(basket.StoreName);
-
-                    foreach (var policy in store.GetPurchasePolicies())
-                    {
-                        if (!policy.Validate(basket))
-                            return false;
-                    }
-
-                    foreach (var productBarcode in basket.Products.Keys.ToList())
-                    {
-                        var product = DataHandler.Instance.GetProduct(productBarcode, basket.StoreName);
-                        var amount = basket.Products[productBarcode];
-                        RemoveProductFromBasket(userName, store.GetName(), product.Barcode);
-                        //here
-                        store.GetInventory()[product] -= amount;
-
-                    }
-
-                    // store.AddPurchase(new Purchase());
-                    var owner = DataHandler.Instance.GetUser(store.GetOwner());
-                    //here
-                    ((User)owner).GetNotifications().Add("A purchase has been made at"+store.GetName());
-                    
-                }
-
-                if (DataHandler.Instance.IsGuest(userName) < 0)
-                {
-                    //here
-                    var x = new Purchase();
-                    ((User) user).history.Add(new Purchase());
+                    var storeResult =PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
+                    if (!storeResult) return false;
                 }
                 
-                
-
                 return true;
             }
         }
-        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
+
+        public static bool AddProductToBasket(string userName, string storeName, string productCode, int amount,
+            double priceofone)
         {
             lock (DataHandler.Instance.InefficientLock)
             {
@@ -111,20 +58,23 @@ namespace Version1.LogicLayer
                     {
                         userStoreBasket.Products[product.Barcode] += amount;
                         userStoreBasket.priceperproduct[product.Barcode] += totalprice;
-                        return database.GetInstance().AddProductToBasket(userName, storeName, productCode, userStoreBasket.Products[product.Barcode], userStoreBasket.priceperproduct[product.Barcode]);
+                        return database.GetInstance().AddProductToBasket(userName, storeName, productCode,
+                            userStoreBasket.Products[product.Barcode],
+                            userStoreBasket.priceperproduct[product.Barcode]);
                     }
                     else
                     {
                         userStoreBasket.Products.Add(product.Barcode, amount);
                         userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
-                        return database.GetInstance().AddProductToBasket(userName, storeName, productCode, amount, priceofone);
+                        return database.GetInstance()
+                            .AddProductToBasket(userName, storeName, productCode, amount, priceofone);
                     }
-
                 }
 
                 return false;
             }
         }
+
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
         {
             lock (DataHandler.Instance.InefficientLock)
@@ -157,7 +107,6 @@ namespace Version1.LogicLayer
                 }
 
                 return true;
-
             }
         }
 
@@ -173,22 +122,25 @@ namespace Version1.LogicLayer
 
                 var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
-                shoppingBasket.priceperproduct[productBarcode] += (newAmount - shoppingBasket.Products[productBarcode])*product.price;
+                shoppingBasket.priceperproduct[productBarcode] +=
+                    (newAmount - shoppingBasket.Products[productBarcode]) * product.price;
                 if (shoppingBasket.priceperproduct[productBarcode] < 0)
                 {
                     shoppingBasket.priceperproduct[productBarcode] = 0;
                     shoppingBasket.Products[productBarcode] = 0;
-                    RemoveProductFromBasket(userName, storeName, productBarcode, shoppingBasket.Products[productBarcode]);
+                    RemoveProductFromBasket(userName, storeName, productBarcode,
+                        shoppingBasket.Products[productBarcode]);
                 }
                 else
                 {
                     shoppingBasket.Products[productBarcode] = newAmount;
                 }
-                return database.GetInstance().UpdateCartProductAmountInBasket(userName, storeName, productBarcode, newAmount);
+
+                return database.GetInstance()
+                    .UpdateCartProductAmountInBasket(userName, storeName, productBarcode, newAmount);
             }
         }
 
-        
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode)
         {
@@ -261,6 +213,76 @@ namespace Version1.LogicLayer
             }
         }
 
+        private static bool PurchaseFromStore(string userName, ShoppingBasket basket, PaymentInfo paymentInfo,
+            SupplyAddress supplyAddress)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
+                if (!ValidateBasketPolicies(userName, basket.StoreName)) throw new Exception("");
+
+                var price = GetBasketPrice(userName, basket.StoreName);
+                var store = DataHandler.Instance.GetStore(basket.StoreName);
+                var user = DataHandler.Instance.GetUser(userName);
+
+
+                var supplyService = new SupplyService();
+                var financeService = new FinanceService();
+
+                var transactionId = financeService.Pay(paymentInfo.CardNumber, paymentInfo.ExpMonth,
+                    paymentInfo.ExpYear,
+                    paymentInfo.CardHolder, paymentInfo.CardCcv, paymentInfo.HolderId);
+
+                if (transactionId < 0) throw new Exception("");
+
+
+                var shipmentId = supplyService.Supply(supplyAddress.NameF, supplyAddress.AddressF, supplyAddress.CityF,
+                    supplyAddress.CountryF, supplyAddress.ZipF);
+
+                if (shipmentId < 0)
+                {
+                    financeService.CancelPay(transactionId);
+                    throw new Exception("");
+                }
+
+
+                // try to take from inventory
+                if (!InventoryLogic.TakeFromStoreInventory(basket))
+                {
+                    financeService.CancelPay(transactionId);
+                    supplyService.CancelSupply(shipmentId);
+                    throw new Exception("");
+                }
+
+                //add to user & store history
+                var purchase = new Purchase
+                {
+                    date = DateTime.Now,
+                    store = basket.StoreName,
+                    purchaseType = domainLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
+                    purchaseId = transactionId,
+                    items = basket.Products.ToDictionary(
+                        prod => DataHandler.Instance.GetProduct(prod.Key, basket.StoreName),
+                        prod => prod.Value).ToList()
+                };
+                
+                
+                store.GetHistory().Add(purchase);
+                if(DataHandler.Instance.IsGuest(userName) < 0)
+                    ((User)user).history.Add(purchase);
+
+                // clear the basket
+                user.shoppingCart.shoppingBaskets.Remove(basket.StoreName);
+                
+                //send notifications
+                var owner = DataHandler.Instance.GetUser(store.GetOwner());
+                //here
+                ((User) owner).GetNotifications().Add("A purchase has been made at" + store.GetName());
+
+            }
+
+            return true;
+        }
+
         public static double GetBasketPrice(string userName, string storeName)
         {
             lock (DataHandler.Instance.InefficientLock)
@@ -285,8 +307,24 @@ namespace Version1.LogicLayer
                 return total;
             }
         }
-        
-        
+
+        public static bool ValidateBasketPolicies(string userName, string storeName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            var store = DataHandler.Instance.GetStore(storeName);
+
+            var basket = user.GetShoppingCart().GetBasket(storeName);
+
+            foreach (var policy in store.GetPurchasePolicies())
+            {
+                if (!policy.Validate(basket))
+                    return false;
+            }
+
+            return true;
+        }
+
+
         public static string GetBasketInfo(string userName, string storeName)
         {
             var user = DataHandler.Instance.GetUser(userName);
@@ -304,6 +342,7 @@ namespace Version1.LogicLayer
 
             return output;
         }
+
         public static Dictionary<string, int> GetCartByStore(string userName, string storeName)
         {
             lock (DataHandler.Instance.InefficientLock)
@@ -316,6 +355,5 @@ namespace Version1.LogicLayer
                 return basket.Products;
             }
         }
-
     }
 }

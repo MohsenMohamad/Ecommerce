@@ -116,6 +116,11 @@ namespace Version1.Service_Layer
             }
         }
 
+        public bool Purchase(string userName, string creditCard)
+        {
+            throw new NotImplementedException();
+        }
+
         public long GuestLogin()
         {
             return logicInstance.GuestLogin();
@@ -167,18 +172,7 @@ namespace Version1.Service_Layer
 
         public bool ValidateBasketPolicies(string userName, string storeName)
         {
-            var user = DataHandler.Instance.GetUser(userName);
-            var store = DataHandler.Instance.GetStore(storeName);
-
-            var basket = user.GetShoppingCart().GetBasket(storeName);
-
-            foreach (var policy in store.GetPurchasePolicies())
-            {
-                if (!policy.Validate(basket))
-                    return false;
-            }
-
-            return true;
+            return CartLogic.ValidateBasketPolicies(userName, storeName);
         }
 
         public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
@@ -201,9 +195,11 @@ namespace Version1.Service_Layer
             return ProductsTo2DStringArray(products);
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId,string nameF, string address, string city, string country, int zip)
         {
-            return logicInstance.Purchase(userName, creditCard);
+            var paymentInfo = new PaymentInfo(cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId);
+            var supplyAddress = new SupplyAddress(nameF, address, city, country, zip);
+            return logicInstance.Purchase(userName, paymentInfo,supplyAddress);
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
@@ -274,7 +270,8 @@ namespace Version1.Service_Layer
 
         public bool buyProduct(string buyer, string store, string product, int amount)
         {
-            return Purchase(buyer, "111");
+            return false;
+            //return Purchase(buyer, "111");
         }
 
 

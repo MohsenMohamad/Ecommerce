@@ -108,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer\ModelDb.cs" />
+    <Compile Include="domainLayer\DataStructures\PaymentInfo.cs" />
+    <Compile Include="domainLayer\DataStructures\SupplyAddress.cs" />
     <Compile Include="domainLayer\DiscountPolicies\DtoPolicy.cs" />
     <Compile Include="domainLayer\CompositeDP\AndComposite.cs" />
     <Compile Include="domainLayer\CompositeDP\Component.cs" />

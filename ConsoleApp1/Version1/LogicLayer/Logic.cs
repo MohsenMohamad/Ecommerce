@@ -133,9 +133,9 @@ namespace Version1.LogicLayer
             return CartLogic.GetCartByStore(userName, storeName);
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, PaymentInfo paymentInfo, SupplyAddress supplyAddress)
         {
-            return CartLogic.Purchase(userName, creditCard);
+            return CartLogic.Purchase(userName, paymentInfo,supplyAddress);
         }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)

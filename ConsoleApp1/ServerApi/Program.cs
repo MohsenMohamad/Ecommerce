@@ -33,8 +33,8 @@ namespace ServiceApi
                     //await retrieveDataAsync();
                     var facade = new Facade();
                     
-/*                    facade.Register("admin", "admin");
-*/                  /*  foreach (string i in facade.GetAllUserNamesInSystem())
+                    facade.Register("admin", "admin");
+                  /*  foreach (string i in facade.GetAllUserNamesInSystem())
                     {
                         Console.WriteLine(i);
                     }
