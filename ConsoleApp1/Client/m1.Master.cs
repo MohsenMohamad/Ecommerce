@@ -194,6 +194,7 @@ namespace Client
 
         protected void History_Click(object sender, EventArgs e)
         {
+            Session["editshop"] = null;
             Response.Redirect("~/History.aspx");
         }
 
