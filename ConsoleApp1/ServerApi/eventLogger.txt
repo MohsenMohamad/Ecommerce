@@ -706,3 +706,13 @@
 14/06/2021 23:14:43: Guest has connected with pid : 1  .
 14/06/2021 23:14:57: yarahas LoggedIn   .
 14/06/2021 23:15:06: yara has opened shop : shop123  .
+14/06/2021 23:36:15: Guest has connected with pid : 1  .
+14/06/2021 23:36:29: yarahas LoggedIn   .
+14/06/2021 23:36:39: yara has has added product :2form store: ahmad SHOP to his Basket  .
+14/06/2021 23:37:41: yarahas LoggedOut   .
+14/06/2021 23:37:41: Guest has connected with pid : 2  .
+14/06/2021 23:47:01: Guest has connected with pid : 1  .
+14/06/2021 23:47:13: yarahas LoggedIn   .
+14/06/2021 23:47:21: yara has has added product :2form store: ahmad SHOP to his Basket  .
+14/06/2021 23:48:13: yarahas LoggedOut   .
+14/06/2021 23:48:13: Guest has connected with pid : 2  .
