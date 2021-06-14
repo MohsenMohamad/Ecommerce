@@ -224,6 +224,7 @@ namespace Version1.Service_Layer
 
 
                 db.DeleteUser("zzz");
+
                 if (db != null && db.getAllUsers() != null)
                 {
                     db.getAllUsers().ToList().ForEach((user) =>

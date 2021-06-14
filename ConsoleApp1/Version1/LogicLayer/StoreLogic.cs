@@ -32,12 +32,6 @@ namespace Version1.LogicLayer
             var exists = DataHandler.Instance.GetProduct(barcode, storeName) != null;
             if (exists) throw new Exception(Errors.ProductBarcodeNotAvailable);
 
-            /*  foreach (var category in categories)
-              {
-                  if (!DataHandler.Instance.Categories.ContainsKey(category))
-                      return false;
-              }*/
-
             var product = new Product(barcode, productName, description, price, categories);
             if( store.GetInventory().TryAdd(product, amount))
             {
@@ -315,6 +309,7 @@ namespace Version1.LogicLayer
             return true;
         }
 
+        //todo
         public static bool CloseStore(string storeName, string ownerName)
         {
             var store = DataHandler.Instance.GetStore(storeName);
