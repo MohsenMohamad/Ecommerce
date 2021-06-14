@@ -9,10 +9,11 @@
                             <asp:DropDownList id="cataegoryid"
                     runat="server" 
             class="dropdown-show" aria-labelledby="dropdownMenuLink" Width="150px" BackColor="#7F7F7F" ForeColor="#FFFFFF
-" Font-Names="Andalus" CssClass="ddl">
-                  <asp:ListItem Text ="Product" Selected="True" Value="Product" class="dropdown-item">Search by Product</asp:ListItem>
-                  <asp:ListItem Text ="category" Value="category" class="dropdown-item">Search by category</asp:ListItem>
-                  <asp:ListItem Text ="KeyWord" Value="KeyWord" class="dropdown-item">Search by KeyWord</asp:ListItem>
+" Font-Names="Andalus" CssClass="ddl" OnSelectedIndexChanged="cataegoryid_SelectedIndexChanged">
+                  <asp:ListItem Text ="Search by" Selected="True" Value="Search by" class="dropdown-item">Search by</asp:ListItem>
+                   <asp:ListItem Text ="Search by Product" Value="Search by Product" class="dropdown-item">Search by Product</asp:ListItem>
+                  <asp:ListItem Text ="Search by category" Value="Search by category" class="dropdown-item">Search by category</asp:ListItem>
+                  <asp:ListItem Text ="KeyWord" Value="Search by KeyWord" class="dropdown-item">Search by KeyWord</asp:ListItem>
                </asp:DropDownList> 
                          <asp:TextBox ID="TextBox2" runat="server"  Height="23px" Width="600px" placeholder="Search for anything "></asp:TextBox>
                          <asp:Button ID="Button2" runat="server" Text="Search"   CssClass="btn btn-primary" Height="34px" Width="100px" OnClick="Button1_Click" />

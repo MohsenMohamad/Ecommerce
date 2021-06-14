@@ -14,10 +14,19 @@ namespace Client
         {
             if (!IsPostBack)
             {
-                UserHandler a = new UserHandler();
+                if (Session["editshop"] == null)
+                {
+                    UserHandler a = new UserHandler();
 
-                Data_History.DataSource = a.GetUserPurchaseHistory(Session["username"].ToString());
-                Data_History.DataBind();
+                    Data_History.DataSource = a.GetUserPurchaseHistory(Session["username"].ToString());
+                    Data_History.DataBind();
+                }
+                else
+                {
+                    ShopHandler sh = new ShopHandler();
+                    Data_History.DataSource = sh.GetStorePurchaseHistory(Session["editshop"].ToString());
+                    Data_History.DataBind();
+                }
             }
         }
 

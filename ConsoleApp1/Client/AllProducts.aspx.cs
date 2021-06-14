@@ -18,20 +18,20 @@ namespace Client
             {
                 try
                 {
-                    if (Request.QueryString["keyword"] != null)
+                    if (Request.QueryString["keyword"] != null && Session["List"]!=null)
                     {
-                        if (cataegoryid.SelectedItem.Text == "Search by Product")
+                        if (Session["List"].ToString() == "1")
                         {
                             ShopHandler a = new ShopHandler();
                             DataListproducts.DataSource = a.SearchByProductName(Request.QueryString["keyword"].ToString());
                             DataListproducts.DataBind();
                         }
-                        else if (cataegoryid.SelectedItem.Text == "Search by category") {
+                        else if (Session["List"].ToString() == "2") {
                             ShopHandler a = new ShopHandler();
                             DataListproducts.DataSource = a.SearchByCategory(Request.QueryString["keyword"].ToString());
                             DataListproducts.DataBind();
                         }
-                        else if(cataegoryid.SelectedItem.Text == "Search by KeyWord") {
+                        else if(Session["List"].ToString() == "3") {
                             ShopHandler a = new ShopHandler();
                             DataListproducts.DataSource = a.SearchByKeyword(Request.QueryString["keyword"].ToString());
                             DataListproducts.DataBind();
@@ -90,6 +90,24 @@ namespace Client
             else
             {
                 Response.Redirect("~/AllProducts.aspx?keyword=" + TextBox2.Text.ToString());
+                cataegoryid.SelectedIndex = cataegoryid.Items.IndexOf(cataegoryid.Items.FindByText("Search by"));
+            }
+        }
+
+        protected void cataegoryid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (cataegoryid.SelectedItem.Text == "Search by Product")
+            {
+                Session["List"] = "1";
+            }
+            if (cataegoryid.SelectedItem.Text == "Search by category")
+            {
+                Session["List"] = "2";
+            }
+            if (cataegoryid.SelectedItem.Text == "Search by KeyWord")
+            {
+                Session["List"] = "3";
             }
         }
     }
