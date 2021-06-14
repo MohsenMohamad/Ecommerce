@@ -23,7 +23,7 @@ namespace Version1.LogicLayer
 
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values.ToList())
                 {
-                    var storeResult =PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
+                    var storeResult = PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
                     if (!storeResult) return false;
                 }
                 
@@ -101,8 +101,7 @@ namespace Version1.LogicLayer
                 {
                     storeBasketProducts.Remove(productBarcode);
                     cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
-                    //here
-
+                    //to transact
                     return database.GetInstance().RemoveProductFromCart(userName, storeName, productBarcode, amount);
                 }
 
@@ -264,19 +263,31 @@ namespace Version1.LogicLayer
                         prod => DataHandler.Instance.GetProduct(prod.Key, basket.StoreName),
                         prod => prod.Value).ToList()
                 };
-                
+
                 
                 store.GetHistory().Add(purchase);
-                if(DataHandler.Instance.IsGuest(userName) < 0)
+                //to trnsact
+                database.GetInstance().InsertPurchaseToStore(store.name, purchase);
+
+                if (DataHandler.Instance.IsGuest(userName) < 0)
+                {   //to trnsact
                     ((User)user).history.Add(purchase);
+                    database.GetInstance().InsertPurchaseToUser(userName, purchase);
+                }
+
 
                 // clear the basket
                 user.shoppingCart.shoppingBaskets.Remove(basket.StoreName);
-                
+                if (DataHandler.Instance.IsGuest(userName) < 0)
+                {   //to trnsact
+                    database.GetInstance().deleteBasket(userName, basket.StoreName);
+                }
+
                 //send notifications
                 var owner = DataHandler.Instance.GetUser(store.GetOwner());
-                //here
+                //to trnsact
                 ((User) owner).GetNotifications().Add("A purchase has been made at" + store.GetName());
+                database.GetInstance().updateNotification(userName, ((User)owner).GetNotifications());
 
             }
 
