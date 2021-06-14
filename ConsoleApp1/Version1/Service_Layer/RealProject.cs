@@ -496,5 +496,54 @@ namespace Version1.Service_Layer
         {
             DataHandler.Instance.Reset();
         }
+
+        public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
+        {
+            try
+            {
+                
+                 facade.Recieve_purchase_offer(username,storename,price,barcode,amount);
+            }
+            catch (Exception e)
+            {
+                return ;
+            }
+        }
+
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            try
+            {
+                 facade.acceptoffer(barcode,price,username,storename,amount,by_username);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        {
+            try
+            {
+                 facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        {
+            try
+            {
+                 facade.CounterOffer(barcode, price, username, storename, amount, owner,oldprice);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
     }
 }
