@@ -14,7 +14,25 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            int counter = 0;
+            while (counter < 30)
+            {
+                try
+                {
+                   
+                    return;
+                }
+                catch
+                {
+                    Thread.Sleep(1000);
+                    counter++;
+                }
+            }
+            if (counter > 30)
+            {
+                //error message
+                throw new Exception("server not responding");
+            }
 
         }
 
