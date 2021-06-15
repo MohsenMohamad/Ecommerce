@@ -196,6 +196,19 @@ namespace Version1.LogicLayer
         }
 
 
+        public static List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            lock (DataHandler.Instance.InefficientLock)
+            {
 
+                var user = DataHandler.Instance.GetUser(userName);
+                if (user == null) throw new Exception(Errors.UserNotFound);
+                if (DataHandler.Instance.IsGuest(userName) >= 0) throw new Exception(Errors.PermissionError);
+                
+                var historyList = ((User) user).history.ToList();
+
+                return historyList;
+            }
+        }
     }
 }

@@ -866,6 +866,12 @@ namespace Version1.Service_Layer
             return logicInstance.GetUserPurchaseHistory(userName)?.ToArray();
         }
 
+        public List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            return logicInstance.GetUserPurchaseHistoryList(userName);
+        }
+
+
         public string[] GetStorePurchaseHistory(string storeName)
         {
             return logicInstance.GetStorePurchaseHistory(storeName)?.ToArray();

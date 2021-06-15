@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1;
 using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.StorePolicies;
 using Version1.Service_Layer;
 
@@ -106,6 +107,11 @@ namespace Project_tests
             if (real == null)
                 return true;
             return real.ValidateBasketPolicies(userName, storeName);
+        }
+
+        public List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            return real?.GetUserPurchaseHistoryList(userName);
         }
 
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
