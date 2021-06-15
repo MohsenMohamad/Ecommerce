@@ -475,5 +475,52 @@ namespace Version1.LogicLayer
             
             
         }
+
+        public static List<string> getPaymentInfo(string user, string storeName)
+        {
+            if (IsOwner(storeName,user) || IsManger(storeName, user))
+            {
+                Store store = DataHandler.Instance.GetStore(storeName);
+                return store.paymentInfo;
+
+            }
+
+            return null;
+        }
+
+        public static List<string> addPaymentInfo(string user, string storeName, string info)
+        {
+            if (IsOwner(storeName,user) || IsManger(storeName, user))
+            {
+                Store store = DataHandler.Instance.GetStore(storeName);
+                store.paymentInfo.Add(info);
+                return store.paymentInfo;
+            }
+
+            return null;
+        }
+
+        public static List<string> updatePaymentInfo(string user, string storeName, List<string> allInfo)
+        {
+            if (IsOwner(storeName,user) || IsManger(storeName, user))
+            {
+                Store store = DataHandler.Instance.GetStore(storeName);
+                store.paymentInfo = allInfo;
+                return store.paymentInfo;
+            }
+
+            return null;
+        }
+
+        public static string getInfo(string user, string storeName)
+        {
+            if (IsOwner(storeName,user) || IsManger(storeName, user))
+            {
+                Store store = DataHandler.Instance.GetStore(storeName);
+                return store.notifications.ToString();
+            }
+
+            return null;
+        }
     }
 }

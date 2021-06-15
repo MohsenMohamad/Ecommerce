@@ -766,7 +766,7 @@ namespace Version1.Service_Layer
 
         public string getInfo(string user, string store)
         {
-            throw new NotImplementedException();
+            return StoreLogic.getInfo( user,  store);
         }
 
         //4
@@ -782,21 +782,21 @@ namespace Version1.Service_Layer
         }
 
         //6
-        public List<string> updatePaymentInfo(string owner, string storeName, List<string> allInfo)
+        public List<string> updatePaymentInfo(string user, string storeName, List<string> allInfo)
         {
-            throw new NotImplementedException();
+            return StoreLogic.updatePaymentInfo( user,  storeName,allInfo);
         }
 
         //7
-        public List<string> getPaymentInfo(string owner, string storeName)
+        public List<string> getPaymentInfo(string user, string storeName)
         {
-            throw new NotImplementedException();
+            return StoreLogic.getPaymentInfo( user,  storeName);
         }
 
         //8
-        public List<string> addPaymentInfo(string owner, string storeName, string info)
+        public List<string> addPaymentInfo(string user, string storeName, string info)
         {
-            throw new NotImplementedException();
+            return StoreLogic.addPaymentInfo( user,  storeName,info);
         } //9
 
         public List<string> getStorePurchaseHistory(string ownerUser, string storeName)

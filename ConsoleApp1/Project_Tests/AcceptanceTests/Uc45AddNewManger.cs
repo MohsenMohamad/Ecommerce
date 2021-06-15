@@ -1,3 +1,5 @@
+
+using System.Linq;
 using Version1.domainLayer;
 using Version1.Service_Layer;
 using Version1.domainLayer.UserRoles;
@@ -9,42 +11,61 @@ namespace Project_Tests.AcceptanceTests
 {
     public class Uc45AddNewManger:ATProject
     {
-        private static SystemAdmin admin;
-        string storeName;
-        string userName;
-        [SetUp]
-        public void Setup()
+        private const string UserName = "User1";
+        private const string Password = "123";
+        private const string StoreName = "test";
+        private const string OwnerName = "adnan";
+        private static Category electronics = new Category("Electronics");
+        private Product product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            800,
+            new[] {electronics.Name}.ToList());
+
+        [OneTimeSetUp]
+        public void SetUpSystem()
         {
-            admin = new SystemAdmin();
-            admin.InitSystem();
-            
-            //user = new User("user0", "userPass");
-            Register("user0","userPass");
-            UserLogin("user0", "userPass");
-            Register("user1","user1");
-            Register("user2","user2");
-            Register("user3", "user3");
-
-            storeName = "myStoreName";
-            userName = "user0";
-            
-            OpenStore(userName, storeName,"sellPolicy");
+            AdminInitiateSystem();
         }
-
+        [SetUp]
+        public void SetUp()
+        {
+            Register(UserName, Password);
+            OpenStore(OwnerName, StoreName, "policy");
+        }
+        
         [Test]
-        public void Test()
+        public void TestAdd()
         {
             //happy
-            string newOwnerName = "user1";
-            
-            Assert.True(AddNewManger(storeName,userName,  newOwnerName));
-            Assert.True(IsManger(storeName, newOwnerName));
-            
+            Assert.True(AddNewManger(OwnerName,StoreName,UserName));
+            //todo
+            //Assert.True(IsManger(StoreName, UserName));
+            Assert.True(IsManger(StoreName, OwnerName));
             //bad
-            UserLogin(newOwnerName, "user1");
-            Assert.False(AddNewManger(storeName,newOwnerName , userName));
+            Assert.False(AddNewManger(StoreName, UserName, OwnerName));
+        }
+        
+        
+        
+        
+        [TearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser(UserName);
+            real.DeleteStore(StoreName);
             
         }
+
+        [OneTimeTearDown]
+
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+            real.ResetMemory();
+        }
+
+        
        
     }
 }

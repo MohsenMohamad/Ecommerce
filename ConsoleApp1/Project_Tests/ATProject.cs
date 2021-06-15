@@ -140,9 +140,9 @@ namespace Project_tests
             return service.MakeNewOwner(store, user, newOwnerName);
         }
         
-        protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
+        protected bool AddNewManger(string user, string store, string newMangerName)
         {
-            return service.AddNewManger(storeName, apointerName, apointeeNAme);
+            return service.AddNewManger( user,  store,  newMangerName);
         }
 
         protected bool IsOwner(string storeName, string ownerName)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Version1.domainLayer;
@@ -12,70 +13,88 @@ namespace Project_Tests.AcceptanceTests
 {
     public class Uc41AddEditRemovePruduct:ATProject
     {
+        private const string UserName = "User1";
+        private const string Password = "123";
+        private const string StoreName = "test";
+        private const string OwnerName = "adnan";
+        private static Category electronics = new Category("Electronics");
+        private Product product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            800,
+            new[] {electronics.Name}.ToList());
 
-        private static SystemAdmin admin;
-        private string productName;
-        private Product product;
-        private Product product2;
-        private int amount;
-        private string storeName;
-        private string UserName;
-        
-        
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public void SetUpSystem()
         {
-            admin = new SystemAdmin();
-            admin.InitSystem();
-            UserName = "user";
-            //user = new User("user", "userPass");
-            storeName = "helloWorldMarket";
-            Register("user","userPass");
-            UserLogin("user","userPass");
-            OpenStore("user",storeName,"" );
-            productName = "shampoo";
-            product = new Product("shampoo",productName,"1",65,new List<string>());
-            product2 = new Product("pringles",productName,"1",99,new List<string>());
-            amount = 100;
-            Assert.True(AddProductToStore("user",storeName, product.Barcode, productName,product.Description,product.Price,"fashion#work",amount));
+            AdminInitiateSystem();
         }
-
+        [SetUp]
+        public void SetUp()
+        {
+            Register(UserName, Password);
+            OpenStore(UserName, StoreName, "policy");
+        }
+        
         [Test]
         public void TestAdd()
         {
            
-            //addProductsToShop("user", storeName, product.Barcode, amount);
+            Assert.True(AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2));
             
             //happy
-            Assert.True(GetStoreInventory("user", storeName).ContainsKey(product.Barcode));
+            Assert.True(GetStoreInventory(OwnerName, StoreName).ContainsKey(product1.Barcode));
             //bad
-            Assert.True(AddProductToStore("user", storeName, product.Barcode,product.Name,product.Description,product.Price,product.Categories.ToString(), 50));
+            Assert.False(AddProductToStore(OwnerName, "noStore", product1.Barcode,product1.name,product1.description,product1.price,product1.categories.ToString(), 2));
         }
         [Test]
         public void TestUpdate()
         {
+            AddProductToStore(OwnerName, StoreName, product1.Barcode, product1.Name, product1.Description,
+                product1.Price, product1.Categories.ToString(), 2);
+            int newAmount = 5;
             //happy
-            UpdateProductAmountInStore("user", storeName, product.Barcode, amount - 1);
-            int newAmount = (amount - 1);
-            Assert.True(GetStoreInventory("user",storeName).ContainsKey(product.Barcode) && GetStoreInventory("user",storeName)[product.Barcode] == newAmount) ;
+            UpdateProductAmountInStore(OwnerName, StoreName, product1.Barcode, newAmount);
+            ConcurrentDictionary<string,int> inventory =  GetStoreInventory(OwnerName, StoreName);
+            Assert.True( inventory[product1.Barcode] == newAmount) ;
+            
             //bad
-            newAmount = (amount - 5);
-            UpdateProductAmountInStore("user", storeName, product2.Barcode,amount - 5 );
-            foreach (var VARIABLE in GetStoreInventory("user",storeName))
+            UpdateProductAmountInStore(OwnerName, StoreName, product1.Barcode,0 );
+            foreach (var VARIABLE in GetStoreInventory(OwnerName,StoreName))
             {
                 Assert.False(VARIABLE.Value == (newAmount));
             }
             
         }
+        
         [Test]
         public void TestRemove()
         {
-            
+            AddProductToStore(OwnerName, StoreName, product1.Barcode, product1.Name, product1.Description,
+                product1.Price, product1.Categories.ToString(), 2);
             //happy
-            Assert.True(RemoveProductFromStore( UserName, storeName, product.Barcode));
+            Assert.True(RemoveProductFromStore( UserName, StoreName, product1.Barcode));
             
             //bad
-            Assert.False(RemoveProductFromStore( UserName, storeName, product2.Barcode));
+            Assert.False(RemoveProductFromStore( UserName, StoreName, product1.Barcode));
         }
+        
+        
+        [TearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser(UserName);
+            real.DeleteStore(StoreName);
+            
+        }
+
+        [OneTimeTearDown]
+
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+            real.ResetMemory();
+        }
+        
     }
 }

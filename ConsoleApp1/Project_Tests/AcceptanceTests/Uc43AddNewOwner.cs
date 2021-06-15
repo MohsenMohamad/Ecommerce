@@ -1,3 +1,4 @@
+using System.Linq;
 using Version1.domainLayer;
 using Version1.Service_Layer;
 using Version1.domainLayer.UserRoles;
@@ -9,42 +10,59 @@ namespace Project_Tests.AcceptanceTests
 {
     public class Uc43AddNewOwner:ATProject
     {
-        private static SystemAdmin admin;
-        //private static User user;
-        string storeName;
-        private string userName ;
-        [SetUp]
-        public void Setup()
-        {
-            admin = new SystemAdmin();
-            admin.InitSystem();
-            userName = "user0";
-            //user = new User("user0", "userPass");
-            Register(userName,"userPass");
-            UserLogin(userName, "userPass");
-            
-            Register("user1","user1");
-            Register("user2","user2");
-            Register("user3","user3");
-            Register("user4","user4");
-            
-            storeName = "storeName";
-            OpenStore(userName, storeName,"sellPolicy");
-        }
+         private const string UserName = "User1";
+        private const string Password = "123";
+        private const string StoreName = "test";
+        private const string OwnerName = "adnan";
+        private static Category electronics = new Category("Electronics");
+        private Product product1 = new Product("1", "camera", "Sony Alpha a7 III Mirrorless Digital Camera Body - ILCE7M3/B",
+            800,
+            new[] {electronics.Name}.ToList());
 
+        [OneTimeSetUp]
+        public void SetUpSystem()
+        {
+            AdminInitiateSystem();
+        }
+        [SetUp]
+        public void SetUp()
+        {
+            Register(UserName, Password);
+            OpenStore(OwnerName, StoreName, "policy");
+        }
+        
         [Test]
-        public void Test()
+        public void TestAdd()
         {
             //happy
-            string newOwnerName = "user1";
-            
-            Assert.True(AddNewOwner("user0", storeName, newOwnerName));
-            Assert.True(IsOwner(storeName, newOwnerName));
-            
+            Assert.True(AddNewOwner(StoreName, OwnerName,UserName));
+            Assert.True(IsOwner(StoreName, UserName));
             //bad
-            UserLogin(newOwnerName, "user1");
-            Assert.False(AddNewOwner("user1", storeName, "user0"));
+            Assert.False(AddNewOwner(StoreName, UserName, OwnerName));
         }
+        
+        
+        
+        
+        [TearDown]
+        public void TearDown()
+        {
+            var real = new RealProject();
+            
+            real.DeleteUser(UserName);
+            real.DeleteStore(StoreName);
+            
+        }
+
+        [OneTimeTearDown]
+
+        public void OneTimeTearDown()
+        {
+            var real = new RealProject();
+            real.ResetMemory();
+        }
+
+        
        
     }
 }
