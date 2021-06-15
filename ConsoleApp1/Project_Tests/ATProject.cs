@@ -70,7 +70,7 @@ namespace Project_tests
         protected bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories, int amount)
         {
-            return service.AddProductToStore(managerName, storeName, barcode, productName, description, amount, categories, amount);
+            return service.AddProductToStore(managerName, storeName, barcode, productName, description, price, categories, amount);
         }
 
         protected bool CheckStoreInventory(string storeName, Hashtable products)
@@ -86,6 +86,11 @@ namespace Project_tests
         protected bool AddProductToCart(string userName, string storeName, string productCode,int amount,double priceofone)
         {
             return service.AddProductToBasket(userName, storeName, productCode,amount,priceofone);
+        }
+
+        protected int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return service.addConditionalDiscount(shopName, percentage, condition);
         }
 
         protected Dictionary<string,int> GetCartByStore(string userName, string storeName)

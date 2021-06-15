@@ -75,6 +75,7 @@
     <Compile Include="domainLayer\DiscountPolicies\Condiction.cs" />
     <Compile Include="domainLayer\DiscountPolicies\ConditionalPolicy.cs" />
     <Compile Include="domainLayer\DiscountPolicies\DiscountPolicy.cs" />
+    <Compile Include="domainLayer\DiscountPolicies\DtoPolicy.cs" />
     <Compile Include="domainLayer\DiscountPolicies\False.cs" />
     <Compile Include="domainLayer\DiscountPolicies\ItemCategory.cs" />
     <Compile Include="domainLayer\DiscountPolicies\Or.cs" />

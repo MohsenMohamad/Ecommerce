@@ -377,5 +377,10 @@ namespace Project_tests
         {
             return real.addPublicDiscountToItem( storeName,  barcode,  percentage);
         }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return real.addConditionalDiscount( shopName,  percentage,  condition);
+        }
     }
 }

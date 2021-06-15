@@ -10,14 +10,16 @@ namespace Version1.domainLayer.DataStructures
 {
     public class Store
     {
-        private string name { get; set; }
-        private List<Component> purchasePolicies { get; set; }
+        public string name { get; set; }
+        public List<Component> purchasePolicies { get; set; }
         public Node<string, int> staff;
-        private List<string> notifications;
-        private List<string> paymentInfo{ get; set; }
-        private List<Purchase> history { get; }
-        private ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
-        public DTO_Policies discountPolicy { get; set; }
+        public List<string> notifications { get; set; }
+        public List<string> paymentInfo { get; set; }
+        public List<Purchase> history { get; }
+
+        public ConcurrentDictionary<Product, int> inventory; // key : product , value : amount
+
+        public List<DtoPolicy> discountPolicies { get; set; }
 
 
         public Store(string owner,string name)
@@ -30,7 +32,7 @@ namespace Version1.domainLayer.DataStructures
             this.name = name;
             notifications = new List<string>();
 
-            discountPolicy = new DTO_Policies(); 
+            discountPolicies = new List<DtoPolicy>();
         }
 
         public override string ToString()
@@ -114,38 +116,7 @@ namespace Version1.domainLayer.DataStructures
         {
             purchasePolicies = newPolicies;
         }
-
-
-        public int addPublicDiscount(string storeName, int percentage)
-        {
-            discountPolicy = new DTO_Policies();
-            
-            foreach (var x in inventory) {
-                x.Key.discountPolicy.discount_description += string.Format(" discount {0}% off for all the shop", percentage);
-            }
-            
-            discountPolicy.SetPublic(percentage);
-            discountPolicy.discount_description = string.Format("discount {0}% off ", percentage);
-            
-            return 1;
-        }
-
-        public int addConditionalDiscount(string storeName, int percentage, string condition)
-        {
-            int res;
-            try { Condition.Parse(condition); }
-            catch (Exception e) { return -13; }
-            DTO_Policies p = new DTO_Policies();
-            
-            if ((res = p.SetConditional(percentage, condition)) < 0)
-                return res;
-            foreach (var x in inventory) {
-                x.Key.discountPolicy.discount_description += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,condition);
-            }
-            this.discountPolicy.SetConditional(percentage,condition);
-            
-            return res;
-        }
+        
         
     }
 }

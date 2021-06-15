@@ -352,18 +352,55 @@ namespace Version1.LogicLayer
         public static int addPublicDiscount(string storeName, int percentage)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store.addPublicDiscount(storeName, percentage);
+            DtoPolicy discountPolicy = new DtoPolicy();
+
+            foreach (var x in store.inventory)
+            {
+                x.Key.DiscountPolicy.DiscountDescription += string.Format(" discount {0}% off for all the shop", percentage);
+                
+            }
+
+            discountPolicy.SetPublic(percentage);
+            discountPolicy.DiscountDescription = string.Format("discount {0}% off ", percentage);
+            store.discountPolicies.Add(discountPolicy);
+            
+            return 1;
         }
         public static int addPublicDiscount_toItem(string storeName, string barcode, int percentage)
         {
             var product = DataHandler.Instance.GetProduct(barcode, storeName);
-            return product.addPublicDiscount_toItem(percentage);
+            if (product.DiscountPolicy == null)
+            {
+                product.DiscountPolicy = new DtoPolicy();
+            }
+
+            product.DiscountPolicy.DiscountDescription += string.Format("discount {0}% off ", percentage);
+            product.DiscountPolicy.Percentage = percentage;
+            
+            return 1;
+            
         }
 
         public static int addConditionalDiscount(string storeName, int percentage, string condition)
         {
             var store = DataHandler.Instance.GetStore(storeName);
-            return store.addConditionalDiscount(storeName, percentage,condition);
+            int res;
+            try { Condition.Parse(condition); }
+            catch (Exception e) { return -13; }
+            DtoPolicy p = new DtoPolicy();
+
+            if ((res = p.SetConditional(percentage, condition)) < 0)
+                return res;
+            foreach (var x in store.inventory)
+            {
+                x.Key.DiscountPolicy.DiscountDescription += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,Condition.Parse(condition).get_description());
+                
+            }
+            DtoPolicy discountPolicy = new DtoPolicy();
+            discountPolicy.SetConditional(percentage, condition);
+            store.discountPolicies.Add(discountPolicy);
+            
+            return res;
         }
         
         public static double GetTotalCart(string userName)
@@ -398,7 +435,7 @@ namespace Version1.LogicLayer
                                     //adding all the shop discount
                                     if ((shop_policy.TypeOfPolicy == 1 || shop_policy.TypeOfPolicy == 2))
                                     {
-                                        totalDiscount += discountPolicy.GetTotal(shcart, user, product, pro.Value);
+                                        totalDiscount += discountPolicy.getTotal(shcart, user, product, pro.Value);
                                     }
                                     //adding all the product discount
                                 }

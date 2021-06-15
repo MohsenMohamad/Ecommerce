@@ -582,5 +582,17 @@ namespace Version1.Service_Layer
                 return -1;
             }
         }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            try
+            {
+                return facade.addConditionalDiscount(shopName, percentage, condition);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
     }
 }
