@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.DataStructures;
 using Version1.LogicLayer;
 
 namespace Version1.Service_Layer
@@ -173,6 +174,18 @@ namespace Version1.Service_Layer
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            try
+            {
+                return facade.GetUserPurchaseHistoryList(userName);
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
 

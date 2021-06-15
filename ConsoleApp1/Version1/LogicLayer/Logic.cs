@@ -337,5 +337,9 @@ namespace Version1.LogicLayer
         }
 
 
+        public List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            return UserLogic.GetUserPurchaseHistoryList(userName);
+        }
     }
 }

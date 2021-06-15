@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Version1;
+using Version1.DataAccessLayer;
 using Version1.domainLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
@@ -234,6 +235,11 @@ namespace Project_tests
         public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
         {
             service.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
+        }
+
+        protected List<Purchase> GetUserPurchaseHistoryList(string userName)
+        {
+            return service.GetUserPurchaseHistoryList(userName);
         }
 
     }

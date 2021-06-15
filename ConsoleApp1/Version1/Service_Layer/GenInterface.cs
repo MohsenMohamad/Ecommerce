@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.Service_Layer
 {
@@ -19,6 +20,8 @@ namespace Version1.Service_Layer
         string GetStoreInfo(string userName, string storeName);  // userName = null if user is a guest
         bool CheckStoreInventory(string storeName, Hashtable products); //
         bool ValidateBasketPolicies(string userName, string storeName);
+        List<Purchase> GetUserPurchaseHistoryList(string userName);
+
 
         bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories1, int amount); //
