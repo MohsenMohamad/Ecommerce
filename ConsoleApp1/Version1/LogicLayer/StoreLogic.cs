@@ -439,7 +439,7 @@ namespace Version1.LogicLayer
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
                         //there are no bid for the item
-                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price)
+                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price * pro.Value)
                         {
                             
                             double totalDiscount = 0;
