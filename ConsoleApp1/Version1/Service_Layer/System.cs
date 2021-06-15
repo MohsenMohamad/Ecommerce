@@ -17,14 +17,16 @@ namespace Version1.Service_Layer
         public static void Main(string[] args)
         {
 
-            Operation o = new Operation();
+            /*Operation o = new Operation();
             o.insertData();
-            var facade = new Facade();
+            var facade = new Facade();*/
 
 
             /********************************/
-            /*Operation2 o2 = new Operation2();
-            o2.insertData();*/
+
+
+            Operation2 o2 = new Operation2();
+            o2.insertData();
         }
 
         public class Operation2
