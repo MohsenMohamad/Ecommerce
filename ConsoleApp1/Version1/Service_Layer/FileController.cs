@@ -20,7 +20,7 @@ namespace Version1.Service_Layer
 
         public static void Test()
         {
-            CreateJson();
+            //CreateJson();
             ReadStateFile(DesktopPath + @"\json\file.json");
             Console.ReadKey();
         }
