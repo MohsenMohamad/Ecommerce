@@ -55,11 +55,7 @@ namespace Version1.LogicLayer
         // 2.5) Get store info
 
         // 2.6) Search
-
-        public List<string> SearchFilter(string sortOption, List<string> filters)
-        {
-            return InventoryLogic.SearchFilter(sortOption, filters);
-        }
+        
 
         // 2.7) Add a product to a shopping basket
 
