@@ -245,22 +245,19 @@ namespace Version1.DataAccessLayer
             if(sh!= null)
             {
                 shoppingCart.shoppingBaskets = new Dictionary<string, ShoppingBasket>();
-                if (sh.shoppingBaskets != null && sh.shoppingBaskets.keys != null)
+                if (sh.baskets != null)
                 {
-                    List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys); ;
+                    //List<string> keys = oJS.Deserialize<List<string>>(sh.shoppingBaskets.keys); ;
                     
-                    List<ShoppingBasket> values = shopingBasketsFormShopingBasketsDb(sh.shoppingBaskets.values.ToList());
-                    if (keys.Count == values.Count)
-                    {
-                        for (int i = 0; i < keys.Count; i++)
+                    //List<ShoppingBasket> values = shopingBasketsFormShopingBasketsDb(sh.shoppingBaskets.values.ToList());
+
+                        for (int i = 0; i < sh.baskets.Count; i++)
                         {
-                            shoppingCart.shoppingBaskets.Add(keys.ElementAt(i), values.ElementAt(i));
+                            ShoppingBasketDB temp1 = sh.baskets.ElementAt(i).basket;
+                            ShoppingBasket temp2 = getShopingBasketFromShopingBasketDB(temp1);
+                            shoppingCart.shoppingBaskets.Add(sh.baskets.ElementAt(i).StoreName, temp2);
                         }
-                    }
-                    else
-                    {
-                        throw new Exception("keys.Count != values.Count");
-                    }
+
                 }
             }
  
@@ -268,7 +265,8 @@ namespace Version1.DataAccessLayer
             
         }
 
-        private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
+
+       /* private List<ShoppingBasket> shopingBasketsFormShopingBasketsDb(List<ShoppingBasketDB> shoppingBasketDBs)
         {
             List<ShoppingBasket> shBaskets = new List<ShoppingBasket>();
 
@@ -277,7 +275,7 @@ namespace Version1.DataAccessLayer
                 shBaskets.Add(getShopingBasketFromShopingBasketDB(sh));
             }
             return shBaskets;
-        }
+        }*/
 
         private ShoppingBasket getShopingBasketFromShopingBasketDB(ShoppingBasketDB sh)
         {
