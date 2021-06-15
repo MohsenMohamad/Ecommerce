@@ -50,7 +50,24 @@ namespace Project_Tests.UnitTests
             
             UserLogout(UserName);
         }
-        
+        [Test]
+        public void testItemPublicDiscount()
+        {
+            int percentage = 50;
+            int PriceOfOne = 800;
+            // the product is added to the cart and the amount should not change in the store
+            UserLogin(UserName,Password);
+            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
+            
+            AddProductToCart(UserName, StoreName, product1.Barcode, 1, PriceOfOne);
+            double prieBeforeDiscount = GetTotalCart(UserName);
+            Assert.True(addPublicDiscountToItem(StoreName,product1.Barcode, 50) == 1);
+            double prieAfterDiscount = GetTotalCart(UserName);
+            
+            Assert.True( prieBeforeDiscount - prieAfterDiscount == PriceOfOne / 2);
+            
+            UserLogout(UserName);
+        }
 
         [TearDown]
         public void TearDown()

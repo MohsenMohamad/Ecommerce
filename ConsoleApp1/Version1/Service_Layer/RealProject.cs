@@ -570,5 +570,17 @@ namespace Version1.Service_Layer
                 return;
             }
         }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            try
+            {
+                return facade.addPublicDiscountToItem(storeName, barcode, percentage);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
     }
 }

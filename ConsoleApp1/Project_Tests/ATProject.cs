@@ -239,6 +239,12 @@ namespace Project_tests
         {
             return  service.addPublicStoreDiscount(storeName, percentage);
         }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return service.addPublicDiscountToItem(storeName, barcode, percentage);
+        }
+
         public double GetTotalCart(string UserName)
         {
             return service.GetTotalCart(UserName);

@@ -372,5 +372,10 @@ namespace Project_tests
         {
             real.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
         }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return real.addPublicDiscountToItem( storeName,  barcode,  percentage);
+        }
     }
 }
