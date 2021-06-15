@@ -154,8 +154,16 @@ namespace Version1.Service_Layer
 
 };
             var json = JsonConvert.SerializeObject(js);
-
-            File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            try
+            {
+                File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            }
+            catch
+            {
+                (new FileInfo(DesktopPath + @"\json\file.json")).Directory.Create();
+                File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            }
+            
         }
 
         [Serializable]
