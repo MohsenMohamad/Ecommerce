@@ -44,6 +44,10 @@
                                         <td>
                                             <span style="font-size: 16px; text-align: center; ">barcode :<%#Eval("barcode") %></span></td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 16px; text-align: center; "><%#Eval("discount") %></span></td>
+                                    </tr>
                                      <tr>
                                         <td>
                                             <span style="font-size: 16px; text-align: center; ">catagory :<%#Eval("catagory") %></span></td>
