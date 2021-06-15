@@ -95,12 +95,13 @@ namespace Version1.DataAccessLayer
 
     public class NodeDB
     {
-        [Key]
-        [Required]  
+        [Key, Column(Order = 0)]
         public string key { get; set; }
 
+        [Key, Column(Order = 1)]
         public string storeName { get; set; }
 
+        [Key, Column(Order = 2)]
         public int value { get; set; }
 
         public virtual ICollection<NodeDB> Children { get; set; }
