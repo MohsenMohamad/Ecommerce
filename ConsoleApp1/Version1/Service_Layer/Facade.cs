@@ -245,6 +245,17 @@ namespace Version1.Service_Layer
             return result;
         }
 
+        public string[] GetStaff(string storeName) {
+
+            var o = GetStoreOwners(storeName);
+            var m = GetStoreManagers(storeName);
+
+           var arr1= new List<string>();
+            arr1.AddRange(o);
+            arr1.AddRange(m);
+            return arr1.ToArray();
+        }
+
 
         public string[] GetStoreOwners(string storeName)
         {
