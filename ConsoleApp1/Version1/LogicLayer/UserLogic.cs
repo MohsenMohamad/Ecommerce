@@ -67,7 +67,7 @@ namespace Version1.LogicLayer
                 }
             }
 
-            database.GetInstance().updateNotification(user.UserName, user.GetNotifications());
+            DataHandler.Instance.db.updateNotification(user.UserName, user.GetNotifications());
 
             for (int i = 0; i < user.GetNotificationsoffer().Count; i++)
             {
@@ -75,7 +75,7 @@ namespace Version1.LogicLayer
                     user.GetNotificationsoffer().RemoveAt(i);
             }
 
-            database.GetInstance().updateNotificationsoffer(user.UserName, user.GetNotificationsoffer());
+            DataHandler.Instance.db.updateNotificationsoffer(user.UserName, user.GetNotificationsoffer());
             
         }
 
@@ -128,7 +128,7 @@ namespace Version1.LogicLayer
             var user = DataHandler.Instance.GetUser(userName);
             if (user == null) return false;
             ((User)user).GetNotifications().Add(notification);
-            database.GetInstance().updateNotification(((User)user).UserName, ((User)user).GetNotifications());
+            DataHandler.Instance.db.updateNotification(((User)user).UserName, ((User)user).GetNotifications());
             return true;
         }
         
@@ -137,7 +137,7 @@ namespace Version1.LogicLayer
             var user = DataHandler.Instance.GetUser(userName);
             if (user == null) return false;
             ((User)user).GetNotificationsoffer().Add(notification);
-            database.GetInstance().updateNotificationsoffer(((User)user).UserName, ((User)user).GetNotificationsoffer());
+            DataHandler.Instance.db.updateNotificationsoffer(((User)user).UserName, ((User)user).GetNotificationsoffer());
             return true;
         }
 

@@ -27,6 +27,16 @@ namespace Version1.DataAccessLayer
         public IDataBase db;
         private DataHandler()
         {
+            
+            Users = new ConcurrentDictionary<string, User>();
+            Stores = new ConcurrentDictionary<string, Store>();
+            Guests = new ConcurrentDictionary<long, Guest>();
+            Reviews = new List<Review>();
+            Categories = new ConcurrentDictionary<string, Category>();
+            Offers = new List<PurchaseOffer>();
+            InefficientLock = new object();
+
+
             if (ismock)
             {
                 db = new MockDB();
@@ -36,21 +46,12 @@ namespace Version1.DataAccessLayer
                 oJS = new JavaScriptSerializer();
                  db = database.GetInstance();
 
-                Users = new ConcurrentDictionary<string, User>();
                 //upload users
                 uploadUsers((database)db);
 
-                Stores = new ConcurrentDictionary<string, Store>();
                 //upload stores
                 uploadStores((database)db);
             }
-            //fresh list
-            Guests = new ConcurrentDictionary<long, Guest>();
-
-            Reviews = new List<Review>();
-            Categories = new ConcurrentDictionary<string, Category>();
-            Offers = new List<PurchaseOffer>();
-            InefficientLock = new object();
 
         }
 
@@ -323,19 +324,22 @@ namespace Version1.DataAccessLayer
             //return Users.TryAdd(user.UserName, user);
             if (Users.TryAdd(user.UserName, user))
             {
-                database db = database.GetInstance();
-                if (db.db.UsersTable.Any(o => o.UserName == user.UserName))
+                if (!ismock) // changeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
                 {
-                    //alreadyExist
-                     return false;
+                    database realDb = database.GetInstance();
+                    if (realDb.db.UsersTable.Any(o => o.UserName == user.UserName))
+                    {
+                        //alreadyExist
+                        return false;
+                    }
+                    else
+                    {
+                        //db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
+                        return realDb.InsertUser(user);
+                        //return db.InsertUser(new User(user.UserName,user.Password));
+                    }   
                 }
-                else
-                {
-                    //db.db.UsersTable.ToList().ForEach((u) => Console.WriteLine(u.UserName));
-                    return db.InsertUser(user);
-                    //return db.InsertUser(new User(user.UserName,user.Password));
-                }
-                
+
             }
             return true;
         }
@@ -383,7 +387,6 @@ namespace Version1.DataAccessLayer
                     return false;
                 if(Stores.TryAdd(store.GetName(), store))
                 {
-                    database db = database.GetInstance();
                     //db.InsertNode(store.staff);
                     db.InsertStore(store);
                     return true;
