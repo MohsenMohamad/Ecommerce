@@ -132,6 +132,25 @@ namespace Client.Code
             return bool.Parse(System.SendApi("AddProductToBasket", param));
         }
 
+
+        public DataSet GetStaff(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStaff", param).ToString());
+            DataTable t1 = new DataTable("Staff");
+            t1.Columns.Add("id");
+            t1.Columns.Add("Name");
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                t1.Rows.Add(i, arr[i]);
+            }
+
+            DataSet set = new DataSet("Staff");
+            set.Tables.Add(t1);
+            return set;
+        }
+
         public DataSet GetUserBaskets(string userName)
         {
 
