@@ -21,23 +21,29 @@ namespace Version1.DataAccessLayer
         public ConcurrentDictionary<long, Guest> Guests { get; }
         public ConcurrentDictionary<string, Category> Categories;
         public List<PurchaseOffer> Offers { get; set; }
-        
+        public bool ismock = true;
         private List<Review> Reviews { get; }
         public JavaScriptSerializer oJS;
+        public IDataBase db;
         private DataHandler()
         {
+            if (ismock)
+            {
+                db = new MockDB();
+            }
+            else
+            {
+                oJS = new JavaScriptSerializer();
+                 db = database.GetInstance();
 
-            oJS = new JavaScriptSerializer();
-            database db = database.GetInstance();
+                Users = new ConcurrentDictionary<string, User>();
+                //upload users
+                uploadUsers((database)db);
 
-            Users = new ConcurrentDictionary<string, User>();
-            //upload users
-            uploadUsers(db);
-
-            Stores = new ConcurrentDictionary<string, Store>();
-            //upload stores
-            uploadStores(db);
-
+                Stores = new ConcurrentDictionary<string, Store>();
+                //upload stores
+                uploadStores((database)db);
+            }
             //fresh list
             Guests = new ConcurrentDictionary<long, Guest>();
 
@@ -45,6 +51,7 @@ namespace Version1.DataAccessLayer
             Categories = new ConcurrentDictionary<string, Category>();
             Offers = new List<PurchaseOffer>();
             InefficientLock = new object();
+
         }
 
         private void uploadUsers(database db)

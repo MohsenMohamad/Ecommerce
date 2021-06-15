@@ -107,6 +107,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessLayer\database.cs" />
+    <Compile Include="DataAccessLayer\IDataBase.cs" />
+    <Compile Include="DataAccessLayer\MockDB.cs" />
     <Compile Include="DataAccessLayer\ModelDb.cs" />
     <Compile Include="domainLayer\DataStructures\PaymentInfo.cs" />
     <Compile Include="domainLayer\DataStructures\SupplyAddress.cs" />
