@@ -178,14 +178,25 @@ namespace Version1.DataAccessLayer
             purchase.store = p.storeName;
             purchase.user = p.UserName;
             purchase.date = p.date;
-
-            List<int> values = oJS.Deserialize<List<int>>(p.items.values);
-            List<Product> keys = new List<Product>();
-
-            foreach(ProductDB productdb in p.items.keys)
+            List<int> values;
+            if (p.items == null || p.items.values == null)
             {
-                keys.Add(getProductFromProductDB(productdb));
+                values = new List<int>();
             }
+            else
+            {
+                values = oJS.Deserialize<List<int>>(p.items.values);
+            }
+            
+            List<Product> keys = new List<Product>();
+            if (p.items != null && p.items.keys != null)
+            {
+                foreach (ProductDB productdb in p.items.keys)
+                {
+                    keys.Add(getProductFromProductDB(productdb));
+                }
+            }
+                
             //here I have got all the keys and the values.
 
 

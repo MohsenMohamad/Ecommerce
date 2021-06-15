@@ -18,6 +18,7 @@ namespace Version1.LogicLayer
         public static bool TakeFromStoreInventory(ShoppingBasket basket)
         {
             var storeInventory = DataHandler.Instance.GetStore(basket.StoreName).GetInventory();
+            bool updated = true;
             foreach (var productBarcode in basket.Products.Keys.ToList())
             {
                 var product = DataHandler.Instance.GetProduct(productBarcode, basket.StoreName);

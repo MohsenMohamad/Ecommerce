@@ -23,7 +23,7 @@ namespace Version1.LogicLayer
 
                 foreach (var basket in user.shoppingCart.shoppingBaskets.Values.ToList())
                 {
-                    var storeResult =PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
+                    var storeResult = PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
                     if (!storeResult) return false;
                 }
                 
@@ -77,6 +77,7 @@ namespace Version1.LogicLayer
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
         {
+            
             lock (DataHandler.Instance.InefficientLock)
             {
                 var user = DataHandler.Instance.GetUser(userName);
@@ -101,8 +102,7 @@ namespace Version1.LogicLayer
                 {
                     storeBasketProducts.Remove(productBarcode);
                     cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
-                    //here
-
+                    //to transact
                     return database.GetInstance().RemoveProductFromCart(userName, storeName, productBarcode, amount);
                 }
 
@@ -244,39 +244,56 @@ namespace Version1.LogicLayer
                     throw new Exception("");
                 }
 
-
-                // try to take from inventory
-                if (!InventoryLogic.TakeFromStoreInventory(basket))
+                //make transaction
+                if (database.GetInstance().makePurchaseTransaction(basket, userName))
                 {
-                    financeService.CancelPay(transactionId);
-                    supplyService.CancelSupply(shipmentId);
-                    throw new Exception("");
+                    //1
+                    // try to take from inventory
+                    if (!InventoryLogic.TakeFromStoreInventory(basket))
+                    {
+                        financeService.CancelPay(transactionId);
+                        supplyService.CancelSupply(shipmentId);
+                        throw new Exception("");
+                    }
+
+
+                    //add to user & store history
+                    var purchase = new Purchase
+                    {
+                        date = DateTime.Now,
+                        store = basket.StoreName,
+                        purchaseType = domainLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
+                        purchaseId = transactionId,
+                        items = basket.Products.ToDictionary(
+                            prod => DataHandler.Instance.GetProduct(prod.Key, basket.StoreName),
+                            prod => prod.Value).ToList()
+                    };
+
+                    //2
+                    // clear the basket
+                    user.shoppingCart.shoppingBaskets.Remove(basket.StoreName);
+
+                    store.GetHistory().Add(purchase);
+                    //3
+                    database.GetInstance().InsertPurchaseToStore(store.name, purchase);
+
+                    if (DataHandler.Instance.IsGuest(userName) < 0)
+                    {   //4
+                        ((User)user).history.Add(purchase);
+                        database.GetInstance().InsertPurchaseToUser(userName, purchase);
+                    }
+
+                    //send notifications
+                    var owner = DataHandler.Instance.GetUser(store.GetOwner());
+                    //5
+                    ((User)owner).GetNotifications().Add("A purchase has been made at" + store.GetName());
+                    database.GetInstance().updateNotification(userName, ((User)owner).GetNotifications());
                 }
-
-                //add to user & store history
-                var purchase = new Purchase
+                else
                 {
-                    date = DateTime.Now,
-                    store = basket.StoreName,
-                    purchaseType = domainLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
-                    purchaseId = transactionId,
-                    items = basket.Products.ToDictionary(
-                        prod => DataHandler.Instance.GetProduct(prod.Key, basket.StoreName),
-                        prod => prod.Value).ToList()
-                };
+                    return false;
+                }
                 
-                
-                store.GetHistory().Add(purchase);
-                if(DataHandler.Instance.IsGuest(userName) < 0)
-                    ((User)user).history.Add(purchase);
-
-                // clear the basket
-                user.shoppingCart.shoppingBaskets.Remove(basket.StoreName);
-                
-                //send notifications
-                var owner = DataHandler.Instance.GetUser(store.GetOwner());
-                //here
-                ((User) owner).GetNotifications().Add("A purchase has been made at" + store.GetName());
 
             }
 
