@@ -10,10 +10,6 @@ namespace Version1.LogicLayer
 {
     public static class InventoryLogic
     {
-        public static List<string> SearchFilter(string sortOption, List<string> filters)
-        {
-            return new List<string>();
-        }
 
         public static bool TakeFromStoreInventory(ShoppingBasket basket)
         {
@@ -23,10 +19,10 @@ namespace Version1.LogicLayer
             {
                 var product = DataHandler.Instance.GetProduct(productBarcode, basket.StoreName);
                 var amount = basket.Products[productBarcode];
-                
+
                 if (product == null || !storeInventory.ContainsKey(product) || storeInventory[product] < amount)
                     return false;
-                
+
                 storeInventory[product] -= amount;
             }
 
@@ -110,6 +106,24 @@ namespace Version1.LogicLayer
             }
 
             return searchResult;
+        }
+
+        public static Dictionary<string, List<string>> FilterByPrice(double minimumPrice, double maximumPrice,
+            Dictionary<string, List<string>> products)
+        {
+            var result = new Dictionary<string, List<string>>();
+            foreach (var storeProducts in products)
+            {
+                foreach (var barcode in storeProducts.Value.Where(barcode =>
+                    DataHandler.Instance.GetProduct(barcode, storeProducts.Key).Price >= minimumPrice &&
+                    DataHandler.Instance.GetProduct(barcode, storeProducts.Key).Price <= maximumPrice))
+                {
+                    if (!result.ContainsKey(storeProducts.Key)) result.Add(storeProducts.Key, new List<string>());
+                    result[storeProducts.Key].Add(barcode);
+                }
+            }
+
+            return result;
         }
     }
 }
