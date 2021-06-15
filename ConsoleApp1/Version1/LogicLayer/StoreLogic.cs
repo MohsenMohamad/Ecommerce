@@ -39,7 +39,8 @@ namespace Version1.LogicLayer
 
             var product = new Product(barcode, productName, description, price, categories);
 
-            return store.GetInventory().TryAdd(product, amount);
+            bool added =  store.GetInventory().TryAdd(product, amount);
+            return added;
         }
 
         public static bool IsManger(string storeName, string mangerName)
