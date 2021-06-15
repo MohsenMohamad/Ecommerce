@@ -54,6 +54,19 @@
                                         <tr>
                                             <td style="width: 149px" >
 
+                                                &nbsp;</td>
+                                            <td>
+
+                                                &nbsp;</td>
+                                            <td>
+
+                                                <asp:Label ID="Label2" runat="server"></asp:Label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 149px" >
+
                                                 <asp:Label ID="LabelCreditcard" runat="server" Text="Credit Card Number: " style="font-family:bodyfont; text-shadow:2px 2px orange;"></asp:Label>
 
                                             </td>
