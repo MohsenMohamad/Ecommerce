@@ -51,7 +51,7 @@ namespace Version1.DataAccessLayer
         public virtual DbSet<ProductDBANDAMOUNT> ProductDBANDAMOUNTTable { get; set; }
 
         //helping dictionaries objects
-        public virtual DbSet<shoppingBasketsDictionaryDB> shoppingBasketsDictionariesDB { get; set; }
+        public virtual DbSet<ShoppingBasketAndStorPairDB> shoppingBasketsDictionariesDB { get; set; }
         public virtual DbSet<itemsHasmapforPurchaseDB> itemsFromPurchaseDBDictionariesDB { get; set; }
 
     }
@@ -94,12 +94,13 @@ namespace Version1.DataAccessLayer
 
     public class NodeDB
     {
-        [Key]
-        [Required]  
+        [Key, Column(Order = 0)]
         public string key { get; set; }
 
+        [Key, Column(Order = 1)]
         public string storeName { get; set; }
 
+        [Key, Column(Order = 2)]
         public int value { get; set; }
 
         public virtual ICollection<NodeDB> Children { get; set; }
@@ -145,7 +146,16 @@ namespace Version1.DataAccessLayer
 
 
     }
+    //done
+    public class ShoppingBasketAndStorPairDB
+    {
+        [Key, Column(Order = 0)]
+        public int ShoppingCartId { get; set; }
+        [Key, Column(Order = 1)]
+        public string StoreName { get; set; }
 
+        public ShoppingBasketDB basket { get; set; }
+    }
 
     //done
     public class ShoppingCartDB
@@ -155,19 +165,19 @@ namespace Version1.DataAccessLayer
         [Required]
         public int ShoppingCartId { get; set; }
 
-        public shoppingBasketsDictionaryDB shoppingBaskets { get; set; }
+        public ICollection<ShoppingBasketAndStorPairDB> baskets { get; set; }
     }
-    //done
+    /*//done
     public class shoppingBasketsDictionaryDB
     {
         [Key]
         public int ShoppingCartId { get; set; }
         //List<string>
-        public string keys { get; set; }
+        //public string keys { get; set; }
+        
+        //public ICollection<ShoppingBasketDB> values { get; set; }
 
-        public ICollection<ShoppingBasketDB> values { get; set; }
-
-    }
+    }*/
 
     //done
     public class ShoppingBasketDB
@@ -276,8 +286,8 @@ namespace Version1.DataAccessLayer
             db.StoresTable.Include(b => b.staff).ToList();
             db.StoresTable.Include(b => b.history).ToList();
             db.StoresTable.Include(b => b.discountPolicies).ToList();
-            db.UsersTable.Include(b => b.shoppingCart.shoppingBaskets).ToList();
-            db.shoppingBasketsDictionariesDB.Include(b => b.values).ToList();
+            db.UsersTable.Include(b => b.shoppingCart.baskets).ToList();
+            db.shoppingBasketsDictionariesDB.Include(b => b.basket).ToList();
             db.ProductsTable.Include(b => b.discountPolicy).ToList();
             
             //db.StoresTable.Include(b => b.purchasePolicies).ToList();
@@ -366,13 +376,25 @@ namespace Version1.DataAccessLayer
 
             if (result != null)
             {
-                List<string> keys = oJS.Deserialize<List<string>>(result.shoppingCart.shoppingBaskets.keys);
-                int indexOfStore = keys.IndexOf(storeName);
-                if(indexOfStore != -1)
+                /*List<string> keys = oJS.Deserialize<List<string>>(result.shoppingCart.shoppingBaskets.keys);
+                int indexOfStore = keys.IndexOf(storeName);*/
+
+                int indexOfStore = -1;
+                int index = 0;
+                //todo make sure
+                foreach (var basketPair in result.shoppingCart.baskets)
                 {
-                    result.shoppingCart.shoppingBaskets.values.Remove(result.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore));
-                    keys.RemoveAt(indexOfStore);
-                    result.shoppingCart.shoppingBaskets.keys = oJS.Serialize(keys);
+                    if (basketPair.StoreName == storeName)
+                    {
+                        indexOfStore = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                if (indexOfStore != -1)
+                {
+                    result.shoppingCart.baskets.Remove(result.shoppingCart.baskets.ElementAt(indexOfStore));
                     db.SaveChanges();
                     return true;
                 }
@@ -889,17 +911,16 @@ namespace Version1.DataAccessLayer
         {
             ShoppingCartDB p = new ShoppingCartDB();
 
-            p.shoppingBaskets = new shoppingBasketsDictionaryDB();//new Dictionary<string, ShoppingBasketDB>();
+            p.baskets = new List<ShoppingBasketAndStorPairDB>();//new Dictionary<string, ShoppingBasketDB>();
 
-            List<string> list = new List<string>();
             foreach (KeyValuePair<string, ShoppingBasket> pair in pr.shoppingBaskets)
             {
-
-                list.Add(pair.Key);
-                p.shoppingBaskets.values.Add(getShoppingBasketDB(pair.Value));
+                ShoppingBasketAndStorPairDB temp = new ShoppingBasketAndStorPairDB();
+                temp.StoreName = pair.Key;
+                temp.basket = getShoppingBasketDB(pair.Value);
+                p.baskets.Add(temp);
             }
-            //todo make sure that this is updated
-            p.shoppingBaskets.keys = oJS.Serialize(list);
+
 
             return p;
         }
@@ -1219,46 +1240,39 @@ namespace Version1.DataAccessLayer
                 if (user.shoppingCart == null)
                 {
                     user.shoppingCart = new ShoppingCartDB();
-                    
                 }
-                if (user.shoppingCart.shoppingBaskets == null)
+                if (user.shoppingCart.baskets == null)
                 {
-                    user.shoppingCart.shoppingBaskets = new shoppingBasketsDictionaryDB();
+                    user.shoppingCart.baskets = new List<ShoppingBasketAndStorPairDB>();
                 }
-                List<string> keys;
-                if ("\"[]\"" != user.shoppingCart.shoppingBaskets.keys)
-                {
-                    keys = oJS.Deserialize<List<string>>(user.shoppingCart.shoppingBaskets.keys);
-                }
-                else
-                {
-                    keys = new List<string>();
-                }
-                
-                int indexOfStore;
 
-                if (!keys.Contains(storeName)){
-                    keys.Add(storeName);
-                    indexOfStore = -1;
-                }
-                else
+
+                int indexOfStore = -1;
+                int index = 0;
+                //todo make sure
+                foreach(var basketPair in user.shoppingCart.baskets)
                 {
-                    indexOfStore = keys.IndexOf(storeName);
+                    if(basketPair.StoreName == storeName)
+                    {
+                        indexOfStore = index;
+                        break;
+                    }
+                    index++;
                 }
-                    
+  
                 //adding the store name
-                user.shoppingCart.shoppingBaskets.keys = oJS.Serialize(keys);
+                //user.shoppingCart.shoppingBaskets.keys = oJS.Serialize(keys);
                 
-                if (user.shoppingCart.shoppingBaskets.values == null)
+                if (user.shoppingCart.baskets == null)
                 {
-                    user.shoppingCart.shoppingBaskets.values = new List<ShoppingBasketDB>();
+                    user.shoppingCart.baskets = new List<ShoppingBasketAndStorPairDB>();
                 }
 
                 ShoppingBasketDB shbasket;
-                //there are no basket of the shop
+                //there are basket of the shop
                 if (indexOfStore != -1)
                 {
-                    shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
+                    shbasket = user.shoppingCart.baskets.ElementAt(indexOfStore).basket;
                     shbasket.StoreName = storeName;
 
                     //adding the item to the dictionary and return it to string
@@ -1274,7 +1288,7 @@ namespace Version1.DataAccessLayer
                     }
                     shbasket.Products = oJS.Serialize(products);
 
-                }//there are basket of the shop
+                }//there are no basket of the shop
                 else
                 {
                     shbasket = new ShoppingBasketDB();
@@ -1291,8 +1305,12 @@ namespace Version1.DataAccessLayer
                     }
 
                     shbasket.Products = oJS.Serialize(products);
+                    //make new basket for the store
+                    ShoppingBasketAndStorPairDB ShoppingBasketAndStorPair = new ShoppingBasketAndStorPairDB();
+                    ShoppingBasketAndStorPair.StoreName = storeName;
+                    ShoppingBasketAndStorPair.basket = shbasket;
                     //add new basket in the users cart
-                    user.shoppingCart.shoppingBaskets.values.Add(shbasket);
+                    user.shoppingCart.baskets.Add(ShoppingBasketAndStorPair);
                 }
 
                 //adding the item to the dictionary of prices if does not exist or update the price if product does exist
@@ -1323,6 +1341,7 @@ namespace Version1.DataAccessLayer
             }
             return false;
         }
+
         internal bool UpdateCartProductAmountInBasket(string userName, string storeName, string productBarcode, int newAmount)
         {
 
@@ -1331,24 +1350,25 @@ namespace Version1.DataAccessLayer
             if (user != null)
 
             {
-                List<string> keys = oJS.Deserialize<List<string>>(user.shoppingCart.shoppingBaskets.keys);
-
-                int indexOfStore;
-
-                if (!keys.Contains(storeName))
+              
+                int indexOfStore = -1;
+                int index = 0;
+                //todo make sure
+                foreach (var basketPair in user.shoppingCart.baskets)
                 {
-                    return false;
-                }
-                else
-                {
-                    indexOfStore = keys.IndexOf(storeName);
+                    if (basketPair.StoreName == storeName)
+                    {
+                        indexOfStore = index;
+                        break;
+                    }
+                    index++;
                 }
 
 
                 ShoppingBasketDB shbasket;
                 if (indexOfStore != -1)
                 {
-                    shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
+                    shbasket = user.shoppingCart.baskets.ElementAt(indexOfStore).basket;
                 }
                 else
                 {   
@@ -1373,24 +1393,24 @@ namespace Version1.DataAccessLayer
             if (user != null)
 
             {
-                List<string> keys = oJS.Deserialize<List<string>>(user.shoppingCart.shoppingBaskets.keys);
-
-                int indexOfStore;
-
-                if (!keys.Contains(storeName))
+                int indexOfStore = -1;
+                int index = 0;
+                //todo make sure
+                foreach (var basketPair in user.shoppingCart.baskets)
                 {
-                    return false;
-                }
-                else
-                {
-                    indexOfStore = keys.IndexOf(storeName);
+                    if (basketPair.StoreName == storeName)
+                    {
+                        indexOfStore = index;
+                        break;
+                    }
+                    index++;
                 }
 
 
                 ShoppingBasketDB shbasket;
                 if (indexOfStore != -1)
                 {
-                    shbasket = user.shoppingCart.shoppingBaskets.values.ElementAt(indexOfStore);
+                    shbasket = user.shoppingCart.baskets.ElementAt(indexOfStore).basket;
                 }
                 else
                 {
