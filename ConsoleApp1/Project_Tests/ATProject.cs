@@ -71,7 +71,7 @@ namespace Project_tests
         protected bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories, int amount)
         {
-            return service.AddProductToStore(managerName, storeName, barcode, productName, description, amount, categories, amount);
+            return service.AddProductToStore(managerName, storeName, barcode, productName, description, price, categories, amount);
         }
 
         protected bool CheckStoreInventory(string storeName, Hashtable products)
