@@ -41,11 +41,13 @@ namespace TestProject.ConcurrencyTests
             
             AddProductToCart("User1", "AdnanStore", "1", 1, product1.price);
             var result1 = false;
-            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
+            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11));
 
             AddProductToCart("User2", "AdnanStore", "1", 1, product1.price);
             var result2 = false;
-            var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2","Credit"));
+            var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11));
 
             Task.WaitAll(task1, task2);
 
@@ -66,11 +68,13 @@ namespace TestProject.ConcurrencyTests
             
             AddProductToCart("User1", "AdnanStore", "1", 1, product1.price);
             var result1 = false;
-            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
+            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11));
 
             AddProductToCart("User2", "AdnanStore", "1", 1, product1.price);
             var result2 = false;
-            var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2","Credit"));
+            var task2 = Task.Factory.StartNew(() => result2 = Purchase("User2", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11));
 
             Task.WaitAll(task1, task2);
             
@@ -89,7 +93,8 @@ namespace TestProject.ConcurrencyTests
             UpdateProductAmountInStore("adnan", "AdnanStore", "1", 1);
             
             var result1 = false;
-            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1","Credit"));
+            var task1 = Task.Factory.StartNew(() => result1 = Purchase("User1", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11));
             
             var result2 = false;
             var task2 = Task.Factory.StartNew(() => result2 = AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 1));

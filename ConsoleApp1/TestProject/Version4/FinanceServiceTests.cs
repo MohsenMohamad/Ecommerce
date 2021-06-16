@@ -16,10 +16,11 @@ namespace TestProject.Version4
         }
 
         [Test]
-        public void SupplyTest()
+        public void PayTest()
         {
+            // ccv 512 should succeed
             var financeService = new FinanceService();
-            var transactionId =financeService.Pay("123",11,2026,"Mohsen",321,207545322);
+            var transactionId =financeService.Pay("123",11,2026,"Mohsen",512,207545322);
 
             var greater = transactionId >= MinimumId;
             var smaller = transactionId <= MaximumId;
@@ -29,7 +30,7 @@ namespace TestProject.Version4
         }
 
         [Test]
-        public void CancelSupplyTest()
+        public void CancelPayTest()
         {
             var financeService = new FinanceService();
             var transactionId =financeService.Pay("123",11,2026,"Mohsen",321,207545322);
@@ -40,21 +41,21 @@ namespace TestProject.Version4
         public void FailHandShake()
         {
             //the handshake should not take more than 5 seconds to establish
-            // but in this test we will set the limit to 2 seconds and we will delay for 3 seconds
-            
+
             const int delayTime = 3000;
             var financeService = new FinanceService();
             Assert.False(financeService.DelayedHandshake(delayTime));
         }
 
         [Test]
-        public void FailCancelTest()
+        public void FailPayTest()
         {
-            // transaction id should be between 10000 and 100000
+            // ccv 986 should fail
             
             var financeService = new FinanceService();
-            const int illegalId = 100;
-            Assert.AreEqual(financeService.CancelPay(illegalId) , -1);
+            var transactionId =financeService.Pay("123",11,2026,"Mohsen",986,207545322);
+
+            Assert.AreEqual(transactionId , -1);
         }
     }
 }

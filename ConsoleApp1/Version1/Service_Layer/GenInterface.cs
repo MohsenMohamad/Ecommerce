@@ -9,7 +9,9 @@ namespace Version1.Service_Layer
     public interface GenInterface
     {
         bool AdminInitSystem(); //
-        bool Purchase(string userName, string creditCard);
+
+        bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv,
+            int holderId, string nameF, string address, string city, string country, int zip);
         long GuestLogin();  //
         bool GuestLogout(long id); //
         bool Register(string name, string password);    //
