@@ -20,7 +20,7 @@ namespace Version1.Service_Layer
         public Facade(string mock)
         {
             DataHandler.Instance.mock = mock;
-            if (mock.CompareTo("true") == 0&&DataHandler.Instance.Users.Count==0)
+            if (mock != null && mock.CompareTo("true") == 0 && DataHandler.Instance.Users.Count==0)
                 AdminInitSystem();
             DataHandler.Instance.updatedb();
         }
