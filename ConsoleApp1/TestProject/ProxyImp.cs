@@ -207,6 +207,13 @@ namespace TestProject
             return real.updatePaymentInfo(owner, storeName, allInfo);
         }
 
+        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        {
+            if (real == null)
+                return true;
+            return real.remove_item_from_cart(userName,storeName,productBarcode,amount);
+        }
+
         public ConcurrentDictionary<string, int> GetStoreInventory(string owner, string storeName)
         {
             if (real == null)

@@ -20,6 +20,7 @@ namespace TestProject.AcceptanceTests
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
+            AdminInitiateSystem();
             Register(UserName, Password);
 
         }
@@ -27,7 +28,6 @@ namespace TestProject.AcceptanceTests
         [SetUp]
         public void SetUp()
         {
-            AdminInitiateSystem();
             OpenStore(OwnerName, StoreName, "policy");
             UserLogin(UserName, Password);
         AddProductToStore(OwnerName, StoreName, product1.barcode, product1.name, product1.description,

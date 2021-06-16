@@ -236,5 +236,11 @@ namespace TestProject
             return service.GetUserPurchaseHistoryList(userName);
         }
 
+        protected bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        {
+            return service.remove_item_from_cart(userName, storeName, productBarcode, amount);
+        }
+
+
     }
 }
