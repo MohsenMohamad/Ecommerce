@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace TestProject.IntegrationTests.offersPurchaseTest
 {
@@ -129,6 +130,12 @@ namespace TestProject.IntegrationTests.offersPurchaseTest
             Assert.True(GetUserNotifications("yara").Count == 2);
 
             Assert.True(GetUserNotifications("adnan").Count == 2);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            new RealProject().ResetMemory();
         }
 
 

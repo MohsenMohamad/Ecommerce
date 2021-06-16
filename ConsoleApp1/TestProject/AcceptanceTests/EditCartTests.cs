@@ -28,7 +28,6 @@ namespace TestProject.AcceptanceTests
         {
             Register(UserName, Password);
             OpenStore(OwnerName, StoreName, "policy");
-            UserLogin(UserName, Password);
             AddProductToStore(OwnerName, StoreName, product1.barcode, product1.name, product1.description,
                 product1.price, product1.Categories.ToString(), 3);
         }
