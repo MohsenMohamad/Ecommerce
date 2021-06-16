@@ -115,12 +115,7 @@ namespace Version1.Service_Layer
                 offer.counterofferifnotowner(owner, oldprice);
             }
         }
-
-        public bool Purchase(string userName, string creditCard)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public long GuestLogin()
         {
             return logicInstance.GuestLogin();

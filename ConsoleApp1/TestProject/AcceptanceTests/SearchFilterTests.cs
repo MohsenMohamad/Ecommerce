@@ -1,10 +1,9 @@
-﻿/*using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Version1.domainLayer;
 using NUnit.Framework;
-using Project_tests;
 using Version1.domainLayer.DataStructures;
 
-namespace Project_Tests.AcceptanceTests
+namespace TestProject.AcceptanceTests
 {
     public class SearchFilterTests : ATProject
     {
@@ -77,8 +76,4 @@ namespace Project_Tests.AcceptanceTests
             
         }
     }
-}*/
-
-namespace TestProject.AcceptanceTests
-{
 }

@@ -24,13 +24,15 @@ namespace TestProject
             return real.AdminInitSystem();
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv,
+            int holderId, string nameF, string address, string city, string country, int zip)
         {
             if (real == null)
                 return true;
-            return real.Purchase(userName, creditCard);
-        }
+            return real.Purchase(userName, cardNumber,expMonth,expYear,cardHolder,cardCcv,holderId,nameF,address,city,country,zip);
 
+        }
+        
         public long GuestLogin()
         {
             if (real == null)

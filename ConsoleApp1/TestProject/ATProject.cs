@@ -65,7 +65,7 @@ namespace TestProject
         protected bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories, int amount)
         {
-            return service.AddProductToStore(managerName, storeName, barcode, productName, description, amount, categories, amount);
+            return service.AddProductToStore(managerName, storeName, barcode, productName, description, price, categories, amount);
         }
 
         protected bool CheckStoreInventory(string storeName, Hashtable products)
@@ -171,9 +171,9 @@ namespace TestProject
             return service.buyProduct(buyer, store,product,amount);
         }
 
-        protected bool Purchase(string userName, string creditCard)
+        protected bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder, int cardCcv, int holderId,string nameF, string address, string city, string country, int zip)
         {
-            return service.Purchase(userName, creditCard);
+            return service.Purchase(userName, cardNumber,expMonth,expYear,cardHolder,cardCcv,holderId,nameF,address,city,country,zip);
         }
         
         public bool ValidateBasketPolicies(string userName, string storeName)

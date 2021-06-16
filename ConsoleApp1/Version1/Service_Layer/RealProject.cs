@@ -12,7 +12,7 @@ namespace Version1.Service_Layer
     public class RealProject : GenInterface
     {
         private readonly Facade facade = new Facade();
-        
+
         public void DeleteStore(string storeName)
         {
             TestsLogic.DeleteStore(storeName);
@@ -23,7 +23,7 @@ namespace Version1.Service_Layer
             TestsLogic.DeleteUser(userName);
         }
 
-        public void DeleteProduct(string productBarcode,string storeName)
+        public void DeleteProduct(string productBarcode, string storeName)
         {
             TestsLogic.DeleteProduct(productBarcode, storeName);
         }
@@ -45,18 +45,21 @@ namespace Version1.Service_Layer
             }
         }
 
-        public bool Purchase(string userName, string creditCard)
+        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder,
+            int cardCcv,
+            int holderId, string nameF, string address, string city, string country, int zip)
         {
             try
             {
-                return facade.Purchase(userName, creditCard);
+                return facade.Purchase(userName, cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId, nameF,
+                    address, city, country, zip);
             }
             catch (Exception e)
             {
                 return false;
             }
         }
-
+        
         public long GuestLogin()
         {
             try
@@ -189,7 +192,8 @@ namespace Version1.Service_Layer
             }
         }
 
-        public bool AddProductToStore(string managerName, string storeName, string barcode, string productName, string description,
+        public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
+            string description,
             double price, string categories1, int amount)
         {
             try
@@ -215,7 +219,8 @@ namespace Version1.Service_Layer
             }
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,double priceofone)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,
+            double priceofone)
         {
             try
             {
@@ -279,7 +284,7 @@ namespace Version1.Service_Layer
         {
             try
             {
-                return facade.MakeNewOwner(storeName,apointerid,apointeeid);
+                return facade.MakeNewOwner(storeName, apointerid, apointeeid);
             }
             catch (Exception e)
             {
@@ -339,7 +344,7 @@ namespace Version1.Service_Layer
         {
             try
             {
-                return facade.getInfo(user,store);
+                return facade.getInfo(user, store);
             }
             catch (Exception e)
             {
@@ -395,7 +400,8 @@ namespace Version1.Service_Layer
             }
         }
 
-        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName, string shopName,
+        public bool uc_4_1_addEditRemovePruduct(string storeOwnerName, string storeName, string productName,
+            string shopName,
             int amount, List<string> categories)
         {
             try
@@ -514,20 +520,7 @@ namespace Version1.Service_Layer
         {
             try
             {
-                
-                 facade.Recieve_purchase_offer(username,storename,price,barcode,amount);
-            }
-            catch (Exception e)
-            {
-                return ;
-            }
-        }
-
-        public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
-        {
-            try
-            {
-                 facade.acceptoffer(barcode,price,username,storename,amount,by_username);
+                facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
             }
             catch (Exception e)
             {
@@ -535,11 +528,12 @@ namespace Version1.Service_Layer
             }
         }
 
-        public void rejectoffer(string barcode, string price, string username, string storename, int amount, string by_username)
+        public void acceptoffer(string barcode, string price, string username, string storename, int amount,
+            string by_username)
         {
             try
             {
-                 facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+                facade.acceptoffer(barcode, price, username, storename, amount, by_username);
             }
             catch (Exception e)
             {
@@ -547,11 +541,25 @@ namespace Version1.Service_Layer
             }
         }
 
-        public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
+        public void rejectoffer(string barcode, string price, string username, string storename, int amount,
+            string by_username)
         {
             try
             {
-                 facade.CounterOffer(barcode, price, username, storename, amount, owner,oldprice);
+                facade.rejectoffer(barcode, price, username, storename, amount, by_username);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
+        public void CounterOffer(string barcode, string price, string username, string storename, int amount,
+            string owner, string oldprice)
+        {
+            try
+            {
+                facade.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
             }
             catch (Exception e)
             {

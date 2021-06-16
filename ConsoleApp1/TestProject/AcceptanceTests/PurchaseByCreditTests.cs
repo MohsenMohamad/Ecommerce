@@ -35,19 +35,16 @@ namespace TestProject.AcceptanceTests
         [Test]
         public void Happy()
         {
-            var financeLogCount = MockUpFinanceService.log.Count;
-            var supplyLogCount = MockUpSupplyService.log.Count;
-            
+
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1, 800);
-            var result2 = Purchase(UserName, "Credit");
+            var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11);
 
             Assert.True(result1 & result2);
-    /*        Assert.True(getStorePurchaseHistory(UserName,StoreName)?.Count == 1);
-            Assert.False(GetCartByStore(UserName,StoreName).ContainsKey(product1.Barcode));
-            Assert.AreEqual(ExternalFinanceService.log.Count, financeLogCount + 1); // a connection has been established
-            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount + 1);  // a connection has been established
-            */
+            Assert.True(getStorePurchaseHistory(UserName,StoreName)?.Count == 1);
+            Assert.IsNull(GetCartByStore(UserName,StoreName));
+ 
         }
 
         [Test]
@@ -55,20 +52,18 @@ namespace TestProject.AcceptanceTests
         {
             // The requested amount is not available
             
-            var financeLogCount = MockUpFinanceService.log.Count;
-            var supplyLogCount = MockUpSupplyService.log.Count;
+
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 2, 800);
             UpdateProductAmountInStore(UserName, StoreName, product1.Barcode, 1);
-            var result2 = Purchase(UserName, "Credit");
+            var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11);
             
             Assert.True(result1); // added to cart
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 2); // cart still the same
-            Assert.AreEqual(MockUpFinanceService.log.Count, financeLogCount); // only connection is from the setup
-            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
             
         }
 
@@ -76,20 +71,16 @@ namespace TestProject.AcceptanceTests
         public void Policy()
         {
             // The requested amount is above the allowed amount
-
-            var financeLogCount = MockUpFinanceService.log.Count;
-            var supplyLogCount = MockUpSupplyService.log.Count;
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 6);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 5, 800);
-            var result2 = Purchase(UserName, "Credit");
+            var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
+                "country", 11);
             
             Assert.True(result1); // added to cart
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 5); // cart still the same
-            Assert.AreEqual(MockUpFinanceService.log.Count, financeLogCount); // only connection is from the setup
-            Assert.AreEqual(MockUpSupplyService.log.Count, supplyLogCount);  // only connection is from the setup
         }
         
         

@@ -260,6 +260,7 @@ namespace Version1.LogicLayer
                     //add to user & store history
                     var purchase = new Purchase
                     {
+                        user = userName,
                         date = DateTime.Now,
                         store = basket.StoreName,
                         purchaseType = domainLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
