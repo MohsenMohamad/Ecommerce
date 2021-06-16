@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.StorePolicies
 {
-    public class CustomerTypeRestriction : Component
+    [Serializable]
+    public class CustomerTypeRestriction : Component,ISerializable
     {
         private readonly List<string> ageRestrictedProducts;
 
@@ -32,6 +35,12 @@ namespace Version1.domainLayer.StorePolicies
         public void AddRestrictedProducts(IEnumerable<string> productsBarcodes)
         {
             ageRestrictedProducts.AddRange(productsBarcodes);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type","CustomerType");
+            info.AddValue("Products",ageRestrictedProducts);
         }
     }
 }

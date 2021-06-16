@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.StorePolicies
 {
-    public class TimeRestrictedCategories : Component
+    [Serializable]
+    public class TimeRestrictedCategories : Component,ISerializable
     {
 
         private readonly List<string> restrictedCategories;
@@ -46,6 +48,14 @@ namespace Version1.domainLayer.StorePolicies
         public void AddRestrictedCategories(IEnumerable<string> categories)
         {
             restrictedCategories.AddRange(categories);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type","Time");
+            info.AddValue("Hour",restrictionTime.Hours);
+            info.AddValue("Minute",restrictionTime.Minutes);
+            info.AddValue("Categories",restrictedCategories);
         }
     }
 }

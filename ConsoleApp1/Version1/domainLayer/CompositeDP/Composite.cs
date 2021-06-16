@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Version1.domainLayer.DataStructures;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Version1.domainLayer.CompositeDP
 {
+    [Serializable]
     public abstract class Composite : Component
     {
         protected List<Component> _children = new List<Component>();
@@ -22,6 +23,6 @@ namespace Version1.domainLayer.CompositeDP
         // summing their results. Since the composite's children pass these
         // calls to their children and so forth, the whole object tree is
         // traversed as a result.
- 
+        
     }
 }
