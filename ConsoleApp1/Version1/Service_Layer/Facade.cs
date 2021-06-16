@@ -17,7 +17,17 @@ namespace Version1.Service_Layer
     {
         private readonly Logic logicInstance = new Logic();
 
-
+        public Facade(string mock)
+        {
+            DataHandler.Instance.mock = mock;
+            if (mock.CompareTo("true") == 0&&DataHandler.Instance.Users.Count==0)
+                AdminInitSystem();
+            DataHandler.Instance.updatedb();
+        }
+        public Facade()
+        {
+           
+        }
         public bool Login(string username, string password)
         {
             var hashPassword = GetHashString(password + "s1a3dAn3a"); // hash with salting
@@ -26,6 +36,7 @@ namespace Version1.Service_Layer
 
         public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
         {
+            var data = DataHandler.Instance;
             var product = DataHandler.Instance.GetProduct(barcode, storename);
             var user = DataHandler.Instance.GetUser(username);
             var store = DataHandler.Instance.GetStore(storename);

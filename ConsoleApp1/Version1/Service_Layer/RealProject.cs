@@ -6,12 +6,19 @@ using Version1.DataAccessLayer;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.LogicLayer;
+using System.Configuration;
 
 namespace Version1.Service_Layer
 {
     public class RealProject : GenInterface
     {
-        private readonly Facade facade = new Facade();
+        private readonly Facade facade = new Facade("true");
+        
+        public RealProject()
+        {
+            string sAttr = ConfigurationManager.AppSettings.Get("mock");
+            facade = new Facade(sAttr);
+        }
 
         public void DeleteStore(string storeName)
         {

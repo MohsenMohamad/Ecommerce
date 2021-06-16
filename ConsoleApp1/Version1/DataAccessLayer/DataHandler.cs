@@ -7,6 +7,8 @@ using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 using Version1.domainLayer.DiscountPolicies;
 using Version1.domainLayer.StorePolicies;
+using System.Configuration;
+using Version1.Service_Layer;
 
 namespace Version1.DataAccessLayer
 {
@@ -18,14 +20,19 @@ namespace Version1.DataAccessLayer
         private static DataHandler _instance = null;
         public ConcurrentDictionary<string, User> Users { get; }
         internal ConcurrentDictionary<string, Store> Stores { get; }
+
+    
+
         public ConcurrentDictionary<long, Guest> Guests { get; }
         public ConcurrentDictionary<string, Category> Categories;
         public List<PurchaseOffer> Offers { get; set; }
-        public bool ismock = true;
+        public string mock = ConfigurationManager.AppSettings["mock"];
+        
+        public bool ismock { get; set; }
         private List<Review> Reviews { get; }
         public JavaScriptSerializer oJS;
         public IDataBase db;
-        private DataHandler()
+        public DataHandler()
         {
             
             Users = new ConcurrentDictionary<string, User>();
@@ -35,11 +42,19 @@ namespace Version1.DataAccessLayer
             Categories = new ConcurrentDictionary<string, Category>();
             Offers = new List<PurchaseOffer>();
             InefficientLock = new object();
-
+            if (mock.CompareTo("true") == 0)
+            {
+                ismock = true;
+            }
+            else
+            {
+                ismock = false;
+            }
 
             if (ismock)
             {
                 db = new MockDB();
+                
             }
             else
             {
@@ -55,6 +70,26 @@ namespace Version1.DataAccessLayer
 
         }
 
+        internal void updatedb()
+        {
+            if (mock.CompareTo("true") == 0)
+            {
+                ismock = true;
+                db = new MockDB();
+            }
+            else
+            {
+                ismock = false;
+                oJS = new JavaScriptSerializer();
+                db = database.GetInstance();
+
+                //upload users
+                uploadUsers((database)db);
+
+                //upload stores
+                uploadStores((database)db);
+            }
+        }
         private void uploadUsers(database db)
         {
             if (db != null && db.getAllUsers() != null)
@@ -309,6 +344,10 @@ namespace Version1.DataAccessLayer
 
                     return _instance;
                 }
+            }
+            set
+            {
+                _instance = new DataHandler();
             }
         }
 
