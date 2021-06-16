@@ -34,13 +34,6 @@ namespace TestProject.AcceptanceTests
         }
 
         [Test]
-        public void TestGet()
-        {
-            //check get after init the store policy in the constructor
-            Assert.Equals(emptyList, getPaymentInfo(userName,storeName));
-        }
-        
-        [Test]
         public void TestAdd()
         {
             string newInfo = "newInfo";

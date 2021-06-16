@@ -7,7 +7,7 @@ namespace TestProject.AcceptanceTests
 {
     public class SearchFilterTests : ATProject
     {
-        
+    /*    
         private Product product1;
         private Product product2;
         private Product product3;
@@ -75,5 +75,7 @@ namespace TestProject.AcceptanceTests
         {
             
         }
+        */
     }
+    
 }
