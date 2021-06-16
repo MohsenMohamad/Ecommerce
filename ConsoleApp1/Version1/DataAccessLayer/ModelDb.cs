@@ -22,6 +22,7 @@ namespace Version1.DataAccessLayer
         public ModelDB()
             : base("ModelDB")
         {
+
             Database.CreateIfNotExists();
             Database.SetInitializer<ModelDB>(new DropCreateDatabaseIfModelChanges<ModelDB>());
             Configuration.AutoDetectChangesEnabled = true;

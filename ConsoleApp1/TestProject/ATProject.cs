@@ -5,6 +5,7 @@ using System.Linq;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 using Version1.Service_Layer;
+using System.Configuration;
 
 namespace TestProject
 {
@@ -208,7 +209,7 @@ namespace TestProject
         }
         public List<string> GetUserNotificationsoffer(string userName)
         {
-            return Enumerable.ToList<string>(new Facade().GetAllUserNotificationsoffer(userName));
+            return Enumerable.ToList<string>(new Facade(ConfigurationManager.AppSettings.Get("mock")).GetAllUserNotificationsoffer(userName));
         }
 
         public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)

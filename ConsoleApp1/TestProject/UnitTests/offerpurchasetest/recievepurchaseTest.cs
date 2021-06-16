@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Version1.domainLayer.DataStructures;
-
+using System.Configuration;
 namespace TestProject.UnitTests.offerpurchasetest
 {
     public class recievepurchaseTest : ATProject
@@ -10,7 +10,8 @@ namespace TestProject.UnitTests.offerpurchasetest
         [SetUp]
         public void Setup()
         {
-            AdminInitiateSystem();
+           
+            //AdminInitiateSystem();
            
             
             Register("mohamad", "mohamad");
@@ -20,6 +21,8 @@ namespace TestProject.UnitTests.offerpurchasetest
         [Test]
         public void Happy()
         {
+
+
             UserLogin("mohamad", "mohamad");
             
             
