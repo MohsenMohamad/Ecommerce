@@ -29,7 +29,7 @@ namespace Version1.Service_Layer
         {
             // wrap all this in try and different catches
             
-            try
+          /*  try
             {
                 var jsonString = File.ReadAllText(path);
                 var jsonArray = (JArray) JsonConvert.DeserializeObject(jsonString);
@@ -83,7 +83,7 @@ namespace Version1.Service_Layer
             {
                 throw new Exception(e.Message);
             }
-
+*/
             return true;
         }
 

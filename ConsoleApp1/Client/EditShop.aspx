@@ -122,10 +122,11 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Add New Owner" Value="3"></asp:ListItem>
                                                 <asp:ListItem Text="Fire Manager" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="Fire Owner" Value="5"></asp:ListItem>
-                                                <asp:ListItem Text="Policies" Value="6"></asp:ListItem>
-                                                 <asp:ListItem Text="Shop Discount" Value="7"></asp:ListItem>
-                                                <asp:ListItem Text="Item Discount" Value="8"></asp:ListItem>
-                                                <asp:ListItem Text="Conditional Discount" Value="9"></asp:ListItem>
+                                                <asp:ListItem Text="Edit Manager" Value="6"></asp:ListItem>
+                                                <asp:ListItem Text="Policies" Value="7"></asp:ListItem>
+                                                 <asp:ListItem Text="Shop Discount" Value="8"></asp:ListItem>
+                                                <asp:ListItem Text="Item Discount" Value="9"></asp:ListItem>
+                                                <asp:ListItem Text="Conditional Discount" Value="10"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>&nbsp;</td>
@@ -615,6 +616,56 @@ margin-bottom: 16px;
                         </td>
                     </tr>
                 </table>
+
+    <table class="auto-style5" id="table14"  runat="server">
+        <tr>
+            <td class="auto-style18" style="width: 703px">
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Edit Manager<br />
+                <br />
+            </td>
+            <td style="width: 77px">&nbsp;</td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style18" style="width: 703px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Choose UserName : </td>
+            <td style="width: 77px">
+                <asp:DropDownList ID="DropDownList8" runat="server" OnSelectedIndexChanged="DropDownList8_SelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style18" style="width: 703px">Add permissions : </td>
+            <td style="width: 77px">
+                <asp:DropDownList ID="DropDownList9" runat="server" OnSelectedIndexChanged="DropDownList8_SelectedIndexChanged">
+                     <asp:ListItem Enabled="true" Text="Select" Value="-1"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Item" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Owner" Value="3"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style18" style="width: 703px">&nbsp;</td>
+            <td style="width: 77px">
+                &nbsp;</td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style18" style="width: 703px">&nbsp;</td>
+            <td style="width: 77px">
+                <asp:Button ID="Button7"  runat="server" Text="Edit" Width="76px" OnClick="Button7_Click"  />
+            </td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style18" style="width: 703px">&nbsp;</td>
+            <td style="width: 77px">&nbsp;</td>
+            <td class="auto-style16" style="width: 471px">&nbsp;</td>
+        </tr>
+    </table>
 
     </asp:Content>
 
