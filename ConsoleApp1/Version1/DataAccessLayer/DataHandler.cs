@@ -21,13 +21,15 @@ namespace Version1.DataAccessLayer
         public ConcurrentDictionary<string, User> Users { get; }
         internal ConcurrentDictionary<string, Store> Stores { get; }
 
-    
+
 
         public ConcurrentDictionary<long, Guest> Guests { get; }
         public ConcurrentDictionary<string, Category> Categories;
         public List<PurchaseOffer> Offers { get; set; }
-        public string mock = ConfigurationManager.AppSettings["mock"];
         
+        public string mock = ConfigurationManager.AppSettings["mock"];
+    
+    
         public bool ismock { get; set; }
         private List<Review> Reviews { get; }
         public JavaScriptSerializer oJS;
@@ -42,7 +44,7 @@ namespace Version1.DataAccessLayer
             Categories = new ConcurrentDictionary<string, Category>();
             Offers = new List<PurchaseOffer>();
             InefficientLock = new object();
-            if (mock.CompareTo("true") == 0)
+            if (mock!=null&&mock.CompareTo("true") == 0)
             {
                 ismock = true;
             }
