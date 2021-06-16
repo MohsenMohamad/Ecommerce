@@ -34,6 +34,36 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
+
+        public DataSet getAllProductswithfilter(int min, int max)
+        {
+            string param = "";
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoresProducts", param).ToString());
+            DataTable t1 = new DataTable("products");
+            t1.Columns.Add("productName");
+            t1.Columns.Add("descerption");
+            t1.Columns.Add("barcode");
+            t1.Columns.Add("price");
+            t1.Columns.Add("discount");
+            t1.Columns.Add("catagory");
+            t1.Columns.Add("nameShop");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                if (int.Parse((string)jarray[i][3]) >= min && int.Parse((string)jarray[i][3]) <= max)
+                {
+                    t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4], jarray[i][5], jarray[i][6]);
+
+                }
+            }
+            
+        
+            DataSet d1 = new DataSet("products");
+            d1.Tables.Add(t1);
+            return d1;
+            //Notifications.SendMessage("userName","message That you Want To Send");
+        }
+
         public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
         {
             string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&owner={5}&oldprice={6}", barcode, price, username, storename, amount, owner, oldprice);
