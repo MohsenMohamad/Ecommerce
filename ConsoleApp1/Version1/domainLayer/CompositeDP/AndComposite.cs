@@ -1,8 +1,11 @@
-﻿using Version1.domainLayer.DataStructures;
+﻿using System;
+using System.Runtime.Serialization;
+using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.CompositeDP
 {
-    public class AndComposite : Composite
+    [Serializable]
+    public class AndComposite : Composite,ISerializable
     {
         public override bool Validate(ShoppingBasket shoppingBasket)
         {
@@ -15,5 +18,13 @@ namespace Version1.domainLayer.CompositeDP
 
             return true;
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type","AND");
+            info.AddValue("Policies",_children);
+        }
+
+
     }
 }

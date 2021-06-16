@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Version1.domainLayer.CompositeDP;
 using Version1.domainLayer.DataStructures;
 
 namespace Version1.domainLayer.StorePolicies
 {
-    public class MaxAmountPolicy : Component
+    [Serializable]
+    public class MaxAmountPolicy : Component,ISerializable
     {
         private readonly int maxAmount;
         private readonly string barcode;
@@ -24,6 +26,13 @@ namespace Version1.domainLayer.StorePolicies
             }
 
             return true;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type","Max Amount");
+            info.AddValue("MaxAmount",maxAmount);
+            info.AddValue("Barcode",barcode);
         }
     }
 }

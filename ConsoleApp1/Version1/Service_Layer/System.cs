@@ -1,249 +1,155 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using Version1.DataAccessLayer;
-using Version1.domainLayer;
-using Version1.domainLayer.DataStructures;
-using Version1.LogicLayer;
-using Version1.Service_Layer;
-using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using Version1.DataAccessLayer;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Version1.domainLayer.CompositeDP;
+using Version1.domainLayer.StorePolicies;
 
 
 namespace Version1.Service_Layer
 {
     class Program
     {
+        private static readonly string DesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
         public static void Main(string[] args)
         {
-
-            Operation o = new Operation();
-            o.insertData();
-            var facade = new Facade();
-            
-            /*    
-            facade.Register("zzz", "123");
-           facade.Login("zzz", "123");
-            facade.OpenShop("zzz","store1","ss");
-            facade.AddNewProductToSystem("111", "product1", "descreption1", 2.5, new []{"cat1"});
-            facade.AddItemToStore("store1", "111", 11);
-            facade.AddProductToBasket("zzz", "store1", "111",12);
-            var basket = facade.GetUserBaskets("zzz");
-            Console.WriteLine("this is basket "+basket[0][6]);
-            Console.ReadLine();
-        var x = new Permissions();
-        var result = x.GetPermissions2(27);
-        foreach (var permission in result)
-        {
-            Console.WriteLine(permission);
-        }
-        Console.WriteLine(result.Count);
+            /*var facade = new Facade();
             facade.AdminInitSystem();
-            var product = DataHandler.Instance.GetProduct("2", "AdnanStore");
-            var oldAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
-            var up = facade.UpdateProductAmountInStore("adnan", "AdnanStore", "2", 1000);
-            var newAmount = DataHandler.Instance.Stores["AdnanStore"].GetInventory()[product];
-            Console.ReadKey();
-            */
+            var result2 = facade.Purchase("adnan", "12341234", 11, 2030, "holder", 512, 208764533, "name", "address",
+                "city",
+                "country", 11);
+
+            var store =DataHandler.Instance.GetStore("MohamedStore");
+            var x = facade.GetStorePurchaseHistory(store.name);
+            var v = facade.getStorePurchaseHistory("x",store.name);*/
+
+            var and = new AndComposite();
+            var or = new OrComposite();
+            var and2 = new AndComposite();
+            var policy = new MaxAmountPolicy("1", 3);
+            var policy2 = new TimeRestrictedCategories(11, 15);
+            var policy3 = new CustomerTypeRestriction();
+            var policy4 = new MaxAmountPolicy("5", 11);
+            policy3.AddRestrictedProduct("4");
+            policy3.AddRestrictedProduct("5");
+            policy2.AddRestrictedCategory("category1");
+            policy2.AddRestrictedCategory("category2");
+            and.Add(policy);
+            and.Add(policy2);
+            and2.Add(policy);
+            and2.Add(policy4);
+            or.Add(and);
+            or.Add(and2);
+            var js = new List<Component>();
+            js.Add(and);
+            js.Add(or);
+            js.Add(and2);
+            var json = JsonConvert.SerializeObject(js);
+            
+            File.WriteAllText(DesktopPath + @"\json\policy.json", json);
+
+            Decrypt();
+
+
+            //    Console.ReadKey();
         }
 
-        public class Operation
+        private static void Decrypt()
         {
-            public void insertData()
+            var jsonString = File.ReadAllText(DesktopPath + @"\json\policy.json");
+            var json = (JArray) JsonConvert.DeserializeObject(jsonString);
+
+            var k = Rec(json, new AndComposite());
+
+            //    var list = ((Composite)k)._children.ToList();
+
+            //var isEqual = JsonConvert.SerializeObject(list).Equals(jsonString);
+
+
+            Console.ReadKey();
+        }
+
+        private static Component Rec(JToken token, Component component)
+        {
+            if (token == null)
+                return null;
+            if (token.Type == JTokenType.Array)
             {
-
-                /*//Review
-                Review c = new Review("333s433", "33333s333");
-                ReviewContext cc = new ReviewContext();
-                cc.ReviewsTable.Add(c);
-                Console.WriteLine(cc.ReviewsTable.Count());
-                cc.SaveChanges();*/
-
-                //User
-                /*User c = new User("username", "pass");
-                UserContext cc = new UserContext();
-                cc.UsersTable.Add(c);
-                cc.SaveChanges();*/
-
-                /*//Discount
-                Discount dis = new Discount(new Product("5555", "pname", "pDes", 2.2, new List<string>()),3);
-                dis.id = 1;
-                DiscountContext dc = new DiscountContext();
-                dc.DiscountsTable.Add(dis);
-                dc.SaveChanges();*/
-
-                /* //Purchase
-                Purchase c = new Purchase();
-                c.purchaseId = 1;
-                PurchaseContext cc = new PurchaseContext();
-                cc.PurchasesTable.Add(c);
-                cc.SaveChanges();*/
-
-                /*//DataHandler
-                DataHandler dh = DataHandler.Instance;
-                DataHandlerContext dc = new DataHandlerContext();
-                dc.DataHandlerTable = dh;
-                dc.SaveChanges();*/
-
-                /*//Store
-                Store s = new Store("shady", "shadystoreName");
-                StoreContext sc = new StoreContext();
-                sc.StoresTable.Add(s);
-                sc.SaveChanges();*/
-
-                /*User c = new User("user33", "de2sc3");
-                UserContext cc = new UserContext();
-                cc.SaveChanges();*/
-
-                /*//ShoppingCart
-                ShoppingCart sc = new ShoppingCart();
-                sc.id = 1;
-                ShoppingCartContext scc = new ShoppingCartContext();
-                scc.ShoppingCartsTable.Add(sc);
-                scc.SaveChanges();
-                */
-                /*try
+                foreach (var child in token)
                 {
-                    var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
-                    databaseCreator.CreateTables();
+                    Rec(child, component);
                 }
-                catch (System.Data.SqlClient.SqlException)
+
+                return component;
+            }
+
+            var type = (string) token["Type"];
+            if (type != "OR" && type != "AND")
+            {
+                var leaf = CreatePolicy(token);
+                component.Add(leaf);
+                return component;
+            }
+
+            if (type == "AND")
+            {
+                var and = new AndComposite();
+                component.Add(Rec(token["Policies"], and));
+                return and;
+            }
+
+            if (type == "OR")
+            {
+                var or = new OrComposite();
+                component.Add(Rec(token["Policies"], or));
+                return or;
+            }
+
+            return null;
+        }
+
+        private static Component CreatePolicy(JToken token)
+        {
+            var policyType = (string) token["Type"];
+            switch (policyType)
+            {
+                case "Max Amount":
                 {
-                    //A SqlException will be thrown if tables already exist. So simply ignore it.
-                }*/
-                /*User sb = new User("shady","pass");
-                //sb.id = 1;
-                UserContext sbc = new UserContext();
-                sbc.UsersTable.Add(sb);
-                sbc.SaveChanges();*/
-
-
-                /* List<string> catagories = new List<string>();
-                 catagories.Add("cat12");
-                 Product p = new Product("proc=ductba3rcode", "product name", "dessc", 0.0, catagories);
-                 Store s = new Store("aa", "ad");
-                 s.notifications = new List<string>();
-                 s.notifications.Add("asdasf");*/
-
-                //database d = database.GetInstance();
-
-                //facade.OpenStore("zzz", "store1", "");
-
-                /*
-                                //d.InsertDiscount(new Discount(p,50));
-                                //d.Insertproduct(p);
-                                //d.InsertPurchase(new Purchase());
-                                ShoppingBasket sp = new ShoppingBasket("shadyStore");
-                                sp.Products.Add(p.barcode, 1);
-                                ShoppingCart sc = new ShoppingCart();
-                                sc.id = 5;
-                                sc.shoppingBaskets = new Dictionary<string, ShoppingBasket>();
-                                sc.shoppingBaskets.Add("shady", sp);
-                                //d.Insertproduct(p);
-                                //d.InsertStore(s);
-                                //d.getProducts();
-                                User c = new User("shady", "pass");
-                                //List<Purchase> history = new List<Purchase>();
-                                //Purchase pur = new Purchase();
-                                //pur.purchaseId = 5;
-                                //pur.store = "shadyStore";
-                                //history.Add(pur);
-                                //c.history = history;
-                                List<string> nots = new List<string>();
-                                nots.Add("not1");
-                                nots.Add("not12");
-                                c.notifications = nots;
-                                ShoppingCart scc = new ShoppingCart();
-                                scc.id = 5;
-                                c.shoppingCart = scc;
-                                //d.InsertUser(c);
-                                //d.InsertShoppingBasketDB(sp);
-                                //d.InsertStore(new Store("shady", "shady"));
-                                DataHandler dh = DataHandler.Instance;
-                                dh.AddUser(c);
-                                //temp
-                                Store store = new Store("shady", "shady");
-                                //dh.AddStore(store);
-                                //d.DeleteStore(store);
-                                ModelDB eo = new ModelDB();
-                                Console.WriteLine("after add");
-                                foreach (UserDB u in eo.UsersTable)
-                                {
-                                    Console.WriteLine("user " + u.UserName + " notifications is " + u.notifications);
-                                }
-                                d.DeleteUser(c.UserName);
-                                Console.WriteLine("after delete");
-                                foreach (UserDB u in eo.UsersTable)
-                                {
-                                    Console.WriteLine("user " + u.UserName + " notifications is " + u.notifications);
-                                }
-                                */
-                Console.WriteLine("starting init data base tables please wait it might take a severral secends...\n");
-                Facade facade = new Facade();
-                database db = database.GetInstance();
-                try
+                    var max = (int) token["MaxAmount"];
+                    var barcode = (string) token["Barcode"];
+                    return new MaxAmountPolicy(barcode, max);
+                }
+                case "Time":
                 {
-                    facade.Register("zzz", "123");
-                    
-                    //upload users
-                    if (db != null && db.getAllUsers() != null)
+                    var hour = (int) token["Hour"];
+                    var minute = (int) token["Minute"];
+                    var categories = token["Categories"].ToArray();
+                    var pol = new TimeRestrictedCategories(hour, minute);
+                    foreach (var category in categories)
                     {
-                        db.getAllUsers().ToList().ForEach((user) =>
-                        {
-                            if (user != null)
-                                Console.WriteLine(user.UserName);
-
-                        });
+                        pol.AddRestrictedCategory((string) category);
                     }
-                    
-                }
-                catch
-                {
-                    Console.WriteLine("user already regesterd");
-                }
 
-
-                /*try
-                {
-                    facade.OpenStore("zzz", "testStore", "");
+                    return pol;
                 }
-                catch
+                case "CustomerType":
                 {
-                    Console.WriteLine("store already exist");
-                }
-                try
-                {
-                    facade.AddProductToStore("zzz", "testStore", "222", "proTest", "aaa", 55, "bbbb", 3);
-                }
-                catch
-                {
-                    Console.WriteLine("product already added");
-                }
-
-                facade.GetStoreProducts("testStore");*/
-
-
-                db.DeleteUser("zzz");
-
-                if (db != null && db.getAllUsers() != null)
-                {
-                    db.getAllUsers().ToList().ForEach((user) =>
+                    var pol = new CustomerTypeRestriction();
+                    foreach (var barcode in token["Products"])
                     {
-                        if (user != null)
-                            Console.WriteLine(user.UserName);
+                        pol.AddRestrictedProduct((string) barcode);
+                    }
 
-                    });
+                    return pol;
                 }
-
-
-                Console.WriteLine("\nfinish init data base tables you can open server\n");
-
-                
-                Console.ReadLine();
+                default:
+                    return null;
             }
         }
-
-
-
+        
     }
 }
