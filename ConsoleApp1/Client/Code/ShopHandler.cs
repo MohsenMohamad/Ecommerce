@@ -119,11 +119,29 @@ namespace Client.Code
             return d1;
         }
 
-        public string[][] GetStorePurchaseHistory(string StoreName)
+        public DataSet GetStorePurchaseHistory(string StoreName)
         {
             string param = string.Format("StoreName={0}", StoreName);
-            System.SendApi("GetStorePurchaseHistory", param);
-            return null;
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStorePurchaseHistory", param));
+            DataTable t1 = new DataTable("Historys");
+            t1.Columns.Add("id");
+            t1.Columns.Add("History");
+            if (arr != null)
+            {
+                for (int i = 0; i < arr.Count && arr[i] != null; i++)
+                {
+                    try
+                    {
+                        t1.Rows.Add(i, arr[i]);
+                    }
+                    catch
+                    { }
+                }
+            }
+            DataSet set = new DataSet("Historys");
+            set.Tables.Add(t1);
+            return set;
+
         }
 
         public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
