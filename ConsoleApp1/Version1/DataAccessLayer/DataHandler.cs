@@ -375,7 +375,6 @@ namespace Version1.DataAccessLayer
                 if(Stores.TryAdd(store.GetName(), store))
                 {
                     database db = database.GetInstance();
-                    //db.InsertNode(store.staff);
                     db.InsertStore(store);
                     return true;
                 }
@@ -388,6 +387,7 @@ namespace Version1.DataAccessLayer
         {
             lock (Stores)
             {
+                database.GetInstance().DeleteStore(storeName);
                 return Stores.TryRemove(storeName, out _);
             }
         }

@@ -266,6 +266,8 @@ namespace Version1.DataAccessLayer
         
     }
 
+    
+
 
     public class database
     {
@@ -574,12 +576,35 @@ namespace Version1.DataAccessLayer
 
         }
 
-        
 
+        //discountPolicies,history,products,staff
         //todo
-        public bool DeleteStore(Store store)
+        public bool DeleteStore(string storeName)
         {
-            throw new NotImplementedException();
+            var result = db.StoresTable.SingleOrDefault(b => b.storeName == storeName);
+                        
+            if (result != null)
+            {
+                foreach(var dp in result.discountPolicies)
+                {
+                    result.discountPolicies.Remove(dp);
+                }
+                foreach (var h in result.history)
+                {
+                    result.history.Remove(h);
+                }
+                foreach (var p in result.products)
+                {
+                    result.products.Remove(p);
+                }
+                db.nodesTable.Remove(result.staff);
+                db.StoresTable.Remove(result);
+                //todo delete staff also
+                db.SaveChanges();
+                Console.WriteLine("delete store");
+                return true;
+            }
+            return false;
         }
 
         public DbSet<StoreDB> getAllStores()
@@ -1515,7 +1540,18 @@ namespace Version1.DataAccessLayer
             
         }
 
-
+        internal bool UpdateUserPassword(string userName, string newPassword)
+        {
+            var result = db.UsersTable.SingleOrDefault(b => b.UserName == userName);
+            
+            if (result != null)
+            {
+                result.Password = newPassword;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 
 }

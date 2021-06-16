@@ -17,16 +17,14 @@ namespace Version1.Service_Layer
         public static void Main(string[] args)
         {
 
-            /*Operation o = new Operation();
+            Operation o = new Operation();
             o.insertData();
-            var facade = new Facade();*/
-
 
             /********************************/
 
 
-            Operation2 o2 = new Operation2();
-            o2.insertData();
+            /*Operation2 o2 = new Operation2();
+            o2.insertData();*/
         }
 
         public class Operation2
@@ -43,32 +41,24 @@ namespace Version1.Service_Layer
             {
 
                 Console.WriteLine("starting init data base tables please wait it might take a severral secends...\n");
+                
                 Facade facade = new Facade();
                 database db = database.GetInstance();
                 try
                 {
-                    facade.Register("zzz", "123");
-                    
-                    //upload users
-                    if (db != null && db.getAllUsers() != null)
-                    {
-                        db.getAllUsers().ToList().ForEach((user) =>
-                        {
-                            if (user != null)
-                                Console.WriteLine(user.UserName);
-
-                        });
-                    }
-                    
+                    db.DeleteUser("zzz");
                 }
                 catch
                 {
-                    Console.WriteLine("user already regesterd");
-                }
 
+                }
+                
+                facade.Register("zzz", "zzz");
+                facade.OpenStore("zzz", "zzzStore", "");
+                facade.CloseStore( "zzzStore", "zzz");
                 db.DeleteUser("zzz");
 
-                if (db != null && db.getAllUsers() != null)
+                /*if (db != null && db.getAllUsers() != null)
                 {
                     db.getAllUsers().ToList().ForEach((user) =>
                     {
@@ -76,7 +66,7 @@ namespace Version1.Service_Layer
                             Console.WriteLine(user.UserName);
 
                     });
-                }
+                }*/
 
 
                 Console.WriteLine("\nfinish init data base tables you can open server\n");

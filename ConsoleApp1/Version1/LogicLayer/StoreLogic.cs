@@ -353,8 +353,11 @@ namespace Version1.LogicLayer
                     .Add(storeName + " has been closed , time to search for a new job");
                 database.GetInstance().updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
-
-            return DataHandler.Instance.Stores.TryRemove(storeName, out _);
+            if (database.GetInstance().DeleteStore(storeName))
+            {
+                return DataHandler.Instance.Stores.TryRemove(storeName, out _);
+            }
+            return false;
         }
         
         /*public static int addPublicDiscount(string storeName, int percentage)
