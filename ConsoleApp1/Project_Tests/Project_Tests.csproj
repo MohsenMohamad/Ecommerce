@@ -16,4 +16,13 @@
     <ProjectReference Include="..\Version1\Version1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AcceptanceTests" />
+    <Folder Include="ConcurrencyTests" />
+    <Folder Include="IntegrationTests\offersPurchaseTest" />
+    <Folder Include="StorePoliciesTests" />
+    <Folder Include="UnitTests\offerpurchasetest" />
+    <Folder Include="Version4" />
+  </ItemGroup>
+
 </Project>
