@@ -58,7 +58,7 @@ namespace Version1.LogicLayer
                     {
                         userStoreBasket.Products[product.Barcode] += amount;
                         userStoreBasket.priceperproduct[product.Barcode] += totalprice;
-                        return database.GetInstance().AddProductToBasket(userName, storeName, productCode,
+                        return DataHandler.Instance.db.AddProductToBasket(userName, storeName, productCode,
                             userStoreBasket.Products[product.Barcode],
                             userStoreBasket.priceperproduct[product.Barcode]);
                     }
@@ -66,7 +66,7 @@ namespace Version1.LogicLayer
                     {
                         userStoreBasket.Products.Add(product.Barcode, amount);
                         userStoreBasket.priceperproduct.Add(product.Barcode, totalprice);
-                        return database.GetInstance()
+                        return DataHandler.Instance.db
                             .AddProductToBasket(userName, storeName, productCode, amount, priceofone);
                     }
                 }
@@ -103,7 +103,7 @@ namespace Version1.LogicLayer
                     storeBasketProducts.Remove(productBarcode);
                     cart.shoppingBaskets[storeName].priceperproduct.Remove(productBarcode);
                     //to transact
-                    return database.GetInstance().RemoveProductFromCart(userName, storeName, productBarcode, amount);
+                    return DataHandler.Instance.db.RemoveProductFromCart(userName, storeName, productBarcode, amount);
                 }
 
                 return true;
@@ -136,7 +136,7 @@ namespace Version1.LogicLayer
                     shoppingBasket.Products[productBarcode] = newAmount;
                 }
 
-                return database.GetInstance()
+                return DataHandler.Instance.db
                     .UpdateCartProductAmountInBasket(userName, storeName, productBarcode, newAmount);
             }
         }
@@ -245,7 +245,7 @@ namespace Version1.LogicLayer
                 }
 
                 //make transaction
-                if (database.GetInstance().makePurchaseTransaction(basket, userName))
+                if (DataHandler.Instance.db.makePurchaseTransaction(basket, userName))
                 {
                     //1
                     // try to take from inventory
@@ -275,19 +275,19 @@ namespace Version1.LogicLayer
 
                     store.GetHistory().Add(purchase);
                     //3
-                    database.GetInstance().InsertPurchaseToStore(store.name, purchase);
+                    DataHandler.Instance.db.InsertPurchaseToStore(store.name, purchase);
 
                     if (DataHandler.Instance.IsGuest(userName) < 0)
                     {   //4
                         ((User)user).history.Add(purchase);
-                        database.GetInstance().InsertPurchaseToUser(userName, purchase);
+                        DataHandler.Instance.db.InsertPurchaseToUser(userName, purchase);
                     }
 
                     //send notifications
                     var owner = DataHandler.Instance.GetUser(store.GetOwner());
                     //5
                     ((User)owner).GetNotifications().Add("A purchase has been made at" + store.GetName());
-                    database.GetInstance().updateNotification(userName, ((User)owner).GetNotifications());
+                    DataHandler.Instance.db.updateNotification(userName, ((User)owner).GetNotifications());
                 }
                 else
                 {

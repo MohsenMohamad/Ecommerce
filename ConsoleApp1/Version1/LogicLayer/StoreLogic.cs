@@ -35,7 +35,7 @@ namespace Version1.LogicLayer
             var product = new Product(barcode, productName, description, price, categories);
             if( store.GetInventory().TryAdd(product, amount))
             {
-                database db = database.GetInstance();
+                var db = DataHandler.Instance.db;
 
                 return db.InsertProductToStore(storeName,product, amount);
             }
@@ -122,7 +122,7 @@ namespace Version1.LogicLayer
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, -1);
 
-            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
+            DataHandler.Instance.db.updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -139,7 +139,7 @@ namespace Version1.LogicLayer
             if (IsManger(storeName, apointeeid)) throw new Exception(Errors.AlreadyManager);
 
             store.GetStaffTree().GetNode(apointerid).AddNode(apointeeid, permissions);
-            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
+            DataHandler.Instance.db.updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -157,7 +157,7 @@ namespace Version1.LogicLayer
             if (!store.GetStaffTree().GetNode(firingUserName).IsParent(firedOwnerName)) throw new Exception(Errors.IllegalRemoveOwner);
             store.GetStaffTree().DeleteNode(firedOwnerName); // returns false if the owner was not found
             UserLogic.AddUserNotification(firedOwnerName, "You Are No Longer An Owner At " + storeName);
-            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
+            DataHandler.Instance.db.updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -170,7 +170,7 @@ namespace Version1.LogicLayer
 
             var result = store.GetStaffTree().DeleteNode(username); // returns false if the manager was not found
             if (!result) throw new Exception(Errors.NotAManager);
-            database.GetInstance().updateStoreStaff(storeName, store.GetStaffTree());
+            DataHandler.Instance.db.updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
 
@@ -334,7 +334,7 @@ namespace Version1.LogicLayer
                     user.GetShoppingCart().shoppingBaskets.Remove(storeName);
                     user.GetNotifications().Add("We are sorry to inform you that your cart from " + storeName +
                                                 " has been deleted \n Basket Info :\n" + basketInfo);
-                    database.GetInstance().updateNotification(user.UserName,user.GetNotifications());
+                    DataHandler.Instance.db.updateNotification(user.UserName,user.GetNotifications());
                 }
             }
 
@@ -343,7 +343,7 @@ namespace Version1.LogicLayer
                 var managerUser = DataHandler.Instance.GetUser(manager);
                 ((User) managerUser).GetNotifications()
                     .Add(storeName + " has been closed , time to search for a new job");
-                database.GetInstance().updateNotification(((User)managerUser).UserName, ((User)managerUser).GetNotifications());
+                DataHandler.Instance.db.updateNotification(((User)managerUser).UserName, ((User)managerUser).GetNotifications());
             }
 
             foreach (var owner in store.GetOwners())
@@ -351,7 +351,7 @@ namespace Version1.LogicLayer
                 var ownerUser = DataHandler.Instance.GetUser(owner);
                 ((User) ownerUser).GetNotifications()
                     .Add(storeName + " has been closed , time to search for a new job");
-                database.GetInstance().updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
+                DataHandler.Instance.db.updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
 
             return DataHandler.Instance.Stores.TryRemove(storeName, out _);
@@ -372,13 +372,13 @@ namespace Version1.LogicLayer
             foreach (var x in store.inventory)
             {
                 x.Key.DiscountPolicy.DiscountDescription += string.Format(" discount {0}% off for all the shop", percentage);
-                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
+                DataHandler.Instance.db.UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
             }
 
             discountPolicy.SetPublic(percentage);
             discountPolicy.DiscountDescription = string.Format("discount {0}% off ", percentage);
             store.discountPolicies.Add(discountPolicy);
-            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
+            DataHandler.Instance.db.AddDiscountToStore(storeName, discountPolicy);
             return 1;
         }
 
@@ -392,7 +392,7 @@ namespace Version1.LogicLayer
 
             product.DiscountPolicy.DiscountDescription += string.Format("discount {0}% off ", percentage);
             product.DiscountPolicy.Percentage = percentage;
-            database.GetInstance().UpdateProductPolicy(product);
+            DataHandler.Instance.db.UpdateProductPolicy(product);
             return 1;
             
         }
@@ -411,12 +411,12 @@ namespace Version1.LogicLayer
             foreach (var x in store.inventory)
             {
                 x.Key.DiscountPolicy.DiscountDescription += string.Format("# discount {0} % off for if the condition : {1} accomplish#", percentage,Condition.Parse(condition).get_description());
-                database.GetInstance().UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
+                DataHandler.Instance.db.UpdateProductDiscountDiscreption(x.Key.barcode, x.Key.DiscountPolicy.DiscountDescription);
             }
             DtoPolicy discountPolicy = new DtoPolicy();
             discountPolicy.SetConditional(percentage, condition);
             store.discountPolicies.Add(discountPolicy);
-            database.GetInstance().AddDiscountToStore(storeName, discountPolicy);
+            DataHandler.Instance.db.AddDiscountToStore(storeName, discountPolicy);
             return res;
         }
         

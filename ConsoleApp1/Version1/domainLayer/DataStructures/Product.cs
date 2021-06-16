@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Version1.DataAccessLayer;
+﻿using System.Collections.Generic;
 using Version1.domainLayer.DiscountPolicies;
-using System.Collections.Generic;
+
 
 namespace Version1.domainLayer.DataStructures
 {
