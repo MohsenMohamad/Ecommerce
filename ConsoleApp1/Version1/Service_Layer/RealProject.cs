@@ -39,7 +39,7 @@ namespace Version1.Service_Layer
             {
                 return facade.AdminInitSystem();
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -54,7 +54,7 @@ namespace Version1.Service_Layer
                 return facade.Purchase(userName, cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId, nameF,
                     address, city, country, zip);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -66,7 +66,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GuestLogin();
             }
-            catch (Exception e)
+            catch
             {
                 return -1;
             }
@@ -78,7 +78,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GuestLogout(id);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -90,7 +90,7 @@ namespace Version1.Service_Layer
             {
                 return facade.Register(name, password);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -102,7 +102,7 @@ namespace Version1.Service_Layer
             {
                 return facade.Login(name, password);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -114,7 +114,7 @@ namespace Version1.Service_Layer
             {
                 return facade.Logout(name);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -126,7 +126,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetAllLoggedInUsers();
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -138,7 +138,7 @@ namespace Version1.Service_Layer
             {
                 return facade.OpenStore(managerName, storeName, policy);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -150,7 +150,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetStoreInfo(userName, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -162,7 +162,7 @@ namespace Version1.Service_Layer
             {
                 return CheckStoreInventory(storeName, products);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -174,7 +174,7 @@ namespace Version1.Service_Layer
             {
                 return facade.ValidateBasketPolicies(userName, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -186,7 +186,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetUserPurchaseHistoryList(userName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -201,7 +201,7 @@ namespace Version1.Service_Layer
                 return facade.AddProductToStore(managerName, storeName, barcode, productName, description, price,
                     categories1, amount);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -213,7 +213,7 @@ namespace Version1.Service_Layer
             {
                 return facade.SearchFilter(userName, sortOption, filters);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -226,7 +226,7 @@ namespace Version1.Service_Layer
             {
                 return facade.AddProductToBasket(userName, storeName, productCode, amount, priceofone);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -238,7 +238,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetCartByStore(userName, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -250,7 +250,7 @@ namespace Version1.Service_Layer
             {
                 return facade.UpdatePurchasePolicy(storeName, policy);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -262,7 +262,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetStoreInventory(ownerName, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -274,7 +274,7 @@ namespace Version1.Service_Layer
             {
                 return facade.getUsersStore(userName, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -286,7 +286,7 @@ namespace Version1.Service_Layer
             {
                 return facade.MakeNewOwner(storeName, apointerid, apointeeid);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -298,7 +298,7 @@ namespace Version1.Service_Layer
             {
                 return facade.IsOwner(storeName, ownerName);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -310,7 +310,7 @@ namespace Version1.Service_Layer
             {
                 return facade.AddNewManger(user, store, newMangerName);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -322,7 +322,7 @@ namespace Version1.Service_Layer
             {
                 return facade.IsManger(storeName, mangerName);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -334,7 +334,7 @@ namespace Version1.Service_Layer
             {
                 return facade.getMangerResponsibilities(user, store, newMangerName);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -346,7 +346,7 @@ namespace Version1.Service_Layer
             {
                 return facade.getInfo(user, store);
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
@@ -358,7 +358,7 @@ namespace Version1.Service_Layer
             {
                 return facade.updateMangerResponsibilities(user, storeName, responsibilities);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -370,7 +370,7 @@ namespace Version1.Service_Layer
             {
                 return facade.deleteManger(ownerUser, storeName, newMangerName);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -382,7 +382,7 @@ namespace Version1.Service_Layer
             {
                 return facade.buyProduct(buyer, store, product, amount);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -394,7 +394,7 @@ namespace Version1.Service_Layer
             {
                 return facade.getStorePurchaseHistory(ownerUser, store);
             }
-            catch (Exception e)
+            catch
             {
                 return new List<string>();
             }
@@ -409,7 +409,7 @@ namespace Version1.Service_Layer
                 return facade.uc_4_1_addEditRemovePruduct(storeOwnerName, storeName, productName, shopName, amount,
                     categories);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -421,7 +421,7 @@ namespace Version1.Service_Layer
             {
                 return facade.initSystem(admin);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -433,7 +433,7 @@ namespace Version1.Service_Layer
             {
                 return facade.RemoveProductFromStore(userName, storeName, productBarcode);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -445,7 +445,7 @@ namespace Version1.Service_Layer
             {
                 return facade.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -457,7 +457,7 @@ namespace Version1.Service_Layer
             {
                 return facade.getPaymentInfo(owner, storeName);
             }
-            catch (Exception e)
+            catch
             {
                 return new List<string>();
             }
@@ -469,7 +469,7 @@ namespace Version1.Service_Layer
             {
                 return facade.addPaymentInfo(owner, storeName, info);
             }
-            catch (Exception e)
+            catch
             {
                 return new List<string>();
             }
@@ -481,9 +481,21 @@ namespace Version1.Service_Layer
             {
                 return facade.updatePaymentInfo(owner, storeName, allInfo);
             }
-            catch (Exception e)
+            catch
             {
                 return new List<string>();
+            }
+        }
+
+        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        {
+            try
+            {
+                return facade.remove_item_from_cart(userName,storeName,productBarcode,amount);
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -493,7 +505,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetHash(inputString);
             }
-            catch (Exception e)
+            catch
             {
                 return "";
             }
@@ -505,7 +517,7 @@ namespace Version1.Service_Layer
             {
                 return facade.GetHashString(inputString);
             }
-            catch (Exception e)
+            catch
             {
                 return "";
             }
@@ -522,7 +534,7 @@ namespace Version1.Service_Layer
             {
                 facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
             }
-            catch (Exception e)
+            catch
             {
                 return;
             }
@@ -535,7 +547,7 @@ namespace Version1.Service_Layer
             {
                 facade.acceptoffer(barcode, price, username, storename, amount, by_username);
             }
-            catch (Exception e)
+            catch
             {
                 return;
             }
@@ -548,7 +560,7 @@ namespace Version1.Service_Layer
             {
                 facade.rejectoffer(barcode, price, username, storename, amount, by_username);
             }
-            catch (Exception e)
+            catch
             {
                 return;
             }
@@ -561,7 +573,7 @@ namespace Version1.Service_Layer
             {
                 facade.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
             }
-            catch (Exception e)
+            catch
             {
                 return;
             }

@@ -57,6 +57,7 @@ namespace Version1.Service_Layer
         List<string> getPaymentInfo(string owner, string storeName);
         List<string> addPaymentInfo(string owner,string storeName,string info);
         List<string> updatePaymentInfo(string owner,string storeName,List<string> allInfo);
+        bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount);
 
         string GetHash(string inputString);
         string GetHashString(string inputString);
