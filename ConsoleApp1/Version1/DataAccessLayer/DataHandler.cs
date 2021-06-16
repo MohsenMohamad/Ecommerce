@@ -56,7 +56,6 @@ namespace Version1.DataAccessLayer
             if (ismock)
             {
                 db = new MockDB();
-                
             }
             else
             {
@@ -72,9 +71,10 @@ namespace Version1.DataAccessLayer
 
         }
 
+
         internal void updatedb()
         {
-            if (mock.CompareTo("true") == 0)
+            if (mock != null && mock.CompareTo("true") == 0)
             {
                 ismock = true;
                 db = new MockDB();
@@ -84,12 +84,6 @@ namespace Version1.DataAccessLayer
                 ismock = false;
                 oJS = new JavaScriptSerializer();
                 db = database.GetInstance();
-
-                //upload users
-                uploadUsers((database)db);
-
-                //upload stores
-                uploadStores((database)db);
             }
         }
         private void uploadUsers(database db)
