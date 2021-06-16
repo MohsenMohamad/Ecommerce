@@ -1,7 +1,6 @@
-/*using NUnit.Framework;
-using Project_tests;
+using NUnit.Framework;
 
-namespace Project_Tests.AcceptanceTests
+namespace TestProject.AcceptanceTests
 {
     public class InitSystemTests : ATProject
     {
@@ -30,8 +29,4 @@ namespace Project_Tests.AcceptanceTests
             Assert.False(InitiateSystem());
         }
     }
-}*/
-
-namespace TestProject.AcceptanceTests
-{
 }
