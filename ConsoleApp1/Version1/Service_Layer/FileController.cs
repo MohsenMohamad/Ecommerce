@@ -28,11 +28,11 @@ namespace Version1.Service_Layer
         public static bool ReadStateFile(string path)
         {
             // wrap all this in try and different catches
-            
-          /*  try
+
+            try
             {
                 var jsonString = File.ReadAllText(path);
-                var jsonArray = (JArray) JsonConvert.DeserializeObject(jsonString);
+                var jsonArray = (JArray)JsonConvert.DeserializeObject(jsonString);
 
                 if (jsonArray == null) return false; // check 1
 
@@ -40,12 +40,12 @@ namespace Version1.Service_Layer
 
                 foreach (var token in jsonArray)
                 {
-                    var json = (JObject) token;
+                    var json = (JObject)token;
 
                     if (json.Count != 2)
                         throw new Exception("Error : Illegal number of elements at json object num " + tokenIndex);
-                    
-                    var methodName = (string) json["Method"];
+
+                    var methodName = (string)json["Method"];
                     var methodParams = json["Params"];
 
                     if (methodName == null || methodParams == null) throw new Exception("Wrong State File Format"); // check 2
@@ -58,7 +58,7 @@ namespace Version1.Service_Layer
                     if (method.GetParameters().Length != methodParams.ToArray().Length)
                         throw new Exception("Error : Illegal Params number for " + methodName);
                     var parameters = method.GetParameters()
-                        .Select(p => Convert.ChangeType((string) methodParams[p.Position], p.ParameterType))
+                        .Select(p => Convert.ChangeType((string)methodParams[p.Position], p.ParameterType))
                         .ToArray();
                     var result = method.Invoke(inst, parameters); // check if null or false
 
@@ -83,7 +83,7 @@ namespace Version1.Service_Layer
             {
                 throw new Exception(e.Message);
             }
-*/
+
             return true;
         }
 

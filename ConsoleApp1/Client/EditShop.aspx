@@ -93,6 +93,15 @@ margin-bottom: 16px;
          .auto-style28 {
              width: 354%;
          }
+         .auto-style29 {
+             width: 958px;
+         }
+         .auto-style30 {
+             width: 1464px;
+         }
+         .auto-style31 {
+             width: 819px;
+         }
          </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -583,37 +592,46 @@ margin-bottom: 16px;
                 </table>
 
 
-    <table id="table13"  runat="server" style="width: 855px">
+    <table id="table13"  runat="server" class="auto-style29">
                     <tr>
-                        <td style="width: 1500px" >
+                        <td class="auto-style30" >
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Label ID="Label18" runat="server" Text="Percentage :"></asp:Label>
                         </td>
-                        <td style="width: 621px">
+                        <td class="auto-style31">
                             <asp:TextBox ID="TextBox14" runat="server" Height="26px" Width="183px"></asp:TextBox>
                         </td>
+                        <td style="width: 621px">
+                            &nbsp;</td>
                     </tr>
                <tr>
-                        <td style="width: 1500px" >
+                        <td class="auto-style30" >
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Label ID="Label19" runat="server" Text="Conditional Discount :"></asp:Label>
                         </td>
-                        <td style="width: 621px">
+                        <td class="auto-style31">
                        <textarea runat="server" id="txt1" class="txt" name="S2" style="width: 273px; height: 110px;" cols="10" rows="1"></textarea></td>
+
+                        <td style="width: 621px">
+                            &nbsp;</td>
 
                     </tr>
            <tr>
-                        <td style="width: 1500px" >
+                        <td class="auto-style30" >
                             &nbsp;</td>
+                        <td class="auto-style31">
+                            all conditions are round in: () base Conditions: Condition : (A[x;y]) : get percentage discount if you buy x times of item which his id is y. Condition : (B[num]) : get percentage discount if you spend more than num money in the hole shop. Condition : (C[catExample]) : get percentage discount on the items that there category contains catExample. composite Conditions: (and,Condition1,Condition2) if the two conditions is true get percentage discount. (or,Condition1,Condition2) if at least one of the conditions is true get percentage discount. (xor,Condition1,Condition2) if exactly one of the conditions is true get percentage discount. in defualt: the custumer get the sum of the discounts. </td>
                         <td style="width: 621px">
                             &nbsp;</td>
                     </tr>
                     <tr>
-                        <td style="width: 1500px" >
+                        <td class="auto-style30" >
                             &nbsp;</td>
-                        <td style="width: 621px">
+                        <td class="auto-style31">
                 <asp:Button ID="Button6" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button6_Click"  />
                         </td>
+                        <td style="width: 621px">
+                            &nbsp;</td>
                     </tr>
                 </table>
 
