@@ -18,7 +18,7 @@ namespace Client
             {
                 try
                 {
-                    if (Request.QueryString["keyword"] != null && Session["List"]!=null)
+                    if (Request.QueryString["keyword"] != null && Session["List"] != null)
                     {
                         if (Session["List"].ToString() == "1")
                         {
@@ -31,7 +31,7 @@ namespace Client
                             DataListproducts.DataSource = a.SearchByCategory(Request.QueryString["keyword"].ToString());
                             DataListproducts.DataBind();
                         }
-                        else if(Session["List"].ToString() == "3") {
+                        else if (Session["List"].ToString() == "3") {
                             ShopHandler a = new ShopHandler();
                             DataListproducts.DataSource = a.SearchByKeyword(Request.QueryString["keyword"].ToString());
                             DataListproducts.DataBind();
@@ -43,7 +43,6 @@ namespace Client
                         DataListproducts.DataSource = a.getAllProducts();
                         DataListproducts.DataBind();
                     }
-
                     return;
                 }
                 catch
@@ -109,6 +108,15 @@ namespace Client
             {
                 Session["List"] = "3";
             }
+        }
+
+
+        protected void Button3_Click1(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            DataListproducts.DataSource = sh.getAllProductswithfilter(int.Parse(TextBox4.Text.ToString()), int.Parse(TextBox3.Text.ToString()));
+            DataListproducts.DataBind();
+
         }
     }
 }

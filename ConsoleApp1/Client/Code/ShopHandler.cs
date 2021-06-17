@@ -34,6 +34,36 @@ namespace Client.Code
             //Notifications.SendMessage("userName","message That you Want To Send");
         }
 
+
+        public DataSet getAllProductswithfilter(int min, int max)
+        {
+            string param = "";
+            JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStoresProducts", param).ToString());
+            DataTable t1 = new DataTable("products");
+            t1.Columns.Add("productName");
+            t1.Columns.Add("descerption");
+            t1.Columns.Add("barcode");
+            t1.Columns.Add("price");
+            t1.Columns.Add("discount");
+            t1.Columns.Add("catagory");
+            t1.Columns.Add("nameShop");
+
+            for (int i = 0; i < jarray.Count; i++)
+            {
+                if (int.Parse((string)jarray[i][3]) >= min && int.Parse((string)jarray[i][3]) <= max)
+                {
+                    t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4], jarray[i][5], jarray[i][6]);
+
+                }
+            }
+            
+        
+            DataSet d1 = new DataSet("products");
+            d1.Tables.Add(t1);
+            return d1;
+            //Notifications.SendMessage("userName","message That you Want To Send");
+        }
+
         public void CounterOffer(string barcode, string price, string username, string storename, int amount, string owner, string oldprice)
         {
             string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&owner={5}&oldprice={6}", barcode, price, username, storename, amount, owner, oldprice);
@@ -119,17 +149,54 @@ namespace Client.Code
             return d1;
         }
 
-        public string[][] GetStorePurchaseHistory(string StoreName)
+        public DataSet GetStorePurchaseHistory(string StoreName)
         {
             string param = string.Format("StoreName={0}", StoreName);
-            System.SendApi("GetStorePurchaseHistory", param);
-            return null;
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStorePurchaseHistory", param));
+            DataTable t1 = new DataTable("Historys");
+            t1.Columns.Add("id");
+            t1.Columns.Add("History");
+            if (arr != null)
+            {
+                for (int i = 0; i < arr.Count && arr[i] != null; i++)
+                {
+                    try
+                    {
+                        t1.Rows.Add(i, arr[i]);
+                    }
+                    catch
+                    { }
+                }
+            }
+            DataSet set = new DataSet("Historys");
+            set.Tables.Add(t1);
+            return set;
+
         }
 
         public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}&priceofone={4}", userName, storeName, productBarCode,amount, priceofone);
             return bool.Parse(System.SendApi("AddProductToBasket", param));
+        }
+
+
+        public DataSet GetStaff(string storeName)
+        {
+            string param = string.Format("storeName={0}", storeName);
+            JArray arr = (JArray)JsonConvert.DeserializeObject(System.SendApi("GetStaff", param).ToString());
+            DataTable t1 = new DataTable("Staff");
+            t1.Columns.Add("id");
+            t1.Columns.Add("Name");
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                t1.Rows.Add(i, arr[i]);
+            }
+
+            DataSet set = new DataSet("Staff");
+            set.Tables.Add(t1);
+            return set;
         }
 
         public DataSet GetUserBaskets(string userName)

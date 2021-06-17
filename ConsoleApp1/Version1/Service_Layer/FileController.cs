@@ -20,7 +20,7 @@ namespace Version1.Service_Layer
 
         public static void Test()
         {
-            CreateJson();
+            //CreateJson();
             ReadStateFile(DesktopPath + @"\json\file.json");
             Console.ReadKey();
         }
@@ -29,7 +29,7 @@ namespace Version1.Service_Layer
         {
             // wrap all this in try and different catches
             
-            try
+          /*  try
             {
                 var jsonString = File.ReadAllText(path);
                 var jsonArray = (JArray) JsonConvert.DeserializeObject(jsonString);
@@ -83,7 +83,7 @@ namespace Version1.Service_Layer
             {
                 throw new Exception(e.Message);
             }
-
+*/
             return true;
         }
 
@@ -154,8 +154,16 @@ namespace Version1.Service_Layer
 
 };
             var json = JsonConvert.SerializeObject(js);
-
-            File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            try
+            {
+                File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            }
+            catch
+            {
+                (new FileInfo(DesktopPath + @"\json\file.json")).Directory.Create();
+                File.WriteAllText(DesktopPath + @"\json\file.json", json);
+            }
+            
         }
 
         [Serializable]

@@ -417,6 +417,13 @@ namespace ServerApi
 
 
         [HttpGet]
+        public string[] GetStaff(string storeName)
+        {
+            return facade.GetStaff(storeName);
+        }
+
+
+        [HttpGet]
         public void acceptoffer(string barcode, string price, string username, string storename, int amount,
             string by_username)
         {

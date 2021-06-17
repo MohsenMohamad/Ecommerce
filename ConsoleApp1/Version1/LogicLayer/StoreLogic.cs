@@ -353,8 +353,11 @@ namespace Version1.LogicLayer
                     .Add(storeName + " has been closed , time to search for a new job");
                 DataHandler.Instance.db.updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
-
-            return DataHandler.Instance.Stores.TryRemove(storeName, out _);
+            if (database.GetInstance().DeleteStore(storeName))
+            {
+                return DataHandler.Instance.Stores.TryRemove(storeName, out _);
+            }
+            return false;
         }
         
         /*public static int addPublicDiscount(string storeName, int percentage)
@@ -439,7 +442,7 @@ namespace Version1.LogicLayer
                     {
                         Product product = DataHandler.Instance.GetProduct(pro.Key, storeName);
                         //there are no bid for the item
-                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price)
+                        if (user.GetShoppingCart().GetBasket(storeName).priceperproduct[pro.Key] == product.Price * pro.Value)
                         {
                             
                             double totalDiscount = 0;
