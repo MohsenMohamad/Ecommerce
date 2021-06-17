@@ -341,5 +341,16 @@ namespace Version1.LogicLayer
         {
             return UserLogic.GetUserPurchaseHistoryList(userName);
         }
+
+        public int GetPermissions(string userName, string storeName)
+        {
+            return UserLogic.GetPermissions(userName, storeName);
+        }
+
+        public bool UpdatePermissions(string userName, string storeName,int newPermissions)
+        {
+            return UserLogic.UpdatePermissions(userName,storeName,newPermissions);
+        }
+
     }
 }
