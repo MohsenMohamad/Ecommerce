@@ -353,7 +353,7 @@ namespace Version1.LogicLayer
                     .Add(storeName + " has been closed , time to search for a new job");
                 DataHandler.Instance.db.updateNotification(((User)ownerUser).UserName, ((User)ownerUser).GetNotifications());
             }
-            if (database.GetInstance().DeleteStore(storeName))
+            if (DataHandler.Instance.db.DeleteStore(storeName))
             {
                 return DataHandler.Instance.Stores.TryRemove(storeName, out _);
             }
