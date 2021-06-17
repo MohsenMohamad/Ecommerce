@@ -11,7 +11,8 @@ namespace Version1.DataAccessLayer
             return true;
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
+        public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,
+            double priceofone)
         {
             return true;
         }
@@ -101,6 +102,16 @@ namespace Version1.DataAccessLayer
             return true;
         }
 
+        public bool UpdateUserPassword(string userName, string newPassword)
+        {
+            return true;
+        }
+
+        public bool DeleteStore(string storeName)
+        {
+            return true;
+        }
+
         public bool RemoveProductFromCart(string userName, string storeName, string productBarcode, int amount)
         {
             return true;
@@ -111,7 +122,8 @@ namespace Version1.DataAccessLayer
             return true;
         }
 
-        public bool UpdateCartProductAmountInBasket(string userName, string storeName, string productBarcode, int newAmount)
+        public bool UpdateCartProductAmountInBasket(string userName, string storeName, string productBarcode,
+            int newAmount)
         {
             return true;
         }
@@ -123,17 +135,17 @@ namespace Version1.DataAccessLayer
 
         public void updateNotification(string userName, List<string> list)
         {
-            return ;
+            return;
         }
 
         public void updateNotificationsoffer(string userName, List<string> list)
         {
-            return ;
+            return;
         }
 
         public void UpdateProductDiscountDiscreption(string barcode, string discount_description)
         {
-            return ;
+            return;
         }
 
         public bool UpdateProductPolicy(Product p)
@@ -158,7 +170,7 @@ namespace Version1.DataAccessLayer
 
         public void updateStoreStaff(string storeName, Node<string, int> node)
         {
-            return ;
+            return;
         }
 
         public bool UpdateUser(User u)

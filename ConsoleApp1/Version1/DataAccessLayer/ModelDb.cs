@@ -52,7 +52,7 @@ namespace Version1.DataAccessLayer
         public virtual DbSet<ProductDBANDAMOUNT> ProductDBANDAMOUNTTable { get; set; }
 
         //helping dictionaries objects
-        public virtual DbSet<shoppingBasketsDictionaryDB> shoppingBasketsDictionariesDB { get; set; }
+        public virtual DbSet<ShoppingBasketAndStorPairDB> shoppingBasketsDictionariesDB { get; set; }
         public virtual DbSet<itemsHasmapforPurchaseDB> itemsFromPurchaseDBDictionariesDB { get; set; }
 
     }
@@ -147,6 +147,17 @@ namespace Version1.DataAccessLayer
 
 
     }
+    
+    //done
+    public class ShoppingBasketAndStorPairDB
+    {
+        [Key, Column(Order = 0)]
+        public int ShoppingCartId { get; set; }
+        [Key, Column(Order = 1)]
+        public string StoreName { get; set; }
+ 
+        public ShoppingBasketDB basket { get; set; }
+    }
 
 
     //done
@@ -156,20 +167,9 @@ namespace Version1.DataAccessLayer
         [Key]
         [Required]
         public int ShoppingCartId { get; set; }
-
-        public shoppingBasketsDictionaryDB shoppingBaskets { get; set; }
-    }
-    //done
-    public class shoppingBasketsDictionaryDB
-    {
-        [Key]
-        public int ShoppingCartId { get; set; }
-        //List<string>
-        public string keys { get; set; }
-
-        public ICollection<ShoppingBasketDB> values { get; set; }
-
-    }
+        public ICollection<ShoppingBasketAndStorPairDB> baskets { get; set; }    }
+    
+    
 
     //done
     public class ShoppingBasketDB

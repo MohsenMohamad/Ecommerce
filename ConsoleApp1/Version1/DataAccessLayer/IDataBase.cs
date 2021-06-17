@@ -46,6 +46,8 @@ namespace Version1.DataAccessLayer
         bool RemoveProductFromCart(string userName, string storeName, string productBarcode, int amount);
         bool TakeFromStoreInventory(string StoreName, string productBarcode, int amount);
         bool makePurchaseTransaction(ShoppingBasket basket, string userName);
+        bool UpdateUserPassword(string userName, string newPassword);
+        bool DeleteStore(string storeName);
 
 
 
