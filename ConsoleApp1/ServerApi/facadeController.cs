@@ -2,14 +2,18 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Version1.Service_Layer;
-
+using System.Configuration;
 namespace ServerApi
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class facadeController : ApiController
     {
-        private Facade facade = new Facade();
-
+        private Facade facade = new Facade("false");
+        public facadeController()
+        {
+            string sAttr = ConfigurationManager.AppSettings.Get("mock");
+            facade = new Facade(sAttr);
+        }
         [HttpGet]
         public string[][] GetStoresProducts()
         {
