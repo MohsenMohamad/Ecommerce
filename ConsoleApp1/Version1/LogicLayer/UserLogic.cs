@@ -216,7 +216,7 @@ namespace Version1.LogicLayer
 
         public static int GetPermissions(string userName, string storeName)
         {
-            var user = DataHandler.Instance.GetStore(userName);
+            var user = DataHandler.Instance.GetUser(userName);
             if (user == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);
@@ -229,7 +229,7 @@ namespace Version1.LogicLayer
 
         public static bool UpdatePermissions(string userName, string storeName, int newPermissions)
         {
-            var user = DataHandler.Instance.GetStore(userName);
+            var user = DataHandler.Instance.GetUser(userName);
             if (user == null) throw new Exception(Errors.UserNotFound);
             var store = DataHandler.Instance.GetStore(storeName);
             if (store == null) throw new Exception(Errors.StoreNotFound);

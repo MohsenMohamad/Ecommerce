@@ -641,8 +641,8 @@ margin-bottom: 16px;
                 <asp:DropDownList ID="DropDownList9" runat="server" OnSelectedIndexChanged="DropDownList8_SelectedIndexChanged">
                      <asp:ListItem Enabled="true" Text="Select" Value="-1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Item" Value="1"></asp:ListItem>
-                                                <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
-                                                <asp:ListItem Text="Add New Owner" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Policy" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Discount" Value="3"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td class="auto-style16" style="width: 471px">&nbsp;</td>

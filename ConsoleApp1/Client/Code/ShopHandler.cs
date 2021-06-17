@@ -130,6 +130,18 @@ namespace Client.Code
             return (System.SendApi("OpenShop", param));
         }
 
+        public int GetPermissions(string userName, string storeName)
+        {
+            string param = string.Format("userName={0}&storeName={1}", userName, storeName);
+            return int.Parse(System.SendApi("GetPermissions", param));
+        }
+
+        public bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        {
+            string param = string.Format("userName={0}&storeName={1}&newPermissions={2}", userName, storeName, newPermissions);
+            return bool.Parse(System.SendApi("UpdatePermissions", param));
+        }
+
         public DataSet getAllStores() {
             string param = "";
             JArray jarray = (JArray)JsonConvert.DeserializeObject(System.SendApi("getAllStores", param).ToString());

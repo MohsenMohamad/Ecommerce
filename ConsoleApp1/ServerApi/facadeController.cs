@@ -34,6 +34,18 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public int GetPermissions(string userName, string storeName)
+        {
+            return facade.GetPermissions(userName, storeName);
+        }
+
+        [HttpGet]
+        public bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        {
+            return facade.UpdatePermissions(userName, storeName, newPermissions);
+        }
+
+        [HttpGet]
         public string addItemToStore(string ownername, string itemBarCode, string item_name, int amount, int price,
             string shopName, string descreption, string catagorie)
         {

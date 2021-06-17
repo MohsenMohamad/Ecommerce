@@ -400,27 +400,33 @@ namespace Client
              else
              {*/
             //  a.AddItemToStore(Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
-            string msg = a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
-                  int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString());
-            if (msg.Equals("\"True\""))
+            if (Permissions.GetPermissions(a.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewItem"))
             {
-                table1.Visible = false;
-                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            }
-            else if (msg.Equals("\"False\""))
-            {
-                string msg2 = a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
-                if (msg2.Equals("\"True\""))
+                string msg = a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
+                      int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString());
+                if (msg.Equals("\"True\""))
                 {
+                    table1.Visible = false;
+                    DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                }
+                else if (msg.Equals("\"False\""))
+                {
+                    string msg2 = a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+                    if (msg2.Equals("\"True\""))
+                    {
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg2 + "')", true);
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg2 + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
                 }
             }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+            else {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you d'not have Premission')", true);
             }
             /*   }
        }*/
@@ -585,7 +591,21 @@ namespace Client
 
         protected void Button7_Click(object sender, EventArgs e)
         {
-
+            ShopHandler sh = new ShopHandler();
+            if (DropDownList9.SelectedValue.Equals("1"))
+            {
+                sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(),((int)Permissions.StorePermissions.AddNewItem));
+            }
+            if (DropDownList9.SelectedValue.Equals("2"))
+            {
+                sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewPolicy));
+            }
+            if (DropDownList9.SelectedValue.Equals("3"))
+            {
+                sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewDiscount));
+            }
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            table14.Visible = false;
         }
     }
 }
