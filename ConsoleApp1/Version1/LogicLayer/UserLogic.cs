@@ -188,7 +188,7 @@ namespace Version1.LogicLayer
                 
                 if (user == null) throw new Exception(Errors.UserNotFound);
                 if (DataHandler.Instance.IsGuest(userName) >= 0) throw new Exception(Errors.PermissionError);
-                if(database.GetInstance().UpdateUserPassword(userName, newPassword))
+                if(DataHandler.Instance.db.UpdateUserPassword(userName, newPassword))
                 {
                     ((User)user).Password = newPassword;
                     return true;
