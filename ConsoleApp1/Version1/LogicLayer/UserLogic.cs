@@ -238,7 +238,7 @@ namespace Version1.LogicLayer
             if (result == null || result.Value == -1) throw new Exception(Errors.NotAManager);
             
             // update db
-            result.Value = newPermissions;
+            result.Value |= newPermissions;
             return true;
         }
     }
