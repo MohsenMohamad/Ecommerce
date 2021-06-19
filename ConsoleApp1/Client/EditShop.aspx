@@ -93,6 +93,14 @@ margin-bottom: 16px;
          .auto-style28 {
              width: 354%;
          }
+         .auto-style29 {
+             width: 562px;
+             height: 62px;
+         }
+         .auto-style30 {
+             width: 271px;
+             height: 62px;
+         }
          </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -519,11 +527,11 @@ margin-bottom: 16px;
 
        <table id="table10"  runat="server">
                     <tr>
-                        <td style="width: 562px" >
+                        <td class="auto-style29" >
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Label ID="Label11" runat="server" Text="Amount :"></asp:Label>
                         </td>
-                        <td style="width: 271px">
+                        <td class="auto-style30">
                             <asp:TextBox ID="TextBox7" runat="server" Height="16px"></asp:TextBox>
                         </td>
                     </tr>
@@ -606,7 +614,7 @@ margin-bottom: 16px;
                         <td style="width: 1500px" >
                             &nbsp;</td>
                         <td style="width: 621px">
-                            &nbsp;</td>
+                            all conditions are round in: () base Conditions: Condition : (A[x;y]) : get percentage discount if you buy x times of item which his id is y. Condition : (B[num]) : get percentage discount if you spend more than num money in the hole shop. Condition : (C[catExample]) : get percentage discount on the items that there category contains catExample. composite Conditions: (and,Condition1,Condition2) if the two conditions is true get percentage discount. (or,Condition1,Condition2) if at least one of the conditions is true get percentage discount. (xor,Condition1,Condition2) if exactly one of the conditions is true get percentage discount. in defualt: the custumer get the sum of the discounts. </td>
                     </tr>
                     <tr>
                         <td style="width: 1500px" >
@@ -641,8 +649,8 @@ margin-bottom: 16px;
                 <asp:DropDownList ID="DropDownList9" runat="server" OnSelectedIndexChanged="DropDownList8_SelectedIndexChanged">
                      <asp:ListItem Enabled="true" Text="Select" Value="-1"></asp:ListItem>
                                                 <asp:ListItem Text="Add New Item" Value="1"></asp:ListItem>
-                                                <asp:ListItem Text="Add New Manager" Value="2"></asp:ListItem>
-                                                <asp:ListItem Text="Add New Owner" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Policy" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="Add New Discount" Value="3"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td class="auto-style16" style="width: 471px">&nbsp;</td>

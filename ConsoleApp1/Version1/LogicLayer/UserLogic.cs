@@ -213,5 +213,33 @@ namespace Version1.LogicLayer
                 return historyList;
             }
         }
+
+        public static int GetPermissions(string userName, string storeName)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (user == null) throw new Exception(Errors.UserNotFound);
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var result =store.GetStaffTree().GetNode(userName);
+            if (result == null || result.Value == -1) throw new Exception(Errors.NotAManager);
+
+            return result.Value;
+        }
+
+        public static bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        {
+            var user = DataHandler.Instance.GetUser(userName);
+            if (user == null) throw new Exception(Errors.UserNotFound);
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            var result =store.GetStaffTree().GetNode(userName);
+            if (result == null || result.Value == -1) throw new Exception(Errors.NotAManager);
+            
+            // update db
+            result.Value |= newPermissions;
+            return true;
+        }
     }
 }

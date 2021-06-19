@@ -168,6 +168,7 @@
     <Content Include="CounterOffer.aspx" />
     <Content Include="EditShop.aspx" />
     <Content Include="EditUser.aspx" />
+    <Content Include="Fail_Database.aspx" />
     <Content Include="History.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\additem.jfif" />
@@ -248,6 +249,13 @@
     </Compile>
     <Compile Include="EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fail_Database.aspx.cs">
+      <DependentUpon>Fail_Database.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fail_Database.aspx.designer.cs">
+      <DependentUpon>Fail_Database.aspx</DependentUpon>
     </Compile>
     <Compile Include="History.aspx.cs">
       <DependentUpon>History.aspx</DependentUpon>

@@ -894,5 +894,15 @@ namespace Version1.Service_Layer
             return logicInstance.GetStorePurchaseHistory(storeName)?.ToArray();
 
         }
+
+        public int GetPermissions(string userName, string storeName)
+        {
+            return logicInstance.GetPermissions(userName, storeName);
+        }
+        
+        public bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        {
+            return logicInstance.UpdatePermissions(userName, storeName,newPermissions);
+        }
     }
 }

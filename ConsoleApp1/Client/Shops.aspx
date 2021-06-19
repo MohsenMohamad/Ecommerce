@@ -30,9 +30,6 @@
                 <tr>
                     <td><span style="font-size: 20px;  font-family:Georgia; text-shadow:1px orange">Owner Name :<span style="font-size: 16px; font-family:Times New Roman;"><%#Eval("ownerName") %></span></span></td>
                 </tr>
-               <tr>
-                    <td><span style="font-size: 20px;  font-family:Georgia; text-shadow:1px orange">Selling Policy :<span style="font-size: 16px; font-family:Times New Roman;"><%#Eval("sellingpolicy") %></span></span></td>
-                </tr>
                 <tr>
                     <td><span style="font-size: 20px;  font-family:Georgia ; text-shadow:1px orange">Message :<span style="font-size: 16px; font-family:Times New Roman"><%#Eval("message") %></span></span></td>
                 </tr>

@@ -5,14 +5,16 @@ namespace Client
 {
     public class Permissions
     {
-        private enum StorePermissions
+        public enum StorePermissions
         {
             ViewStaffInfo = 0b1,   //1
-            ViewAndReplyCustomerInquiries = 0b10,         //2
+            AddNewItem = 0b10,         //2
+            AddNewPolicy = 0b100,         //3
+            AddNewDiscount = 0b1000,         //4
 
         }
 
-        public List<string> GetPermissions(int permission)
+        public static List<string> GetPermissions(int permission)
         {
             var permissions = new List<string>();
             var binary = Convert.ToString(permission, 2);

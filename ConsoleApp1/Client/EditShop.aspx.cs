@@ -15,7 +15,7 @@ namespace Client
         {
             if (!Page.IsPostBack)
             {
-               // Label1.Text = "Select what you want to edit" + Session["editshop"].ToString();
+                // Label1.Text = "Select what you want to edit" + Session["editshop"].ToString();
                 table1.Visible = false;
                 table2.Visible = false;
                 table3.Visible = false;
@@ -302,7 +302,7 @@ namespace Client
                 DropDownList7.Items.Add(new ListItem("please select a Item", "0"));
                 for (int i = 0; i < d.Tables[0].Rows.Count; i++)
                 {
-                    DropDownList7.Items.Insert(i, new ListItem(d.Tables[0].Rows[i]["productName"].ToString()+" ,"+ d.Tables[0].Rows[i]["barcode"].ToString()));
+                    DropDownList7.Items.Insert(i, new ListItem(d.Tables[0].Rows[i]["productName"].ToString() + " ," + d.Tables[0].Rows[i]["barcode"].ToString()));
                 }
 
             }
@@ -340,7 +340,7 @@ namespace Client
                 table11.Visible = false;
                 table12.Visible = false;
                 table13.Visible = false;
-                table14.Visible = true ;
+                table14.Visible = true;
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreManagers(Session["editshop"].ToString());
@@ -390,6 +390,7 @@ namespace Client
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
             ShopHandler a = new ShopHandler();
+            UserHandler u = new UserHandler();
             /* if (!a.AddNewProductToSystem(TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), TextBoxdescription.Text.ToString()
                  , double.Parse(TextBoxprice.Text.ToString()), TextBoxcategories.Text.ToString()))
              {
@@ -400,30 +401,35 @@ namespace Client
              else
              {*/
             //  a.AddItemToStore(Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
-            string msg = a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
-                  int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString());
-            if (msg.Equals("\"True\""))
+            if (Permissions.GetPermissions(a.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewItem") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
             {
-                table1.Visible = false;
-                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            }
-            else if (msg.Equals("\"False\""))
-            {
-                string msg2 = a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
-                if (msg2.Equals("\"True\""))
+                string msg = a.AddItemToStore(Session["username"].ToString(), TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()),
+                      int.Parse(TextBoxprice.Text.ToString()), Session["editshop"].ToString(), TextBoxdescription.Text.ToString(), TextBoxcategories.Text.ToString());
+                if (msg.Equals("\"True\""))
                 {
+                    table1.Visible = false;
+                    DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                }
+                else if (msg.Equals("\"False\""))
+                {
+                    string msg2 = a.UpdateProductAmountInStore(Session["username"].ToString(), Session["editshop"].ToString(), TextBoxbarcode.Text.ToString(), int.Parse(TextBoxAmount.Text.ToString()));
+                    if (msg2.Equals("\"True\""))
+                    {
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg2 + "')", true);
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg2 + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
                 }
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
             }
-            /*   }
-       }*/
         }
 
         protected void Buttonaddmanager_Click(object sender, EventArgs e)
@@ -500,10 +506,17 @@ namespace Client
         protected void AddProduct_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddProductPolicies(Session["editshop"].ToString(), TextBox3.Text.ToString(), int.Parse(TextBox4.Text.ToString()));
-            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-
+            UserHandler u = new UserHandler();
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewPolicy") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.AddProductPolicies(Session["editshop"].ToString(), TextBox3.Text.ToString(), int.Parse(TextBox4.Text.ToString()));
+                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
             table6.Visible = false;
             table7.Visible = false;
 
@@ -512,9 +525,17 @@ namespace Client
         protected void AddCategory_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddCategortPolicies(Session["editshop"].ToString(), TextBox1.Text.ToString(), int.Parse(TextBox2.Text.ToString()), int.Parse(TextBox8.Text.ToString()));
-            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            UserHandler u = new UserHandler();
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewPolicy") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.AddCategortPolicies(Session["editshop"].ToString(), TextBox1.Text.ToString(), int.Parse(TextBox2.Text.ToString()), int.Parse(TextBox8.Text.ToString()));
+                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
 
             table6.Visible = false;
             table8.Visible = false;
@@ -524,9 +545,19 @@ namespace Client
         protected void AddUser_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddUserPolicies(Session["editshop"].ToString(), TextBox5.Text.ToString());
-            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            UserHandler u = new UserHandler();
+
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewPolicy") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.AddUserPolicies(Session["editshop"].ToString(), TextBox5.Text.ToString());
+                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+
+            }
 
             table6.Visible = false;
             table9.Visible = false;
@@ -537,10 +568,18 @@ namespace Client
         protected void AddCart_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddCartrPolicies(Session["editshop"].ToString(), int.Parse(TextBox7.Text.ToString()));
-            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
-            DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            UserHandler u = new UserHandler();
 
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewPolicy") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.AddCartrPolicies(Session["editshop"].ToString(), int.Parse(TextBox7.Text.ToString()));
+                DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+                DropDownList6.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
             table6.Visible = false;
             table10.Visible = false;
 
@@ -549,7 +588,17 @@ namespace Client
         protected void Button4_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.addStoreDiscount(Session["editshop"].ToString(), int.Parse(TextBox6.Text.ToString()));
+
+            UserHandler u = new UserHandler();
+
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewDiscount") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.addStoreDiscount(Session["editshop"].ToString(), int.Parse(TextBox6.Text.ToString()));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             table11.Visible = false;
 
@@ -557,12 +606,24 @@ namespace Client
 
         protected void Button5_Click(object sender, EventArgs e)
         {
-            string barcodeitem = DropDownList7.Text.ToString();
-            var arritem = barcodeitem.Split(',');
+
             ShopHandler sh = new ShopHandler();
-            sh.addPublicDiscountToItem(Session["editshop"].ToString(), arritem[1].ToString(),int.Parse(TextBox10.Text.ToString()));
+            UserHandler u = new UserHandler();
+
+
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewDiscount") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                string barcodeitem = DropDownList7.Text.ToString();
+                var arritem = barcodeitem.Split(',');
+                sh.addPublicDiscountToItem(Session["editshop"].ToString(), arritem[1].ToString(), int.Parse(TextBox10.Text.ToString()));
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             table12.Visible = false;
+
         }
 
         protected void DropDownList7_SelectedIndexChanged(object sender, EventArgs e)
@@ -573,7 +634,16 @@ namespace Client
         protected void Button6_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.addConditionalDiscount(Session["editshop"].ToString(),int.Parse(TextBox14.Text.ToString()), txt1.InnerText);
+            UserHandler u = new UserHandler();
+
+            if (Permissions.GetPermissions(sh.GetPermissions(Session["username"].ToString(), Session["editshop"].ToString())).Contains("AddNewDiscount") || (u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                sh.addConditionalDiscount(Session["editshop"].ToString(), int.Parse(TextBox14.Text.ToString()), txt1.InnerText);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('you not have Premission')", true);
+            }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             table13.Visible = false;
         }
@@ -585,7 +655,32 @@ namespace Client
 
         protected void Button7_Click(object sender, EventArgs e)
         {
+            ShopHandler sh = new ShopHandler();
+            UserHandler u = new UserHandler();
 
+
+            if ((u.IsOwner(Session["editshop"].ToString(), Session["username"].ToString())))
+            {
+                if (DropDownList9.SelectedValue.Equals("1"))
+                {
+                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewItem));
+                }
+                if (DropDownList9.SelectedValue.Equals("2"))
+                {
+                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewPolicy));
+                }
+                if (DropDownList9.SelectedValue.Equals("3"))
+                {
+                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewDiscount));
+                }
+            }
+
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
+            }
+            DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
+            table14.Visible = false;
         }
     }
 }

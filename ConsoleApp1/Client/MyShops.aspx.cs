@@ -26,14 +26,14 @@ namespace Client
             {
                 Session["editshop"] = e.CommandArgument;
                 UserHandler uh = new UserHandler();
-                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
-                {
+/*                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
+                {*/
                     Response.Redirect("~/EditShop.aspx");
-                }
+               /* }
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
-                }
+                }*/
             }
             if (e.CommandName == "StafInfo")
             {
