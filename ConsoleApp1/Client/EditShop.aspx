@@ -614,7 +614,7 @@ margin-bottom: 16px;
                         <td style="width: 1500px" >
                             &nbsp;</td>
                         <td style="width: 621px">
-                            &nbsp;</td>
+                            all conditions are round in: () base Conditions: Condition : (A[x;y]) : get percentage discount if you buy x times of item which his id is y. Condition : (B[num]) : get percentage discount if you spend more than num money in the hole shop. Condition : (C[catExample]) : get percentage discount on the items that there category contains catExample. composite Conditions: (and,Condition1,Condition2) if the two conditions is true get percentage discount. (or,Condition1,Condition2) if at least one of the conditions is true get percentage discount. (xor,Condition1,Condition2) if exactly one of the conditions is true get percentage discount. in defualt: the custumer get the sum of the discounts. </td>
                     </tr>
                     <tr>
                         <td style="width: 1500px" >

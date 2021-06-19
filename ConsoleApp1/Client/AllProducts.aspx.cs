@@ -14,7 +14,7 @@ namespace Client
         protected void Page_Load(object sender, EventArgs e)
         {
             int counter = 0;
-            while (counter < 30)
+            while (counter < 20)
             {
                 try
                 {
@@ -51,10 +51,10 @@ namespace Client
                     counter++;
                 }
             }
-            if (counter >= 10)
+            if (counter >= 20)
             {
                 //error message
-                throw new Exception("server not responding");
+                Response.Redirect("~/Fail_Database.aspx");
             }
         }
 
