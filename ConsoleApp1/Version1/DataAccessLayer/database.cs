@@ -1283,17 +1283,17 @@ namespace Version1.DataAccessLayer
                         
             if (result != null)
             {
-                foreach(var dp in result.discountPolicies)
+                foreach (var dp in result.discountPolicies.ToList())
                 {
-                    result.discountPolicies.Remove(dp);
+                    db.DiscountsTable.Remove(dp);
                 }
-                foreach (var h in result.history)
+                foreach (var h in result.history.ToList())
                 {
-                    result.history.Remove(h);
+                    db.PurchasesTable.Remove(h);
                 }
-                foreach (var p in result.products)
+                foreach (var p in result.products.ToList())
                 {
-                    result.products.Remove(p);
+                    db.ProductDBANDAMOUNTTable.Remove(p);
                 }
                 db.nodesTable.Remove(result.staff);
                 db.StoresTable.Remove(result);
