@@ -431,6 +431,8 @@ margin-bottom: 16px;
                                                 <asp:ListItem Text="Category" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="User" Value="3"></asp:ListItem>
                                                 <asp:ListItem Text="Cart" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="CompositePolicy" Value="5"></asp:ListItem>
+
                 </asp:DropDownList>
                 <br />
                 <br />
@@ -540,6 +542,23 @@ margin-bottom: 16px;
                             &nbsp;</td>
                         <td style="width: 271px">
                 <asp:Button ID="Button15" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="AddCart_Click" />
+                        </td>
+                    </tr>
+                </table>
+     <table id="table15"  runat="server">
+                    <tr>
+                        <td class="auto-style29" >
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="Label1" runat="server" Text="Conditional Policy :"></asp:Label>
+                        </td>
+                        <td class="auto-style30">
+                       <textarea runat="server" id="txt2" class="txt" name="S3" style="width: 273px; height: 110px;" cols="10" rows="1"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 562px" >
+                            &nbsp;</td>
+                        <td style="width: 271px">
+                <asp:Button ID="Button8" CssClass="addstylee" runat="server" Text="Add"  Height="37px" Width="68px" OnClick="Button8_Click"  />
                         </td>
                     </tr>
                 </table>

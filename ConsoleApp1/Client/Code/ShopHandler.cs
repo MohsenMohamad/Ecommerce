@@ -480,9 +480,10 @@ namespace Client.Code
             return int.Parse(System.SendApi("addConditionalDiscount", param));
         }
 
-
-
-
-
+        public bool CompositePolicy(string shopName, string innerText)
+        {
+            string param = string.Format("shopName={0}&innerText={1}", shopName, innerText);
+            return bool.Parse(System.SendApi("CompositePolicy", param));
+        }
     }
 }

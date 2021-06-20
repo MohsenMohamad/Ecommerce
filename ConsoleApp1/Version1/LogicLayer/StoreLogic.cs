@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Version1.DataAccessLayer;
 using Version1.domainLayer;
 using Version1.domainLayer.CompositeDP;
@@ -510,5 +512,105 @@ namespace Version1.LogicLayer
             }
         }
 
+        public static bool AddCompositePolicy(string storeName, string jsonText)
+        {
+            var store = DataHandler.Instance.GetStore(storeName);
+            if (store == null) throw new Exception(Errors.StoreNotFound);
+
+            try
+            {
+                var json = (JArray) JsonConvert.DeserializeObject(jsonText);
+                var andComposite = (Composite) RecursivePolicy(json, new AndComposite());
+                foreach (var child in andComposite.GetChildren())
+                {
+                    store.GetPurchasePolicies().Add(child);
+                }
+
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Error while extracting the composite policy");
+            }
+            
+        }
+
+        private static Component RecursivePolicy(JToken token, Component component)
+        {
+            if (token == null)
+                return null;
+            if (token.Type == JTokenType.Array)
+            {
+                foreach (var child in token)
+                {
+                    RecursivePolicy(child, component);
+                }
+
+                return component;
+            }
+
+            var type = (string) token["Type"];
+            if (type != "OR" && type != "AND")
+            {
+                var leaf = CreatePolicy(token);
+                component.Add(leaf);
+                return component;
+            }
+
+            if (type == "AND")
+            {
+                var and = new AndComposite();
+                component.Add(RecursivePolicy(token["Policies"], and));
+                return and;
+            }
+
+            if (type == "OR")
+            {
+                var or = new OrComposite();
+                component.Add(RecursivePolicy(token["Policies"], or));
+                return or;
+            }
+
+            return null;
+        }
+        
+        private static Component CreatePolicy(JToken token)
+        {
+            var policyType = (string) token["Type"];
+            switch (policyType)
+            {
+                case "Max Amount":
+                {
+                    var max = (int) token["MaxAmount"];
+                    var barcode = (string) token["Barcode"];
+                    return new MaxAmountPolicy(barcode, max);
+                }
+                case "Time":
+                {
+                    var hour = (int) token["Hour"];
+                    var minute = (int) token["Minute"];
+                    var categories = token["Categories"].ToArray();
+                    var pol = new TimeRestrictedCategories(hour, minute);
+                    foreach (var category in categories)
+                    {
+                        pol.AddRestrictedCategory((string) category);
+                    }
+
+                    return pol;
+                }
+                case "CustomerType":
+                {
+                    var pol = new CustomerTypeRestriction();
+                    foreach (var barcode in token["Products"])
+                    {
+                        pol.AddRestrictedProduct((string) barcode);
+                    }
+
+                    return pol;
+                }
+                default:
+                    return null;
+            }
+        }
     }
 }

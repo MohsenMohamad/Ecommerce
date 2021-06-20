@@ -207,6 +207,11 @@ namespace Version1.Service_Layer
             var supplyAddress = new SupplyAddress(nameF, address, city, country, zip);
             return logicInstance.Purchase(userName, paymentInfo,supplyAddress);
         }
+        
+        public bool CompositePolicy(string shopName, string innerText)
+        {
+            return logicInstance.AddCompositePolicy(shopName,innerText);
+        }
 
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
@@ -357,13 +362,7 @@ namespace Version1.Service_Layer
         {
             return logicInstance.AddCartPolicy(storeName, amount);
         }
-
-        public string[][] GetAllWorkersInStore(string storeName)
-        {
-            throw new NotImplementedException();
-        }
-
-
+        
         public bool IsLoggedIn(string userName)
         {
             return logicInstance.IsLoggedIn(userName);

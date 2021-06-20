@@ -242,6 +242,12 @@ namespace ServerApi
         }
 
         [HttpGet]
+        public bool CompositePolicy(string shopName, string innerText)
+        {
+            return facade.CompositePolicy(shopName, innerText);
+        }
+
+        [HttpGet]
         public string removeOwner(string apointerid, string storeName, string apointeeid)
         {
             try
