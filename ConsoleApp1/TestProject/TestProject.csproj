@@ -96,6 +96,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyImp.cs" />
     <Compile Include="StorePoliciesTests\CompositePolicyTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\BuyFromCategoryDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\conditionalShopDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\ConditionTests.cs" />
+    <Compile Include="UnitTests\DiscountsTests\itemDiscountTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\shopPublicDiscountTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\SpendAtLeastYConditionalDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\sumOfDiscounts2.cs" />
+    <Compile Include="UnitTests\DiscountsTests\SumOfDiscountsTest.cs" />
     <Compile Include="UnitTests\EncrpytionTest.cs" />
     <Compile Include="UnitTests\offerpurchasetest\acceptofferTest.cs" />
     <Compile Include="UnitTests\offerpurchasetest\counterofferTest.cs" />

@@ -354,6 +354,26 @@ namespace TestProject
             return real?.GetHashString(inputString);
         }
 
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            return real.addPublicStoreDiscount(storeName, percentage);
+        }
+
+        public double GetTotalCart(string UserName)
+        {
+            return real.GetTotalCart(UserName);
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return real.addPublicDiscountToItem( storeName,  barcode,  percentage);
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return real.addConditionalDiscount( shopName,  percentage,  condition);
+        }
+
         public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
         {
             real.Recieve_purchase_offer(username, storename, price, barcode, amount);
