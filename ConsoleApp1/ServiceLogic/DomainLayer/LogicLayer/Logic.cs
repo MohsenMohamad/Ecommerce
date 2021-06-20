@@ -4,7 +4,7 @@ using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
 using ServiceLogic.ExternalServices;
 
-namespace ServiceLogic.LogicLayer
+namespace ServiceLogic.DomainLayer.LogicLayer
 {
     public class Logic
     {

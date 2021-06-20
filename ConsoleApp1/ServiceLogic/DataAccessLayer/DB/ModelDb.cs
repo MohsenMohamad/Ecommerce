@@ -1,18 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Collections.Concurrent;
-using ServiceLogic.domainLayer;
-//using System.Web.Script.Serialization;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Validation;
-using System.Web.Script.Serialization;
-using System.Data.Entity.Migrations;
-using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies;
+using System.Data.Entity;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies; //using System.Web.Script.Serialization;
 
-namespace ServiceLogic.DataAccessLayer
+namespace ServiceLogic.DataAccessLayer.DB
 {
     public class ModelDB : DbContext
     {

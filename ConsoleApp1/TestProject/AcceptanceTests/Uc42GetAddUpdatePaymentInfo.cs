@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-using ServiceLogic.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
     public class Uc42GetAddUpdatePaymentInfo:ATProject
     {
-        private static SystemAdmin admin;
 
         private static string initialPolicy;
         private static string storeName;
@@ -18,9 +16,7 @@ namespace TestProject.AcceptanceTests
         [SetUp]
         public void Setup()
         {
-            admin = new SystemAdmin();
-            admin.InitSystem();
-            
+
             //user = new User("user", "userPass");
             Register("user","userPass");
             UserLogin("user","userPass");

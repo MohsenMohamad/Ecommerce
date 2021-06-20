@@ -103,7 +103,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccessLayer\database.cs" />
     <Compile Include="DataAccessLayer\DataStructures\Category.cs" />
     <Compile Include="DataAccessLayer\DataStructures\Guest.cs" />
     <Compile Include="DataAccessLayer\DataStructures\Node.cs" />
@@ -115,12 +114,18 @@
     <Compile Include="DataAccessLayer\DataStructures\ShoppingCart.cs" />
     <Compile Include="DataAccessLayer\DataStructures\Store.cs" />
     <Compile Include="DataAccessLayer\DataStructures\User.cs" />
-    <Compile Include="DataAccessLayer\IDataBase.cs" />
-    <Compile Include="DataAccessLayer\MockDB.cs" />
-    <Compile Include="DataAccessLayer\ModelDb.cs" />
+    <Compile Include="DataAccessLayer\DB\database.cs" />
+    <Compile Include="DataAccessLayer\DB\IDataBase.cs" />
+    <Compile Include="DataAccessLayer\DB\MockDB.cs" />
+    <Compile Include="DataAccessLayer\DB\ModelDb.cs" />
     <Compile Include="DomainLayer\Errors.cs" />
     <Compile Include="DomainLayer\Hashing.cs" />
-    <Compile Include="DomainLayer\Permissions.cs" />
+    <Compile Include="DomainLayer\LogicLayer\CartLogic.cs" />
+    <Compile Include="DomainLayer\LogicLayer\InventoryLogic.cs" />
+    <Compile Include="DomainLayer\LogicLayer\Logic.cs" />
+    <Compile Include="DomainLayer\LogicLayer\StoreLogic.cs" />
+    <Compile Include="DomainLayer\LogicLayer\TestsLogic.cs" />
+    <Compile Include="DomainLayer\LogicLayer\UserLogic.cs" />
     <Compile Include="DomainLayer\PurchaseOffer.cs" />
     <Compile Include="DomainLayer\StoreFeatures\DiscountPolicies\And.cs" />
     <Compile Include="DomainLayer\StoreFeatures\DiscountPolicies\Buy_a_of_X.cs" />
@@ -150,20 +155,11 @@
     <Compile Include="ExternalServices\MockUpFinanceService.cs" />
     <Compile Include="ExternalServices\MockUpSupplyService.cs" />
     <Compile Include="DataAccessLayer\DataHandler.cs" />
-    <Compile Include="DomainLayer\UserRoles\StoreManager.cs" />
-    <Compile Include="DomainLayer\UserRoles\StoreOwner.cs" />
-    <Compile Include="DomainLayer\UserRoles\SystemAdmin.cs" />
     <Compile Include="ExternalServices\IFinanceServiceAdapter.cs" />
     <Compile Include="ExternalServices\ISupplyServiceAdapter.cs" />
     <Compile Include="ExternalServices\PaymentInfo.cs" />
     <Compile Include="ExternalServices\SupplyAddress.cs" />
     <Compile Include="ExternalServices\SupplyService.cs" />
-    <Compile Include="LogicLayer\CartLogic.cs" />
-    <Compile Include="LogicLayer\InventoryLogic.cs" />
-    <Compile Include="LogicLayer\Logic.cs" />
-    <Compile Include="LogicLayer\StoreLogic.cs" />
-    <Compile Include="LogicLayer\TestsLogic.cs" />
-    <Compile Include="LogicLayer\UserLogic.cs" />
     <Compile Include="Service_Layer\Facade.cs" />
     <Compile Include="Service_Layer\FileController.cs" />
     <Compile Include="Service_Layer\GenInterface.cs" />

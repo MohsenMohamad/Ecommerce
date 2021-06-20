@@ -5,8 +5,7 @@ using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.ExternalServices;
 
-
-namespace ServiceLogic.LogicLayer
+namespace ServiceLogic.DomainLayer.LogicLayer
 {
     public static class CartLogic
     {

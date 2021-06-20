@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceLogic.DataAccessLayer.DataStructures;
-using ServiceLogic.LogicLayer;
+using ServiceLogic.DomainLayer.LogicLayer;
 using ServiceLogic.Service_Layer;
 
 namespace ServiceLogic.domainLayer

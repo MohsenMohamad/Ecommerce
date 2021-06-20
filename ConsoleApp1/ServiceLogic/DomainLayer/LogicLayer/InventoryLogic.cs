@@ -6,7 +6,7 @@ using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.domainLayer;
 
-namespace ServiceLogic.LogicLayer
+namespace ServiceLogic.DomainLayer.LogicLayer
 {
     public static class InventoryLogic
     {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using System.Configuration;
 using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DataAccessLayer.DB;
 using ServiceLogic.domainLayer;
 using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 using ServiceLogic.Service_Layer;

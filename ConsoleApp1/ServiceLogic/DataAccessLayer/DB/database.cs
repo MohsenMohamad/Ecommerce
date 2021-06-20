@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 
-namespace ServiceLogic.DataAccessLayer
+namespace ServiceLogic.DataAccessLayer.DB
 {
     public class database : IDataBase
     {

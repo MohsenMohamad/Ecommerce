@@ -2,7 +2,7 @@
 using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
 
-namespace ServiceLogic.LogicLayer
+namespace ServiceLogic.DomainLayer.LogicLayer
 {
     public static class TestsLogic
     {

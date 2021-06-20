@@ -6,9 +6,6 @@ using ServerApi.DataObserver;
 using System.Collections.Generic;
 using System.Linq;
 using ServerApi;
-using ServiceLogic.domainLayer.UserRoles;
-using ServiceLogic.Service_Layer;
-using ServiceLogic.DataAccessLayer;
 using System.Data.Entity.Validation;
 
 namespace ServiceApi

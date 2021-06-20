@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.LogicLayer;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
-using ServiceLogic.LogicLayer;
 
 namespace ServiceLogic.Service_Layer
 {

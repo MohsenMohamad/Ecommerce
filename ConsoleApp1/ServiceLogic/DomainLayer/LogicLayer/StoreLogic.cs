@@ -10,7 +10,7 @@ using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
 
-namespace ServiceLogic.LogicLayer
+namespace ServiceLogic.DomainLayer.LogicLayer
 {
     public static class StoreLogic
     {
@@ -175,13 +175,7 @@ namespace ServiceLogic.LogicLayer
             DataHandler.Instance.db.updateStoreStaff(storeName, store.GetStaffTree());
             return true;
         }
-
-        private static bool IsValidPermission(int permissions)
-        {
-            return Permissions.IsValidPermission(permissions);
-        }
-
-
+        
 //---------------------------------------- Getters ----------------------------------------//   
 
         public static List<Store> GetAllStores()

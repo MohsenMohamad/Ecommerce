@@ -2,7 +2,7 @@
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 
-namespace ServiceLogic.DataAccessLayer
+namespace ServiceLogic.DataAccessLayer.DB
 {
     public class MockDB : IDataBase
     {

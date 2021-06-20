@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 
-namespace ServiceLogic.DataAccessLayer
+namespace ServiceLogic.DataAccessLayer.DB
 {
     public interface IDataBase
     {

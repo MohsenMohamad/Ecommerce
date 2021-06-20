@@ -7,8 +7,8 @@ using System.Linq;
 using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DataAccessLayer.DataStructures;
 using ServiceLogic.domainLayer;
+using ServiceLogic.DomainLayer.LogicLayer;
 using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
-using ServiceLogic.LogicLayer;
 using ServiceLogic.ExternalServices;
 
 namespace ServiceLogic.Service_Layer
