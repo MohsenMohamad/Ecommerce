@@ -222,7 +222,7 @@ namespace Version1.LogicLayer
             if (store == null) throw new Exception(Errors.StoreNotFound);
 
             var result =store.GetStaffTree().GetNode(userName);
-            if (result == null || result.Value == -1) throw new Exception(Errors.NotAManager);
+            if (result == null) throw new Exception(Errors.NotAManager);
 
             return result.Value;
         }

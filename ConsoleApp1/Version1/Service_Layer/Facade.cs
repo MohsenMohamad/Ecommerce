@@ -628,6 +628,7 @@ namespace Version1.Service_Layer
                     product.Add(pr.Description);
                     product.Add(pr.Barcode);
                     product.Add(pr.Price.ToString(CultureInfo.CurrentCulture));
+                    product.Add(pr.DiscountPolicy.DiscountDescription);
                     var categories = pr.Categories.Aggregate("", (current, category) => current + category + "#");
 
                     categories = categories.Substring(0, categories.Length - 1);
