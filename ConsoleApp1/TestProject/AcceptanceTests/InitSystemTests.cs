@@ -13,20 +13,16 @@ namespace TestProject.AcceptanceTests
         [Test]
         public void Happy()
         {
-            Assert.True(InitiateSystem());
         }
 
         [Test]
         public void Bad()
         {
-            Assert.False(InitiateSystem());
         }
 
         [Test]
         public void Sad()
         {
-            Assert.True(InitiateSystem());
-            Assert.False(InitiateSystem());
         }
     }
 }
