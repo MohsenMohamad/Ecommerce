@@ -208,6 +208,12 @@ namespace Version1.Service_Layer
             return logicInstance.Purchase(userName, paymentInfo,supplyAddress);
         }
 
+        //todo
+        public bool CompositePolicy(string shopName, string innerText)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
             return logicInstance.UpdateCart(userName, storeName, productBarcode, newAmount);

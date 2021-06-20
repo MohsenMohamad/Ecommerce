@@ -30,6 +30,7 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
                 Labelerrorbarcode.Visible = false;
                 firegif.Visible = true;
 
@@ -64,6 +65,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
             }
 
@@ -84,6 +87,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
 
 
@@ -104,6 +109,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetAllUserNamesInSystem();
@@ -150,6 +157,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
 
                 ShopHandler b = new ShopHandler();
@@ -198,6 +207,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreManagers(Session["editshop"].ToString());
@@ -227,6 +238,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
 
                 ShopHandler b = new ShopHandler();
@@ -260,6 +273,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
             }
             if (DropDownList1.SelectedItem.Text == "Shop Discount")
             {
@@ -278,6 +293,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
             }
             if (DropDownList1.SelectedItem.Text == "Item Discount")
             {
@@ -296,6 +313,8 @@ namespace Client
                 table12.Visible = true;
                 table13.Visible = false;
                 table14.Visible = false;
+                table15.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreProducts(Session["editshop"].ToString());
@@ -323,6 +342,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = true;
                 table14.Visible = false;
+                table15.Visible = false;
+
             }
             if (DropDownList1.SelectedItem.Text == "Edit Manager")
             {
@@ -341,6 +362,8 @@ namespace Client
                 table12.Visible = false;
                 table13.Visible = false;
                 table14.Visible = true;
+                table15.Visible = false;
+
 
                 ShopHandler b = new ShopHandler();
                 DataSet d = b.GetStoreManagers(Session["editshop"].ToString());
@@ -384,6 +407,15 @@ namespace Client
                 table8.Visible = false;
                 table9.Visible = false;
                 table10.Visible = true;
+            }
+            if (DropDownList6.SelectedItem.Text == "CompositePolicy")
+            {
+                table7.Visible = false;
+                table8.Visible = false;
+                table9.Visible = false;
+                table10.Visible = false;
+                table15.Visible = true;
+
             }
         }
 
@@ -681,6 +713,12 @@ namespace Client
             }
             DropDownList1.SelectedIndex = DropDownList1.Items.IndexOf(DropDownList1.Items.FindByText("Select"));
             table14.Visible = false;
+        }
+
+        protected void Button8_Click(object sender, EventArgs e)
+        {
+            ShopHandler sh = new ShopHandler();
+            sh.CompositePolicy(Session["editshop"].ToString(), txt2.InnerText);
         }
     }
 }
