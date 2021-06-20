@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using NUnit.Framework;
-using Version1.domainLayer;
+using ServiceLogic.domainLayer;
 
 namespace TestProject.UnitTests
 {

@@ -1,8 +1,8 @@
 ﻿/*using System.Collections;
-using Version1.domainLayer;
+using ServiceLogic.domainLayer;
 using NUnit.Framework;
 using Project_tests;
-using Version1.domainLayer.DataStructures;
+using ServiceLogic.domainLayer.DataStructures;
 
 namespace Project_Tests.AcceptanceTests
 {

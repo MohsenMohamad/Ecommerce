@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Version1.domainLayer;
+using ServiceLogic.domainLayer;
 using NUnit.Framework;
-using Version1.domainLayer.DataStructures;
 
 namespace TestProject.AcceptanceTests
 {

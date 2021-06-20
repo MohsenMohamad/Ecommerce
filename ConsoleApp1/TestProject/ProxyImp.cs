@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer.CompositeDP;
-using Version1.domainLayer.DataStructures;
-using Version1.Service_Layer;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
+using ServiceLogic.Service_Layer;
 
 namespace TestProject
 {

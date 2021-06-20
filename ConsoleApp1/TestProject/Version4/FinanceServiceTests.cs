@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Version1.ExternalServices;
+using ServiceLogic.ExternalServices;
 
 namespace TestProject.Version4
 {

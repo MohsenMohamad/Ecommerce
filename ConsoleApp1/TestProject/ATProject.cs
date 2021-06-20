@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Version1.domainLayer.CompositeDP;
-using Version1.domainLayer.DataStructures;
-using Version1.Service_Layer;
+using ServiceLogic.Service_Layer;
 using System.Configuration;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
 
 namespace TestProject
 {

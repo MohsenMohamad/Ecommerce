@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Version1.domainLayer.UserRoles;
+using ServiceLogic.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {

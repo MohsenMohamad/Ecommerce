@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Version1.domainLayer.DiscountPolicies;
+using ServiceLogic.DomainLayer.StoreFeatures.DiscountPolicies;
 
 namespace TestProject.UnitTests.DiscountsTests
 {
