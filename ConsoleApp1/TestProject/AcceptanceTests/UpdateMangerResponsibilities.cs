@@ -3,7 +3,7 @@ using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc46UpdateMangerResponsibilities:ATProject
+    public class UpdateMangerResponsibilities:ATProject
     {
         private static SystemAdmin admin;
         string storeName;

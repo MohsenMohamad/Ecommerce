@@ -3,7 +3,7 @@ using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc47DeleteManger:ATProject
+    public class DeleteManger:ATProject
     {
         private static SystemAdmin admin;
         private string ownerUser;

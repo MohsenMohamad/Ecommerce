@@ -3,7 +3,7 @@ using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc49getInfo:ATProject
+    public class GetInfo:ATProject
     {
         private static SystemAdmin admin;
         private string ownerUser;
