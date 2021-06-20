@@ -5,9 +5,9 @@ using Version1.Service_Layer;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc411getStorePurchaseHistory:ATProject
+    public class AddNewOwner:ATProject
     {
-        private const string UserName = "User1";
+         private const string UserName = "User1";
         private const string Password = "123";
         private const string StoreName = "test";
         private const string OwnerName = "adnan";
@@ -19,28 +19,26 @@ namespace TestProject.AcceptanceTests
         [OneTimeSetUp]
         public void SetUpSystem()
         {
-             AdminInitiateSystem();
+            AdminInitiateSystem();
         }
         [SetUp]
         public void SetUp()
         {
             Register(UserName, Password);
-            OpenStore(UserName, StoreName, "policy");
+            OpenStore(OwnerName, StoreName, "policy");
         }
-
+        
         [Test]
-        public void PurchaseHistoryUpdatetest()
+        public void TestAdd()
         {
-            
-            AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
-            var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1, 800);
-            var result2 =Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
-                "country", 11);
-            Assert.True(result1 & result2);
-            var result3 = getStorePurchaseHistory(UserName, StoreName);
-            Assert.NotNull(result3);
-
+            //happy
+            Assert.True(AddNewOwner(StoreName, OwnerName,UserName));
+            Assert.True(IsOwner(StoreName, UserName));
+            //bad
+            Assert.False(AddNewOwner(StoreName, UserName, OwnerName));
         }
+        
+        
         
         
         [TearDown]
@@ -60,6 +58,8 @@ namespace TestProject.AcceptanceTests
             var real = new RealProject();
             real.ResetMemory();
         }
+
+        
        
     }
 }

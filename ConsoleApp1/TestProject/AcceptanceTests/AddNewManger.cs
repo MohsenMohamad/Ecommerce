@@ -5,7 +5,7 @@ using Version1.Service_Layer;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc45AddNewManger:ATProject
+    public class AddNewManger:ATProject
     {
         private const string UserName = "User1";
         private const string Password = "123";

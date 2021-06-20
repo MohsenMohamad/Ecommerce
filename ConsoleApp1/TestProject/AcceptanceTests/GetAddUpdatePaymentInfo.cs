@@ -4,7 +4,7 @@ using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
-    public class Uc42GetAddUpdatePaymentInfo:ATProject
+    public class GetAddUpdatePaymentInfo:ATProject
     {
         private static SystemAdmin admin;
 
