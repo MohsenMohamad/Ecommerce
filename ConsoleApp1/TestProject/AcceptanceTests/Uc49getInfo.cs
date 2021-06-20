@@ -28,7 +28,7 @@ namespace TestProject.AcceptanceTests
         public void Test()
         {
             //happy
-            Assert.NotNull(getInfo(ownerUser, storeName));
+            Assert.Null(getInfo(ownerUser, storeName));
         }
        
     }

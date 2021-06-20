@@ -78,7 +78,10 @@ namespace TestProject
         {
             return service.SearchFilter(userName, sortOption, filters);
         }
-
+        protected int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            return service.addConditionalDiscount(shopName, percentage, condition);
+        }
         protected bool AddProductToCart(string userName, string storeName, string productCode,int amount,double priceofone)
         {
             return service.AddProductToBasket(userName, storeName, productCode,amount,priceofone);
@@ -240,6 +243,18 @@ namespace TestProject
         protected bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
             return service.remove_item_from_cart(userName, storeName, productBarcode, amount);
+        }
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            return service.addPublicDiscountToItem(storeName, barcode, percentage);
+        }
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            return  service.addPublicStoreDiscount(storeName, percentage);
+        }
+        public double GetTotalCart(string UserName)
+        {
+            return service.GetTotalCart(UserName);
         }
 
 

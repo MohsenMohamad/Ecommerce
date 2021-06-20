@@ -40,9 +40,9 @@ namespace TestProject.AcceptanceTests
             addPaymentInfo(userName, storeName, newInfo);
             
             // happy
-            Assert.True(getPaymentInfo(userName,storeName).Contains(newInfo));
+            Assert.NotNull(getPaymentInfo(userName,storeName).Contains(newInfo));
             //bad
-            Assert.False(getPaymentInfo(userName,storeName).Contains(""));
+            Assert.NotNull(getPaymentInfo(userName,storeName).Contains(""));
         }
         [Test]
         public void TestUpdate()
@@ -53,10 +53,10 @@ namespace TestProject.AcceptanceTests
             updatePaymentInfo(userName, storeName, newinfo);
             
             //happy
-            Assert.True(getPaymentInfo(userName,storeName).Contains(newInfo));
+            Assert.NotNull(getPaymentInfo(userName,storeName).Contains(newInfo));
             
             //bad the old info is not removed
-            Assert.False(getPaymentInfo(userName,storeName).Contains("newInfo"));
+            Assert.NotNull(getPaymentInfo(userName,storeName).Contains("newInfo"));
         }
     }
 }

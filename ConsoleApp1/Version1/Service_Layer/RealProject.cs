@@ -530,6 +530,30 @@ namespace Version1.Service_Layer
             }
         }
 
+        public int addPublicStoreDiscount(string storeName, int percentage)
+        {
+            try
+            {
+                return facade.addPublicStoreDiscount(storeName, percentage);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+        public double GetTotalCart(string UserName)
+        {
+            try
+            {
+                return facade.GetTotalCart(UserName);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
         public void ResetMemory()
         {
             DataHandler.Instance.Reset();
@@ -583,6 +607,30 @@ namespace Version1.Service_Layer
             catch
             {
                 return;
+            }
+        }
+
+        public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
+        {
+            try
+            {
+                return facade.addPublicDiscountToItem(storeName, barcode, percentage);
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+        public int addConditionalDiscount(string shopName, int percentage, string condition)
+        {
+            try
+            {
+                return facade.addConditionalDiscount(shopName, percentage, condition);
+            }
+            catch (Exception e)
+            {
+                return -1;
             }
         }
     }
