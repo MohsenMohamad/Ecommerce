@@ -135,10 +135,10 @@ namespace Client.Code
             return int.Parse(System.SendApi("GetPermissions", param));
         }
 
-        public bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        public string UpdatePermissions(string userName, string storeName, int newPermissions)
         {
             string param = string.Format("userName={0}&storeName={1}&newPermissions={2}", userName, storeName, newPermissions);
-            return bool.Parse(System.SendApi("UpdatePermissions", param));
+            return (System.SendApi("UpdatePermissions", param));
         }
 
         public DataSet getAllStores() {
@@ -185,10 +185,10 @@ namespace Client.Code
 
         }
 
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
+        public string AddProductToBasket(string userName, string storeName, string productBarCode, int amount, double priceofone)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarCode={2}&amount={3}&priceofone={4}", userName, storeName, productBarCode,amount, priceofone);
-            return bool.Parse(System.SendApi("AddProductToBasket", param));
+            return (System.SendApi("AddProductToBasket", param));
         }
 
 
@@ -234,10 +234,10 @@ namespace Client.Code
             return d1;
         }
 
-        public bool CloseStore(string storeName, string ownerName)
+        public string CloseStore(string storeName, string ownerName)
         {
             string param = string.Format("storeName={0}&ownerName={1}", storeName, ownerName);
-            return bool.Parse(System.SendApi("CloseStore", param));
+            return (System.SendApi("CloseStore", param));
         }
 
         public DataSet GetUserStores(string userName)
@@ -425,16 +425,16 @@ namespace Client.Code
         }
 
 
-        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        public string remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&amount={3}", userName, storeName, productBarcode , amount);
-            return bool.Parse(System.SendApi("remove_item_from_cart", param));
+            return (System.SendApi("remove_item_from_cart", param));
         }
 
-        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        public string UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
             string param = string.Format("userName={0}&storeName={1}&productBarcode={2}&newAmount={3}", userName, storeName, productBarcode, newAmount);
-            return bool.Parse(System.SendApi("UpdateCart", param));
+            return (System.SendApi("UpdateCart", param));
         }
 
 

@@ -19,6 +19,11 @@
         public const string StoreNameNotAvailable = "Error : Store Name Is Not Availavle";
         public const string ProductNotFound = "Error : Product Not Found";
         public const string ProductBarcodeNotAvailable = "Error : A Product With This Barcode Already Exists";
-        
+
+        public const string StorePolicyException = "Error : Your basket does not go with the store policies";
+        public const string FinanceServiceError = "Error : Finance Service Error";
+        public const string SupplyServiceError = "Error : Supply Service Error";
+        public const string OutOfStockError = "Error: One Of The Products You Are Trying To Buy Is Out Of Stock!";
+
     }
 }

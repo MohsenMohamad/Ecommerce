@@ -41,8 +41,15 @@ namespace Client
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()),double.Parse(Labelprice0.Text.ToString()));
-            Response.Redirect("~/Home.aspx");
+           var msg = sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()),double.Parse(Labelprice0.Text.ToString()));
+            if (msg.Equals("\"True\""))
+            {
+                Response.Redirect("~/Home.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+            }
 
         }
 

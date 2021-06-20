@@ -51,8 +51,8 @@ namespace Client
                 Session["Amount"] = cargs[6];
 
                 ShopHandler s = new ShopHandler();
-                bool b = s.remove_item_from_cart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()));
-                if (b)
+                var msg = s.remove_item_from_cart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()));
+                if (msg.Equals("\"True\""))
                 {
                     /*ShopHandler c = new ShopHandler();
                     Data_cart.DataSource = c.GetUserBaskets(Session["username"].ToString());
@@ -61,6 +61,7 @@ namespace Client
                 }
                 else
                 {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
                 }
             }
 
@@ -73,8 +74,16 @@ namespace Client
                 Session["Amount"] = cargs[3];
 
                 ShopHandler s = new ShopHandler();
-                s.UpdateCart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()) + 1);
-                Response.Redirect("~/Cart.aspx");
+             var msg = s.UpdateCart(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Session["Amount"].ToString()) + 1);
+
+                if (msg.Equals("\"True\""))
+                {
+                    Response.Redirect("~/Cart.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                }
 
             }
             if (e.CommandName == "down_command")
@@ -124,10 +133,16 @@ namespace Client
             }
             else
             {
-                bool buy = s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString(),int.Parse(Text0.Text), int.Parse(Text1.Text), Text2.Text, int.Parse(Text3.Text), int.Parse(Text4.Text), Text5.Text, Text6.Text, Text7.Text, Text8.Text, int.Parse(Text9.Text));
-                if (buy)
+                var msg = s.Purchase(Session["username"].ToString(), TextBoxCreditcard.Text.ToString(), int.Parse(Text0.Text), int.Parse(Text1.Text), Text2.Text, int.Parse(Text3.Text), int.Parse(Text4.Text), Text5.Text, Text6.Text, Text7.Text, Text8.Text, int.Parse(Text9.Text));
+                if (msg.Equals("\"True\""))
                 {
                     Response.Redirect("~/PurchaseDone.aspx");
+                }
+                else
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+
                 }
             }
 

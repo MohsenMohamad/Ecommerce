@@ -47,8 +47,15 @@ namespace Client
                 UserHandler uh = new UserHandler();
                 if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
                 {
-                   sh.CloseStore(Session["editshop"].ToString(), Session["username"].ToString());
-                   Response.Redirect("~/MyShops.aspx");
+                 var msg =  sh.CloseStore(Session["editshop"].ToString(), Session["username"].ToString());
+                    if (msg.Equals("\"True\""))
+                    {
+                        Response.Redirect("~/MyShops.aspx");
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    }
                 }
                 else
                 {

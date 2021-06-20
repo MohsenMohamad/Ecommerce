@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Version1.DataAccessLayer;
+using Version1.domainLayer;
 using Version1.domainLayer.DataStructures;
 using Version1.ExternalServices;
 
@@ -40,8 +41,21 @@ namespace Version1.LogicLayer
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productCode, storeName);
 
-                if (user == null || store == null || product == null || amount < 0)
-                    return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
+                if (amount < 0) {
+                    throw new Exception("Amount Cant be negtive");
+                }
 
                 var userCart = user.GetShoppingCart();
                 if (!userCart.shoppingBaskets.ContainsKey(storeName))
@@ -84,8 +98,18 @@ namespace Version1.LogicLayer
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
-                if (user == null || store == null || product == null)
-                    return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
 
                 var cart = user.GetShoppingCart();
                 if (!cart.shoppingBaskets.ContainsKey(storeName))
@@ -118,7 +142,23 @@ namespace Version1.LogicLayer
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
-                if (user == null || store == null || product == null || newAmount < 0) return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
+                if (newAmount < 0)
+                {
+                    throw new Exception("Amount Cant be negtive");
+                }
+
 
                 var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
@@ -218,7 +258,7 @@ namespace Version1.LogicLayer
         {
             lock (DataHandler.Instance.InefficientLock)
             {
-                if (!ValidateBasketPolicies(userName, basket.StoreName)) throw new Exception("");
+                if (!ValidateBasketPolicies(userName, basket.StoreName)) throw new Exception(Errors.StorePolicyException);
 
                 var price = GetBasketPrice(userName, basket.StoreName);
                 var store = DataHandler.Instance.GetStore(basket.StoreName);
@@ -232,7 +272,7 @@ namespace Version1.LogicLayer
                     paymentInfo.ExpYear,
                     paymentInfo.CardHolder, paymentInfo.CardCcv, paymentInfo.HolderId);
 
-                if (transactionId < 0) throw new Exception("");
+                if (transactionId < 0) throw new Exception(Errors.FinanceServiceError);
 
 
                 var shipmentId = supplyService.Supply(supplyAddress.NameF, supplyAddress.AddressF, supplyAddress.CityF,
@@ -241,7 +281,7 @@ namespace Version1.LogicLayer
                 if (shipmentId < 0)
                 {
                     financeService.CancelPay(transactionId);
-                    throw new Exception("");
+                    throw new Exception(Errors.SupplyServiceError);
                 }
 
                 //make transaction
@@ -253,7 +293,7 @@ namespace Version1.LogicLayer
                     {
                         financeService.CancelPay(transactionId);
                         supplyService.CancelSupply(shipmentId);
-                        throw new Exception("");
+                        throw new Exception(Errors.OutOfStockError);
                     }
 
 
