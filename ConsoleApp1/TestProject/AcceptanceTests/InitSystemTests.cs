@@ -1,7 +1,6 @@
-/*using NUnit.Framework;
-using Project_tests;
+using NUnit.Framework;
 
-namespace Project_Tests.AcceptanceTests
+namespace TestProject.AcceptanceTests
 {
     public class InitSystemTests : ATProject
     {
@@ -14,24 +13,16 @@ namespace Project_Tests.AcceptanceTests
         [Test]
         public void Happy()
         {
-            Assert.True(InitiateSystem());
         }
 
         [Test]
         public void Bad()
         {
-            Assert.False(InitiateSystem());
         }
 
         [Test]
         public void Sad()
         {
-            Assert.True(InitiateSystem());
-            Assert.False(InitiateSystem());
         }
     }
-}*/
-
-namespace TestProject.AcceptanceTests
-{
 }

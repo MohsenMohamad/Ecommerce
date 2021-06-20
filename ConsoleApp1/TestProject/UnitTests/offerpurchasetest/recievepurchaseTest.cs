@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Version1.domainLayer.DataStructures;
-using System.Configuration;
+using Version1.Service_Layer;
+
 namespace TestProject.UnitTests.offerpurchasetest
 {
     public class recievepurchaseTest : ATProject
@@ -10,8 +11,7 @@ namespace TestProject.UnitTests.offerpurchasetest
         [SetUp]
         public void Setup()
         {
-           
-            //AdminInitiateSystem();
+            AdminInitiateSystem();
            
             
             Register("mohamad", "mohamad");
@@ -21,8 +21,6 @@ namespace TestProject.UnitTests.offerpurchasetest
         [Test]
         public void Happy()
         {
-
-
             UserLogin("mohamad", "mohamad");
             
             
@@ -44,15 +42,17 @@ namespace TestProject.UnitTests.offerpurchasetest
             UserLogin("mohamad", "mohamad");
 
             List<string> lst = GetUserNotificationsoffer("adnan");
-            Assert.True(GetUserNotificationsoffer("adnan").Count == 1);
+            Assert.True(lst.Count == 0);
             Recieve_purchase_offer("mohamad", "AdnanStore", "8", "2", 1);
+            
+            Assert.False(GetUserNotificationsoffer("adnan").Count == 0);
 
-            lst = GetUserNotificationsoffer("adnan");
+        }
 
-
-
-            Assert.False(GetUserNotificationsoffer("adnan").Count == 1);
-
+        [TearDown]
+        public void TearDown()
+        {
+            new RealProject().ResetMemory();
         }
     }
 }

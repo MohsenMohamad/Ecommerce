@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Version1.domainLayer.DataStructures;
+using Version1.Service_Layer;
 
 namespace TestProject.UnitTests.offerpurchasetest
 {
@@ -54,6 +55,12 @@ namespace TestProject.UnitTests.offerpurchasetest
             Assert.False(GetUserNotificationsoffer("mohamad").Count == 0);
 
 
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            new RealProject().ResetMemory();
         }
     }
 }
