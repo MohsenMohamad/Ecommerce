@@ -352,5 +352,10 @@ namespace Version1.LogicLayer
             return UserLogic.UpdatePermissions(userName,storeName,newPermissions);
         }
 
+        public bool AddCompositePolicy(string storeName, string jsonText)
+        {
+            return StoreLogic.AddCompositePolicy(storeName, jsonText);
+        }
+
     }
 }
