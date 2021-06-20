@@ -2,13 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Http;
-
+using System.Configuration;
 
 namespace Version1.ExternalServices
 {
     public class FinanceService : IFinanceServiceAdapter
     {
-        private const string SystemUrl = "https://cs-bgu-wsep.herokuapp.com/";
+        private static string SystemUrl = ConfigurationManager.AppSettings["finance"];
 
         private static async Task<string> AsyncHandShake()
         {

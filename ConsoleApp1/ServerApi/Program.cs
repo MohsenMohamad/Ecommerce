@@ -29,9 +29,7 @@ namespace ServiceApi
             {
                 try
                 {
-                    SystemAdmin sysadmin = new SystemAdmin();
                     //await retrieveDataAsync();
-                    var facade = new Facade();
                     
                   //  facade.Register("admin", "admin");
                   /*  foreach (string i in facade.GetAllUserNamesInSystem())

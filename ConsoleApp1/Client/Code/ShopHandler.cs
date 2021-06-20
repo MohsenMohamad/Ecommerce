@@ -50,7 +50,7 @@ namespace Client.Code
 
             for (int i = 0; i < jarray.Count; i++)
             {
-                if (int.Parse((string)jarray[i][3]) >= min && int.Parse((string)jarray[i][3]) <= max)
+                if (double.Parse((string)jarray[i][3]) >= min && double.Parse((string)jarray[i][3]) <= max)
                 {
                     t1.Rows.Add(jarray[i][0], jarray[i][1], jarray[i][2], jarray[i][3], jarray[i][4], jarray[i][5], jarray[i][6]);
 
@@ -72,7 +72,6 @@ namespace Client.Code
 
         public void acceptoffer(string barcode, string price, string username, string storename, int amount, string by_username)
         {
-
             string param = string.Format("barcode={0}&price={1}&username={2}&storename={3}&amount={4}&by_username={5}", barcode, price, username, storename, amount, by_username);
             System.SendApi("acceptoffer", param);
 
