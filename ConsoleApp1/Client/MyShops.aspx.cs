@@ -14,10 +14,10 @@ namespace Client
         {
             if (!IsPostBack)
             {
-            ShopHandler a = new ShopHandler();
+                ShopHandler a = new ShopHandler();
 
-            Data_shop.DataSource = a.GetUserStores(Session["username"].ToString());
-            Data_shop.DataBind();
+                Data_shop.DataSource = a.GetUserStores(Session["username"].ToString());
+                Data_shop.DataBind();
             }
         }
         protected void Data_shop_Command(object source, DataListCommandEventArgs e)
@@ -26,14 +26,14 @@ namespace Client
             {
                 Session["editshop"] = e.CommandArgument;
                 UserHandler uh = new UserHandler();
-/*                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
-                {*/
-                    Response.Redirect("~/EditShop.aspx");
-               /* }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
-                }*/
+                /*                if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
+                                {*/
+                Response.Redirect("~/EditShop.aspx");
+                /* }
+                 else
+                 {
+                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('youre not an owner !!!!!!!!!!!!!')", true);
+                 }*/
             }
             if (e.CommandName == "StafInfo")
             {
@@ -47,8 +47,15 @@ namespace Client
                 UserHandler uh = new UserHandler();
                 if (uh.IsOwner(Session["editshop"].ToString(), Session["username"].ToString()))
                 {
-                   sh.CloseStore(Session["editshop"].ToString(), Session["username"].ToString());
-                   Response.Redirect("~/MyShops.aspx");
+                    var msg = sh.CloseStore(Session["editshop"].ToString(), Session["username"].ToString());
+                    if (msg.Equals("\"True\""))
+                    {
+                        Response.Redirect("~/MyShops.aspx");
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    }
                 }
                 else
                 {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using ServiceLogic.Service_Layer;
 using System.Configuration;
+using ServiceLogic.Service_Layer;
+
 namespace ServerApi
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -40,9 +41,17 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool UpdatePermissions(string userName, string storeName, int newPermissions)
+        public string UpdatePermissions(string userName, string storeName, int newPermissions)
         {
-            return facade.UpdatePermissions(userName, storeName, newPermissions);
+            try
+            {
+                var msg = facade.UpdatePermissions(userName, storeName, newPermissions);
+                return msg.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -77,12 +86,19 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool CloseStore(string storeName, string ownerName)
+        public string CloseStore(string storeName, string ownerName)
         {
-            var result = facade.CloseStore(storeName, ownerName);
-            if (result)
-                Logger.GetInstance().Event(storeName + " has been closed by " + ownerName);
-            return result;
+            try
+            {
+                var result = facade.CloseStore(storeName, ownerName);
+                if (result)
+                    Logger.GetInstance().Event(storeName + " has been closed by " + ownerName);
+                return result.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -282,28 +298,34 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool AddProductToBasket(string userName, string storeName, string productBarCode, int amount,
+        public string AddProductToBasket(string userName, string storeName, string productBarCode, int amount,
             double priceofone)
         {
-            var output = facade.AddProductToBasket(userName, storeName, productBarCode, amount, priceofone);
-            Logger.GetInstance().Event(output
-                ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
-                : userName + " could not add product :" + productBarCode + "form store: " + storeName +
-                  " to his Basket");
-            return output;
+            try
+            {
+                var output = facade.AddProductToBasket(userName, storeName, productBarCode, amount, priceofone);
+                Logger.GetInstance().Event(output
+                    ? userName + " has has added product :" + productBarCode + "form store: " + storeName + " to his Basket"
+                    : userName + " could not add product :" + productBarCode + "form store: " + storeName +
+                      " to his Basket");
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
-/*
-        [HttpGet]
-        public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
-           string categories)
-        {
-            bool output = facade.AddNewProductToSystem1(barcode, productName, description, price, categories);
-            Logger.GetInstance().Event(output
-                ? productName + "with barcode:" + barcode + " has been added to the system "
-                : productName + "with barcode:" + barcode + " has not been added to the system");
-            return output;
-
-        }*/
+        /*
+                [HttpGet]
+                public bool AddNewProductToSystem(string barcode, string productName, string description, double price,
+                   string categories)
+                {
+                    bool output = facade.AddNewProductToSystem1(barcode, productName, description, price, categories);
+                    Logger.GetInstance().Event(output
+                        ? productName + "with barcode:" + barcode + " has been added to the system "
+                        : productName + "with barcode:" + barcode + " has not been added to the system");
+                    return output;
+                }*/
 
         //  [HttpGet]
         /*public bool AddItemToStore(string shopName, string itemBarCode, int amount)
@@ -315,13 +337,20 @@ namespace ServerApi
             return output;
         }*/
         [HttpGet]
-        public bool remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
+        public string remove_item_from_cart(string userName, string storeName, string productBarcode, int amount)
         {
-            var output = facade.remove_item_from_cart(userName, storeName, productBarcode, amount);
-            Logger.GetInstance().Event(output
-                ? userName + " has has added product :" + productBarcode + "form store: " + storeName + " to his cart"
-                : userName + " could not add product :" + productBarcode + "form store: " + storeName + " to his cart");
-            return output;
+            try
+            {
+                var output = facade.remove_item_from_cart(userName, storeName, productBarcode, amount);
+                Logger.GetInstance().Event(output
+                    ? userName + " has has added product :" + productBarcode + "form store: " + storeName + " to his cart"
+                    : userName + " could not add product :" + productBarcode + "form store: " + storeName + " to his cart");
+                return output.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]
@@ -349,14 +378,21 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
+        public string UpdateCart(string userName, string storeName, string productBarcode, int newAmount)
         {
-            var result = facade.UpdateCart(userName, storeName, productBarcode, newAmount);
-            /*    if (result)
-                    Logger.GetInstance().Event(userName + "has changed the amount of " + productBarcode + " in his " +
-                                               storeName + " basket");
-                                               */
-            return result;
+            try
+            {
+                var result = facade.UpdateCart(userName, storeName, productBarcode, newAmount);
+                /*    if (result)
+                        Logger.GetInstance().Event(userName + "has changed the amount of " + productBarcode + " in his " +
+                                                   storeName + " basket");
+                                                   */
+                return result.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         /*       [HttpGet]
@@ -451,16 +487,23 @@ namespace ServerApi
         }
 
         [HttpGet]
-        public bool Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder,
+        public string Purchase(string userName, string cardNumber, int expMonth, int expYear, string cardHolder,
             int cardCcv, int holderId, string nameF, string address, string city, string country, int zip)
         {
-            var result = facade.Purchase(userName, cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId, nameF,
-                address, city, country, zip);
+            try
+            {
+                var result = facade.Purchase(userName, cardNumber, expMonth, expYear, cardHolder, cardCcv, holderId, nameF,
+                    address, city, country, zip);
 
-            if (result)
-                Logger.GetInstance().Event(userName + " has completed a purchase ");
+                if (result)
+                    Logger.GetInstance().Event(userName + " has completed a purchase ");
 
-            return result;
+                return result.ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpGet]

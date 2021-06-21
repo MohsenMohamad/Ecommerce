@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceLogic.DataAccessLayer;
 using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.domainLayer;
 using ServiceLogic.ExternalServices;
 
 namespace ServiceLogic.DomainLayer.LogicLayer
+
 {
     public static class CartLogic
     {
@@ -25,7 +27,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                     var storeResult = PurchaseFromStore(userName, basket, paymentInfo, supplyAddress);
                     if (!storeResult) return false;
                 }
-                
+
                 return true;
             }
         }
@@ -39,8 +41,22 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productCode, storeName);
 
-                if (user == null || store == null || product == null || amount < 0)
-                    return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
+                if (amount < 0)
+                {
+                    throw new Exception("Amount Cant be negtive");
+                }
 
                 var userCart = user.GetShoppingCart();
                 if (!userCart.shoppingBaskets.ContainsKey(storeName))
@@ -76,15 +92,25 @@ namespace ServiceLogic.DomainLayer.LogicLayer
 
         public static bool RemoveProductFromBasket(string userName, string storeName, string productBarcode, int amount)
         {
-            
+
             lock (DataHandler.Instance.InefficientLock)
             {
                 var user = DataHandler.Instance.GetUser(userName);
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
-                if (user == null || store == null || product == null)
-                    return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
 
                 var cart = user.GetShoppingCart();
                 if (!cart.shoppingBaskets.ContainsKey(storeName))
@@ -117,7 +143,23 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                 var store = DataHandler.Instance.GetStore(storeName);
                 var product = DataHandler.Instance.GetProduct(productBarcode, storeName);
 
-                if (user == null || store == null || product == null || newAmount < 0) return false;
+                if (user == null)
+                {
+                    throw new Exception(Errors.UserNotFound);
+                }
+                if (store == null)
+                {
+                    throw new Exception(Errors.StoreNotFound);
+                }
+                if (product == null)
+                {
+                    throw new Exception(Errors.ProductNotFound);
+                }
+                if (newAmount < 0)
+                {
+                    throw new Exception("Amount Cant be negtive");
+                }
+
 
                 var shoppingBasket = user.GetShoppingCart().GetBasket(storeName);
                 if (shoppingBasket == null || !shoppingBasket.Products.ContainsKey(productBarcode)) return false;
@@ -217,7 +259,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
         {
             lock (DataHandler.Instance.InefficientLock)
             {
-                if (!ValidateBasketPolicies(userName, basket.StoreName)) throw new Exception("");
+                if (!ValidateBasketPolicies(userName, basket.StoreName)) throw new Exception(Errors.StorePolicyException);
 
                 var price = GetBasketPrice(userName, basket.StoreName);
                 var store = DataHandler.Instance.GetStore(basket.StoreName);
@@ -231,7 +273,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                     paymentInfo.ExpYear,
                     paymentInfo.CardHolder, paymentInfo.CardCcv, paymentInfo.HolderId);
 
-                if (transactionId < 0) throw new Exception("");
+                if (transactionId < 0) throw new Exception(Errors.FinanceServiceError);
 
 
                 var shipmentId = supplyService.Supply(supplyAddress.NameF, supplyAddress.AddressF, supplyAddress.CityF,
@@ -240,7 +282,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                 if (shipmentId < 0)
                 {
                     financeService.CancelPay(transactionId);
-                    throw new Exception("");
+                    throw new Exception(Errors.SupplyServiceError);
                 }
 
                 //make transaction
@@ -252,7 +294,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                     {
                         financeService.CancelPay(transactionId);
                         supplyService.CancelSupply(shipmentId);
-                        throw new Exception("");
+                        throw new Exception(Errors.OutOfStockError);
                     }
 
 
@@ -262,7 +304,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                         user = userName,
                         date = DateTime.Now,
                         store = basket.StoreName,
-                        purchaseType = DataAccessLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
+                        purchaseType = ServiceLogic.DataAccessLayer.DataStructures.Purchase.PurchaseType.DirectPurchase,
                         purchaseId = transactionId,
                         items = basket.Products.ToDictionary(
                             prod => DataHandler.Instance.GetProduct(prod.Key, basket.StoreName),
@@ -293,7 +335,7 @@ namespace ServiceLogic.DomainLayer.LogicLayer
                 {
                     return false;
                 }
-                
+
 
             }
 

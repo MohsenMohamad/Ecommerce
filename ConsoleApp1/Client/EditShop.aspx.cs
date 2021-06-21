@@ -426,9 +426,7 @@ namespace Client
             /* if (!a.AddNewProductToSystem(TextBoxbarcode.Text.ToString(), TextBoxproductName.Text.ToString(), TextBoxdescription.Text.ToString()
                  , double.Parse(TextBoxprice.Text.ToString()), TextBoxcategories.Text.ToString()))
              {
-
                  Labelerrorbarcode.Visible = true;
-
              }
              else
              {*/
@@ -695,15 +693,36 @@ namespace Client
             {
                 if (DropDownList9.SelectedValue.Equals("1"))
                 {
-                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewItem));
+                    var msg = sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewItem));
+                    if (msg.Equals("\"True\""))
+                    {
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    }
                 }
                 if (DropDownList9.SelectedValue.Equals("2"))
                 {
-                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewPolicy));
+                    var msg = sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewPolicy));
+                    if (msg.Equals("\"True\""))
+                    {
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    }
                 }
                 if (DropDownList9.SelectedValue.Equals("3"))
                 {
-                    sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewDiscount));
+                    var msg = sh.UpdatePermissions(DropDownList8.SelectedItem.Text.ToString(), Session["editshop"].ToString(), ((int)Permissions.StorePermissions.AddNewDiscount));
+                    if (msg.Equals("\"True\""))
+                    {
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+                    }
                 }
             }
 

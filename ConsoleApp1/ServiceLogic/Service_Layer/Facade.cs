@@ -627,7 +627,7 @@ namespace ServiceLogic.Service_Layer
                     product.Add(pr.Barcode);
                     product.Add(pr.Price.ToString(CultureInfo.CurrentCulture));
                     var categories = pr.Categories.Aggregate("", (current, category) => current + category + "#");
-
+                    product.Add(pr.DiscountPolicy.DiscountDescription);
                     categories = categories.Substring(0, categories.Length - 1);
                     product.Add(categories);
                     product.Add(storeProducts.Key);

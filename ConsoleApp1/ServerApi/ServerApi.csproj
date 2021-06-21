@@ -219,7 +219,7 @@
       <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
       <Name>ServiceLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Version1\Version1.csproj">
+    <ProjectReference Include="..\ServiceLogic\ServiceLogic.csproj">
       <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
       <Name>Version1</Name>
     </ProjectReference>

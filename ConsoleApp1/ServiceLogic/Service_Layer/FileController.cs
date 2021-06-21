@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ServiceLogic.DataAccessLayer.DataStructures;
 
 namespace ServiceLogic.Service_Layer
 {
@@ -28,7 +29,7 @@ namespace ServiceLogic.Service_Layer
         {
             // wrap all this in try and different catches
             
-          /*  try
+            try
             {
                 var jsonString = File.ReadAllText(path);
                 var jsonArray = (JArray) JsonConvert.DeserializeObject(jsonString);
@@ -82,11 +83,11 @@ namespace ServiceLogic.Service_Layer
             {
                 throw new Exception(e.Message);
             }
-*/
+
             return true;
         }
 
-      /*  private static void CreateJson()
+        private static void CreateJson()
         {
             
             var electronics = new Category("Electronics");
@@ -112,7 +113,7 @@ namespace ServiceLogic.Service_Layer
             
             var js = new List<FileData>
             {
-                *//* ----------------------------  Users -------------------------------*//*
+                //* ----------------------------  Users -------------------------------*//*
                 new FileData() {MethodName = "Register", MethodParams = new List<string> {"mohamedm", "1111"}},
                 new FileData() {MethodName = "Register", MethodParams = new List<string> {"adnan", "2222"}},
                 new FileData() {MethodName = "Register", MethodParams = new List<string> {"mohameda", "3333"}},
@@ -120,7 +121,7 @@ namespace ServiceLogic.Service_Layer
                 new FileData() {MethodName = "Register", MethodParams = new List<string> {"shadi", "5555"}},
                 new FileData() {MethodName = "Register", MethodParams = new List<string> {"asd", "123"}},
                 
-                *//* ----------------------------- Stores ---------------------------------*//*
+                //* ----------------------------- Stores ---------------------------------*//*
 
                 
                 new FileData() {MethodName = "OpenStore", MethodParams = new List<string> {"mohamedm", "MohamedStore", "MohamedPolicy"}},
@@ -163,7 +164,7 @@ namespace ServiceLogic.Service_Layer
                 File.WriteAllText(DesktopPath + @"\json\file.json", json);
             }
             
-        }*/
+        }
 
         [Serializable]
         private class FileData : ISerializable
