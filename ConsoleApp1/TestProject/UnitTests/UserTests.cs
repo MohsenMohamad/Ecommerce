@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Version1.domainLayer.DataStructures;
+using ServiceLogic.DataAccessLayer.DataStructures;
 
 namespace TestProject.UnitTests
 {

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Version1.domainLayer.CompositeDP;
-using Version1.domainLayer.DataStructures;
-using Version1.Service_Layer;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
+using ServiceLogic.Service_Layer;
 
 namespace TestProject
 {
@@ -113,6 +113,27 @@ namespace TestProject
             return real?.GetUserPurchaseHistoryList(userName);
         }
 
+        public Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByProductNameDictionary(productName);
+        }
+
+        public Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByKeywordDictionary(keyword);
+        }
+
+        public Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByCategoryDictionary(category);
+
+        }
+
+        public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            return real == null || real.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
@@ -121,14 +142,7 @@ namespace TestProject
                 return true;
             return real.AddProductToStore(managerName, storeName, barcode, productName, description,price , categories1, amount);
         }
-
-        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            if (real == null)
-                return null;
-            return real.SearchFilter(userName, sortOption, filters);
-        }
-
+        
         public bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             if (real == null)
@@ -149,14 +163,7 @@ namespace TestProject
                 return true;
             return real.UpdatePurchasePolicy(storeName, policy);
         }
-
-        public bool initSystem(string admin)
-        {
-            if (real == null)
-                return false;
-            return real.initSystem(admin);
-        }
-
+        
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             if (real == null)
@@ -253,17 +260,7 @@ namespace TestProject
 
             return real.IsOwner(storeName, ownerName);
         }
-
-        public bool AddNewManger(string user, string store, string newMangerName)
-        {
-            if (real == null)
-            {
-                return false;
-            }
-
-            return real.AddNewManger(user, store, newMangerName);
-        }
-
+        
         public bool IsManger(string storeName, string mangerName)
         {
             if (real == null)

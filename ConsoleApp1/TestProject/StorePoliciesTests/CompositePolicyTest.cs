@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Version1.domainLayer.CompositeDP;
-using Version1.domainLayer.DataStructures;
-using Version1.domainLayer.StorePolicies;
-using Version1.Service_Layer;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
+using ServiceLogic.Service_Layer;
 
 namespace TestProject.StorePoliciesTests
 {

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Version1.domainLayer.DataStructures;
-using Version1.domainLayer.StorePolicies;
-using Version1.ExternalServices;
-using Version1.Service_Layer;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies;
+using ServiceLogic.ExternalServices;
+using ServiceLogic.Service_Layer;
 
 namespace TestProject.AcceptanceTests
 {
@@ -38,12 +38,14 @@ namespace TestProject.AcceptanceTests
 
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 1, 800);
+            var prevNotifications = GetUserNotifications(UserName).Count;
             var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
                 "country", 11);
 
             Assert.True(result1 & result2);
             Assert.True(getStorePurchaseHistory(UserName,StoreName)?.Count == 1);
             Assert.IsNull(GetCartByStore(UserName,StoreName));
+            Assert.AreEqual(GetUserNotifications(UserName).Count,prevNotifications+1);
  
         }
 
@@ -51,12 +53,11 @@ namespace TestProject.AcceptanceTests
         public void Amount()
         {
             // The requested amount is not available
-            
 
-            
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 2);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 2, 800);
             UpdateProductAmountInStore(UserName, StoreName, product1.Barcode, 1);
+            var prevNotifications = GetUserNotifications(UserName).Count;
             var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
                 "country", 11);
             
@@ -64,6 +65,8 @@ namespace TestProject.AcceptanceTests
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 2); // cart still the same
+            Assert.AreEqual(GetUserNotifications(UserName).Count,prevNotifications);
+
             
         }
 
@@ -74,6 +77,7 @@ namespace TestProject.AcceptanceTests
             
             AddProductToStore(OwnerName, StoreName, product1.Barcode,product1.Name,product1.Description,product1.Price,product1.Categories.ToString(), 6);
             var result1 = AddProductToCart(UserName, StoreName, product1.Barcode, 5, 800);
+            var prevNotifications = GetUserNotifications(UserName).Count;
             var result2 = Purchase(UserName, "12341234", 11, 2030, "holder", 512, 208764533, "name", "address", "city",
                 "country", 11);
             
@@ -81,6 +85,8 @@ namespace TestProject.AcceptanceTests
             Assert.False(result2); // could not purchase
             Assert.IsEmpty(getStorePurchaseHistory(UserName,StoreName));
             Assert.True(GetCartByStore(UserName, StoreName)[product1.Barcode] == 5); // cart still the same
+            Assert.AreEqual(GetUserNotifications(UserName).Count,prevNotifications);
+
         }
         
         

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Version1.domainLayer.DataStructures;
-using Version1.Service_Layer;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.Service_Layer;
 
 namespace TestProject.ConcurrencyTests
 {

@@ -1,72 +1,51 @@
-﻿/*using System.Collections;
-using Version1.domainLayer;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
-using Project_tests;
-using Version1.domainLayer.DataStructures;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.Service_Layer;
 
-namespace Project_Tests.AcceptanceTests
+namespace TestProject.AcceptanceTests
 {
     public class StoreInfoTests : ATProject
     {
-        
-        private Hashtable storeProducts;
-        private const string StoreName = "test";
-        private const string TestOwnerName = "member";
-        private const string TestOwnerPassword = "member";
-        private const string TestStorePolicy = "policy";
+        private const string StoreName = "Test Store";
+        private const string UserName = "Test User";
+        private const string UserPassword = "123";
+        private readonly Product product1 = new Product("452456", "tomato", "Red Organic Tomatoes", 10,
+            new List<string>{"vegetables&fruit"});
 
-        [SetUp]
+
+        [OneTimeSetUp]
         public void Setup()
         {
-            Register(TestOwnerName, TestOwnerPassword);
-            UserLogin(TestOwnerName, TestOwnerPassword);
-            OpenStore(TestOwnerName, TestStorePolicy, StoreName);
-            var product1 = new Product("salt", "kosher salt", "111", null);
-            var product2 = new Product("tea", "black tea", "222", null);
-            const int product1Amount = 2;
-            const int product2Amount = 4;
-            storeProducts = new Hashtable();
-            storeProducts.Add(product1, product1Amount);
-            storeProducts.Add(product2, product2Amount);
-            AddProductToStore(TestOwnerName, StoreName, product1.Barcode, product1Amount);
-            AddProductToStore(TestOwnerName, StoreName, product2.Barcode, product2Amount);
-            UserLogout(TestOwnerName);
 
-            GuestLogin();
-            
+            Register(UserName, UserPassword);
+            OpenStore(UserName, StoreName, "policy");
+            AddProductToStore(UserName, StoreName, product1.Barcode, product1.Name,product1.Description,product1.price,product1.Categories.First(),1);
         }
 
         [Test]
         public void Happy()
         {
-            var testInfo = GetStoreInfo(null, StoreName);
-            Assert.NotNull(testInfo);
-            Assert.Equals(testInfo.Name, StoreName);
-            Assert.Equals(testInfo.Owner, TestOwnerName);
-            Assert.Equals(testInfo.SellingPolicy, TestStorePolicy);
-            Assert.True(CheckStoreInventory(testInfo.Name, storeProducts));
+            Assert.True(IsOwner(StoreName, UserName));
+            var inventory = GetStoreInventory(UserName,StoreName);
+            Assert.NotNull(inventory);
+            Assert.True(inventory.Count ==1);
+            Assert.AreEqual(inventory[product1.barcode],1);
         }
-
-        [Test]
-        public void Sad()
-        {
-            //
-        }
-
-        [Test]
-        public void Bad()
-        {
-        }
-
+        
         [Test]
         public void ShouldFail()
         {
-            var info = GetStoreInfo(null, "non-existing_store");
+            var info = GetStoreInfo(UserName, "non-existing_store");
             Assert.IsNull(info);
         }
-    }
-}*/
 
-namespace TestProject.AcceptanceTests
-{
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            new RealProject().ResetMemory();
+            
+        }
+    }
 }

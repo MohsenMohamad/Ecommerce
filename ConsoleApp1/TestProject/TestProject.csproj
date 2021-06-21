@@ -74,7 +74,7 @@
     <Compile Include="AcceptanceTests\PurchaseByCreditTests.cs" />
     <Compile Include="AcceptanceTests\PurchasesHistoryTests.cs" />
     <Compile Include="AcceptanceTests\RegisterTests.cs" />
-    <Compile Include="AcceptanceTests\SearchFilterTests.cs" />
+    <Compile Include="AcceptanceTests\SearchTests.cs" />
     <Compile Include="AcceptanceTests\StoreInfoTests.cs" />
     <Compile Include="AcceptanceTests\Uc411getStorePurchaseHistory.cs" />
     <Compile Include="AcceptanceTests\Uc41AddEditRemovePruduct.cs" />
@@ -115,9 +115,9 @@
     <Compile Include="Version4\SupplyServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Version1\Version1.csproj">
+    <ProjectReference Include="..\ServiceLogic\ServiceLogic.csproj">
       <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
-      <Name>Version1</Name>
+      <Name>ServiceLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

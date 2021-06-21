@@ -1,20 +1,16 @@
 using NUnit.Framework;
-using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
     public class Uc46UpdateMangerResponsibilities:ATProject
     {
-        private static SystemAdmin admin;
         string storeName;
         private string userName;
         
         [SetUp]
         public void Setup()
         {
-            admin = new SystemAdmin();
-            admin.InitSystem();
-
+            
             userName = "user0";
             Register("user0","userPass");
             UserLogin("user0", "userPass");

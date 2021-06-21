@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Version1.domainLayer.CompositeDP;
-using Version1.domainLayer.DataStructures;
-using Version1.Service_Layer;
+using ServiceLogic.Service_Layer;
 using System.Configuration;
+using ServiceLogic.DataAccessLayer.DataStructures;
+using ServiceLogic.DomainLayer.StoreFeatures.StorePolicies.CompositeDP;
 
 namespace TestProject
 {
@@ -73,11 +73,7 @@ namespace TestProject
         {
             return service.CheckStoreInventory(storeName, products);
         }
-
-        protected List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            return service.SearchFilter(userName, sortOption, filters);
-        }
+        
         protected int addConditionalDiscount(string shopName, int percentage, string condition)
         {
             return service.addConditionalDiscount(shopName, percentage, condition);
@@ -91,12 +87,7 @@ namespace TestProject
         {
             return service.GetCartByStore(userName, storeName);
         }
-
-        protected bool initSystem(string admin)
-        {
-            return service.initSystem(admin);
-        }
-
+        
         protected bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             return service.RemoveProductFromStore(userName, storeName, productBarcode);
@@ -133,12 +124,11 @@ namespace TestProject
         {
             return service.MakeNewOwner(store, user, newOwnerName);
         }
-        
-        protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
-        {
-            return service.AddNewManger(storeName, apointerName, apointeeNAme);
-        }
 
+        protected bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            return service.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+        }
         protected bool IsOwner(string storeName, string ownerName)
         {
             return service.IsOwner(storeName, ownerName);
@@ -252,9 +242,25 @@ namespace TestProject
         {
             return  service.addPublicStoreDiscount(storeName, percentage);
         }
-        public double GetTotalCart(string UserName)
+        
+        protected double GetTotalCart(string UserName)
         {
             return service.GetTotalCart(UserName);
+        }
+
+        protected Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            return service.SearchByProductNameDictionary(productName);
+        }
+
+        protected Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            return service.SearchByKeywordDictionary(keyword);
+        }
+
+        protected Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            return service.SearchByCategoryDictionary(category);
         }
 
 

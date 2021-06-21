@@ -1,19 +1,16 @@
 using NUnit.Framework;
-using Version1.domainLayer.UserRoles;
 
 namespace TestProject.AcceptanceTests
 {
     public class Uc47DeleteManger:ATProject
     {
-        private static SystemAdmin admin;
         private string ownerUser;
         string storeName;
         
         [SetUp]
         public void Setup()
         {
-            admin = new SystemAdmin();
-            admin.InitSystem();
+
             ownerUser = "user0";
             
             Register("user0","userPass");
