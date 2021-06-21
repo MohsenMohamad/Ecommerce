@@ -74,7 +74,7 @@
     <Compile Include="AcceptanceTests\PurchaseByCreditTests.cs" />
     <Compile Include="AcceptanceTests\PurchasesHistoryTests.cs" />
     <Compile Include="AcceptanceTests\RegisterTests.cs" />
-    <Compile Include="AcceptanceTests\SearchFilterTests.cs" />
+    <Compile Include="AcceptanceTests\SearchTests.cs" />
     <Compile Include="AcceptanceTests\StoreInfoTests.cs" />
     <Compile Include="AcceptanceTests\Uc411getStorePurchaseHistory.cs" />
     <Compile Include="AcceptanceTests\Uc41AddEditRemovePruduct.cs" />

@@ -113,6 +113,22 @@ namespace TestProject
             return real?.GetUserPurchaseHistoryList(userName);
         }
 
+        public Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByProductNameDictionary(productName);
+        }
+
+        public Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByKeywordDictionary(keyword);
+        }
+
+        public Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            return real == null ? new Dictionary<string, List<string>>() : real.SearchByCategoryDictionary(category);
+
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
@@ -121,14 +137,7 @@ namespace TestProject
                 return true;
             return real.AddProductToStore(managerName, storeName, barcode, productName, description,price , categories1, amount);
         }
-
-        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            if (real == null)
-                return null;
-            return real.SearchFilter(userName, sortOption, filters);
-        }
-
+        
         public bool AddProductToBasket(string userName, string storeName, string productCode, int amount, double priceofone)
         {
             if (real == null)
@@ -149,14 +158,7 @@ namespace TestProject
                 return true;
             return real.UpdatePurchasePolicy(storeName, policy);
         }
-
-        public bool initSystem(string admin)
-        {
-            if (real == null)
-                return false;
-            return real.initSystem(admin);
-        }
-
+        
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             if (real == null)

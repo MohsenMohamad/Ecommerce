@@ -73,11 +73,7 @@ namespace TestProject
         {
             return service.CheckStoreInventory(storeName, products);
         }
-
-        protected List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            return service.SearchFilter(userName, sortOption, filters);
-        }
+        
         protected int addConditionalDiscount(string shopName, int percentage, string condition)
         {
             return service.addConditionalDiscount(shopName, percentage, condition);
@@ -91,12 +87,7 @@ namespace TestProject
         {
             return service.GetCartByStore(userName, storeName);
         }
-
-        protected bool initSystem(string admin)
-        {
-            return service.initSystem(admin);
-        }
-
+        
         protected bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             return service.RemoveProductFromStore(userName, storeName, productBarcode);
@@ -252,9 +243,25 @@ namespace TestProject
         {
             return  service.addPublicStoreDiscount(storeName, percentage);
         }
-        public double GetTotalCart(string UserName)
+        
+        protected double GetTotalCart(string UserName)
         {
             return service.GetTotalCart(UserName);
+        }
+
+        protected Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            return service.SearchByProductNameDictionary(productName);
+        }
+
+        protected Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            return service.SearchByKeywordDictionary(keyword);
+        }
+
+        protected Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            return service.SearchByCategoryDictionary(category);
         }
 
 

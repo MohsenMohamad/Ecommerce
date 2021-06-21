@@ -181,6 +181,11 @@ namespace ServiceLogic.Service_Layer
             return CartLogic.ValidateBasketPolicies(userName, storeName);
         }
 
+        public Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            return logicInstance.SearchByCategory(category);
+        }
+
         public bool AddProductToStore(string ownerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
@@ -781,16 +786,12 @@ namespace ServiceLogic.Service_Layer
         {
             throw new NotImplementedException();
         }
-
-        /* ******************* high priority todo all this function for the tests ********************* */
-        //1
-
+        
         public bool UpdateProductAmountInStore(string userName, string storeName, string productBarcode, int amount)
         {
             return logicInstance.UpdateProductAmountInStore(userName, storeName, productBarcode, amount);
         }
-
-        //2
+        
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
             return logicInstance.RemoveProductFromStore(userName, storeName, productBarcode);
@@ -840,13 +841,7 @@ namespace ServiceLogic.Service_Layer
         {
             return logicInstance.GetStorePolicy(storeName);
         }
-
-        // ???? make sure that the one who is init the system is sysAdmin
-        public bool initSystem(string admin)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public int addPublicStoreDiscount(string storeName, int percentage)
         {
             return logicInstance.addPublicDiscount(storeName, percentage);
@@ -885,6 +880,16 @@ namespace ServiceLogic.Service_Layer
         public List<Purchase> GetUserPurchaseHistoryList(string userName)
         {
             return logicInstance.GetUserPurchaseHistoryList(userName);
+        }
+
+        public Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            return logicInstance.SearchByProductName(productName);
+        }
+
+        public Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            return logicInstance.SearchByKeyWord(keyword);
         }
 
 

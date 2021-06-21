@@ -13,7 +13,7 @@ namespace ServiceLogic.Service_Layer
     public class RealProject : GenInterface
     {
         private readonly Facade facade = new Facade("true");
-        
+
         public RealProject()
         {
             string sAttr = ConfigurationManager.AppSettings.Get("mock");
@@ -66,7 +66,7 @@ namespace ServiceLogic.Service_Layer
                 return false;
             }
         }
-        
+
         public long GuestLogin()
         {
             try
@@ -199,6 +199,42 @@ namespace ServiceLogic.Service_Layer
             }
         }
 
+        public Dictionary<string, List<string>> SearchByProductNameDictionary(string productName)
+        {
+            try
+            {
+                return facade.SearchByProductNameDictionary(productName);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public Dictionary<string, List<string>> SearchByKeywordDictionary(string keyword)
+        {
+            try
+            {
+                return facade.SearchByKeywordDictionary(keyword);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public Dictionary<string, List<string>> SearchByCategoryDictionary(string category)
+        {
+            try
+            {
+                return facade.SearchByCategoryDictionary(category);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description,
             double price, string categories1, int amount)
@@ -213,19 +249,8 @@ namespace ServiceLogic.Service_Layer
                 return false;
             }
         }
-
-        public List<string> SearchFilter(string userName, string sortOption, List<string> filters)
-        {
-            try
-            {
-                return facade.SearchFilter(userName, sortOption, filters);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
+        
+        
         public bool AddProductToBasket(string userName, string storeName, string productCode, int amount,
             double priceofone)
         {
@@ -422,17 +447,6 @@ namespace ServiceLogic.Service_Layer
             }
         }
 
-        public bool initSystem(string admin)
-        {
-            try
-            {
-                return facade.initSystem(admin);
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         public bool RemoveProductFromStore(string userName, string storeName, string productBarcode)
         {
@@ -498,7 +512,7 @@ namespace ServiceLogic.Service_Layer
         {
             try
             {
-                return facade.remove_item_from_cart(userName,storeName,productBarcode,amount);
+                return facade.remove_item_from_cart(userName, storeName, productBarcode, amount);
             }
             catch
             {
@@ -536,7 +550,7 @@ namespace ServiceLogic.Service_Layer
             {
                 return facade.addPublicStoreDiscount(storeName, percentage);
             }
-            catch (Exception e)
+            catch
             {
                 return -1;
             }
@@ -548,7 +562,7 @@ namespace ServiceLogic.Service_Layer
             {
                 return facade.GetTotalCart(UserName);
             }
-            catch (Exception e)
+            catch
             {
                 return -1;
             }
@@ -561,53 +575,27 @@ namespace ServiceLogic.Service_Layer
 
         public void Recieve_purchase_offer(string username, string storename, string price, string barcode, int amount)
         {
-            try
-            {
+           
                 facade.Recieve_purchase_offer(username, storename, price, barcode, amount);
-            }
-            catch
-            {
-                return;
-            }
+            
         }
 
         public void acceptoffer(string barcode, string price, string username, string storename, int amount,
             string by_username)
         {
-            try
-            {
-                facade.acceptoffer(barcode, price, username, storename, amount, by_username);
-            }
-            catch
-            {
-                return;
-            }
+            facade.acceptoffer(barcode, price, username, storename, amount, by_username);
         }
 
         public void rejectoffer(string barcode, string price, string username, string storename, int amount,
             string by_username)
         {
-            try
-            {
-                facade.rejectoffer(barcode, price, username, storename, amount, by_username);
-            }
-            catch
-            {
-                return;
-            }
+            facade.rejectoffer(barcode, price, username, storename, amount, by_username);
         }
 
         public void CounterOffer(string barcode, string price, string username, string storename, int amount,
             string owner, string oldprice)
         {
-            try
-            {
-                facade.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
-            }
-            catch
-            {
-                return;
-            }
+            facade.CounterOffer(barcode, price, username, storename, amount, owner, oldprice);
         }
 
         public int addPublicDiscountToItem(string storeName, string barcode, int percentage)
@@ -616,7 +604,7 @@ namespace ServiceLogic.Service_Layer
             {
                 return facade.addPublicDiscountToItem(storeName, barcode, percentage);
             }
-            catch (Exception e)
+            catch
             {
                 return -1;
             }
@@ -628,7 +616,7 @@ namespace ServiceLogic.Service_Layer
             {
                 return facade.addConditionalDiscount(shopName, percentage, condition);
             }
-            catch (Exception e)
+            catch
             {
                 return -1;
             }
