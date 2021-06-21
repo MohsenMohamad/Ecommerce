@@ -235,6 +235,18 @@ namespace ServiceLogic.Service_Layer
             }
         }
 
+        public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            try
+            {
+                return facade.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description,
             double price, string categories1, int amount)
@@ -335,19 +347,7 @@ namespace ServiceLogic.Service_Layer
                 return false;
             }
         }
-
-        public bool AddNewManger(string user, string store, string newMangerName)
-        {
-            try
-            {
-                return facade.AddNewManger(user, store, newMangerName);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
+        
         public bool IsManger(string storeName, string mangerName)
         {
             try

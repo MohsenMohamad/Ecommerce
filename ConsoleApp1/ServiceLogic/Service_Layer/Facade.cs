@@ -276,14 +276,7 @@ namespace ServiceLogic.Service_Layer
         {
             return GetStoreOwners(storeName).Contains(ownerName);
         }
-
-        //do not use
-        public bool AddNewManger(string user, string store, string newMangerName)
-        {
-            //todo add permissions parameter
-            return MakeNewManger(store, user, newMangerName, 0);
-        }
-
+        
         public bool IsManger(string storeName, string mangerName)
         {
             return GetStoreManagers(storeName).Contains(mangerName);

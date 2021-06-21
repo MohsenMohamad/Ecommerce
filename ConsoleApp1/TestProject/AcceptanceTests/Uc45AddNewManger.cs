@@ -32,12 +32,12 @@ namespace TestProject.AcceptanceTests
         public void TestAdd()
         {
             //happy
-            Assert.True(AddNewManger(OwnerName,StoreName,UserName));
+            Assert.True(MakeNewManger(StoreName,OwnerName,UserName,1));
             //todo
             //Assert.True(IsManger(StoreName, UserName));
             Assert.True(IsManger(StoreName, OwnerName));
             //bad
-            Assert.False(AddNewManger(StoreName, UserName, OwnerName));
+            Assert.False(MakeNewManger(StoreName, UserName, OwnerName,1));
         }
         
         

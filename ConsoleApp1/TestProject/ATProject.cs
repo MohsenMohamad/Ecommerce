@@ -124,12 +124,11 @@ namespace TestProject
         {
             return service.MakeNewOwner(store, user, newOwnerName);
         }
-        
-        protected bool AddNewManger(string storeName, string apointerName, string apointeeNAme)
-        {
-            return service.AddNewManger(storeName, apointerName, apointeeNAme);
-        }
 
+        protected bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            return service.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+        }
         protected bool IsOwner(string storeName, string ownerName)
         {
             return service.IsOwner(storeName, ownerName);

@@ -129,6 +129,11 @@ namespace TestProject
 
         }
 
+        public bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions)
+        {
+            return real == null || real.MakeNewManger(storeName, apointerid, apointeeid, permissions);
+        }
+
         public bool AddProductToStore(string managerName, string storeName, string barcode, string productName,
             string description, double price,
             string categories1, int amount)
@@ -255,17 +260,7 @@ namespace TestProject
 
             return real.IsOwner(storeName, ownerName);
         }
-
-        public bool AddNewManger(string user, string store, string newMangerName)
-        {
-            if (real == null)
-            {
-                return false;
-            }
-
-            return real.AddNewManger(user, store, newMangerName);
-        }
-
+        
         public bool IsManger(string storeName, string mangerName)
         {
             if (real == null)

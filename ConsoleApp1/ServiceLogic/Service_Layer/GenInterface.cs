@@ -26,6 +26,9 @@ namespace ServiceLogic.Service_Layer
         Dictionary<string,List<string>> SearchByProductNameDictionary(string productName);
         Dictionary<string,List<string>> SearchByKeywordDictionary(string keyword);
         Dictionary<string,List<string>> SearchByCategoryDictionary(string category);
+        bool MakeNewManger(string storeName, string apointerid, string apointeeid, int permissions);
+        bool IsManger(string storeName, string mangerName);
+
 
         bool AddProductToStore(string managerName , string storeName, string barcode, string productName, string description, double price,
             string categories1, int amount); //
@@ -43,8 +46,6 @@ namespace ServiceLogic.Service_Layer
         string[] getUsersStore(string userName, string storeName);
         bool MakeNewOwner(string storeName, string apointerid, string apointeeid);
         bool IsOwner(string storeName, string ownerName); 
-        bool AddNewManger(string user, string store, string newMangerName);
-        bool IsManger(string storeName, string mangerName);
         List<string> getMangerResponsibilities(string user, string store, string newMangerName);
         string getInfo(string user, string store);
         bool updateMangerResponsibilities(string user, string storeName, List<string> responsibilities);
