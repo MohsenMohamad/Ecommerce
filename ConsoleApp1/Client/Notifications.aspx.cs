@@ -24,5 +24,10 @@ namespace Client
         {
 
         }
+
+        protected void OffersButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/NotificationsOffer.aspx");
+        }
     }
 }

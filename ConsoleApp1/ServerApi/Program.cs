@@ -6,8 +6,7 @@ using ServerApi.DataObserver;
 using System.Collections.Generic;
 using System.Linq;
 using ServerApi;
-using Version1.domainLayer.UserRoles;
-using Version1.Service_Layer;
+using System.Data.Entity.Validation;
 
 namespace ServiceApi
 {
@@ -20,31 +19,59 @@ namespace ServiceApi
             ws://localhost:8088*/
         static void Main(string[] args)
         {
+
+            
+
             Thread thread1 = new Thread(delegate ()
             {
                 try
                 {
-                    var facade = new Facade();
-                    SystemAdmin sysadmin = new SystemAdmin();
-                    facade.Register("admin", "admin");
-                   // sysadmin.InitSystem();
-                   // facade.InitSystem();
-            
+                    //await retrieveDataAsync();
+                    
+                  //  facade.Register("admin", "admin");
+                  /*  foreach (string i in facade.GetAllUserNamesInSystem())
+                    {
+                        Console.WriteLine(i);
+                    }
+                    foreach (string[] i in facade.GetStoresProducts())
+                    {
+
+                        Console.WriteLine(i[0]);
+                    }*/
+                    
+
+                    //Thread.Sleep(15000);
                     string domainAddress = "https://localhost:44300/";
-                    using (WebApp.Start(url:domainAddress))
+                    using (WebApp.Start(url: domainAddress))
                     {
                         Console.WriteLine("Service Hosted " + domainAddress);
                         //infinite waiting period
                         System.Threading.Thread.Sleep(-1);
                     }
-                   
+
                 }
-                catch (Exception xxx)
+                catch (DbEntityValidationException e)
                 {
-                 Logger.GetInstance().Error("fatal error exception in server program start exited infinite waiting period");   
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
                 }
+                /*catch (Exception xxx)
+                {
+                    
+                    
+                    Logger.GetInstance().Error("fatal error exception in server program start exited infinite waiting period");
+                }*/
             });
-            
+
             Thread thread2 = new Thread(delegate ()
             {
                 try
@@ -58,7 +85,7 @@ namespace ServiceApi
                             if (socket.ConnectionInfo.Path.ToString().Contains("user"))
                             {
                                 string userName = socket.ConnectionInfo.Path.ToString().Replace("/?user=", "");
-                                
+
                                 var res = observerUsers.Where(x => x.userName == userName).ToList();
                                 foreach (var t in res)
                                 {
@@ -103,10 +130,10 @@ namespace ServiceApi
                             //userid # msg
                             string[] cmd = message.Split('#');
                             string userName = cmd[0];
-                            
+
                             //get userNameList to notify
                             List<ObserverUser> res = observerUsers.Where(x => x.userName == userName).ToList();
-                            
+
                             //send notification for the user that the message has been arrived ???
                             if (res.Count > 0) res[0].notify(cmd[1]);
 
@@ -124,20 +151,10 @@ namespace ServiceApi
             thread2.Start();
             thread1.Join();
             thread2.Join();
-            Console.ReadLine();
-            /*Logger logger = Logger.GetInstance();
-            try
-            {
-                throw new Exception("This is Logger");
-            }
-            catch (Exception e)
-            {
-                logger.Event(e.Message);  
-                logger.Error(e.Message);    
-            }*/
-            
+            //Console.ReadLine();
 
-            
+
+
         }
     }
 }

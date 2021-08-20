@@ -12,7 +12,6 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Labelerror.Visible = false;
         }
 
         protected void ButtonSend_Click(object sender, EventArgs e)
@@ -20,9 +19,10 @@ namespace Client
 
             ShopHandler s = new ShopHandler();
             string username = Session["username"].ToString();
-            bool open = s.OpenShop(username, TextBoxShopname.Text , TextBoxpolicy.Text);
-            if (!open) {
-                Labelerror.Visible = true;
+            string open = s.OpenShop(username, TextBoxShopname.Text , "");
+            if (!(open.Equals("\"True\""))) {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + open + "')", true);
+
             }
             Response.Redirect("~/Home.aspx");
         }

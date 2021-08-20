@@ -19,6 +19,10 @@ namespace Client
             Labelprice0.Text = Session["price"].ToString();
             LabelnameShop0.Text = Session["nameShop"].ToString();
 
+            if (Session["isLogin"] == null)
+            {
+                Button3.Visible = false;
+            }
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -32,15 +36,27 @@ namespace Client
 
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
-                Label1.Text = (int.Parse(Label1.Text.ToString()) + 1).ToString();
+            Label1.Text = (int.Parse(Label1.Text.ToString()) + 1).ToString();
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             ShopHandler sh = new ShopHandler();
-            sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()));
-            Response.Redirect("~/Home.aspx");
+            var msg = sh.AddProductToBasket(Session["username"].ToString(), Session["nameShop"].ToString(), Session["barcode"].ToString(), int.Parse(Label1.Text.ToString()), double.Parse(Labelprice0.Text.ToString()));
+            if (msg.Equals("\"True\""))
+            {
+                Response.Redirect("~/Home.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
+            }
 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Purchase_Offer.aspx");
         }
     }
 }

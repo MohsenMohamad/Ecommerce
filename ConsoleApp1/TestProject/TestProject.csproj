@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6DFFEBD9-C2A5-4F31-89D8-5781026D6564}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestProject</RootNamespace>
+    <AssemblyName>TestProject</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcceptanceTests\AddToCartTests.cs" />
+    <Compile Include="AcceptanceTests\EditCartTests.cs" />
+    <Compile Include="AcceptanceTests\GuestLoginTests.cs" />
+    <Compile Include="AcceptanceTests\InitSystemTests.cs" />
+    <Compile Include="AcceptanceTests\LoginTests.cs" />
+    <Compile Include="AcceptanceTests\NotificationsTests.cs" />
+    <Compile Include="AcceptanceTests\OpenStoreTests.cs" />
+    <Compile Include="AcceptanceTests\PurchaseByCreditTests.cs" />
+    <Compile Include="AcceptanceTests\PurchasesHistoryTests.cs" />
+    <Compile Include="AcceptanceTests\RegisterTests.cs" />
+    <Compile Include="AcceptanceTests\SearchTests.cs" />
+    <Compile Include="AcceptanceTests\StoreInfoTests.cs" />
+    <Compile Include="AcceptanceTests\Uc411getStorePurchaseHistory.cs" />
+    <Compile Include="AcceptanceTests\Uc41AddEditRemovePruduct.cs" />
+    <Compile Include="AcceptanceTests\Uc42GetAddUpdatePaymentInfo.cs" />
+    <Compile Include="AcceptanceTests\Uc43AddNewOwner.cs" />
+    <Compile Include="AcceptanceTests\Uc45AddNewManger.cs" />
+    <Compile Include="AcceptanceTests\Uc46UpdateMangerResponsibilities.cs" />
+    <Compile Include="AcceptanceTests\Uc47DeleteManger.cs" />
+    <Compile Include="AcceptanceTests\Uc49getInfo.cs" />
+    <Compile Include="AcceptanceTests\UserLogoutTests.cs" />
+    <Compile Include="ATProject.cs" />
+    <Compile Include="ConcurrencyTests\ConcurrentOwner.cs" />
+    <Compile Include="ConcurrencyTests\ConcurrentPurchase.cs" />
+    <Compile Include="ConcurrencyTests\ConcurrentRegistration.cs" />
+    <Compile Include="ConcurrencyTests\ConcurrentStoreOpening.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="IntegrationTests\IntegrationTests1.cs" />
+    <Compile Include="IntegrationTests\offersPurchaseTest\offerintegrationTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyImp.cs" />
+    <Compile Include="StorePoliciesTests\CompositePolicyTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\BuyFromCategoryDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\conditionalShopDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\ConditionTests.cs" />
+    <Compile Include="UnitTests\DiscountsTests\itemDiscountTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\shopPublicDiscountTest.cs" />
+    <Compile Include="UnitTests\DiscountsTests\SpendAtLeastYConditionalDiscount.cs" />
+    <Compile Include="UnitTests\DiscountsTests\sumOfDiscounts2.cs" />
+    <Compile Include="UnitTests\DiscountsTests\SumOfDiscountsTest.cs" />
+    <Compile Include="UnitTests\EncrpytionTest.cs" />
+    <Compile Include="UnitTests\offerpurchasetest\acceptofferTest.cs" />
+    <Compile Include="UnitTests\offerpurchasetest\counterofferTest.cs" />
+    <Compile Include="UnitTests\offerpurchasetest\recievepurchaseTest.cs" />
+    <Compile Include="UnitTests\offerpurchasetest\rejectoffertest.cs" />
+    <Compile Include="UnitTests\StoreTests.cs" />
+    <Compile Include="UnitTests\UserTests.cs" />
+    <Compile Include="Version4\FinanceServiceTests.cs" />
+    <Compile Include="Version4\SupplyServiceTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceLogic\ServiceLogic.csproj">
+      <Project>{e25ed92d-ff1a-42c3-9449-e1eaa0017da4}</Project>
+      <Name>ServiceLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.13.2\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>

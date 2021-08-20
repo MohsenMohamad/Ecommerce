@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,17 +14,24 @@ namespace Client
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["keyword"] != null)
+            int counter = 0;
+            while (counter < 30)
             {
-                ShopHandler a = new ShopHandler();
-                DataListproducts.DataSource = a.search(Request.QueryString["keyword"].ToString());
-                DataListproducts.DataBind();
+                try
+                {
+                   
+                    return;
+                }
+                catch
+                {
+                    Thread.Sleep(1000);
+                    counter++;
+                }
             }
-            else
+            if (counter > 30)
             {
-                ShopHandler a = new ShopHandler();
-                DataListproducts.DataSource = a.getAllProducts();
-                DataListproducts.DataBind();
+                //error message
+                throw new Exception("server not responding");
             }
 
         }
